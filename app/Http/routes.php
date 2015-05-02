@@ -25,6 +25,8 @@ Route::resource('tipo_torneo', 'TipoTorneoController');
 
 Route::resource('torneos', 'TorneosController');
 
+Route::resource('estadios', 'EstadiosController');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
