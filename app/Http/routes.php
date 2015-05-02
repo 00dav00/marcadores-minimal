@@ -16,14 +16,28 @@ Route::get('/', 'WelcomeController@index');
 Route::get('lugares/consulta/{busqueda}', 'LugaresController@consulta');
 Route::resource('lugares', 'LugaresController');
 
+Route::get('jugadores/consulta', 'JugadoresController@consulta');
 Route::resource('jugadores', 'JugadoresController');
 
+Route::get('equipos/consulta', 'EquiposController@consulta');
 Route::resource('equipos', 'EquiposController');
 
 Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
 Route::resource('tipo_torneo', 'TipoTorneoController');
 
+Route::get('torneos/consulta', 'TorneosController@consulta');
 Route::resource('torneos', 'TorneosController');
+
+Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
+Route::resource('tipo_fase', 'TipoFaseController');
+
+Route::resource('fases', 'FaseController');
+
+Route::resource('plantillas', 'PlantillasTorneoController');
+
+Route::resource('equipos_participantes', 'EquiposParticipantesController');
+
+Route::resource('fechas', 'FechasController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -6,19 +6,19 @@
 	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Información del tipo de torneo</h3>
+				<h3 class="panel-title">Información de un equipo y torneo</h3>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
-					<p><mark>Nombre:</mark> {!! $torneo->ttr_nombre !!}</p>
+					<p><mark>Equipo:</mark> {!! $equipo->equipo->eqp_nombre !!}</p>
 				</div>
 				<div class="form-group">
-					<p><mark>Descripción:</mark> {!! $torneo->ttr_descripcion !!}</p>
+					<p><mark>Torneo:</mark> {!! $equipo->torneo->tor_nombre !!}</p>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group text-center">
-							{!! Form::open(array('route' => array('tipo_torneo.edit', $torneo->ttr_codigo), 'method' => 'GET')) !!}
+							{!! Form::open(array('route' => array('equipos_participantes.edit', $equipo->eqp_id), 'method' => 'GET')) !!}
 							{!! Form::submit('Editar', array('class' => 'btn btn-primary')) !!}
 							{!! Form::close() !!}
 						</div>
@@ -43,7 +43,7 @@
 
 			</div>
 			<div class="modal-body">
-				{!! Form::open(array('route' => array('tipo_torneo.destroy', $torneo->ttr_codigo), 'method' => 'delete', 'class' => 'destroy')) !!}
+				{!! Form::open(array('route' => array('equipos_participantes.destroy', $equipo->eqp_id), 'method' => 'delete', 'class' => 'destroy')) !!}
 				{!! Form::submit('Si', array('class' => 'btn btn-success btn-sm')) !!}
 				<button type="submit" class="btn btn-danger btn-sm" data-dismiss="modal">No</button>
 				{!! Form::close() !!}

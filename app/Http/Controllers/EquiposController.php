@@ -108,4 +108,23 @@ class EquiposController extends Controller {
 		return redirect('equipos')->with('message', 'Equipo no encontrado');
 	}
 
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Equipo::where('eqp_nombre', 'LIKE', '%' . $keyword . '%')
+							->orderBy('eqp_nombre')
+							->take(3)
+							->get(['eqp_id', 'eqp_nombre']);
+
+
+		return response()->json(['data' => $resultados]);
+
+	}
+
 }

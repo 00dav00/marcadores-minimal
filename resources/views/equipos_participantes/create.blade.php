@@ -6,7 +6,7 @@
 	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Editar un Jugador</h3>
+				<h3 class="panel-title">Agregar un equipo a un torneo</h3>
 			</div>
 			<div class="panel-body">
 				@if(Session::get('errors'))
@@ -19,9 +19,9 @@
 				</div>
 				@endif
 
-				{!! Form::model($jugador, ['method' => 'PATCH', 'route' => ['jugadores.update', $jugador->jug_id], 'files' => true]) !!}
-					@include('jugadores.partials._form', ['lug_id' => $jugador->nacionalidad->lug_id, 'lug_nombre' => $jugador->nacionalidad->lug_nombre])
-					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
+				{!! Form::open(array('route' => 'equipos_participantes.store')) !!}
+					@include('equipos_participantes.partials._form')
+					{!! Form::submit('Agregar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}
 				
 			</div>
@@ -31,27 +31,45 @@
 
 <script type="text/javascript">
 $(function() {
-	
-	$( "#jug_fecha_nacimiento" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		dateFormat: "yy-mm-dd",
-		yearRange: "c-50:c"
-	});
 
-	$('#lug_id').selectize({
-		valueField: 'lug_id',
-		labelField: 'lug_nombre',
-		searchField: ['lug_nombre'],
+	$('#tor_id').selectize({
+		valueField: 'tor_id',
+		labelField: 'tor_nombre',
+		searchField: ['tor_nombre'],
 		render: {
 			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.lug_nombre) + ', <strong>Tipo:</strong> ' + escape(item.lug_tipo) + '</div>';
+				return '<div> <strong>Nombre:</strong> ' + escape(item.tor_nombre) + '</div>';
 			}
 		},
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/lugares/consulta/pais',
+				url: '/torneos/consulta',
+				type: 'GET',
+				dataType: 'json',
+				data: {
+					nombre: query
+				},
+				success: function(res) {
+					callback(res.data);
+				}
+			});
+		}
+	});
+
+	$('#eqp_id').selectize({
+		valueField: 'eqp_id',
+		labelField: 'eqp_nombre',
+		searchField: ['eqp_nombre'],
+		render: {
+			option: function(item, escape) {
+				return '<div> <strong>Nombre:</strong> ' + escape(item.eqp_nombre) + '</div>';
+			}
+		},
+		load: function(query, callback) {
+			if (!query.length) return callback();
+			$.ajax({
+				url: '/equipos/consulta',
 				type: 'GET',
 				dataType: 'json',
 				data: {

@@ -76,7 +76,7 @@ class TipoTorneoController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update($id, TipoTorneoRequest $request)
 	{
 		$equipo = TipoTorneo::findOrFail($id);
 

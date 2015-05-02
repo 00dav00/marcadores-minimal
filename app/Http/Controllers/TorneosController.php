@@ -106,4 +106,24 @@ class TorneosController extends Controller {
 		return redirect('torneos')->with('message', 'Torneo no encontrado');
 	}
 
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Torneo::where('tor_nombre', 'LIKE', '%' . $keyword . '%')
+							->orderBy('tor_nombre')
+							->take(3)
+							->get(['tor_id', 'tor_nombre']);
+
+
+		return response()->json(['data' => $resultados]);
+
+	}
+
+
 }

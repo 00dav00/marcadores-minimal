@@ -20,6 +20,10 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="{{ url('tipo_torneo') }}">Tipo de torneo</a></li>
 						<li><a href="{{ url('torneos') }}">Torneos</a></li>
+						<li><a href="{{ url('tipo_fase') }}">Tipo de fase</a></li>
+						<li><a href="{{ url('fases') }}">Fases</a></li>
+						<li><a href="{{ url('plantillas') }}">Plantillas</a></li>
+						<li><a href="{{ url('equipos_participantes') }}">Equipos Participantes</a></li>
 					</ul>
 				</li>
 			</ul>
