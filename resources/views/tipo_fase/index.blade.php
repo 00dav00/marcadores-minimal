@@ -4,6 +4,9 @@
 
 <div class="col-md-8 col-md-offset-2">
 	<h2 class="text-center">Tipo de fases</h2>
+
+	@include('flash::message')
+	
 	<h5 class="text-center"><a href="{!! url('tipo_fase/create') !!}">Agregar un Tipo de fase</a></h5>
 
 	<table class="table table-striped table-hover table-bordered">

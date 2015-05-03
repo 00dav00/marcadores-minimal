@@ -43,8 +43,10 @@ class FechasController extends Controller {
 	public function store(FechaRequest $request)
 	{
 		Fecha::create($request->all());
+
+		flash()->success('Fecha creada exitosamente');
 		
-		return redirect('fechas')->with('message', 'Fecha creada exitosamente');
+		return redirect('fechas');
 	}
 
 	/**
@@ -85,7 +87,9 @@ class FechasController extends Controller {
 
 		$fecha->update($request->all());
 
-		return redirect('fechas')->with('message', 'Fecha actualizada correctamente');
+		flash()->success('Fecha actualizada exitosamente');
+
+		return redirect('fechas');
 	}
 
 	/**
@@ -100,7 +104,10 @@ class FechasController extends Controller {
 
 		if ($fecha) {
 			$fecha->delete();
-			return redirect('fechas')->with('message', 'Fecha borrada exitosamente');
+
+			flash()->warning('Fecha borrada exitosamente');
+
+			return redirect('fechas');
 		}
 
 		return redirect('fechas')->with('message', 'Fecha no encontrada');

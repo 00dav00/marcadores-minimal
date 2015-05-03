@@ -4,6 +4,9 @@
 
 <div class="col-md-8 col-md-offset-2">
 	<h2 class="text-center">Fechas</h2>
+
+	@include('flash::message')
+	
 	<h5 class="text-center"><a href="{!! url('fechas/create') !!}">Agregar una Fecha</a></h5>
 
 	<table class="table table-striped table-hover table-bordered">

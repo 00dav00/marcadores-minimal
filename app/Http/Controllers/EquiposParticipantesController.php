@@ -43,8 +43,10 @@ class EquiposParticipantesController extends Controller {
 	public function store(EquipoParticipanteRequest $request)
 	{
 		EquipoParticipante::create($request->all());
+
+		flash()->success('Equipo participante creado exitosamente');
 		
-		return redirect('equipos_participantes')->with('message', 'Equipo participante creado exitosamente');
+		return redirect('equipos_participantes');
 	}
 
 	/**
@@ -85,7 +87,9 @@ class EquiposParticipantesController extends Controller {
 
 		$equipo->update($request->all());
 
-		return redirect('equipos_participantes')->with('message', 'Jugador actualizado correctamente');
+		flash()->success('Equipo participante actualizado exitosamente');
+
+		return redirect('equipos_participantes');
 	}
 
 	/**
@@ -100,7 +104,10 @@ class EquiposParticipantesController extends Controller {
 
 		if ($equipo) {
 			$equipo->delete();
-			return redirect('equipos_participantes')->with('message', 'equipo borrada exitosamente');
+
+			flash()->warning('Equipo participante borrado exitosamente');
+
+			return redirect('equipos_participantes');
 		}
 
 		return redirect('equipos_participantes')->with('message', 'equipo no encontrado');

@@ -9,15 +9,8 @@
 				<h3 class="panel-title">Editar una fecha</h3>
 			</div>
 			<div class="panel-body">
-				@if(Session::get('errors'))
-				<div class="alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<h5>Se produjeron los siguientes errores:</h5>
-					@foreach($errors->all('<li>:message</li>') as $message)
-					{!! $message !!}
-					@endforeach
-				</div>
-				@endif
+				
+				@include('partials.validation_errors')
 
 				{!! Form::model($fecha, ['method' => 'PATCH', 'route' => ['fechas.update', $fecha->fec_id]]) !!}
 					@include('fechas.partials._form', ['fas_id' => $fecha->fase->fas_id, 'fas_descripcion' => $fecha->fase->fas_descripcion])
