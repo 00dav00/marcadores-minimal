@@ -28,14 +28,8 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
 	Route::resource('tipo_torneo', 'TipoTorneoController');
 
-<<<<<<< HEAD
-Route::resource('estadios', 'EstadiosController');
+	Route::resource('estadios', 'EstadiosController');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
-=======
 	Route::get('torneos/consulta', 'TorneosController@consulta');
 	Route::resource('torneos', 'TorneosController');
 
@@ -59,9 +53,3 @@ Route::controllers([
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-
-// Route::controllers([
-// 	'auth' => 'Auth\AuthController',
-// 	'password' => 'Auth\PasswordController',
-// ]);
->>>>>>> master

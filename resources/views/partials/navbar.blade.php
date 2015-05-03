@@ -27,6 +27,7 @@
 						<li><a href="{{ url('fechas') }}">Fechas</a></li>
 					</ul>
 				</li>
+				<li><a href="{{ url('estadios') }}">Estadios</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
