@@ -55,7 +55,9 @@ class JugadoresController extends Controller {
 
 		Jugador::create($data);
 
-		return redirect('jugadores')->with('message', 'Jugador creado exitosamente');
+		flash()->success('Jugador creado exitosamente');
+
+		return redirect('jugadores');
 
 	}
 
@@ -105,7 +107,9 @@ class JugadoresController extends Controller {
 
 		$jugador->update($data);
 
-		return redirect('jugadores')->with('message', 'Jugador editado exitosamente');
+		flash()->success('Jugador actualizado exitosamente');
+
+		return redirect('jugadores');
 	}
 
 	/**
@@ -121,7 +125,10 @@ class JugadoresController extends Controller {
 		if ($jugador) {
 			File::delete(public_path($jugador->jug_foto));
 			$jugador->delete();
-			return redirect('jugadores')->with('message', 'Jugador borrado exitosamente');
+
+			flash()->warning('Jugador borrado exitosamente');
+
+			return redirect('jugadores');
 		}
 
 		return redirect('jugadores')->with('message', 'Jugador no encontrado');
@@ -139,6 +146,27 @@ class JugadoresController extends Controller {
 		$path = public_path('images/jugadores/' . $filename);
 		Image::make($image->getRealPath())->resize(300, 200)->save($path);
 		return $filename;
+	}
+
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Jugador::where('jug_nombre', 'LIKE', '%' . $keyword . '%')
+							->orWhere('jug_apellido', 'LIKE', '%' . $keyword . '%')
+							->orWhere('jug_apodo', 'LIKE', '%' . $keyword . '%')
+							->orderBy('jug_apellido')
+							->take(3)
+							->get(['jug_id', 'jug_nombre', 'jug_apellido', 'jug_apodo']);
+
+
+		return response()->json(['data' => $resultados]);
+
 	}
 
 }

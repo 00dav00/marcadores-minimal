@@ -43,8 +43,10 @@ class TorneosController extends Controller {
 	public function store(TorneoRequest $request)
 	{
 		Torneo::create($request->all());
+
+		flash()->success('Torneo creado exitosamente');
 		
-		return redirect('torneos')->with('message', 'Torneo creado exitosamente');
+		return redirect('torneos');
 	}
 
 	/**
@@ -85,7 +87,9 @@ class TorneosController extends Controller {
 
 		$torneo->update($request->all());
 
-		return redirect('torneos')->with('message', 'Torneo actualizado correctamente');
+		flash()->success('Torneo editado correctamente');
+
+		return redirect('torneos');
 	}
 
 	/**
@@ -100,10 +104,33 @@ class TorneosController extends Controller {
 
 		if ($torneo) {
 			$torneo->delete();
-			return redirect('torneos')->with('message', 'Torneo borrado exitosamente');
+
+			flash()->warning('Torneo borrado exitosamente');
+
+			return redirect('torneos');
 		}
 
 		return redirect('torneos')->with('message', 'Torneo no encontrado');
 	}
+
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Torneo::where('tor_nombre', 'LIKE', '%' . $keyword . '%')
+							->orderBy('tor_nombre')
+							->take(3)
+							->get(['tor_id', 'tor_nombre']);
+
+
+		return response()->json(['data' => $resultados]);
+
+	}
+
 
 }

@@ -18,6 +18,8 @@ class AuthController extends Controller {
 	|
 	*/
 
+	protected $redirectTo = 'torneos';
+
 	use AuthenticatesAndRegistersUsers;
 
 	/**
@@ -32,7 +34,8 @@ class AuthController extends Controller {
 		$this->auth = $auth;
 		$this->registrar = $registrar;
 
-		$this->middleware('guest', ['except' => 'getLogout']);
+		// $this->middleware('guest', ['except' => 'getLogout']);
+		$this->middleware('guest', ['except' => ['getLogout', 'getRegister', 'postRegister']]);
 	}
 
 }

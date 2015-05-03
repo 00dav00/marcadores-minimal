@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Laracasts\Flash\FlashServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -197,6 +198,7 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade', 
 		'HTML'		=> 'Illuminate\Html\HtmlFacade',
 		'Image' 	=> 'Intervention\Image\Facades\Image',
+		'Flash' 	=> 'Laracasts\Flash\Flash',
 
 	],
 

@@ -44,8 +44,10 @@ class EquiposController extends Controller {
 	{
 		
 		Equipo::create($request->all());
+
+		flash()->success('Equipo creado exitosamente');
 		
-		return redirect('equipos')->with('message', 'Lugar creado exitosamente');
+		return redirect('equipos');
 	}
 
 	/**
@@ -87,7 +89,9 @@ class EquiposController extends Controller {
 
 		$equipo->update($request->all());
 
-		return redirect('equipos')->with('message', 'Equipo actualizado correctamente');
+		flash()->success('Equipo editado exitosamente');
+
+		return redirect('equipos');
 	}
 
 	/**
@@ -102,10 +106,32 @@ class EquiposController extends Controller {
 
 		if ($equipo) {
 			$equipo->delete();
-			return redirect('equipos')->with('message', 'Equipo borrado exitosamente');
+
+			flash()->success('Equipo borrado exitosamente');
+
+			return redirect('equipos');
 		}
 
 		return redirect('equipos')->with('message', 'Equipo no encontrado');
+	}
+
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Equipo::where('eqp_nombre', 'LIKE', '%' . $keyword . '%')
+							->orderBy('eqp_nombre')
+							->take(3)
+							->get(['eqp_id', 'eqp_nombre']);
+
+
+		return response()->json(['data' => $resultados]);
+
 	}
 
 }

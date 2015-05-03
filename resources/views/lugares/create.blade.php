@@ -9,15 +9,8 @@
 				<h3 class="panel-title">Agregar un Lugar</h3>
 			</div>
 			<div class="panel-body">
-				@if(Session::get('errors'))
-				<div class="alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<h5>Se produjeron los siguientes errores:</h5>
-					@foreach($errors->all('<li>:message</li>') as $message)
-					{!! $message !!}
-					@endforeach
-				</div>
-				@endif
+				
+				@include('partials.validation_errors')
 
 				{!! Form::open(array('route' => 'lugares.store')) !!}
 					@include('lugares.partials._form')

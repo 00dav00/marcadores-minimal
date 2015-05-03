@@ -13,7 +13,7 @@
 					<p><mark>Nombre:</mark> {!! $torneo->ttr_nombre !!}</p>
 				</div>
 				<div class="form-group">
-					<p><mark>Sitio web:</mark> {!! $torneo->ttr_descripcion !!}</p>
+					<p><mark>Descripción:</mark> {!! $torneo->ttr_descripcion !!}</p>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
