@@ -5,6 +5,10 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Fecha;
+
+use App\Http\Requests\FechaRequest;
+
 class FechasController extends Controller {
 
 	/**
@@ -14,7 +18,11 @@ class FechasController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$fechas = Fecha::with('fase')
+					->orderBy('fec_fecha_referencia')
+					->paginate(20);
+
+		return view('fechas.index', compact('fechas'));
 	}
 
 	/**
@@ -24,7 +32,7 @@ class FechasController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('fechas.create');
 	}
 
 	/**
@@ -32,9 +40,11 @@ class FechasController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(FechaRequest $request)
 	{
-		//
+		Fecha::create($request->all());
+		
+		return redirect('fechas')->with('message', 'Fecha creada exitosamente');
 	}
 
 	/**
@@ -45,7 +55,9 @@ class FechasController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$fecha = Fecha::findOrFail($id);
+
+		return view('fechas.show', compact('fecha'));
 	}
 
 	/**
@@ -56,7 +68,9 @@ class FechasController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$fecha = Fecha::findOrFail($id);
+
+		return view('fechas.edit', compact('fecha'));
 	}
 
 	/**
@@ -65,9 +79,13 @@ class FechasController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, FechaRequest $request)
 	{
-		//
+		$fecha = Fecha::findOrFail($id);
+
+		$fecha->update($request->all());
+
+		return redirect('fechas')->with('message', 'Fecha actualizada correctamente');
 	}
 
 	/**
@@ -78,7 +96,14 @@ class FechasController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$fecha = Fecha::findOrFail($id);
+
+		if ($fecha) {
+			$fecha->delete();
+			return redirect('fechas')->with('message', 'Fecha borrada exitosamente');
+		}
+
+		return redirect('fechas')->with('message', 'Fecha no encontrada');
 	}
 
 }

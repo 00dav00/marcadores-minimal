@@ -11,7 +11,7 @@ class FechaRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,7 +22,9 @@ class FechaRequest extends Request {
 	public function rules()
 	{
 		return [
-			//
+			'fas_id' => 'required|integer',
+			'fec_numero' => 'required|integer|min:1',
+			'fec_fecha_referencia' => 'required|date_format:Y-m-d',
 		];
 	}
 

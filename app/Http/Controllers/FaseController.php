@@ -105,4 +105,23 @@ class FaseController extends Controller {
 		return redirect('fases')->with('message', 'Fase no encontrada');
 	}
 
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Fase::where('fas_descripcion', 'LIKE', '%' . $keyword . '%')
+							->orderBy('fas_descripcion')
+							->take(3)
+							->get(['fas_id', 'fas_descripcion']);
+
+
+		return response()->json(['data' => $resultados]);
+
+	}
+
 }
