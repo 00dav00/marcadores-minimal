@@ -41,6 +41,8 @@ Route::resource('fechas', 'FechasController');
 
 Route::resource('estadios', 'EstadiosController');
 
+Route::resource('tipos_evento', 'TiposEventoController');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
