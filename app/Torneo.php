@@ -54,4 +54,15 @@ class Torneo extends Model {
 		return $this->hasOne('App\TipoTorneo', 'ttr_codigo', 'ttr_codigo');
 	}
 
+	public function equiposParticipantes()
+	{
+		return $this->belongsToMany('App\Equipo','equipos_participantes','tor_id','eqp_id');
+	}
+
+	public function plantilla()
+	{
+		return $this->belongsToMany('App\Jugador','plantillas_torneo','tor_id','jug_id')
+						->withPivot('eqp_id');						
+	}
+
 }

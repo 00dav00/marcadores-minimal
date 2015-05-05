@@ -26,6 +26,8 @@ Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
 Route::resource('tipo_torneo', 'TipoTorneoController');
 
 Route::get('torneos/consulta', 'TorneosController@consulta');
+Route::get('torneos/{torneos}/equipos', 'TorneosController@equiposParticipantes');
+Route::get('torneos/{torneos}/equipos/{equipos}', 'TorneosController@jugadoresEquipoParticipante');
 Route::resource('torneos', 'TorneosController');
 
 Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
