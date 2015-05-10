@@ -24,9 +24,9 @@
 	<link href="{!! asset('/css/vendor/selectize.css') !!}" rel="stylesheet">
 	<script src="{!! asset('/js/vendor/selectize.min.js') !!}"></script>
 
-	<link href="{!! asset('/css/vendor/jquery-ui-timepicker-addon.css') !!}" rel="stylesheet">
-	<script src="{!! asset('/js/vendor/jquery-ui-timepicker-addon.js') !!}"></script>
-	
+	<!--AngularJS-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
+	<script src="js/app.js"></script>
 
 </head>
 <body>

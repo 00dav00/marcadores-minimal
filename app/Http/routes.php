@@ -41,9 +41,12 @@ Route::resource('equipos_participantes', 'EquiposParticipantesController');
 
 Route::resource('fechas', 'FechasController');
 
+Route::get('estadios/consulta', 'EstadiosController@consulta');
 Route::resource('estadios', 'EstadiosController');
 
 Route::resource('tipos_evento', 'TiposEventoController');
+
+Route::resource('fechas/{fechas}/partidos','PartidoController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
