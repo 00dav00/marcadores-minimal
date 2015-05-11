@@ -134,4 +134,23 @@ class EstadiosController extends Controller {
 		Image::make($image->getRealPath())->resize(300, 200)->save($path);
 		return $filename;
 	}
+
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Estadio::where('est_nombre', 'LIKE', '%' . $keyword . '%')
+							->orderBy('est_nombre')
+							->take(3)
+							->get(['est_id', 'est_nombre']);
+
+
+		return response()->json(['data' => $resultados]);
+
+	}	
 }
