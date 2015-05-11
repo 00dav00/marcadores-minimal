@@ -9,15 +9,8 @@
 				<h3 class="panel-title">Editar un Jugador a una Plantilla</h3>
 			</div>
 			<div class="panel-body">
-				@if(Session::get('errors'))
-				<div class="alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<h5>Se produjeron los siguientes errores:</h5>
-					@foreach($errors->all('<li>:message</li>') as $message)
-					{!! $message !!}
-					@endforeach
-				</div>
-				@endif
+				
+				@include('partials.validation_errors')
 
 				{!! Form::model($plantilla, ['method' => 'PATCH', 'route' => ['plantillas.update', $plantilla->jug_id]]) !!}
 					@include('plantillas.partials._form', ['tor_id' => $plantilla->torneo->tor_id, 'tor_nombre' => $plantilla->torneo->tor_nombre, 'eqp_id' => $plantilla->eqp_id, 'eqp_nombre' => $plantilla->equipo->eqp_nombre, 'jug_id' => $plantilla->jug_id, 'jug_nombre' => $plantilla->jugador->jug_nombre])

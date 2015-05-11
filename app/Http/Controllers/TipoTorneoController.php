@@ -42,8 +42,10 @@ class TipoTorneoController extends Controller {
 	public function store(TipoTorneoRequest $request)
 	{
 		TipoTorneo::create($request->all());
+
+		flash()->success('Tipo de torneo creado exitosamente');
 		
-		return redirect('tipo_torneo')->with('message', 'Tipo de torneo creado exitosamente');
+		return redirect('tipo_torneo');
 	}
 
 	/**
@@ -82,7 +84,9 @@ class TipoTorneoController extends Controller {
 
 		$equipo->update($request->all());
 
-		return redirect('tipo_torneo')->with('message', 'Tipo de torneo actualizado correctamente');
+		flash()->success('Tipo de torneo actualizado correctamente');
+
+		return redirect('tipo_torneo');
 	}
 
 	/**
@@ -97,7 +101,10 @@ class TipoTorneoController extends Controller {
 
 		if ($torneo) {
 			$torneo->delete();
-			return redirect('tipo_torneo')->with('message', 'Tipo de torneo borrado exitosamente');
+
+			flash()->warning('Tipo de torneo borrado correctamente');
+
+			return redirect('tipo_torneo');
 		}
 
 		return redirect('tipo_torneo')->with('message', 'Tipo de torneo no encontrado');

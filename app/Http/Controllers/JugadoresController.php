@@ -55,7 +55,9 @@ class JugadoresController extends Controller {
 
 		Jugador::create($data);
 
-		return redirect('jugadores')->with('message', 'Jugador creado exitosamente');
+		flash()->success('Jugador creado exitosamente');
+
+		return redirect('jugadores');
 
 	}
 
@@ -105,7 +107,9 @@ class JugadoresController extends Controller {
 
 		$jugador->update($data);
 
-		return redirect('jugadores')->with('message', 'Jugador editado exitosamente');
+		flash()->success('Jugador actualizado exitosamente');
+
+		return redirect('jugadores');
 	}
 
 	/**
@@ -121,7 +125,10 @@ class JugadoresController extends Controller {
 		if ($jugador) {
 			File::delete(public_path($jugador->jug_foto));
 			$jugador->delete();
-			return redirect('jugadores')->with('message', 'Jugador borrado exitosamente');
+
+			flash()->warning('Jugador borrado exitosamente');
+
+			return redirect('jugadores');
 		}
 
 		return redirect('jugadores')->with('message', 'Jugador no encontrado');

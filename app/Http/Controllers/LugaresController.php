@@ -47,8 +47,10 @@ class LugaresController extends Controller {
 		}
 		
 		Lugar::create($lugar);
+
+		flash()->success('Lugar creado exitosamente');
 		
-		return redirect('lugares')->with('message', 'Lugar creado exitosamente');
+		return redirect('lugares');
 	}
 
 	/**
@@ -91,7 +93,9 @@ class LugaresController extends Controller {
 
 		$lugar->update($values);
 
-		return redirect('lugares')->with('message', 'Lugar actualizado exitosamente');
+		flash()->success('Lugar editado exitosamente');
+
+		return redirect('lugares');
 
 	}
 

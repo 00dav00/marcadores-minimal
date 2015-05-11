@@ -6,14 +6,14 @@
 	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Editar un Lugar</h3>
+				<h3 class="panel-title">Editar una fecha</h3>
 			</div>
 			<div class="panel-body">
 				
 				@include('partials.validation_errors')
 
-				{!! Form::model($lugar, ['method' => 'PATCH', 'route' => ['lugares.update', $lugar->lug_id]]) !!}
-					@include('lugares.partials._form', ['lug_id' => $lugar->lugarPadre->lug_id, 'lug_nombre' => $lugar->lugarPadre->lug_nombre])
+				{!! Form::model($fecha, ['method' => 'PATCH', 'route' => ['fechas.update', $fecha->fec_id]]) !!}
+					@include('fechas.partials._form', ['fas_id' => $fecha->fase->fas_id, 'fas_descripcion' => $fecha->fase->fas_descripcion])
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}
 				
@@ -24,19 +24,20 @@
 
 <script type="text/javascript">
 $(function() {
-	$('#parent_lug_id').selectize({
-		valueField: 'lug_id',
-		labelField: 'lug_nombre',
-		searchField: ['lug_nombre'],
+
+	$('#fas_id').selectize({
+		valueField: 'fas_id',
+		labelField: 'fas_descripcion',
+		searchField: ['fas_descripcion'],
 		render: {
 			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.lug_nombre) + ', <strong>Tipo:</strong> ' + escape(item.lug_tipo) + '</div>';
+				return '<div> <strong>Nombre:</strong> ' + escape(item.fas_descripcion) + '</div>';
 			}
 		},
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/lugares/consulta/all',
+				url: '/fases/consulta',
 				type: 'GET',
 				dataType: 'json',
 				data: {
@@ -48,6 +49,13 @@ $(function() {
 			});
 		}
 	});
+
+	$( "#fec_fecha_referencia" ).datepicker({
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: "yy-mm-dd"
+	});
+
 });
 </script>
 

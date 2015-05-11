@@ -9,15 +9,8 @@
 				<h3 class="panel-title">Editar un equipo y un torneo</h3>
 			</div>
 			<div class="panel-body">
-				@if(Session::get('errors'))
-				<div class="alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<h5>Se produjeron los siguientes errores:</h5>
-					@foreach($errors->all('<li>:message</li>') as $message)
-					{!! $message !!}
-					@endforeach
-				</div>
-				@endif
+				
+				@include('partials.validation_errors')
 
 				{!! Form::model($equipo, ['method' => 'PATCH', 'route' => ['equipos_participantes.update', $equipo->eqp_id]]) !!}
 					@include('equipos_participantes.partials._form', ['tor_id' => $equipo->torneo->tor_id, 'tor_nombre' => $equipo->torneo->tor_nombre, 'eqp_id' => $equipo->eqp_id, 'eqp_nombre' => $equipo->equipo->eqp_nombre])

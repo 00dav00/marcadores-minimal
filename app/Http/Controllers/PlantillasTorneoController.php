@@ -43,8 +43,10 @@ class PlantillasTorneoController extends Controller {
 	public function store(PlantillaTorneoRequest $request)
 	{
 		PlantillaTorneo::create($request->all());
+
+		flash()->success('Plantilla creada exitosamente');
 		
-		return redirect('plantillas')->with('message', 'Plantilla creada exitosamente');
+		return redirect('plantillas');
 	}
 
 	/**
@@ -85,7 +87,9 @@ class PlantillasTorneoController extends Controller {
 
 		$plantilla->update($request->all());
 
-		return redirect('plantillas')->with('message', 'Jugador actualizado correctamente');
+		flash()->success('Plantilla actualizada exitosamente');
+
+		return redirect('plantillas');
 	}
 
 	/**
@@ -100,7 +104,10 @@ class PlantillasTorneoController extends Controller {
 
 		if ($plantilla) {
 			$plantilla->delete();
-			return redirect('plantillas')->with('message', 'Plantilla borrada exitosamente');
+
+			flash()->success('Plantilla borrada exitosamente');
+
+			return redirect('plantillas');
 		}
 
 		return redirect('plantillas')->with('message', 'Plantilla no encontrado');
