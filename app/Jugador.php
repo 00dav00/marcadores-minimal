@@ -15,7 +15,6 @@ class Jugador extends Model {
 	 * @var array
 	 */
 	protected $fillable = [
-		'jug_id',
 		'jug_apellido',
 		'jug_nombre',
 		'jug_apodo',
