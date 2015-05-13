@@ -13,7 +13,7 @@
 				@include('partials.validation_errors')
 
 				{!! Form::model($lugar, ['method' => 'PATCH', 'route' => ['lugares.update', $lugar->lug_id]]) !!}
-					@include('lugares.partials._form', ['lug_id' => $lugar->lugarPadre->lug_id, 'lug_nombre' => $lugar->lugarPadre->lug_nombre])
+					@include('lugares.partials._form', ['lug_id' => is_object($lugar->lugarPadre) ? $lugar->lugarPadre->lug_id:'', 'lug_nombre' => is_object($lugar->lugarPadre) ? $lugar->lugarPadre->lug_nombre:''])
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}
 				
