@@ -13,7 +13,7 @@ class TipoEvento extends Model {
 		'tev_comentario2',
 	];
 
-	protected $primaryKey = 'tev_codigo';
+	protected $primaryKey = 'tev_id';
 
 	public $timestamps = false;
 

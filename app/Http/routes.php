@@ -11,8 +11,8 @@
 |
 */
 
-Route::group(['middleware' => 'auth'], function()
-{
+// Route::group(['middleware' => 'auth'], function()
+// {
 
 	Route::get('/', 'TorneosController@index');
 
@@ -36,8 +36,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
 	Route::resource('tipo_torneo', 'TipoTorneoController');
 
-	Route::resource('estadios', 'EstadiosController');
-
 	Route::get('torneos/consulta', 'TorneosController@consulta');
 	Route::resource('torneos', 'TorneosController');
 
@@ -52,6 +50,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('estadios/consulta', 'EstadiosController@consulta');
 	Route::resource('estadios', 'EstadiosController');
 
+	Route::get('tipos_evento/consulta', 'TiposEventoController@consulta');
 	Route::resource('tipos_evento', 'TiposEventoController');
 
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
@@ -67,7 +66,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::post('auth/register', 'Auth\AuthController@postRegister');
 	Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-});
+// });
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

@@ -13,7 +13,15 @@
 				@include('partials.validation_errors')
 
 				{!! Form::model($fase, ['method' => 'PATCH', 'route' => ['fases.update', $fase->fas_id]]) !!}
-					@include('fases.partials._form', ['tor_id' => $fase->torneo->tor_id, 'tor_nombre' => $fase->torneo->tor_nombre, 'tfa_codigo' => $fase->tipoFase->tfa_codigo, 'tfa_nombre' => $fase->tipoFase->tfa_nombre])
+					@include(
+						'fases.partials._form', 
+						[
+							'tor_id' => $fase->torneo->tor_id, 
+							'tor_nombre' => $fase->torneo->tor_nombre, 
+							'tfa_id' => $fase->tipoFase->tfa_id, 
+							'tfa_nombre' => $fase->tipoFase->tfa_nombre
+						]
+					)
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}
 				
@@ -25,8 +33,8 @@
 <script type="text/javascript">
 $(function() {
 
-	$('#tfa_codigo').selectize({
-		valueField: 'tfa_codigo',
+	$('#tfa_id').selectize({
+		valueField: 'tfa_id',
 		labelField: 'tfa_nombre',
 		searchField: ['tfa_nombre'],
 		render: {

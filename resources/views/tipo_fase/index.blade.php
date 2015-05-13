@@ -22,7 +22,7 @@
 			<tr>
 				<td class="text-center">{!! $tipo->tfa_nombre !!}</td>
 				<td class="text-center">{!! $tipo->tfa_descripcion !!}</td>
-				<td class="text-center">{!! link_to_route('tipo_fase.show', 'Detalles', [$tipo->tfa_codigo]) !!}</td>
+				<td class="text-center">{!! link_to_route('tipo_fase.show', 'Detalles', [$tipo->tfa_id]) !!}</td>
 			</tr>
 			@endforeach
 		</tbody>

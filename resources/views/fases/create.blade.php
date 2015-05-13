@@ -25,8 +25,8 @@
 <script type="text/javascript">
 $(function() {
 
-	$('#tfa_codigo').selectize({
-		valueField: 'tfa_codigo',
+	$('#tfa_id').selectize({
+		valueField: 'tfa_id',
 		labelField: 'tfa_nombre',
 		searchField: ['tfa_nombre'],
 		render: {

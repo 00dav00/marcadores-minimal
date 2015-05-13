@@ -9,6 +9,8 @@ class EquipoParticipanteRequest extends Request {
 	 *
 	 * @return bool
 	 */
+
+
 	public function authorize()
 	{
 		return true;
@@ -27,4 +29,14 @@ class EquipoParticipanteRequest extends Request {
 		];
 	}
 
+	public function messages()
+	{
+		return [
+	    	'eqp_id.required' => 'Es obligatorio indicar el equipo.',
+	    	'eqp_id.integer' => 'La clave del equipo no es del tipo adecuado.',
+	    	'tor_id.required' => 'Es obligatorio indicar el torneo.',
+	    	'tor_id.integer' => 'La clave del torneo no es del tipo adecuado.',
+		];
+	} 
+	
 }

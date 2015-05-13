@@ -4,9 +4,9 @@
 </div>
 
 <div class="form-group">
-	<small>{!! Form::label('tfa_codigo', 'Tipo de Fase') !!}</small>
-	<select id="tfa_codigo" name="tfa_codigo">
-		<option value="{!! isset($tfa_codigo) ? $tfa_codigo : '' !!}">{!! isset($tfa_nombre) ? $tfa_nombre : 'Tipo de Fase ...' !!}</option>
+	<small>{!! Form::label('tfa_id', 'Tipo de Fase') !!}</small>
+	<select id="tfa_id" name="tfa_id">
+		<option value="{!! isset($tfa_id) ? $tfa_id : '' !!}">{!! isset($tfa_nombre) ? $tfa_nombre : 'Tipo de Fase ...' !!}</option>
 	</select>
 </div>
 

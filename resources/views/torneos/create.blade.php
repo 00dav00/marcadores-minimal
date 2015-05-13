@@ -37,8 +37,8 @@ $(function() {
 		dateFormat: "yy-mm-dd"
 	});
 
-	$('#ttr_codigo').selectize({
-		valueField: 'ttr_codigo',
+	$('#ttr_id').selectize({
+		valueField: 'ttr_id',
 		labelField: 'ttr_nombre',
 		searchField: ['ttr_nombre'],
 		render: {

@@ -25,6 +25,9 @@
 					<p><mark>Tipo de equipos:</mark> {!! ucfirst($torneo->tor_tipo_equipos) !!}</p>
 				</div>
 				<div class="form-group">
+					<p><mark>Número de equipos:</mark> {!! $torneo->tor_numero_equipos !!}</p>
+				</div>
+				<div class="form-group">
 					<p><mark>Tipo de torneo:</mark> {!! $torneo->tipoTorneo->ttr_nombre !!}</p>
 				</div>
 				<div class="form-group">

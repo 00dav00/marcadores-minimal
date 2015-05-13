@@ -23,7 +23,7 @@ class TipoTorneo extends Model {
 	 * Columna primary key
 	 * @var string
 	 */
-	protected $primaryKey = 'ttr_codigo';
+	protected $primaryKey = 'ttr_id';
 
 	/**
 	 * No se van a utilizar timestamps
@@ -37,7 +37,7 @@ class TipoTorneo extends Model {
 	 */
 	public function torneo()
 	{
-		return $this->belongsToMany('App\Torneo', 'ttr_codigo', 'ttr_codigo');
+		return $this->belongsToMany('App\Torneo', 'ttr_id', 'ttr_id');
 	}
 
 }

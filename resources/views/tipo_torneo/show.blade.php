@@ -18,7 +18,7 @@
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group text-center">
-							{!! Form::open(array('route' => array('tipo_torneo.edit', $torneo->ttr_codigo), 'method' => 'GET')) !!}
+							{!! Form::open(array('route' => array('tipo_torneo.edit', $torneo->ttr_id), 'method' => 'GET')) !!}
 							{!! Form::submit('Editar', array('class' => 'btn btn-primary')) !!}
 							{!! Form::close() !!}
 						</div>
@@ -43,7 +43,7 @@
 
 			</div>
 			<div class="modal-body">
-				{!! Form::open(array('route' => array('tipo_torneo.destroy', $torneo->ttr_codigo), 'method' => 'delete', 'class' => 'destroy')) !!}
+				{!! Form::open(array('route' => array('tipo_torneo.destroy', $torneo->ttr_id), 'method' => 'delete', 'class' => 'destroy')) !!}
 				{!! Form::submit('Si', array('class' => 'btn btn-success btn-sm')) !!}
 				<button type="submit" class="btn btn-danger btn-sm" data-dismiss="modal">No</button>
 				{!! Form::close() !!}

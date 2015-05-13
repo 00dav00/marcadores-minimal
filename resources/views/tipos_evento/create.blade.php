@@ -9,15 +9,8 @@
 				<h3 class="panel-title">Agregar un Tipo de Evento</h3>
 			</div>
 			<div class="panel-body">
-				@if(Session::get('errors'))
-				<div class="alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<h5>Se produjeron los siguientes errores:</h5>
-					@foreach($errors->all('<li>:message</li>') as $message)
-					{!! $message !!}
-					@endforeach
-				</div>
-				@endif
+				
+				@include('partials.validation_errors')
 
 				{!! Form::open(array('route' => 'tipos_evento.store')) !!}
 					@include('tipos_evento.partials._form')

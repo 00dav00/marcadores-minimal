@@ -22,13 +22,13 @@ class CreatePartidoEventosTable extends Migration {
 			$table->foreign('pev_jugador1')->references('pju_id')->on('partido_jugadores')->onDelete('restrict');
 
 			$table->integer('pev_evento1')->unsigned();
-			$table->foreign('pev_evento1')->references('tev_codigo')->on('tipos_evento')->onDelete('restrict');
+			$table->foreign('pev_evento1')->references('tev_id')->on('tipos_evento')->onDelete('restrict');
 
 			$table->integer('pev_jugador2')->unsigned()->nullable();
 			$table->foreign('pev_jugador2')->references('pju_id')->on('partido_jugadores')->onDelete('restrict');
 
 			$table->integer('pev_evento2')->unsigned()->nullable();
-			$table->foreign('pev_evento2')->references('tev_codigo')->on('tipos_evento')->onDelete('restrict');
+			$table->foreign('pev_evento2')->references('tev_id')->on('tipos_evento')->onDelete('restrict');
 
 			$table->string('pev_metadata',500);
 			// $table->timestamps();

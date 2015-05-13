@@ -18,7 +18,7 @@ class TiposEventoController extends Controller {
 	 */
 	public function index()
 	{
-		$tiposEvento = TipoEvento::orderBy('tev_codigo', 'desc')
+		$tiposEvento = TipoEvento::orderBy('tev_id', 'desc')
 									->paginate(20);
 
 		return view('tipos_evento.index',compact('tiposEvento'));
@@ -42,7 +42,9 @@ class TiposEventoController extends Controller {
 	public function store(TipoEventoRequest $request)
 	{
 		TipoEvento::create($request->all());
-		return redirect('tipos_evento')->with('message', 'Tipo de evento creado exitosamente');
+		flash()->success('Tipo de evento creado exitosamente');
+
+		return redirect('tipos_evento');
 	}
 
 	/**
@@ -79,8 +81,9 @@ class TiposEventoController extends Controller {
 	{
 		$tipoEvento = TipoEvento::findOrFail($id);
 		$tipoEvento->update($request->all());
-		return redirect('tipos_evento')
-			->with('message','Tipo de Evento actualizado correctamente');
+		flash()->success('Tipo de evento actualizado exitosamente');
+
+		return redirect('tipos_evento');
 	}
 
 	/**
@@ -100,7 +103,9 @@ class TiposEventoController extends Controller {
 			$message = 'Tipo de Evento borrado exitosamente.';
 		}
 
-		return redirect('tipos_evento')->with('message',$message);
+		flash()->success($message);
+
+		return redirect('tipos_evento');
 	}
 
 
@@ -114,9 +119,9 @@ class TiposEventoController extends Controller {
 
 
 		$resultados = TipoEvento::where('tev_nombre', 'LIKE', '%' . $keyword . '%')
-							->orderBy('tev_nombre')
-							->take(3)
-							->get(['tev_codigo', 'tev_nombre']);
+									->orderBy('tev_nombre')
+									->take(3)
+									->get(['tev_id', 'tev_nombre']);
 
 
 		return response()->json(['data' => $resultados]);

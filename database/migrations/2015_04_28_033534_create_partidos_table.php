@@ -35,6 +35,8 @@ class CreatePartidosTable extends Migration {
 			$table->time('par_hora')->nullable();
 			$table->string('par_cronica', 200)->nullable();
 
+			$table->integer('fec_id')->unsigned();
+			$table->foreign('fec_id')->references('fec_id')->on('fechas')->onDelete('restrict');
 
 		});
 	}

@@ -29,4 +29,17 @@ class PlantillaTorneoRequest extends Request {
 		];
 	}
 
+	public function messages()
+	{
+		return [
+			'plt_numero_camiseta.required' => 'Es obligatorio ingresar el número de camiseta.',
+			'plt_numero_camiseta.integer' => 'El número de camiseta debe ser un número entero',
+			'eqp_id.required' => 'Es obligatorio ingresar el equipo.',
+			'eqp_id.integer' => 'La clave del equipo no es del tipo adecuado.',
+			'jug_id.required' => 'Es obligatorio ingresar el jugador.',
+			'jug_id.integer' => 'La clave del jugador no es del tipo adecuado.',
+			'tor_id.required' => 'Es obligatorio ingresar el torneo.',
+			'tor_id.integer' => 'La clave del tornero no es del tipo adecuado.',
+		];
+	}
 }

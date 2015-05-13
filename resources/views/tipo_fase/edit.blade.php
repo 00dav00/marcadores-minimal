@@ -12,7 +12,7 @@
 				
 				@include('partials.validation_errors')
 
-				{!! Form::model($tipo_fase, ['method' => 'PATCH', 'route' => ['tipo_fase.update', $tipo_fase->tfa_codigo]]) !!}
+				{!! Form::model($tipo_fase, ['method' => 'PATCH', 'route' => ['tipo_fase.update', $tipo_fase->tfa_id]]) !!}
 					@include('tipo_fase.partials._form')
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}

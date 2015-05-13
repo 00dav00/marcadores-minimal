@@ -16,6 +16,7 @@
 				<th class="text-center tb-titulo">Tipo de torneo</th>
 				<th class="text-center tb-titulo">Fecha de inicio</th>
 				<th class="text-center tb-titulo">Fecha de fin</th>
+				<th class="text-center tb-titulo"># Equipos</th>
 				<th class="text-center tb-titulo"></th>
 			</tr>
 		</thead>
@@ -26,7 +27,10 @@
 				<td class="text-center">{!! $torneo->tipoTorneo->ttr_nombre !!}</td>
 				<td class="text-center">{!! $torneo->tor_fecha_inicio !!}</td>
 				<td class="text-center">{!! $torneo->tor_fecha_fin !!}</td>
-				<td class="text-center">{!! link_to_route('torneos.show', 'Detalles', [$torneo->tor_id]) !!}</td>
+				<td class="text-center">{!! $torneo->tor_numero_equipos !!}</td>
+				<td class="text-center">
+					{!! link_to_route('torneos.show', 'Detalles', [$torneo->tor_id]) !!}
+				</td>
 			</tr>
 			@endforeach
 		</tbody>

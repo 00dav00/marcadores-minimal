@@ -20,10 +20,11 @@ class CreateTorneosTable extends Migration {
 			$table->date('tor_fecha_inicio');
 			$table->date('tor_fecha_fin');
 			$table->enum('tor_tipo_equipos', ['seleccion', 'profesional', 'amateur', 'evento']);
+			$table->integer('tor_numero_equipos');
 			$table->integer('lug_id')->unsigned();
 			$table->foreign('lug_id')->references('lug_id')->on('lugares');
-			$table->integer('ttr_codigo')->unsigned();
-			$table->foreign('ttr_codigo')->references('ttr_codigo')->on('tipo_torneos');
+			$table->integer('ttr_id')->unsigned();
+			$table->foreign('ttr_id')->references('ttr_id')->on('tipo_torneos');
 		});
 	}
 

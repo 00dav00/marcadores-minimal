@@ -16,8 +16,8 @@ class CreateFasesTable extends Migration {
 		{
 			$table->increments('fas_id');
 			$table->string('fas_descripcion', 200);
-			$table->integer('tfa_codigo')->unsigned();
-			$table->foreign('tfa_codigo')->references('tfa_codigo')->on('tipo_fases');
+			$table->integer('tfa_id')->unsigned();
+			$table->foreign('tfa_id')->references('tfa_id')->on('tipo_fases');
 			$table->integer('tor_id')->unsigned();
 			$table->foreign('tor_id')->references('tor_id')->on('torneos');
 		});

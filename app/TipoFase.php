@@ -23,7 +23,7 @@ class TipoFase extends Model {
 	 * Columna primary key
 	 * @var string
 	 */
-	protected $primaryKey = 'tfa_codigo';
+	protected $primaryKey = 'tfa_id';
 
 	/**
 	 * No se van a utilizar timestamps

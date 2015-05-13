@@ -124,7 +124,7 @@ class TipoFaseController extends Controller {
 		$resultados = TipoFase::where('tfa_nombre', 'LIKE', '%' . $keyword . '%')
 							->orderBy('tfa_nombre')
 							->take(3)
-							->get(['tfa_codigo', 'tfa_nombre']);
+							->get(['tfa_id', 'tfa_nombre']);
 
 
 		return response()->json(['data' => $resultados]);

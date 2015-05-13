@@ -13,7 +13,7 @@
 				@include('partials.validation_errors')
 
 				{!! Form::model($torneo, ['method' => 'PATCH', 'route' => ['torneos.update', $torneo->tor_id]]) !!}
-					@include('torneos.partials._form', ['ttr_codigo' => $torneo->tipoTorneo->ttr_codigo, 'ttr_nombre' => $torneo->tipoTorneo->ttr_nombre, 'lug_id' => $torneo->lugar->lug_id, 'lug_nombre' => $torneo->lugar->lug_nombre])
+					@include('torneos.partials._form', ['ttr_id' => $torneo->tipoTorneo->ttr_id, 'ttr_nombre' => $torneo->tipoTorneo->ttr_nombre, 'lug_id' => $torneo->lugar->lug_id, 'lug_nombre' => $torneo->lugar->lug_nombre])
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}
 				
@@ -37,8 +37,8 @@ $(function() {
 		dateFormat: "yy-mm-dd"
 	});
 
-	$('#ttr_codigo').selectize({
-		valueField: 'ttr_codigo',
+	$('#ttr_id').selectize({
+		valueField: 'ttr_id',
 		labelField: 'ttr_nombre',
 		searchField: ['ttr_nombre'],
 		render: {

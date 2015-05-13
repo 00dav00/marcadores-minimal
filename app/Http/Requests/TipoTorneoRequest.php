@@ -27,4 +27,14 @@ class TipoTorneoRequest extends Request {
 		];
 	}
 
+	public function messages()
+	{
+		return [
+			'ttr_nombre.required' => 'Es obligatorio indicar el nombre del tipo de torneo.',
+			'ttr_nombre.string' => 'El nombre del tipo de torneo no es válido.',
+			'ttr_nombre.min' => 'El nombre del tipo de torneo debe tener como mínimo :min caracteres.',
+			'ttr_descripcion.string' => 'La descripción del tipo de torneo no es válido.',
+			'ttr_descripcion.min' => 'La descripción del tipo de torneo debe tener como mínimo :min caracteres.',
+		];
+	}
 }

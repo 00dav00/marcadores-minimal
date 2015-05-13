@@ -122,7 +122,7 @@ class TipoTorneoController extends Controller {
 		$resultados = TipoTorneo::where('ttr_nombre', 'LIKE', '%' . $keyword . '%')
 							->orderBy('ttr_nombre')
 							->take(3)
-							->get(['ttr_codigo', 'ttr_nombre']);
+							->get(['ttr_id', 'ttr_nombre']);
 
 
 		return response()->json(['data' => $resultados]);

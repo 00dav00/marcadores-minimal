@@ -20,8 +20,9 @@ class Torneo extends Model {
 		'tor_fecha_inicio',
 		'tor_fecha_fin',
 		'tor_tipo_equipos',
+		'tor_numero_equipos',
 		'lug_id',
-		'ttr_codigo'
+		'ttr_id'
 		];
 
 	/**
@@ -51,7 +52,7 @@ class Torneo extends Model {
 	 */
 	public function tipoTorneo()
 	{
-		return $this->hasOne('App\TipoTorneo', 'ttr_codigo', 'ttr_codigo');
+		return $this->hasOne('App\TipoTorneo', 'ttr_id', 'ttr_id');
 	}
 
 	public function equiposParticipantes()
