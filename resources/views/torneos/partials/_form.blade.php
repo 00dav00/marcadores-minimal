@@ -20,14 +20,24 @@
 
 
 <div class="form-group">
-	<small>{!! Form::label('tor_tipo_equipos', 'Tipo de torneo') !!}</small>
-	{!! Form::select('tor_tipo_equipos', ['seleccion' => 'Seleccion', 'profesional' => 'Profesional', 'amateur' => 'Amateur'], null, ['class' => 'form-control input-sm']) !!}
+	<small>{!! Form::label('tor_tipo_equipos', 'Tipo de equipos') !!}</small>
+	{!! Form::select(
+		'tor_tipo_equipos', 
+		['seleccion' => 'Seleccion', 'profesional' => 'Profesional', 'amateur' => 'Amateur'], 
+		null, 
+		['class' => 'form-control input-sm']
+	) !!}
 </div>
 
 <div class="form-group">
-	<small>{!! Form::label('ttr_codigo', 'Tipo de torneo') !!}</small>
-	<select id="ttr_codigo" name="ttr_codigo">
-		<option value="{!! isset($ttr_codigo) ? $ttr_codigo : '' !!}">{!! isset($ttr_nombre) ? $ttr_nombre : 'Tipo de torneo ...' !!}</option>
+	<small>{!! Form::label('tor_numero_equipos', 'Número de Equipos') !!}</small>
+	{!! Form::text('tor_numero_equipos', null, array('class'=>'form-control input-sm','placeholder'=>'Número de Equipos')) !!}
+</div>
+
+<div class="form-group">
+	<small>{!! Form::label('ttr_id', 'Tipo de torneo') !!}</small>
+	<select id="ttr_id" name="ttr_id">
+		<option value="{!! isset($ttr_id) ? $ttr_id : '' !!}">{!! isset($ttr_nombre) ? $ttr_nombre : 'Tipo de torneo ...' !!}</option>
 	</select>
 </div>
 

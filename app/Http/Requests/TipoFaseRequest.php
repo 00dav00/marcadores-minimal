@@ -27,4 +27,15 @@ class TipoFaseRequest extends Request {
 		];
 	}
 
+
+	public function messages()
+	{
+		return [
+			'tfa_nombre.required' => 'Es obligatorio indicar el nombre del tipo de fase.',
+			'tfa_nombre.string' => 'El nombre del tipo de fase no es válido.',
+			'tfa_nombre.min' => 'El nombre del tipo de fase debe tener como mínimo :min caracteres.',
+			'tfa_descripcion.string' => 'La descripción del tipo de fase no es válido.',
+			'tfa_descripcion.min' => 'La descripción del tipo de fase debe tener como mínimo :min caracteres.',
+		];
+	}
 }

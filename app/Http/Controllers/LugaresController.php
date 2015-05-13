@@ -47,8 +47,10 @@ class LugaresController extends Controller {
 		}
 		
 		Lugar::create($lugar);
+
+		flash()->success('Lugar creado exitosamente');
 		
-		return redirect('lugares')->with('message', 'Lugar creado exitosamente');
+		return redirect('lugares');
 	}
 
 	/**
@@ -91,7 +93,9 @@ class LugaresController extends Controller {
 
 		$lugar->update($values);
 
-		return redirect('lugares')->with('message', 'Lugar actualizado exitosamente');
+		flash()->success('Lugar editado exitosamente');
+
+		return redirect('lugares');
 
 	}
 
@@ -115,29 +119,22 @@ class LugaresController extends Controller {
 	public function consulta($busqueda, Request $request)
 	{
 		$keyword = $request->get('nombre');
+		$tipos = $busqueda == 'all' ? ['pais','continente','ciudad'] : [$busqueda];
 
-		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
-		}
-
-		switch ($busqueda) {
-			case 'pais':
-				$resultados = Lugar::where('lug_tipo', '=', 'pais')
-									->where('lug_nombre', 'LIKE', '%' . $keyword . '%')
+		if (trim(urldecode($keyword)) != '') {
+			$resultados = Lugar::whereIn('lug_tipo', $tipos)
+									->where('lug_nombre', 'LIKE', '%'.$keyword.'%')
 									->orderBy('lug_nombre')
 									->take(3)
-									->get(['lug_id', 'lug_nombre', 'lug_tipo']);
-				break;
-			default:
-				$resultados = Lugar::where('lug_nombre', 'LIKE', '%' . $keyword . '%')
-									->orderBy('lug_nombre')
-									->take(3)
-									->get(['lug_id', 'lug_nombre', 'lug_tipo']);
-				break;
+									->get(['lug_id', 'lug_nombre', 'lug_tipo']);	
 		}
 
 		return response()->json(['data' => $resultados]);
 
 	}
+
+
+
+
 
 }

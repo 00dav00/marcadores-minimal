@@ -55,8 +55,8 @@ class EstadiosController extends Controller {
 		}
 
 		Estadio::create($data);
-
-		return redirect('estadios')->with('message', 'Estadio creado exitosamente');
+		flash()->success('Estadio creado exitosamente');
+		return redirect('estadios');
 	}
 
 	/**
@@ -102,8 +102,8 @@ class EstadiosController extends Controller {
 		}
 
 		$estadio->update($data);
-
-		return redirect('estadios')->with('message', 'Estadio editado exitosamente');
+		flash()->success('Estadio actualizado exitosamente');
+		return redirect('estadios');
 	}
 
 	/**
@@ -114,16 +114,17 @@ class EstadiosController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$mensaje = "Estadio no encontrado!";
+		$message = "Estadio no encontrado!";
 		$estadio = Estadio::findOrFail($id);
 
 		if ($estadio){
 			File::delete(public_path($estadio->est_foto_por_defecto));
 			$estadio->delete();
-			$mensaje = "Estadio borrado exitosamente!";
+			$message = "Estadio borrado exitosamente!";
 		}
 
-		return redirect('estadios')->with('message',compact('mensaje'));
+		flash()->success($message);
+		return redirect('estadios');
 	}
 
 	protected function obtenerImagen($request)
@@ -134,4 +135,23 @@ class EstadiosController extends Controller {
 		Image::make($image->getRealPath())->resize(300, 200)->save($path);
 		return $filename;
 	}
+
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Estadio::where('est_nombre', 'LIKE', '%' . $keyword . '%')
+							->orderBy('est_nombre')
+							->take(3)
+							->get(['est_id', 'est_nombre']);
+
+
+		return response()->json(['data' => $resultados]);
+
+	}	
 }

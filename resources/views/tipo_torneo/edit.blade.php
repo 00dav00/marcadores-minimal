@@ -9,17 +9,10 @@
 				<h3 class="panel-title">Agregar un Tipo de Torneo</h3>
 			</div>
 			<div class="panel-body">
-				@if(Session::get('errors'))
-				<div class="alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<h5>Se produjeron los siguientes errores:</h5>
-					@foreach($errors->all('<li>:message</li>') as $message)
-					{!! $message !!}
-					@endforeach
-				</div>
-				@endif
+				
+				@include('partials.validation_errors')
 
-				{!! Form::model($torneo, ['method' => 'PATCH', 'route' => ['tipo_torneo.update', $torneo->ttr_codigo]]) !!}
+				{!! Form::model($torneo, ['method' => 'PATCH', 'route' => ['tipo_torneo.update', $torneo->ttr_id]]) !!}
 					@include('tipo_torneo.partials._form')
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}

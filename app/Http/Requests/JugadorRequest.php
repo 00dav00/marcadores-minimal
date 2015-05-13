@@ -34,4 +34,25 @@ class JugadorRequest extends Request {
 		];
 	}
 
+	public function messages(){
+		return [
+			'jug_apellido.required' => 'Es obligatorio indicar el apellido del jugador.',
+			'jug_apellido.string' => 'El apellido del jugador no es válido.',
+			'jug_apellido.min' => 'El apellido del jugador debe tener como mínimo :min caracteres.',
+			'jug_nombre.required' => 'Es obligatorio indicar el nombre del jugador.',
+			'jug_nombre.string' => 'El nombre del jugador no es válido.',
+			'jug_nombre.min' => 'El nombre del jugador debe tener como mínimo :min caracteres.',
+			'jug_apodo.string' => 'El apodo del jugador no es válido.',
+			'jug_apodo.min' => 'El apodo del jugador debe tener como mínimo :min caracteres.',
+			'jug_fecha_nacimiento.date_format' => 'El formato de la fecha de nacimiento es incorrecto',
+			'jug_altura.integer' => 'La altura del jugador debe ser un número entero',
+			'jug_sitioweb.url' => 'El formato del sitio web es incorrecto',
+			'jug_twitter.string' => 'El twitter del jugador no es válido.',
+			'jug_foto.image' => 'El archivo debe ser una imagen.',
+			'jug_foto.mimes' => 'El archivo debe ser jpeg, jpg, bmp, png o gif.',
+			'lug_id.required' => 'Es obligatorio indicar la nacionalidad del jugador.',
+			'lug_id.integer' => 'La clave de la nacionalidad no es del tipo adecuado.',
+		];
+	}
+
 }

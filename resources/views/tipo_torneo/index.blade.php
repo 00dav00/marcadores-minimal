@@ -4,6 +4,9 @@
 
 <div class="col-md-8 col-md-offset-2">
 	<h2 class="text-center">Tipo de torneos</h2>
+
+	@include('flash::message')
+
 	<h5 class="text-center"><a href="{!! url('tipo_torneo/create') !!}">Agregar un Tipo de torneo</a></h5>
 
 	<table class="table table-striped table-hover table-bordered">
@@ -19,7 +22,7 @@
 			<tr>
 				<td class="text-center">{!! $tipo->ttr_nombre !!}</td>
 				<td class="text-center">{!! $tipo->ttr_descripcion !!}</td>
-				<td class="text-center">{!! link_to_route('tipo_torneo.show', 'Detalles', [$tipo->ttr_codigo]) !!}</td>
+				<td class="text-center">{!! link_to_route('tipo_torneo.show', 'Detalles', [$tipo->ttr_id]) !!}</td>
 			</tr>
 			@endforeach
 		</tbody>

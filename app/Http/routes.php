@@ -11,41 +11,62 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+// Route::group(['middleware' => 'auth'], function()
+// {
 
-Route::get('lugares/consulta/{busqueda}', 'LugaresController@consulta');
-Route::resource('lugares', 'LugaresController');
+	Route::get('/', 'TorneosController@index');
 
-Route::get('jugadores/consulta', 'JugadoresController@consulta');
-Route::resource('jugadores', 'JugadoresController');
+	Route::get('lugares/consulta/{busqueda}', 'LugaresController@consulta');
+	Route::resource('lugares', 'LugaresController');
 
-Route::get('equipos/consulta', 'EquiposController@consulta');
-Route::resource('equipos', 'EquiposController');
+	Route::get('jugadores/consulta', 'JugadoresController@consulta');
+	Route::resource('jugadores', 'JugadoresController');
 
-Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
-Route::resource('tipo_torneo', 'TipoTorneoController');
+	Route::get('equipos/consulta', 'EquiposController@consulta');
+	Route::resource('equipos', 'EquiposController');
 
-Route::get('torneos/consulta', 'TorneosController@consulta');
-Route::get('torneos/{torneos}/equipos', 'TorneosController@equiposParticipantes');
-Route::get('torneos/{torneos}/equipos/{equipos}', 'TorneosController@jugadoresEquipoParticipante');
-Route::resource('torneos', 'TorneosController');
+	Route::get('torneos/consulta', 'TorneosController@consulta');
+	Route::get('torneos/{torneos}/equipos', 'TorneosController@equiposParticipantes');
+	Route::get('torneos/{torneos}/equipos/{equipos}', 'TorneosController@jugadoresEquipoParticipante');
+	Route::resource('torneos', 'TorneosController');
 
-Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
-Route::resource('tipo_fase', 'TipoFaseController');
+	Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
+	Route::resource('tipo_fase', 'TipoFaseController');
 
-Route::resource('fases', 'FaseController');
+	Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
+	Route::resource('tipo_torneo', 'TipoTorneoController');
 
-Route::resource('plantillas', 'PlantillasTorneoController');
+	Route::get('torneos/consulta', 'TorneosController@consulta');
+	Route::resource('torneos', 'TorneosController');
 
-Route::resource('equipos_participantes', 'EquiposParticipantesController');
+	Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
+	Route::resource('tipo_fase', 'TipoFaseController');
 
-Route::resource('fechas', 'FechasController');
+	Route::get('fases/consulta', 'FaseController@consulta');
+	Route::resource('fases', 'FaseController');
 
-Route::resource('estadios', 'EstadiosController');
+	Route::resource('fechas', 'FechasController');
 
-Route::resource('tipos_evento', 'TiposEventoController');
+	Route::get('estadios/consulta', 'EstadiosController@consulta');
+	Route::resource('estadios', 'EstadiosController');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+	Route::get('tipos_evento/consulta', 'TiposEventoController@consulta');
+	Route::resource('tipos_evento', 'TiposEventoController');
+
+	Route::resource('fechas/{fechas}/partidos','PartidoController');
+
+	Route::resource('plantillas', 'PlantillasTorneoController');
+
+
+	Route::resource('equipos_participantes', 'EquiposParticipantesController');
+
+	Route::resource('fechas', 'FechasController');
+
+	Route::get('auth/register', 'Auth\AuthController@getRegister');
+	Route::post('auth/register', 'Auth\AuthController@postRegister');
+	Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// });
+
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');

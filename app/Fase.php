@@ -15,7 +15,7 @@ class Fase extends Model {
 	 * @var array
 	 */
 	protected $fillable = [
-		'tfa_codigo',
+		'tfa_id',
 		'fas_descripcion',
 		'tor_id',
 		];
@@ -34,7 +34,7 @@ class Fase extends Model {
 
 	public function tipoFase()
 	{
-		return $this->belongsTo('App\TipoFase', 'tfa_codigo', 'tfa_codigo');
+		return $this->belongsTo('App\TipoFase', 'tfa_id', 'tfa_id');
 	}
 
 	public function torneo()

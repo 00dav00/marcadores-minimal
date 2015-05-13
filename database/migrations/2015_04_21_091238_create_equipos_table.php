@@ -16,8 +16,11 @@ class CreateEquiposTable extends Migration {
 		{
 			$table->increments('eqp_id');
 			$table->string('eqp_nombre', 100);
-			$table->date('eqp_fecha_fundacion');
-			$table->string('eqp_sitioweb');
+			$table->date('eqp_fecha_fundacion')->nullable();
+			$table->string('eqp_escudo', 200);
+			$table->string('eqp_twitter',50)->nullable();
+			$table->string('eqp_facebook',50)->nullable();
+			$table->string('eqp_sitioweb', 200)->nullable();
 			$table->enum('eqp_tipo', ['seleccion', 'profesional', 'amateur']);
 			$table->integer('lug_id')->unsigned();
 			$table->foreign('lug_id')->references('lug_id')->on('lugares');

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
+	<title>Marcador en Vivo</title>
 
 	<link href="{!! asset('/css/app.css') !!}" rel="stylesheet">
 
@@ -23,6 +23,10 @@
 
 	<link href="{!! asset('/css/vendor/selectize.css') !!}" rel="stylesheet">
 	<script src="{!! asset('/js/vendor/selectize.min.js') !!}"></script>
+
+	<link href="{!! asset('/css/vendor/jquery-ui-timepicker-addon.css') !!}" rel="stylesheet">
+	<script src="{!! asset('/js/vendor/jquery-ui-timepicker-addon.js') !!}"></script>
+	
 
 </head>
 <body>

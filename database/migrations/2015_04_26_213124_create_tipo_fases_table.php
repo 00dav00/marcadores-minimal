@@ -14,7 +14,7 @@ class CreateTipoFasesTable extends Migration {
 	{
 		Schema::create('tipo_fases', function(Blueprint $table)
 		{
-			$table->increments('tfa_codigo');
+			$table->increments('tfa_id');
 			$table->string('tfa_nombre', 100);
 			$table->string('tfa_descripcion', 200);
 		});

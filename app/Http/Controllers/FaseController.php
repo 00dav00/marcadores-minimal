@@ -44,8 +44,10 @@ class FaseController extends Controller {
 	public function store(FaseRequest $request)
 	{
 		Fase::create($request->all());
+
+		flash()->success('Fase creada exitosamente');
 		
-		return redirect('fases')->with('message', 'Fase creada exitosamente');
+		return redirect('fases');
 	}
 
 	/**
@@ -84,7 +86,9 @@ class FaseController extends Controller {
 
 		$fase->update($request->all());
 
-		return redirect('fases')->with('message', 'Fase actualizada correctamente');
+		flash()->success('Fase actualizada exitosamente');
+
+		return redirect('fases');
 	}
 
 	/**
@@ -99,10 +103,32 @@ class FaseController extends Controller {
 
 		if ($fase) {
 			$fase->delete();
-			return redirect('fases')->with('message', 'Fase borrada exitosamente');
+
+			flash()->warning('Fase borrada exitosamente');
+
+			return redirect('fases');
 		}
 
 		return redirect('fases')->with('message', 'Fase no encontrada');
+	}
+
+	public function consulta(Request $request)
+	{
+		$keyword = $request->get('nombre');
+
+		if (trim(urldecode($keyword)) == '') {
+			return response()->json(['data' => []], 200);
+		}
+
+
+		$resultados = Fase::where('fas_descripcion', 'LIKE', '%' . $keyword . '%')
+							->orderBy('fas_descripcion')
+							->take(3)
+							->get(['fas_id', 'fas_descripcion']);
+
+
+		return response()->json(['data' => $resultados]);
+
 	}
 
 }

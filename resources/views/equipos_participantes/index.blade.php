@@ -4,6 +4,9 @@
 
 <div class="col-md-8 col-md-offset-2">
 	<h2 class="text-center">Lista de equipos y torneos</h2>
+
+	@include('flash::message')
+	
 	<h5 class="text-center"><a href="{!! url('equipos_participantes/create') !!}">Agregar un equipo a un torneo</a></h5>
 
 	<table class="table table-striped table-hover table-bordered">

@@ -42,8 +42,10 @@ class TipoFaseController extends Controller {
 	public function store(TipoFaseRequest $request)
 	{
 		TipoFase::create($request->all());
+
+		flash()->success('Tipo de fase creada exitosamente');
 		
-		return redirect('tipo_fase')->with('message', 'Tipo de fase creado exitosamente');
+		return redirect('tipo_fase');
 	}
 
 	/**
@@ -55,6 +57,7 @@ class TipoFaseController extends Controller {
 	public function show($id)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
+
 		return view('tipo_fase.show', compact('tipo_fase'));
 	}
 
@@ -67,6 +70,7 @@ class TipoFaseController extends Controller {
 	public function edit($id)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
+
 		return view('tipo_fase.edit', compact('tipo_fase'));
 	}
 
@@ -82,7 +86,9 @@ class TipoFaseController extends Controller {
 
 		$tipo_fase->update($request->all());
 
-		return redirect('tipo_fase')->with('message', 'Tipo de fase actualizado correctamente');
+		flash()->success('Tipo de fase actualizada correctamente');
+
+		return redirect('tipo_fase');
 	}
 
 	/**
@@ -97,7 +103,10 @@ class TipoFaseController extends Controller {
 
 		if ($tipo_fase) {
 			$tipo_fase->delete();
-			return redirect('tipo_fase')->with('message', 'Tipo de fase borrado exitosamente');
+
+			flash()->warning('Tipo de fase borrada correctamente');
+
+			return redirect('tipo_fase');
 		}
 
 		return redirect('tipo_fase')->with('message', 'Tipo de tipo_fase no encontrado');
@@ -115,7 +124,7 @@ class TipoFaseController extends Controller {
 		$resultados = TipoFase::where('tfa_nombre', 'LIKE', '%' . $keyword . '%')
 							->orderBy('tfa_nombre')
 							->take(3)
-							->get(['tfa_codigo', 'tfa_nombre']);
+							->get(['tfa_id', 'tfa_nombre']);
 
 
 		return response()->json(['data' => $resultados]);

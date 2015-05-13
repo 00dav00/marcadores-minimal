@@ -3,7 +3,10 @@
 @section('content')
 
 <div class="col-md-8 col-md-offset-2">
-	<h2 class="text-center">Lista de Jugadores</h2>
+	<h2 class="text-center">Lista de Estadios</h2>
+
+	@include('flash::message')
+	
 	<h5 class="text-center"><a href="{!! url('estadios/create') !!}">Agregar un estadio</a></h5>
 
 	<table class="table table-striped table-hover table-bordered">

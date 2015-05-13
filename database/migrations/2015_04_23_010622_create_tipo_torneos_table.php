@@ -14,7 +14,7 @@ class CreateTipoTorneosTable extends Migration {
 	{
 		Schema::create('tipo_torneos', function(Blueprint $table)
 		{
-			$table->increments('ttr_codigo');
+			$table->increments('ttr_id');
 			$table->string('ttr_nombre', 100);
 			$table->string('ttr_descripcion', 200);
 		});
