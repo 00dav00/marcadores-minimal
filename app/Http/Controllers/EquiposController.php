@@ -42,8 +42,13 @@ class EquiposController extends Controller {
 	 */
 	public function store(EquipoRequest $request)
 	{
-		
-		Equipo::create($request->all());
+		$data = $request->all();
+
+		$filename = $this->obtenerImagen($request);
+
+		$data['eqp_escudo'] = 'images/equipos/' . $filename;
+
+		Equipo::create($data);
 
 		flash()->success('Equipo creado exitosamente');
 		
@@ -87,7 +92,15 @@ class EquiposController extends Controller {
 	{
 		$equipo = Equipo::findOrFail($id);
 
-		$equipo->update($request->all());
+		$data = $request->all();
+
+		if ($request->file('eqp_escudo')) {
+			File::delete(public_path($equipo->eqp_escudo));
+			$filename = $this->obtenerImagen($request);
+			$data['eqp_escudo'] = 'images/equipos/' . $filename;
+		}
+
+		$equipo->update($data);
 
 		flash()->success('Equipo editado exitosamente');
 
@@ -113,6 +126,15 @@ class EquiposController extends Controller {
 		}
 
 		return redirect('equipos')->with('message', 'Equipo no encontrado');
+	}
+
+	protected function obtenerImagen($request)
+	{
+		$image = $request->file('eqp_escudo');
+		$filename = date('Y-m-d-H:i:s'). "-" .$image->getClientOriginalName();
+		$path = public_path('images/equipos/' . $filename);
+		Image::make($image->getRealPath())->resize(300, 200)->save($path);
+		return $filename;
 	}
 
 	public function consulta(Request $request)

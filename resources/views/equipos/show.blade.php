@@ -9,11 +9,24 @@
 				<h3 class="panel-title">Información del Equipo</h3>
 			</div>
 			<div class="panel-body">
+				<div class="form-group text-center">
+					{!! HTML::image(
+						$equipo->eqp_escudo, 
+						$equipo->eqp_nombre, 
+						array('class'=>'feature', 'width'=>'200', 'height'=>'300')
+					) !!}
+				</div>
 				<div class="form-group">
 					<p><mark>Nombre:</mark> {!! $equipo->eqp_nombre !!}</p>
 				</div>
 				<div class="form-group">
 					<p><mark>Fecha de fundación:</mark> {!! $equipo->eqp_fecha_fundacion !!}</p>
+				</div>
+				<div class="form-group">
+					<p><mark>Facebook:</mark> {!! $equipo->eqp_twitter !!}</p>
+				</div>
+				<div class="form-group">
+					<p><mark>Twitter:</mark> {!! $equipo->eqp_facebook !!}</p>
 				</div>
 				<div class="form-group">
 					<p><mark>Sitio web:</mark> {!! $equipo->eqp_sitioweb !!}</p>
