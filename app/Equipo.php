@@ -17,10 +17,13 @@ class Equipo extends Model {
 	protected $fillable = [
 		'eqp_nombre',
 		'eqp_fecha_fundacion',
+		'eqp_escudo',
+		'eqp_twitter',
+		'eqp_facebook',
 		'eqp_sitioweb',
 		'eqp_tipo',
 		'lug_id'
-		];
+	];
 
 	/**
 	 * Columna primary key

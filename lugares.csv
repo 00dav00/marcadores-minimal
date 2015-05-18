@@ -1,0 +1,415 @@
+﻿lug_id,lug_abreviatura,lug_nombre,lug_tipo,parent_lug_id
+1,AMER,América,continente,
+2,EURO,Europa,continente,
+3,ASIA,Asia,continente,
+4,AFRI,África,continente,
+5,OCEAN,Ocenía,continente,
+6,AFG,Afganistán,pais,
+7,ALB,Albania,pais,
+8,DEU,Alemania,pais,
+9,DZA,Algeria,pais,
+10,AGO,Angola,pais,
+11,AIA,Anguila,pais,
+12,ATA,Antártida,pais,
+13,ATG,Antigua y Barbuda,pais,
+14,ANT,Antillas Neerlandesas,pais,
+15,SAU,Arabia Saudita,pais,
+16,ARG,Argentina,pais,
+17,ARM,Armenia,pais,
+18,ABW,Aruba,pais,
+19,AUS,Australia,pais,
+20,AUT,Austria,pais,
+21,AZE,Azerbayán,pais,
+22,BEL,Bélgica,pais,2
+23,BHS,Bahamas,pais,
+24,BHR,Bahrein,pais,
+25,BGD,Bangladesh,pais,
+26,BRB,Barbados,pais,
+27,BLZ,Belice,pais,
+28,BEN,Benín,pais,
+29,BTN,Bhután,pais,
+30,BLR,Bielorrusia,pais,
+31,MMR,Birmania,pais,
+32,BOL,Bolivia,pais,
+33,BIH,Bosnia y Herzegovina,pais,
+34,BWA,Botsuana,pais,
+35,BRA,Brasil,pais,
+36,BRN,Brunéi,pais,
+37,BGR,Bulgaria,pais,
+38,BFA,Burkina Faso,pais,
+39,BDI,Burundi,pais,
+40,CPV,Cabo Verde,pais,
+41,KHM,Camboya,pais,
+42,CMR,Camerún,pais,
+43,CAN,Canadá,pais,
+44,TCD,Chad,pais,
+45,CHL,Chile,pais,
+46,CHN,China,pais,
+47,CYP,Chipre,pais,
+48,VAT,Ciudad del Vaticano,pais,
+49,COL,Colombia,pais,1
+50,COM,Comoras,pais,
+51,COG,Congo,pais,
+52,COD,Congo,pais,
+53,PRK,Corea del Norte,pais,
+54,KOR,Corea del Sur,pais,
+55,CIV,Costa de Marfil,pais,
+56,CRI,Costa Rica,pais,
+57,HRV,Croacia,pais,
+58,CUB,Cuba,pais,
+59,DNK,Dinamarca,pais,
+60,DMA,Dominica,pais,
+61,ECU,Ecuador,pais,
+62,EGY,Egipto,pais,
+63,SLV,El Salvador,pais,
+64,ARE,Emiratos Árabes Unidos,pais,
+65,ERI,Eritrea,pais,
+66,SVK,Eslovaquia,pais,
+67,SVN,Eslovenia,pais,
+68,ESP,España,pais,
+69,USA,Estados Unidos de América,pais,
+70,EST,Estonia,pais,
+71,ETH,Etiopía,pais,
+72,PHL,Filipinas,pais,
+73,FIN,Finlandia,pais,
+74,FJI,Fiyi,pais,
+75,FRA,Francia,pais,
+76,GAB,Gabón,pais,
+77,GMB,Gambia,pais,
+78,GEO,Georgia,pais,
+79,GHA,Ghana,pais,
+80,GIB,Gibraltar,pais,
+81,GRD,Granada,pais,
+82,GRC,Grecia,pais,
+83,GRL,Groenlandia,pais,
+84,GLP,Guadalupe,pais,
+85,GUM,Guam,pais,
+86,GTM,Guatemala,pais,
+87,GUF,Guayana Francesa,pais,
+88,GGY,Guernsey,pais,
+89,GIN,Guinea,pais,
+90,GNQ,Guinea Ecuatorial,pais,
+91,GNB,Guinea-Bissau,pais,
+92,GUY,Guyana,pais,
+93,HTI,Haití,pais,
+94,HND,Honduras,pais,
+95,HKG,Hong kong,pais,
+96,HUN,Hungría,pais,
+97,IND,India,pais,
+98,IDN,Indonesia,pais,
+99,IRN,Irán,pais,
+100,IRQ,Irak,pais,
+101,IRL,Irlanda,pais,
+102,BVT,Isla Bouvet,pais,
+103,IMN,Isla de Man,pais,
+104,CXR,Isla de Navidad,pais,
+105,NFK,Isla Norfolk,pais,
+106,ISL,Islandia,pais,
+107,BMU,Islas Bermudas,pais,
+108,CYM,Islas Caimán,pais,
+109,CCK,Islas Cocos (Keeling),pais,
+110,COK,Islas Cook,pais,
+111,ALA,Islas de Åland,pais,
+112,FRO,Islas Feroe,pais,
+113,SGS,Islas Georgias del Sur y Sandwich del Sur,pais,
+114,HMD,Islas Heard y McDonald,pais,
+115,MDV,Islas Maldivas,pais,
+116,FLK,Islas Malvinas,pais,
+117,MNP,Islas Marianas del Norte,pais,
+118,MHL,Islas Marshall,pais,
+119,PCN,Islas Pitcairn,pais,
+120,SLB,Islas Salomón,pais,
+121,TCA,Islas Turcas y Caicos,pais,
+122,UMI,Islas Ultramarinas Menores de Estados Unidos,pais,
+123,VG,Islas Vírgenes Británicas,pais,
+124,VIR,Islas Vírgenes de los Estados Unidos,pais,
+125,ISR,Israel,pais,
+126,ITA,Italia,pais,
+127,JAM,Jamaica,pais,
+128,JPN,Japón,pais,
+129,JEY,Jersey,pais,
+130,JOR,Jordania,pais,
+131,KAZ,Kazajistán,pais,
+132,KEN,Kenia,pais,
+133,KGZ,Kirgizstán,pais,
+134,KIR,Kiribati,pais,
+135,KWT,Kuwait,pais,
+136,LBN,Líbano,pais,
+137,LAO,Laos,pais,
+138,LSO,Lesoto,pais,
+139,LVA,Letonia,pais,
+140,LBR,Liberia,pais,
+141,LBY,Libia,pais,
+142,LIE,Liechtenstein,pais,
+143,LTU,Lituania,pais,
+144,LUX,Luxemburgo,pais,
+145,MEX,México,pais,
+146,MCO,Mónaco,pais,
+147,MAC,Macao,pais,
+148,MKD,Macedônia,pais,
+149,MDG,Madagascar,pais,
+150,MYS,Malasia,pais,
+151,MWI,Malawi,pais,
+152,MLI,Mali,pais,
+153,MLT,Malta,pais,
+154,MAR,Marruecos,pais,
+155,MTQ,Martinica,pais,
+156,MUS,Mauricio,pais,
+157,MRT,Mauritania,pais,
+158,MYT,Mayotte,pais,
+159,FSM,Micronesia,pais,
+160,MDA,Moldavia,pais,
+161,MNG,Mongolia,pais,
+162,MNE,Montenegro,pais,
+163,MSR,Montserrat,pais,
+164,MOZ,Mozambique,pais,
+165,NAM,Namibia,pais,
+166,NRU,Nauru,pais,
+167,NPL,Nepal,pais,
+168,NIC,Nicaragua,pais,
+169,NER,Niger,pais,
+170,NGA,Nigeria,pais,
+171,NIU,Niue,pais,
+172,NOR,Noruega,pais,
+173,NCL,Nueva Caledonia,pais,
+174,NZL,Nueva Zelanda,pais,
+175,OMN,Omán,pais,
+176,NLD,Países Bajos,pais,
+177,PAK,Pakistán,pais,
+178,PLW,Palau,pais,
+179,PSE,Palestina,pais,
+180,PAN,Panamá,pais,
+181,PNG,Papúa Nueva Guinea,pais,
+182,PRY,Paraguay,pais,
+183,PER,Perú,pais,
+184,PYF,Polinesia Francesa,pais,
+185,POL,Polonia,pais,
+186,PRT,Portugal,pais,
+187,PRI,Puerto Rico,pais,
+188,QAT,Qatar,pais,
+189,GBR,Reino Unido,pais,
+190,CAF,República Centroafricana,pais,
+191,CZE,República Checa,pais,
+192,DOM,República Dominicana,pais,
+193,REU,Reunión,pais,
+194,RWA,Ruanda,pais,
+195,ROU,Rumanía,pais,
+196,RUS,Rusia,pais,
+197,ESH,Sahara Occidental,pais,
+198,WSM,Samoa,pais,
+199,ASM,Samoa Americana,pais,
+200,BLM,San Bartolomé,pais,
+201,KNA,San Cristóbal y Nieves,pais,
+202,SMR,San Marino,pais,
+203,MAF,San Martín (Francia),pais,
+204,SPM,San Pedro y Miquelón,pais,
+205,VCT,San Vicente y las Granadinas,pais,
+206,SHN,Santa Elena,pais,
+207,LCA,Santa Lucía,pais,
+208,STP,Santo Tomé y Príncipe,pais,
+209,SEN,Senegal,pais,
+210,SRB,Serbia,pais,
+211,SYC,Seychelles,pais,
+212,SLE,Sierra Leona,pais,
+213,SGP,Singapur,pais,
+214,SYR,Siria,pais,
+215,SOM,Somalia,pais,
+216,LKA,Sri lanka,pais,
+217,ZAF,Sudáfrica,pais,
+218,SDN,Sudán,pais,
+219,SWE,Suecia,pais,
+220,CHE,Suiza,pais,
+221,SUR,Surinám,pais,
+222,SJM,Svalbard y Jan Mayen,pais,
+223,SWZ,Swazilandia,pais,
+224,TJK,Tadjikistán,pais,
+225,THA,Tailandia,pais,
+226,TWN,Taiwán,pais,
+227,TZA,Tanzania,pais,
+228,IOT,Territorio Británico del Océano Índico,pais,
+229,ATF,Territorios Australes y Antárticas Franceses,pais,
+230,TLS,Timor Oriental,pais,
+231,TGO,Togo,pais,
+232,TKL,Tokelau,pais,
+233,TON,Tonga,pais,
+234,TTO,Trinidad y Tobago,pais,
+235,TUN,Tunez,pais,
+236,TKM,Turkmenistán,pais,
+237,TUR,Turquía,pais,
+238,TUV,Tuvalu,pais,
+239,UKR,Ucrania,pais,
+240,UGA,Uganda,pais,
+241,URY,Uruguay,pais,
+242,UZB,Uzbekistán,pais,
+243,VUT,Vanuatu,pais,
+244,VEN,Venezuela,pais,
+245,VNM,Vietnam,pais,
+246,WLF,Wallis y Futuna,pais,
+247,YEM,Yemen,pais,
+248,DJI,Yibuti,pais,
+249,ZMB,Zambia,pais,
+250,ZWE,Zimbabue,pais,
+415,ARG-MSN,Posadas,ciudad,16
+416,ARG-CHB,Comodoro Rivadavia,ciudad,16
+417,ARG-SCR,Rio Gallegos,ciudad,16
+418,ARG-TDF,Ushuaia,ciudad,16
+419,ARG-NEU,Neuquen,ciudad,16
+420,ARG-SJU,San Juan,ciudad,16
+421,ARG-MND,Mendoza,ciudad,16
+422,ARG-SFE,Santa Fe,ciudad,16
+423,ARG-ERI,Parana,ciudad,16
+424,ARG-SFE,Rosario,ciudad,16
+425,ARG-BAI,La Plata,ciudad,16
+426,ARG-LPA,Santa Rosa,ciudad,16
+427,ARG-BAI,Bahia Blanca,ciudad,16
+428,ARG-RNE,Viedma,ciudad,16
+429,ARG-CHB,Rawson,ciudad,16
+430,ARG-DFD,Buenos Aires,ciudad,16
+431,ARG-JUJ,San Salvador De Jujuy,ciudad,16
+432,ARG-SAL,Salta,ciudad,16
+433,ARG-TCM,San Miguel De Tucuman,ciudad,16
+434,ARG-SDE,Santiago Del Estero,ciudad,16
+435,ARG-CTM,Catamarca,ciudad,16
+436,ARG-LRI,La Rioja,ciudad,16
+437,ARG-CRD,Cordoba,ciudad,16
+438,ARG-SLU,San Luis,ciudad,16
+439,ARG-FRM,Formosa,ciudad,16
+440,ARG-CHA,Resistencia,ciudad,16
+441,ARG-CRR,Corrientes,ciudad,16
+442,BOL-LPA,La Paz,ciudad,32
+443,BOL-PAN,Cobija,ciudad,32
+444,BOL-EBE,Trinidad,ciudad,32
+445,BOL-CCH,Cochabamba,ciudad,32
+446,BOL-SCR,Santa Cruz de La Sierra,ciudad,32
+447,BOL-ORU,Oruro,ciudad,32
+448,BOL-CHQ,Sucre,ciudad,32
+449,BOL-POT,Potosi,ciudad,32
+450,BOL-TAR,Tarija,ciudad,32
+451,BRA-MGR,Cuiaba,ciudad,35
+452,BRA-DFD,Brasilia,ciudad,35
+453,BRA-GOI,Goiania,ciudad,35
+454,BRA-MGD,Campo Grande,ciudad,35
+455,BRA-ACR,Rio Branco,ciudad,35
+456,BRA-PAR,Belem,ciudad,35
+457,BRA-PAR,Santarem,ciudad,35
+458,BRA-AMZ,Manaus,ciudad,35
+459,BRA-RND,Porto Velho,ciudad,35
+460,BRA-TCN,Palmas,ciudad,35
+461,BRA-SPA,Sao Paulo,ciudad,35
+462,BRA-SPA,Santos,ciudad,35
+463,BRA-PAN,Curitiba,ciudad,35
+464,BRA-SCT,Florianopolis,ciudad,35
+465,BRA-RGS,Porto Alegre,ciudad,35
+466,BRA-BAH,Salvador,ciudad,35
+467,BRA-MGE,Belo Horizonte,ciudad,35
+468,BRA-ESA,Vitoria,ciudad,35
+469,BRA-RDJ,Rio de Janeiro,ciudad,35
+470,BRA-RDJ,Niteroi,ciudad,35
+471,BRA-MRN,Sao Luis,ciudad,35
+472,BRA-CEA,Fortaleza,ciudad,35
+473,BRA-PIA,Teresina,ciudad,35
+474,BRA-RGN,Natal,ciudad,35
+475,BRA-PAA,Joao Pessoa,ciudad,35
+476,BRA-PRN,Recife,ciudad,35
+477,BRA-ALG,Maceio,ciudad,35
+478,BRA-SRG,Aracaju,ciudad,35
+479,BRA-ROR,Boa Vista,ciudad,35
+480,BRA-AMA,Macapa,ciudad,35
+481,COL-AMZ,Leticia,ciudad,49
+482,COL-LGU,Riohacha,ciudad,49
+483,COL-SAY,San Andres,ciudad,49
+484,COL-MGD,Santa Marta,ciudad,49
+485,COL-VDC,Cali,ciudad,49
+486,COL-CAU,Popayan,ciudad,49
+487,COL-CAQ,Florencia,ciudad,49
+488,COL-NAR,Pasto,ciudad,49
+489,COL-PTM,Mocoa,ciudad,49
+490,COL-BOY,Tunja,ciudad,49
+491,COL-CLD,Manizales,ciudad,49
+492,COL-RSR,Pereira,ciudad,49
+493,COL-QUI,Armenia,ciudad,49
+494,COL-TOL,Ibague,ciudad,49
+495,COL-MET,Villavicencio,ciudad,49
+496,COL-HUI,Neiva,ciudad,49
+497,COL-DES,Bogota,ciudad,49
+498,COL-ATL,Barranquilla,ciudad,49
+499,COL-CES,Valledupar,ciudad,49
+500,COL-BLV,Cartagena,ciudad,49
+501,COL-SUC,Sincelejo,ciudad,49
+502,COL-CRD,Monteria,ciudad,49
+503,COL-ANT,Medellin,ciudad,49
+504,COL-CHO,Quibdo,ciudad,49
+505,COL-NDS,Cucuta,ciudad,49
+506,COL-SNT,Bucaramanga,ciudad,49
+507,COL-ARA,Arauca,ciudad,49
+508,COL-CSN,Yopal,ciudad,49
+509,COL-GUI,Puerto Inirida,ciudad,49
+510,COL-GUA,San Jose Del Guavuare,ciudad,49
+511,COL-VAU,Mitu,ciudad,49
+512,COL-VCH,Puerto Carreno,ciudad,49
+513,ECU-MAN,Portoviejo,ciudad,61
+514,ECU-BLV,Guaranda,ciudad,61
+515,ECU-LRI,Babahoyo,ciudad,61
+516,ECU-GUA,Guayaquil,ciudad,61
+517,ECU-CAN,Azogues,ciudad,61
+518,ECU-GLP,Baquerizo Moreno,ciudad,61
+519,ECU-AZU,Cuenca,ciudad,61
+520,ECU-EOR,Machala,ciudad,61
+521,ECU-LOJ,Loja,ciudad,61
+522,ECU-ZCH,Zamora,ciudad,61
+523,ECU-PCH,Quito,ciudad,61
+524,ECU-CTP,La Tacunga,ciudad,61
+525,ECU-NAP,Tena,ciudad,61
+526,ECU-TNG,Ambato,ciudad,61
+527,ECU-PST,Puyo,ciudad,61
+528,ECU-CHM,Riobamba,ciudad,61
+529,ECU-MSN,Macas,ciudad,61
+530,ECU-ESM,Esmeraldas,ciudad,61
+531,ECU-CRC,Tulcan,ciudad,61
+532,ECU-IMB,Ibarra,ciudad,61
+533,PRY-AMM,Pedro Juan Caballero,ciudad,182
+534,PRY-CNN,Salto del Guaira,ciudad,182
+535,PRY-APA,Puerto Presidente Stroessner,ciudad,182
+536,PRY-ITA,Encarnacion,ciudad,182
+537,PRY-CHA,Mayor Pablo Lagerenza,ciudad,182
+538,PRY-APR,Fuerte Otimpo,ciudad,182
+539,PRY-BQR,Mariscal Jose F. Estigarribia,ciudad,182
+540,PRY-NAS,Fortin Coronel Eugenia Garay,ciudad,182
+541,PRY-CNC,Concepcion,ciudad,182
+542,PRY-PHA,Pozo Colorado,ciudad,182
+543,PRY-SPE,San Pedro,ciudad,182
+544,PRY-CNT,Asuncion,ciudad,182
+545,PRY-CRD,Caacupe,ciudad,182
+546,PRY-CAA,Coronel Oviedo,ciudad,182
+547,PRY-PRG,Paraguari,ciudad,182
+548,PRY-GUA,Villarrica,ciudad,182
+549,PRY-NMB,Pilar,ciudad,182
+550,PRY-CNT,Ypacarai,ciudad,182
+551,PRY-CAZ,Caazapa,ciudad,182
+552,PRY-MSN,San Juan Bautista,ciudad,182
+553,PER-MDD,Puerto Maldonado,ciudad,183
+554,PER-CUS,Cuzco,ciudad,183
+555,PER-APR,Abancay,ciudad,183
+556,PER-PUN,Puno,ciudad,183
+557,PER-ARQ,Arequipa,ciudad,183
+558,PER-TMB,Tumbes,ciudad,183
+559,PER-PIU,Piura,ciudad,183
+560,PER-LMB,Chiclayo,ciudad,183
+561,PER-LLB,Trujillo,ciudad,183
+562,PER-SMR,Mayobamba,ciudad,183
+563,PER-AMZ,Chachapoyas,ciudad,183
+564,PER-CJM,Cajamarca,ciudad,183
+565,PER-UCY,Pucallpa,ciudad,183
+566,PER-ANC,Chimbote,ciudad,183
+567,PER-ANC,Huaraz,ciudad,183
+568,PER-HUA,Huanuco,ciudad,183
+569,PER-PAS,Cerro De Pasco,ciudad,183
+570,PER-LOR,Iquitos,ciudad,183
+571,PER-CAL,Callao,ciudad,183
+572,PER-JUN,Huancayo,ciudad,183
+573,PER-HNC,Huancavelica,ciudad,183
+574,PER-AYC,Ayacucho,ciudad,183
+575,PER-ICA,Ica,ciudad,183
+576,PER-MOQ,Moquegua,ciudad,183
+577,PER-TAC,Tacna,ciudad,183
+578,PER-LIM,Lima,ciudad,183

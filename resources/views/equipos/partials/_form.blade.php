@@ -9,6 +9,21 @@
 </div>
 
 <div class="form-group">
+	<small>{!! Form::label('eqp_escudo', 'Escudo del Equipo') !!}</small>
+	{!! Form::text('eqp_escudo', null, array('class'=>'form-control input-sm','placeholder'=>'Escudo del Equipo')) !!}
+</div>
+
+<div class="form-group">
+	<small>{!! Form::label('eqp_twitter', 'Facebook') !!}</small>
+	{!! Form::text('eqp_twitter', null, array('class'=>'form-control input-sm','placeholder'=>'Usuario de Facebook')) !!}
+</div>
+
+<div class="form-group">
+	<small>{!! Form::label('eqp_facebook', 'Twitter') !!}</small>
+	{!! Form::text('eqp_facebook', null, array('class'=>'form-control input-sm','placeholder'=>'Twitter')) !!}
+</div>
+
+<div class="form-group">
 	<small>{!! Form::label('eqp_sitioweb', 'Sitio web') !!}</small>
 	{!! Form::text('eqp_sitioweb', null, array('class'=>'form-control input-sm','placeholder'=>'Sitio web')) !!}
 </div>
