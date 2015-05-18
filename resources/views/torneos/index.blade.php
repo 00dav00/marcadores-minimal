@@ -9,6 +9,8 @@
 	
 	<h5 class="text-center"><a href="{!! url('torneos/create') !!}">Agregar un torneo</a></h5>
 
+	@include('partials.searchForm', ['route' => 'torneos'])
+
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
@@ -37,7 +39,7 @@
 
 	</table> 
 
-	<h5 class="text-center">{!! $torneos->render() !!}</h5>
+	<h5 class="text-center">{!! $torneos->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
 
 </div>
 

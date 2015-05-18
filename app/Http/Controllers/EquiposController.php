@@ -16,13 +16,23 @@ class EquiposController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$equipos = Equipo::with('nacionalidad')
-					->orderBy('eqp_nombre')
-					->paginate(20);
 
-		return view('equipos.index', compact('equipos'));
+		$keyword = $request->get('keyword');
+
+		$column = $request->get('column');
+		
+		$equipos = Equipo::search($keyword, $column);
+
+		$searchFields = Equipo::getSearchFields();
+
+		if (!empty($keyword)) {
+			flash()->info("Resultados de la búsqueda: $keyword");
+		}
+
+		return view('equipos.index', compact('equipos', 'keyword', 'column', 'searchFields'));
+
 	}
 
 	/**

@@ -20,13 +20,21 @@ class EstadiosController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$estadios = Estadio::with('ubicacion')
-						->orderBy('est_nombre')
-						->paginate(20);
+		$keyword = $request->get('keyword');
 
-		return view('estadios.index',compact('estadios'));
+		$column = $request->get('column');
+		
+		$estadios = Estadio::search($keyword, $column);
+
+		$searchFields = Estadio::getSearchFields();
+
+		if (!empty($keyword)) {
+			flash()->info("Resultados de la búsqueda: $keyword");
+		}
+
+		return view('estadios.index', compact('estadios', 'keyword', 'column', 'searchFields'));
 	}
 
 	/**

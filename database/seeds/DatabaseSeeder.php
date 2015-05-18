@@ -3,7 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use database\seeds\JugadoresTableSeeder;
+use database\seeds\FakeDataTableSeeder;
+use database\seeds\RealDataSeeder;
 
 class DatabaseSeeder extends Seeder {
 
@@ -16,7 +17,9 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		$this->call('JugadoresTableSeeder');
+		//$this->call('RealDataSeeder');
+
+		$this->call('FakeDataTableSeeder');
 	}
 
 }

@@ -25,7 +25,7 @@
 					<p><mark>Fecha de nacimiento:</mark> {!! $jugador->jug_fecha_nacimiento !!}</p>
 				</div>
 				<div class="form-group">
-					<p><mark>Altura:</mark> {!! $jugador->jug_altura !!}</p>
+					<p><mark>Altura (cm):</mark> {!! $jugador->jug_altura !!}</p>
 				</div>
 				<div class="form-group">
 					<p><mark>Sitio web:</mark> {!! $jugador->jug_sitioweb !!}</p>

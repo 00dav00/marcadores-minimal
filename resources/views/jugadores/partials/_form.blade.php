@@ -19,8 +19,8 @@
 </div>
 
 <div class="form-group">
-	<small>{!! Form::label('jug_altura', 'Altura') !!}</small>
-	{!! Form::text('jug_altura', null, array('class'=>'form-control input-sm','placeholder'=>'Altura')) !!}
+	<small>{!! Form::label('jug_altura', 'Altura (cm)') !!}</small>
+	{!! Form::text('jug_altura', null, array('class'=>'form-control input-sm','placeholder'=>'Altura (cm)')) !!}
 </div>
 
 <div class="form-group">

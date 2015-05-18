@@ -2,7 +2,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Libraries\SearchTrait;
+
 class Jugador extends Model {
+
+	use SearchTrait;
 
 	/**
 	 * Nombre de la tabla en donde se guardan los lugares
@@ -25,6 +29,18 @@ class Jugador extends Model {
 		'jug_foto',
 		'lug_id',
 		];
+
+	protected $searchArray = [
+		'columns' => [
+				'jug_apellido' => 'Apellido',
+				'jug_nombre' => 'Nombre',
+				'jug_apodo' => 'Apodo',
+			],
+		'joins' => [
+				'nacionalidad',
+			],
+		'pagination' => 50,
+	];
 
 	/**
 	 * Columna primary key

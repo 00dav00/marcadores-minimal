@@ -9,6 +9,8 @@
 	
 	<h5 class="text-center"><a href="{!! url('estadios/create') !!}">Agregar un estadio</a></h5>
 
+	@include('partials.searchForm', ['route' => 'estadios'])
+
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
@@ -32,6 +34,8 @@
 		</tbody>
 
 	</table> 
+
+	<h5 class="text-center">{!! $estadios->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
 
 </div>
 

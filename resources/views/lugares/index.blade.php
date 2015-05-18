@@ -9,6 +9,8 @@
 
 	<h5 class="text-center"><a href="{!! url('lugares/create') !!}">Agregar un Lugar</a></h5>
 
+	@include('partials.searchForm', ['route' => 'lugares'])
+
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
@@ -33,7 +35,7 @@
 
 	</table> 
 
-	<h5 class="text-center">{!! $lugares->render() !!}</h5>
+	<h5 class="text-center">{!! $lugares->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
 
 </div>
 

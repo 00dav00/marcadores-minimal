@@ -16,13 +16,21 @@ class TorneosController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$torneos = Torneo::with('lugar', 'tipoTorneo')
-					->orderBy('tor_nombre')
-					->paginate(20);
+		$keyword = $request->get('keyword');
 
-		return view('torneos.index', compact('torneos'));
+		$column = $request->get('column');
+		
+		$torneos = Torneo::search($keyword, $column);
+
+		$searchFields = Torneo::getSearchFields();
+
+		if (!empty($keyword)) {
+			flash()->info("Resultados de la búsqueda: $keyword");
+		}
+
+		return view('torneos.index', compact('torneos', 'keyword', 'column', 'searchFields'));
 	}
 
 	/**
