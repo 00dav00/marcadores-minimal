@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6703221ed7e4ebd6a8cf4a2db79bde67",
+    "hash": "5aa6ef2e810e2fc90e72009c32508a78",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -600,6 +600,58 @@
             ],
             "description": "Easy flash notifications",
             "time": "2015-02-01 20:07:15"
+        },
+        {
+            "name": "laracasts/testdummy",
+            "version": "2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracasts/TestDummy.git",
+                "reference": "ba986a66b6f4a1e149355357353af3072d5521ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laracasts/TestDummy/zipball/ba986a66b6f4a1e149355357353af3072d5521ee",
+                "reference": "ba986a66b6f4a1e149355357353af3072d5521ee",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "~1.4",
+                "illuminate/support": "~4.0|~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/database": "~4.0|~5.0",
+                "phpspec/phpspec": "~2.0",
+                "phpunit/phpunit": "~4.7@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laracasts\\TestDummy\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeffrey Way",
+                    "email": "jeffrey@laracasts.com"
+                }
+            ],
+            "description": "Easy test stubs",
+            "keywords": [
+                "factorygirl",
+                "laravel",
+                "stubs",
+                "testing"
+            ],
+            "time": "2015-04-27 15:56:12"
         },
         {
             "name": "laravel/framework",
