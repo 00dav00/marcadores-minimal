@@ -2,7 +2,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Libraries\SearchTrait;
+
 class Equipo extends Model {
+
+	use SearchTrait;
 
 	/**
 	 * Nombre de la tabla en donde se guardan los lugares
@@ -23,6 +27,18 @@ class Equipo extends Model {
 		'eqp_sitioweb',
 		'eqp_tipo',
 		'lug_id'
+	];
+
+	protected $searchArray = [
+		'columns' => [
+				'eqp_nombre' => 'Nombre',
+				'eqp_fecha_fundacion' => 'Fecha de fundación',
+				'eqp_tipo' => 'Tipo',
+			],
+		'joins' => [
+				'nacionalidad',
+			],
+		'pagination' => 50,
 	];
 
 	/**

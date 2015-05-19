@@ -2,7 +2,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Libraries\SearchTrait;
+
 class Torneo extends Model {
+
+	use SearchTrait;
 
 	/**
 	 * Nombre de la tabla en donde se guardan los lugares
@@ -24,6 +28,21 @@ class Torneo extends Model {
 		'lug_id',
 		'ttr_id'
 		];
+
+	protected $searchArray = [
+		'columns' => [
+				'tor_nombre' => 'Nombre',
+				'tor_anio_referencia' => 'Año de referencia',
+				'tor_fecha_inicio' => 'Fecha de inicio',
+				'tor_fecha_fin' => 'Fecha de fin',
+				'tor_tipo_equipos' => 'Tipo de equipos',
+				'tor_numero_equipos' => 'Número de equipos',
+			],
+		'joins' => [
+				'tipoTorneo',
+			],
+		'pagination' => 50,
+	];
 
 	/**
 	 * Columna primary key

@@ -9,6 +9,8 @@
 	
 	<h5 class="text-center"><a href="{!! url('equipos/create') !!}">Agregar un Equipo</a></h5>
 
+	@include('partials.searchForm', ['route' => 'equipos'])
+
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
@@ -31,7 +33,7 @@
 
 	</table> 
 
-	<h5 class="text-center">{!! $equipos->render() !!}</h5>
+	<h5 class="text-center">{!! $equipos->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
 
 </div>
 

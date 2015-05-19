@@ -2,7 +2,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Libraries\SearchTrait;
+
 class Lugar extends Model {
+
+	use SearchTrait;
 
 	/**
 	 * Nombre de la tabla en donde se guardan los lugares
@@ -20,6 +24,17 @@ class Lugar extends Model {
 		'lug_tipo',
 		'parent_lug_id'
 		];
+
+	protected $searchArray = [
+		'columns' => [
+				'lug_abreviatura' => 'Abreviatura',
+				'lug_nombre' => 'Nombre',
+			],
+		'joins' => [
+				'lugarPadre',
+			],
+		'pagination' => 50,
+	];
 
 	/**
 	 * Columna primary key

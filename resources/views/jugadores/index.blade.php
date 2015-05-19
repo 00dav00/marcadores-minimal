@@ -9,6 +9,8 @@
 	
 	<h5 class="text-center"><a href="{!! url('jugadores/create') !!}">Agregar un Jugador</a></h5>
 
+	@include('partials.searchForm', ['route' => 'jugadores'])
+
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
@@ -33,7 +35,7 @@
 
 	</table> 
 
-	<h5 class="text-center">{!! $jugadores->render() !!}</h5>
+	<h5 class="text-center">{!! $jugadores->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
 
 </div>
 

@@ -14,14 +14,22 @@ class LugaresController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 
-		$lugares = Lugar::with('lugarPadre')
-					->orderBy('lug_tipo', 'pais')
-					->paginate(20);
+		$keyword = $request->get('keyword');
 
-		return view('lugares.index', compact('lugares'));
+		$column = $request->get('column');
+		
+		$lugares = Lugar::search($keyword, $column);
+
+		$searchFields = Lugar::getSearchFields();
+
+		if (!empty($keyword)) {
+			flash()->info("Resultados de la búsqueda: $keyword");
+		}
+
+		return view('lugares.index', compact('lugares', 'keyword', 'column', 'searchFields'));
 	}
 
 	/**

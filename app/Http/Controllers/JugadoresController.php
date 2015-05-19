@@ -20,14 +20,22 @@ class JugadoresController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 
-		$jugadores = Jugador::with('nacionalidad')
-					->orderBy('jug_apellido')
-					->paginate(20);
+		$keyword = $request->get('keyword');
 
-		return view('jugadores.index', compact('jugadores'));
+		$column = $request->get('column');
+		
+		$jugadores = Jugador::search($keyword, $column);
+
+		$searchFields = Jugador::getSearchFields();
+
+		if (!empty($keyword)) {
+			flash()->info("Resultados de la búsqueda: $keyword");
+		}
+
+		return view('jugadores.index', compact('jugadores', 'keyword', 'column', 'searchFields'));
 	}
 
 	/**
