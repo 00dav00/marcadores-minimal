@@ -9,23 +9,23 @@ use App\Estadio;
 
 use App\Http\Requests\EstadioRequest;
 
-use Image;
+// use Image;
 
 use File;
 
+use App\Libraries\ImageTrait;
+
+
 class EstadiosController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	use ImageTrait;
+
+
 	public function index(Request $request)
 	{
 		$keyword = $request->get('keyword');
-
 		$column = $request->get('column');
-		
+
 		$estadios = Estadio::search($keyword, $column);
 
 		$searchFields = Estadio::getSearchFields();
@@ -37,76 +37,53 @@ class EstadiosController extends Controller {
 		return view('estadios.index', compact('estadios', 'keyword', 'column', 'searchFields'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
 	public function create()
 	{
 		return view('estadios.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+
 	public function store(EstadioRequest $request)
 	{
 		$data = $request->all();
 
 		if ($request->file('est_foto_por_defecto')) 
-		{
-			$filename = $this->obtenerImagen($request);
-			$data['est_foto_por_defecto'] = 'images/estadios/' . $filename;
-		}
-
+			$data['est_foto_por_defecto'] = $this->procesarImagen(
+												$request->file('est_foto_por_defecto'),
+												Estadio::getImagePath()
+											);
 		Estadio::create($data);
 		flash()->success('Estadio creado exitosamente');
 		return redirect('estadios');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($id)
 	{
 		$estadio = Estadio::findOrFail($id);
 		return view('estadios.show',compact('estadio'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($id)
 	{
 		$estadio = Estadio::findOrFail($id);
 		return view('estadios.edit',compact('estadio'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update($id, EstadioRequest $request)
 	{
-		$estadio = Estadio::findOrFail($id);
-
 		$data = $request->all();
+		$estadio = Estadio::findOrFail($id);
 
 		if ($request->file('est_foto_por_defecto')) {
 			File::delete(public_path($estadio->est_foto_por_defecto));
-			$filename = $this->obtenerImagen($request);
-			$data['est_foto_por_defecto'] = 'images/estadios/' . $filename;
+			$data['est_foto_por_defecto'] = $this->procesarImagen(
+												$request->file('est_foto_por_defecto'),
+												Estadio::getImagePath()
+											);
 		}
 
 		$estadio->update($data);
@@ -114,12 +91,7 @@ class EstadiosController extends Controller {
 		return redirect('estadios');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function destroy($id)
 	{
 		$message = "Estadio no encontrado!";
@@ -135,14 +107,6 @@ class EstadiosController extends Controller {
 		return redirect('estadios');
 	}
 
-	protected function obtenerImagen($request)
-	{
-		$image = $request->file('est_foto_por_defecto');
-		$filename = date('Y-m-d-H:i:s'). "-" .$image->getClientOriginalName();
-		$path = public_path('images/estadios/' . $filename);
-		Image::make($image->getRealPath())->resize(300, 200)->save($path);
-		return $filename;
-	}
 
 	public function consulta(Request $request)
 	{

@@ -9,11 +9,15 @@ use App\Jugador;
 
 use App\Http\Requests\JugadorRequest;
 
-use Image;
+// use Image;
 
 use File;
 
+use App\Libraries\ImageTrait;
+
 class JugadoresController extends Controller {
+
+	use ImageTrait;
 
 	/**
 	 * Display a listing of the resource.
@@ -24,11 +28,9 @@ class JugadoresController extends Controller {
 	{
 
 		$keyword = $request->get('keyword');
-
 		$column = $request->get('column');
 		
 		$jugadores = Jugador::search($keyword, $column);
-
 		$searchFields = Jugador::getSearchFields();
 
 		if (!empty($keyword)) {
@@ -57,9 +59,10 @@ class JugadoresController extends Controller {
 	{
 		$data = $request->all();
 
-		$filename = $this->obtenerImagen($request);
-
-		$data['jug_foto'] = 'images/jugadores/' . $filename;
+		$data['jug_foto'] = $this->procesarImagen(
+									$request->file('jug_foto'),
+									Jugador::getImagePath()
+								);
 
 		Jugador::create($data);
 
@@ -109,8 +112,10 @@ class JugadoresController extends Controller {
 
 		if ($request->file('jug_foto')) {
 			File::delete(public_path($jugador->jug_foto));
-			$filename = $this->obtenerImagen($request);
-			$data['jug_foto'] = 'images/jugadores/' . $filename;
+			$data['jug_foto'] = $this->procesarImagen(
+									$request->file('jug_foto'),
+									Jugador::getImagePath()
+								);
 		}
 
 		$jugador->update($data);
@@ -140,20 +145,6 @@ class JugadoresController extends Controller {
 		}
 
 		return redirect('jugadores')->with('message', 'Jugador no encontrado');
-	}
-
-	/**
-	 * Obtener datos y guardar una imagen que se quiere subir
-	 * @param  object $request Objeto con los datos enviados por el formulario
-	 * @return string          nombre del archivo con la fotografia
-	 */
-	protected function obtenerImagen($request)
-	{
-		$image = $request->file('jug_foto');
-		$filename = date('Y-m-d-H:i:s'). "-" .$image->getClientOriginalName();
-		$path = public_path('images/jugadores/' . $filename);
-		Image::make($image->getRealPath())->resize(300, 200)->save($path);
-		return $filename;
 	}
 
 	public function consulta(Request $request)

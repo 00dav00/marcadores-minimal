@@ -3,10 +3,11 @@
 use Illuminate\Database\Eloquent\Model;
 
 use App\Libraries\SearchTrait;
+use App\Libraries\MetaDataTrait;
 
 class Jugador extends Model {
 
-	use SearchTrait;
+	use SearchTrait, MetaDataTrait;
 
 	/**
 	 * Nombre de la tabla en donde se guardan los lugares
@@ -47,6 +48,18 @@ class Jugador extends Model {
 	 * @var string
 	 */
 	protected $primaryKey = 'jug_id';
+
+	/**
+	 * path donde se guardan las imagenes
+	 * @var string
+	 */
+	protected $imagePath = 'images/jugadores/';
+
+	/**
+	 * nombre para consultas ajax
+	 * @var string
+	 */
+	protected $nameColumn = 'jug_nombre';
 
 	/**
 	 * No se van a utilizar timestamps
