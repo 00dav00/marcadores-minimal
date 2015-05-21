@@ -9,7 +9,15 @@ use App\Equipo;
 
 use App\Http\Requests\EquipoRequest;
 
+// use Image;
+
+use File;
+
+use App\Libraries\ImageTrait;
+
 class EquiposController extends Controller {
+
+	use ImageTrait;
 
 	/**
 	 * Display a listing of the resource.
@@ -54,9 +62,10 @@ class EquiposController extends Controller {
 	{
 		$data = $request->all();
 
-		$filename = $this->obtenerImagen($request);
-
-		$data['eqp_escudo'] = 'images/equipos/' . $filename;
+		$data['eqp_escudo'] = $this->procesarImagen(
+										$request->file('eqp_escudo'),
+										Equipo::getImagePath()
+									);
 
 		Equipo::create($data);
 
@@ -106,8 +115,11 @@ class EquiposController extends Controller {
 
 		if ($request->file('eqp_escudo')) {
 			File::delete(public_path($equipo->eqp_escudo));
-			$filename = $this->obtenerImagen($request);
-			$data['eqp_escudo'] = 'images/equipos/' . $filename;
+
+			$data['eqp_escudo'] = $this->procesarImagen(
+											$request->file('eqp_escudo'),
+											Equipo::getImagePath()
+										);
 		}
 
 		$equipo->update($data);
@@ -136,15 +148,6 @@ class EquiposController extends Controller {
 		}
 
 		return redirect('equipos')->with('message', 'Equipo no encontrado');
-	}
-
-	protected function obtenerImagen($request)
-	{
-		$image = $request->file('eqp_escudo');
-		$filename = date('Y-m-d-H:i:s'). "-" .$image->getClientOriginalName();
-		$path = public_path('images/equipos/' . $filename);
-		Image::make($image->getRealPath())->resize(300, 200)->save($path);
-		return $filename;
 	}
 
 	public function consulta(Request $request)

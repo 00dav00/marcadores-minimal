@@ -12,8 +12,21 @@
 				
 				@include('partials.validation_errors')
 
-				{!! Form::model($equipo, ['method' => 'PATCH', 'route' => ['equipos.update', $equipo->eqp_id]]) !!}
-					@include('equipos.partials._form', ['lug_id' => $equipo->nacionalidad->lug_id, 'lug_nombre' => $equipo->nacionalidad->lug_nombre])
+				{!! Form::model(
+					$equipo, 
+					[
+						'method' => 'PATCH', 
+						'route' => ['equipos.update', $equipo->eqp_id],
+						'files' => true,
+					]
+				) !!}
+					@include(
+						'equipos.partials._form', 
+						[
+							'lug_id' => $equipo->nacionalidad->lug_id, 
+							'lug_nombre' => $equipo->nacionalidad->lug_nombre
+						]
+					)
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}
 				

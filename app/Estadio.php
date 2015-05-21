@@ -3,10 +3,12 @@
 use Illuminate\Database\Eloquent\Model;
 
 use App\Libraries\SearchTrait;
+use App\Libraries\MetaDataTrait;
+
 
 class Estadio extends Model {
 
-	use SearchTrait;
+	use SearchTrait, MetaDataTrait;
 
 	protected $table = 'estadios';
 
@@ -30,6 +32,18 @@ class Estadio extends Model {
 	];
 
 	protected $primaryKey = 'est_id';
+
+	/**
+	 * path donde se guardan las imagenes
+	 * @var string
+	 */
+	protected $imagePath = 'images/estadios/';
+
+	/**
+	 * nombre para consultas ajax
+	 * @var string
+	 */
+	protected $nameColumn = 'est_nombre';
 
 	public $timestamps = false;
 

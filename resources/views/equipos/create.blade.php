@@ -12,7 +12,7 @@
 				
 				@include('partials.validation_errors')
 
-				{!! Form::open(array('route' => 'equipos.store')) !!}
+				{!! Form::open(array('route' => 'equipos.store', 'files' => true)) !!}
 					@include('equipos.partials._form')
 					{!! Form::submit('Agregar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}

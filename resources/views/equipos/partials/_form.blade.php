@@ -9,8 +9,8 @@
 </div>
 
 <div class="form-group">
-	<small>{!! Form::label('eqp_escudo', 'Escudo del Equipo') !!}</small>
-	{!! Form::text('eqp_escudo', null, array('class'=>'form-control input-sm','placeholder'=>'Escudo del Equipo')) !!}
+	<small>{!! Form::label('eqp_escudo', 'Escudo') !!}</small>
+	{!! Form::file('eqp_escudo', array('class'=>'form-control input-sm','placeholder'=>'Escudo')) !!}
 </div>
 
 <div class="form-group">
