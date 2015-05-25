@@ -18,6 +18,8 @@ trait SearchTrait
 		// valor del array definido en el modelo
 		if (array_key_exists('pagination', $this->searchArray)){	
 			return $query->paginate($this->searchArray['pagination']);	
+		} else if(env('PAGINATION_NUMBER')) {
+			return $query->paginate(env('PAGINATION_NUMBER'));
 		} else {	
 			return $query->get();	
 		}

@@ -39,7 +39,6 @@ class Equipo extends Model {
 		'joins' => [
 				'nacionalidad',
 			],
-		'pagination' => 50,
 	];
 
 	/**

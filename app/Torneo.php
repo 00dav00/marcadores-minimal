@@ -43,7 +43,6 @@ class Torneo extends Model {
 				'equiposParticipantes',
 				'plantilla'
 			],
-		'pagination' => 50,
 	];
 
 	/**

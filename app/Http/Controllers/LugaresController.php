@@ -131,7 +131,7 @@ class LugaresController extends Controller {
 
 		if (trim(urldecode($keyword)) != '') {
 			$resultados = Lugar::whereIn('lug_tipo', $tipos)
-									->where('lug_nombre', 'LIKE', '%'.$keyword.'%')
+									->where('lug_nombre', 'LIKE', $keyword.'%')
 									->orderBy('lug_nombre')
 									->take(3)
 									->get(['lug_id', 'lug_nombre', 'lug_tipo']);	

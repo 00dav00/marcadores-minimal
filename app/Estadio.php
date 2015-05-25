@@ -28,7 +28,6 @@ class Estadio extends Model {
 		'joins' => [
 				'ubicacion',
 			],
-		'pagination' => 50,
 	];
 
 	protected $primaryKey = 'est_id';

@@ -40,7 +40,6 @@ class Jugador extends Model {
 		'joins' => [
 				'nacionalidad',
 			],
-		'pagination' => 50,
 	];
 
 	/**
