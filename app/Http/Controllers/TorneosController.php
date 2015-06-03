@@ -149,6 +149,8 @@ class TorneosController extends Controller {
 	public function jugadoresEquipoParticipante($id_torneo, $id_equipo)
 	{
 		$torneo = Torneo::findOrFail($id_torneo);
-		return $torneo->plantilla->where('pivot.eqp_id', intval($id_equipo))->toJson();
+		return $torneo->plantilla
+						->where('pivot.eqp_id', intval($id_equipo))
+						->unique();
 	}
 }

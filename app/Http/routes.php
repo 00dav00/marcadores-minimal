@@ -36,9 +36,6 @@
 	Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
 	Route::resource('tipo_torneo', 'TipoTorneoController');
 
-	Route::get('torneos/consulta', 'TorneosController@consulta');
-	Route::resource('torneos', 'TorneosController');
-
 	Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
 	Route::resource('tipo_fase', 'TipoFaseController');
 
@@ -55,7 +52,12 @@
 
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
 
+	Route::get('plantillas/config', 'PlantillasTorneoController@config');
 	Route::resource('plantillas', 'PlantillasTorneoController');
+	Route::get('api/plantillas/{plantillas}', 'PlantillasTorneoController@apiShow');
+	Route::post('api/plantillas/', 'PlantillasTorneoController@apiStore');
+	Route::put('api/plantillas/{plantillas}', 'PlantillasTorneoController@apiUpdate');
+	Route::delete('api/plantillas/{plantillas}', 'PlantillasTorneoController@apiDestroy');
 
 
 	Route::resource('equipos_participantes', 'EquiposParticipantesController');
@@ -70,3 +72,5 @@
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
+
+

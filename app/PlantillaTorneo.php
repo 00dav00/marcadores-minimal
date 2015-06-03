@@ -25,7 +25,7 @@ class PlantillaTorneo extends Model {
 	 * Columna primary key
 	 * @var string
 	 */
-	protected $primaryKey = 'jug_id';
+	protected $primaryKey = 'plt_id';
 
 	/**
 	 * Indica si el primary key auto incrementa

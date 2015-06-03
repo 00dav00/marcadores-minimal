@@ -82,7 +82,7 @@ class Torneo extends Model {
 	public function plantilla()
 	{
 		return $this->belongsToMany('App\Jugador','plantillas_torneo','tor_id','jug_id')
-						->withPivot('eqp_id');						
+						->withPivot('eqp_id','plt_id','plt_numero_camiseta');						
 	}
 
 }

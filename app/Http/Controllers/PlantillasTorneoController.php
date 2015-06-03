@@ -104,13 +104,52 @@ class PlantillasTorneoController extends Controller {
 
 		if ($plantilla) {
 			$plantilla->delete();
-
 			flash()->success('Plantilla borrada exitosamente');
-
 			return redirect('plantillas');
 		}
 
 		return redirect('plantillas')->with('message', 'Plantilla no encontrado');
+	}
+
+
+	public function config()
+	{
+		return view('plantillas.config');
+	}
+
+
+	public function apiShow($id)
+	{
+		$plantilla = PlantillaTorneo::findOrFail($id)
+										->with('jugador')
+										->first();
+		return response()->json(['data' => $plantilla]);
+	}
+
+	public function apiStore(PlantillaTorneoRequest $request)
+	{
+		PlantillaTorneo::create($request->all());
+
+		return response()->json(['data' => 'Plantilla creada exitosamente']);		
+	}
+
+	public function apiUpdate($id, PlantillaTorneoRequest $request)
+	{
+		$plantilla = PlantillaTorneo::findOrFail($id);
+		$plantilla->update($request->all());
+
+		return response()->json(['data' => 'Jugador participante actualizado exitosamente']);
+	}
+
+	public function apiDestroy($id)
+	{
+		$plantilla = PlantillaTorneo::findOrFail($id);
+
+		if ($plantilla) {
+			$plantilla->delete();
+		}
+
+		return response()->json(['data' => 'Jugador participante eliminado exitosamente']);
 	}
 
 }

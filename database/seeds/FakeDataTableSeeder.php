@@ -19,11 +19,11 @@ class FakeDataTableSeeder extends Seeder
 		// Equipo::truncate();
 		// Torneo::truncate();
 
-		// TestDummy::times(1000)->create('App\Jugador');
-		// TestDummy::times(400)->create('App\Equipo');
-		// TestDummy::times(100)->create('App\Torneo');
+		TestDummy::times(1000)->create('App\Jugador');
+		TestDummy::times(400)->create('App\Equipo');
+		TestDummy::times(100)->create('App\Torneo');
 
-		TestDummy::times(100)->create('App\Estadio');
+		// TestDummy::times(100)->create('App\Estadio');
 
 	}
 }

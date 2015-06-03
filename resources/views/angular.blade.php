@@ -25,8 +25,12 @@
 	<script src="{!! asset('/js/vendor/selectize.min.js') !!}"></script>
 
 	<!--AngularJS-->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
-	<script src="js/app.js"></script>
+	<!-- // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script> -->
+	<script src="{!! asset('/js/libs/angular.min.js') !!}"></script>
+	<script src="{!! asset('/js/libs/angular-resource.min.js') !!}"></script>
+	<script src="{!! asset('/js/app.js') !!}"></script>
+	<script src="{!! asset('/js/services.js') !!}"></script>
+	<script src="{!! asset('/js/controllers.js') !!}"></script>
 
 </head>
 <body>
