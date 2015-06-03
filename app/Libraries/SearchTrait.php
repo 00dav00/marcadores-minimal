@@ -12,14 +12,16 @@ trait SearchTrait
 	 * 
 	 * @return mixed devuelve el valor de paginacion
 	 */
-	protected function checkIfPaginationExists() {
+	protected function checkIfPaginationExists($query) {
 
 		// Si se ha definido un valor para paginacion, se toma ese
 		// valor del array definido en el modelo
 		if (array_key_exists('pagination', $this->searchArray)){	
-			return $this->searchArray['pagination'];	
+			return $query->paginate($this->searchArray['pagination']);	
+		} else if(env('PAGINATION_NUMBER')) {
+			return $query->paginate(env('PAGINATION_NUMBER'));
 		} else {	
-			return false;	
+			return $query->get();	
 		}
 	}
 
@@ -28,16 +30,15 @@ trait SearchTrait
 	 * 
 	 * @return mixed devuelve el string con las relaciones
 	 */
-	protected function checkIfRelationsExists() {
+	protected function checkIfRelationsExists($query) {
 
 		// Se chequea si se ha detallado la relacion con otros modelos
 		// para realizar "eagle-loading" en la búsqueda
-		// Si no existe se devuelve falso.
-		if (array_key_exists('joins', $this->searchArray)) {			
-			return implode(', ', $this->searchArray['joins']);
-		} else {
-			return false;
-		}
+		if (array_key_exists('joins', $this->searchArray)) {
+			foreach ($this->searchArray['joins'] as $join) {
+				$query->with($join);				
+			}			
+		} 
 	}
 
 	/**
@@ -46,21 +47,25 @@ trait SearchTrait
 	 * @param  string $column Parámetro que se desea buscar
 	 * @return bool         
 	 */
-	protected function checkIfSearchExists($column) {
+	protected function checkIfSearchExists($keyword, $column, $query) {
 
 		// Si existe la columna se devuelve verdadero
-		// si no existe, se devuelve falso
-		if (array_key_exists($column, $this->searchArray['columns'])) {
-			return true;
-		} else {
-			return false;
+		if (array_key_exists($column, $this->searchArray['columns']) && !empty($keyword)) {
+			$query->where($column, 'LIKE', '%' . $keyword . '%');
 		}
 	}
 
+	/**
+	 * Metodo para realizar busquedas
+	 * 
+	 * @param  string $keyword palabra que se desea buscar
+	 * @param  string $column  columna que se desea buscar
+	 * @return mixed          resultado de la busqueda
+	 */
 	public static function search($keyword = '', $column = '')
 	{
 
-		// Borrar los mensajes de la sesión
+		// Borrar los mensajes de la sesión anterior
 		\Session::forget('flash_notification.message');
 
 		$instance = new static;
@@ -71,59 +76,17 @@ trait SearchTrait
 		// Eliminar los espacios de la columna que se desea buscar
 		$column = trim($column);
 
+		// Iniciar el objeto que realizara las consultas
+		$query = $instance->query();
+
+		// Identificar si se va a filtrar
+		$instance->checkIfSearchExists($keyword, $column, $query);
+			
 		// Verificar si existen relaciones con otros modelos
-		$relations = $instance->checkIfRelationsExists();
+		$instance->checkIfRelationsExists($query);
 
-		// Verificar si se va a paginar
-		$pagination = $instance->checkIfPaginationExists();
-
-		// Construir las consultas
-		if (empty($keyword)) {
-
-			if ($relations) {
-				if ($pagination) {
-					return static::with((string)$relations)
-							->paginate($pagination);
-				} else {
-					return static::with($relations)
-							->get();
-				}
-			} else {
-				if ($pagination) {
-					return static::paginate($pagination);
-				} else {
-					return static::get();
-				}
-			}
-
-		} else if ($instance->checkIfSearchExists($column)) {
-
-			if ($relations) {
-				if ($pagination) {
-					return static::with($relations)
-							->where($column, 'LIKE', '%' . $keyword . '%')
-							->paginate($pagination);
-				} else {
-					return static::with($relations)
-							->where($column, 'LIKE', '%' . $keyword . '%')
-							->get();
-				}
-			} else {
-				if ($pagination) {
-					return static::where($column, 'LIKE', '%' . $keyword . '%')
-							->paginate($pagination);
-				} else {
-					return static::where($column, 'LIKE', '%' . $keyword . '%')
-							->get();
-				}
-			}
-
-		} else {
-
-			return false;
-
-		}
-
+		// Realizar la consulta, se verificara si se va paginar
+		return $instance->checkIfPaginationExists($query);
 	}
 
 	/**

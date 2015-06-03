@@ -33,7 +33,6 @@ class Lugar extends Model {
 		'joins' => [
 				'lugarPadre',
 			],
-		'pagination' => 50,
 	];
 
 	/**

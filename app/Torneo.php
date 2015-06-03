@@ -40,8 +40,9 @@ class Torneo extends Model {
 			],
 		'joins' => [
 				'tipoTorneo',
+				'equiposParticipantes',
+				'plantilla'
 			],
-		'pagination' => 50,
 	];
 
 	/**

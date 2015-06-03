@@ -46,7 +46,7 @@
 			load: function(query, callback) {
 				if (!query.length) return callback();
 				$.ajax({
-					url: '/lugares/consulta/pais',
+					url: '/lugares/consulta/all',
 					type: 'GET',
 					dataType: 'json',
 					data: {
