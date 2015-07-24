@@ -37,4 +37,15 @@ class Fecha extends Model {
 		return $this->belongsTo('App\Fase', 'fas_id', 'fas_id');
 	}
 
+	public function partidos()
+	{
+		return $this->hasMany('App\Partido','fec_id','fec_id');
+	}
+
+	public function partidosConteo()
+	{
+	  	return $this->partidos()//->count();
+			    	->selectRaw('par_id, count(*) as contador')
+			    	->groupBy('par_id');
+	}
 }

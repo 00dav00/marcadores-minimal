@@ -128,5 +128,4 @@ class TipoTorneoController extends Controller {
 		return response()->json(['data' => $resultados]);
 
 	}
-
 }

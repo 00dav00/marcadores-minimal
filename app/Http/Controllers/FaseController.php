@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Fase;
+use App\Fecha;
+use Carbon\Carbon;
 
 use App\Http\Requests\FaseRequest;
 
@@ -131,4 +133,53 @@ class FaseController extends Controller {
 
 	}
 
+	public function apiStore(FaseRequest $request)
+	{
+		$data = new Fase;
+		$data->fas_descripcion = $request['fas_descripcion'];
+		$data->tfa_id = $request['tfa_id'];
+		$data->tor_id = $request['tor_id'];
+
+		$data->save();
+
+		if($request['num_fechas'] > 0)
+		{
+			for($i = 0;$i < $request['num_fechas']; $i++)
+			{
+				Fecha::create(array(
+						'fec_numero' => $i + 1,
+						'fec_fecha_referencia' => Carbon::today(),
+						'fas_id' => $data->fas_id,
+					)
+				);
+				
+			}
+		}
+
+
+		// Fase::create($request->all());
+		return response()->json(['data' => 'Fase creada exitosamente','num' => $request['num_fechas']]);
+	}
+
+
+	public function apiDestroy($id){
+		$mensaje = "Fase no encontrada";
+
+		$fase = Fase::findOrFail($id);
+
+		if ($fase) {
+			$fase->delete();
+
+			$mensaje = 'Fase borrada exitosamente';
+		}
+
+		return response()->json(['data' => $mensaje]);
+	}
+
+
+	public function apiFechasRegistradas($id_fase)
+	{
+		$fase = Fase::findOrFail($id_fase);
+		return $fase->fechas->toJson();
+	}
 }

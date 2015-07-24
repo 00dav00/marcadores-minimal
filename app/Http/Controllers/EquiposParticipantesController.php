@@ -113,4 +113,22 @@ class EquiposParticipantesController extends Controller {
 		return redirect('equipos_participantes')->with('message', 'equipo no encontrado');
 	}
 
+	public function apiStore(EquipoParticipanteRequest $request)
+	{
+		EquipoParticipante::create($request->all());
+
+		return response()->json(['data' => 'Equipo inscrito exitosamente']);		
+	}
+
+	public function apiDestroy($torneo_id, $equipo_id)
+	{
+		$equipoParticipante = EquipoParticipante::where('tor_id', $torneo_id)
+                    								->where('eqp_id', $equipo_id)
+                    								->firstOrFail();
+		if ($equipoParticipante) {
+			$equipoParticipante->delete();
+		}
+
+		return response()->json(['data' => 'Equipo participante eliminado exitosamente']);
+	}
 }

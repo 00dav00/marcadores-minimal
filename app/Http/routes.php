@@ -11,8 +11,8 @@
 |
 */
 
-Route::group(['middleware' => 'auth'], function()
-{
+// Route::group(['middleware' => 'auth'], function()
+// {
 
 	Route::get('/', 'TorneosController@index');
 
@@ -25,24 +25,29 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('equipos/consulta', 'EquiposController@consulta');
 	Route::resource('equipos', 'EquiposController');
 
+	Route::get('torneos/wizard', 'TorneosController@wizard');
 	Route::get('torneos/consulta', 'TorneosController@consulta');
-	Route::get('torneos/{torneos}/equipos', 'TorneosController@equiposParticipantes');
-	Route::get('torneos/{torneos}/equipos/{equipos}', 'TorneosController@jugadoresEquipoParticipante');
+	Route::get('api/torneos/{torneos}/equipos', 'TorneosController@equiposParticipantes');
+	Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'TorneosController@jugadoresEquipoParticipante');
 	Route::resource('torneos', 'TorneosController');
+	Route::get('api/torneos/{torneos}', 'TorneosController@apiShow');
+	Route::get('api/torneos/{torneos}/fases', 'TorneosController@fasesRegistradas');
 
+
+	Route::get('tipo_fase/nuevo', 'TipoFaseController@fastCreate');
 	Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
 	Route::resource('tipo_fase', 'TipoFaseController');
+	Route::get('api/tipo_fase', 'TipoFaseController@apiIndex');
+	Route::post('api/tipo_fase', 'TipoFaseController@apiStore');
 
 	Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
 	Route::resource('tipo_torneo', 'TipoTorneoController');
 
-	Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
-	Route::resource('tipo_fase', 'TipoFaseController');
-
 	Route::get('fases/consulta', 'FaseController@consulta');
 	Route::resource('fases', 'FaseController');
-
-	Route::resource('fechas', 'FechasController');
+	Route::post('api/fases', 'FaseController@apiStore');
+	Route::delete('api/fases/{fases}', 'FaseController@apiDestroy');
+	Route::get('api/fases/{fases}/fechas', 'FaseController@apiFechasRegistradas');
 
 	Route::get('estadios/consulta', 'EstadiosController@consulta');
 	Route::resource('estadios', 'EstadiosController');
@@ -50,7 +55,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('tipos_evento/consulta', 'TiposEventoController@consulta');
 	Route::resource('tipos_evento', 'TiposEventoController');
 
-	Route::resource('fechas/{fechas}/partidos','PartidoController');
 
 	Route::get('plantillas/config', 'PlantillasTorneoController@config');
 	Route::resource('plantillas', 'PlantillasTorneoController');
@@ -61,14 +65,21 @@ Route::group(['middleware' => 'auth'], function()
 
 
 	Route::resource('equipos_participantes', 'EquiposParticipantesController');
+	Route::post('api/equipos_participantes/', 'EquiposParticipantesController@apiStore');
+	Route::delete('api/torneos/{torneos}/equipos/{equipos}', 'EquiposParticipantesController@apiDestroy');
 
 	Route::resource('fechas', 'FechasController');
+	Route::post('api/fechas', 'FechasController@apiStore');
+	Route::put('api/fechas/{fechas}', 'FechasController@apiUpdate');
+	Route::delete('api/fechas/{fechas}', 'FechasController@apiDestroy');
+
+	Route::resource('fechas/{fechas}/partidos','PartidoController');
 
 	Route::get('auth/register', 'Auth\AuthController@getRegister');
 	Route::post('auth/register', 'Auth\AuthController@postRegister');
 	Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-});
+// });
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

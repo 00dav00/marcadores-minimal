@@ -18,7 +18,7 @@ class CreateFechasTable extends Migration {
 			$table->integer('fec_numero');
 			$table->date('fec_fecha_referencia');
 			$table->integer('fas_id')->unsigned();
-			$table->foreign('fas_id')->references('fas_id')->on('fases');
+			$table->foreign('fas_id')->references('fas_id')->on('fases')->onDelete('cascade');;
 		});
 	}
 

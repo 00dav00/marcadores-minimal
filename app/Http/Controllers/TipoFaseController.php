@@ -131,4 +131,22 @@ class TipoFaseController extends Controller {
 
 	}
 
+	public function fastCreate()
+	{
+		return view('tipo_fase.fast_create');
+	}
+
+	public function apiIndex()
+	{
+		$tipo_fase = TipoFase::all();//->orderBy('tfa_nombre');
+
+		return $tipo_fase->toJson();
+	}
+
+	public function apiStore(TipoFaseRequest $request)
+	{
+		TipoFase::create($request->all());
+
+		return response()->json(['data' => 'Tipo de fase creada exitosamente']);
+	}
 }

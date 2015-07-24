@@ -53,11 +53,6 @@ class TipoFaseTableSeeder extends Seeder {
 			]);
 
 			TipoFase::create([
-				'tfa_nombre' => 'Octavos de final',
-				'tfa_descripcion' => 'Ronda con 16 equipos que juegan en modo de eliminación directa.',
-			]);
-
-			TipoFase::create([
 				'tfa_nombre' => 'Cuartos de final',
 				'tfa_descripcion' => 'Ronda con 8 equipos que juegan en modo de eliminación directa.',
 			]);

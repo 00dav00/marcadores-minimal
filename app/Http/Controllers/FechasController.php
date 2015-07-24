@@ -113,4 +113,51 @@ class FechasController extends Controller {
 		return redirect('fechas')->with('message', 'Fecha no encontrada');
 	}
 
+	public function apiStore(FechaRequest $request)
+	{
+		$data = $request->all();
+		$data['fec_numero'] = Fecha::where('fas_id', $data['fas_id'])->max('fec_numero') + 1;
+
+		Fecha::create($data);
+
+		return response()->json(['data' => 'Fecha creada exitosamente', 'entidad' => $data]);
+	}
+
+	public function apiUpdate($id, FechaRequest $request)
+	{
+		$fecha = Fecha::findOrFail($id);
+
+		$fecha->update($request->all());
+
+		return response()->json(['data' => 'Fecha actualizada exitosamente']);
+	}
+
+	public function apiDestroy($id)
+	{
+		$mensaje = 'Fecha no encontrada';
+		$fecha = Fecha::findOrFail($id);
+
+		if ($fecha) {
+			$fecha->delete();
+
+			$fechas = Fecha::where('fas_id',$fecha['fas_id'])->get();
+			$i = 1;
+
+			foreach($fechas as $auxFecha)
+			{
+				$auxFecha['fec_numero'] = $i;
+				$auxFecha->update(array(
+					'fec_id' => $auxFecha['fec_id'],
+					'fec_numero' => $auxFecha['fec_numero'],
+					'fec_fecha_referencia' => $auxFecha['fec_fecha_referencia'],
+					'fas_id' => $auxFecha['fas_id'],
+				));
+				$i++;
+			}
+
+			$mensaje = 'Fecha borrada exitosamente';
+		}
+
+		return response()->json(['data' => $mensaje]);
+	}
 }

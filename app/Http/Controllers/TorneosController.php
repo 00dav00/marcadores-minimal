@@ -149,8 +149,31 @@ class TorneosController extends Controller {
 	public function jugadoresEquipoParticipante($id_torneo, $id_equipo)
 	{
 		$torneo = Torneo::findOrFail($id_torneo);
-		return $torneo->plantilla
+		return $torneo->plantillas
 						->where('pivot.eqp_id', intval($id_equipo))
 						->unique();
+	}
+
+	public function fasesRegistradas($id_torneo)
+	{
+		$torneo = Torneo::findOrFail($id_torneo);
+		return $torneo->fases
+						// ->with('tipoFase')
+						// ->orderBy('fas_id')
+						->toJson();
+	}
+
+	public function wizard()
+	{
+		return view('torneos.wizard');
+	}
+
+	public function apiShow($id)
+	{
+		$torneo = Torneo::findOrFail($id)
+							->with('tipoTorneo')
+							->where('tor_id',$id)
+							->first();
+		return $torneo->toJson();
 	}
 }

@@ -3,12 +3,13 @@
 @section('content')
 
 <div class="row centered-form" ng-app="plantillaApp" ng-controller="PlantillasCtrl">
-	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+	<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Plantillas</h3>
+				<h3 class="panel-title">Configuración de Plantillas</h3>
 			</div>
 			<div class="panel-body">
+
 				<div class="form-group" >
 					<small><label for="tor_id">Seleccionar Torneo</label></small>
 					<select id="tor_id" name="tor_id">
@@ -17,28 +18,23 @@
 				</div>
 
 				<hr>
-				<i  class="fa fa-spinner fa-spin"></i>
 
 				<table width="100%">
-					<tr align ="center">
-						<td ng-show="torneoSeleccionado" width="35%">
-							<b>Equipos</b>
-						</td>
-						<td>&nbsp;</td>
-						<td ng-show="equipoSeleccionado" width="65%">
-							<b>Plantilla de: <% equipoNombre %></b>
+					<tr class="text-center">
+						<td class="col-md-2">
+							<b ng-show="torneoSeleccionado">Equipos</b></td>
+						<td class="col-md-1"></td>
+						<td class="col-md-5">
+							<b ng-show="equipoSeleccionado">Plantilla de: <% equipoSeleccionado.eqp_nombre %></b>
 						</td>
 					</tr>
 					<tr>
 						<td ng-show="torneoSeleccionado" valign="top">
 							<table class="table table-striped" >
 								<tr ng-repeat='equipo in equipos'>
+									<td><% equipo.eqp_nombre %></td>
 									<td>
-										<input name="eqp_id" type="hidden" value="<% equipo.eqp_id %>" />
-										<% equipo.eqp_nombre %>
-									</td>
-									<td>
-										<button id="btn_seleccionar_equipo" class="btn btn-primary btn-xs">  
+										<button class="btn btn-primary btn-xs" ng-click="seleccionarEquipo($index)">
 											<span class="glyphicon glyphicon-paste" ></span>
 										</button>
 									</td>
@@ -74,20 +70,16 @@
 								<tbody>
 									<tr ng-repeat='jugador in jugadores'>
 										<td>
-											<input name="plt_id" type="hidden" value="<% jugador.pivot.plt_id %>" />
-											<input name="jug_id" type="hidden" value="<% jugador.jug_id %>" />
 											<% jugador.jug_nombre + ' ' + jugador.jug_apellido %>
 										</td>
 										<td>
-											<input name="plt_numero_camiseta" type="text" ng-minlength="1" ng-maxlength="3" 
-												size="3" value="<% jugador.pivot.plt_numero_camiseta %>">
-											</input>
+											<input type="number" ng-model="jugador.pivot.plt_numero_camiseta" min="1" max="200">											
 										</td>
 										<td>
-											<button id="btn_actualizar_jugador" class="btn btn-success btn-xs">  
+											<button class="btn btn-success btn-xs" ng-click="actualizarJugadorEnPlantilla($index)">  
 												<span class="glyphicon glyphicon-floppy-save" ></span>
 											</button>
-											<button id="btn_borrar_jugador" class="btn btn-danger btn-xs">  
+											<button class="btn btn-danger btn-xs" ng-click="eliminarJugadorEnPlantilla($index)">  
 												<span class="glyphicon glyphicon-trash" ></span>
 											</button>
 										</td>
@@ -138,17 +130,6 @@ $(function() {
 	    $(this).scope().obtenerEquipos($(this).val());
 	});
 
-	// EQUIPOS
-
-	$(document.body).on('click',"#btn_seleccionar_equipo",function(){
-		$(this).scope().obtenerJugadores(
-			$(this).closest('tr').find('input[name="eqp_id"]').val()
-    	);
-    	$(this).scope().colocarEquipoNombre(
-    		$(this).closest('tr').find('td:first').text()
-		);
-	});
-
 	// JUGADORES
 
 	$('#jug_id').selectize({
@@ -178,25 +159,7 @@ $(function() {
 
 	$('#jug_id').change(function () {
 	    $(this).scope().ingresarJugadorEnPlantilla(
-	    	$('#tor_id').val(),
-	    	$(this).scope().equipoSeleccionado,
 	    	$(this).val()
-    	);
-	});
-
-	$(document.body).on('click',"#btn_actualizar_jugador",function(){
-		// alert($(this).closest('tr').find('input[name="plt_id"]').val());
-		$(this).scope().actualizarJugadorEnPlantilla(
-			$(this).closest('tr').find('input[name="plt_id"]').val(),
-			$(this).closest('tr').find('input[name="jug_id"]').val(),
-			$(this).closest('tr').find('input[name="plt_numero_camiseta"]').val()
-    	);
-	});
-
-	$(document.body).on('click',"#btn_borrar_jugador",function(){
-		// alert($(this).closest('tr').find('input[name="plt_numero_camiseta"]').val());
-		$(this).scope().eliminarJugadorEnPlantilla(
-			$(this).closest('tr').find('input[name="plt_id"]').val()
     	);
 	});
 

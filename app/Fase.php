@@ -42,4 +42,16 @@ class Fase extends Model {
 		return $this->belongsTo('App\Torneo', 'tor_id', 'tor_id');
 	}
 
+	public function fechas()
+	{
+  		return $this->hasMany('App\Fecha','fas_id','fas_id')
+  					->with('partidosConteo');
+	}
+	 
+	public function fechasConteo()
+	{
+	  	return $this->fechas()//->count();
+			    	->selectRaw('fas_id, count(*) as contador')
+			    	->groupBy('fas_id');
+	}
 }

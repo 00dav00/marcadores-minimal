@@ -16,8 +16,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 
@@ -32,12 +30,17 @@
 	<script src="{!! asset('/js/services.js') !!}"></script>
 	<script src="{!! asset('/js/controllers.js') !!}"></script>
 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
+
 </head>
 <body>
 
 	@include('partials.navbar')
 
-	@yield('content')
+	<div class="container">
+		@yield('content')
+	</div>
 
 </body>
 </html>
