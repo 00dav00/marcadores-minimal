@@ -39,7 +39,7 @@
 
 	</table> 
 
-	<h5 class="text-center">{!! $torneos->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
+	<h5 class="text-center">{!! $torneos->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5> 
 
 </div>
 

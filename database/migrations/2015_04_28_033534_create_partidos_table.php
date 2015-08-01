@@ -31,6 +31,9 @@ class CreatePartidosTable extends Migration {
 			$table->integer('est_id')->unsigned();
 			$table->foreign('est_id')->references('est_id')->on('estadios')->onDelete('restrict');
 
+			$table->integer('fec_id')->unsigned();
+			$table->foreign('fec_id')->references('fec_id')->on('fechas')->onDelete('restrict');
+
 			$table->date('par_fecha')->nullable();
 			$table->time('par_hora')->nullable();
 			$table->string('par_cronica', 200)->nullable();

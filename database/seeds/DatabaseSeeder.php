@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		//$this->call('RealDataSeeder');
+		$this->call('RealDataSeeder');
 
 		$this->call('FakeDataTableSeeder');
 	}

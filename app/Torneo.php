@@ -41,7 +41,7 @@ class Torneo extends Model {
 		'joins' => [
 				'tipoTorneo',
 				'equiposParticipantes',
-				'plantillas'
+				// 'plantillas'
 			],
 	];
 
@@ -80,11 +80,11 @@ class Torneo extends Model {
 		return $this->belongsToMany('App\Equipo','equipos_participantes','tor_id','eqp_id');
 	}
 
-	public function plantillas()
-	{
-		return $this->belongsToMany('App\Jugador','plantillas_torneo','tor_id','jug_id')
-						->withPivot('eqp_id','plt_id','plt_numero_camiseta');
-	}
+	// public function plantillas()
+	// {
+	// 	return $this->belongsToMany('App\Jugador','plantillas_torneo','tor_id','jug_id')
+	// 					->withPivot('eqp_id','plt_id','plt_numero_camiseta');
+	// }
 
 	public function fases()
 	{

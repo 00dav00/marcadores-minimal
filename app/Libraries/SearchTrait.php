@@ -21,7 +21,7 @@ trait SearchTrait
 		} else if(env('PAGINATION_NUMBER')) {
 			return $query->paginate(env('PAGINATION_NUMBER'));
 		} else {	
-			return $query->get();	
+			return $query->get();
 		}
 	}
 

@@ -13,7 +13,7 @@ class RealDataSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		$this->call('TipoEventoTableSeeder');
+		// $this->call('TipoEventoTableSeeder');
 		$this->call('TipoFaseTableSeeder');
 		$this->call('TipoTorneoTableSeeder');
 	}

@@ -13,7 +13,6 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="{{ url('lugares') }}">Lugares</a></li>
-				<li><a href="{{ url('jugadores') }}">Jugadores</a></li>
 				<li><a href="{{ url('equipos') }}">Equipos</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Torneos <span class="caret"></span></a>
@@ -23,8 +22,6 @@
 						<li><a href="{{ url('torneos/wizard') }}">Wizard Torneos</a></li>
 						<li><a href="{{ url('tipo_fase') }}">Tipo de fase</a></li>
 						<li><a href="{{ url('fases') }}">Fases</a></li>
-						<li><a href="{{ url('plantillas') }}">Plantillas</a></li>
-						<li><a href="{{ url('plantillas/config') }}">Configuración Plantillas</a></li>
 						<li><a href="{{ url('equipos_participantes') }}">Equipos Participantes</a></li>
 						<li><a href="{{ url('fechas') }}">Fechas</a></li>
 					</ul>
