@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Addsumatoriafases extends Migration {
+class QuitarFechaReferenciaFechas extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class Addsumatoriafases extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('fases', function(Blueprint $table)
-		{
-			$table->boolean('fas_acumulada')->nullable();
+
+		Schema::table('fechas', function (Blueprint $table) {
+		    $table->dropColumn('fec_fecha_referencia');
 		});
 	}
 
@@ -25,8 +25,9 @@ class Addsumatoriafases extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('fases', function (Blueprint $table) {
-		    $table->dropColumn('fas_acumulada');
+		Schema::table('fechas', function(Blueprint $table)
+		{
+			$table->date('fec_fecha_referencia');
 		});
 	}
 

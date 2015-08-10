@@ -139,7 +139,7 @@ class FaseController extends Controller {
 		$data->fas_descripcion = $request['fas_descripcion'];
 		$data->tfa_id = $request['tfa_id'];
 		$data->tor_id = $request['tor_id'];
-		$data->fas_sumatoria = $request['fas_sumatoria'];
+		$data->fas_acumulada = $request['fas_acumulada'];
 
 		$data->save();
 
@@ -149,7 +149,6 @@ class FaseController extends Controller {
 			{
 				Fecha::create(array(
 						'fec_numero' => $i + 1,
-						'fec_fecha_referencia' => Carbon::today(),
 						'fas_id' => $data->fas_id,
 					)
 				);

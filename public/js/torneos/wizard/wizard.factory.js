@@ -14,7 +14,11 @@ function wizardFactory($http) {
 		borrarEquipoParticipante: borrarEquipoParticipante,
 		tiposFase: tiposFase,
 		fases: fases,
-		crearFase: crearFase
+		crearFase: crearFase,
+		deleteFase: deleteFase,
+		fechas: fechas,
+		createFecha: createFecha,
+		deleteFecha: deleteFecha
 	}
 
 	function getTorneos() {
@@ -54,6 +58,30 @@ function wizardFactory($http) {
 	function crearFase(fase) {
 		if(fase) {
 			return $http.post("/api/fases", fase);
+		}
+	}
+
+	function deleteFase(fas_id) {
+		if (fas_id) {
+			return $http.delete("/api/fases/" + fas_id)
+		}
+	}
+
+	function fechas(fas_id) {
+		if(fas_id) {
+			return $http.get("/api/fases/" + fas_id + "/fechas");
+		}
+	}
+
+	function createFecha(fecha) {
+		if (fecha) {
+			return $http.post("/api/fechas", fecha);
+		}
+	}
+
+	function deleteFecha(fec_id) {
+		if (fec_id) {
+			return $http.delete("/api/fechas/" + fec_id);
 		}
 	}
 

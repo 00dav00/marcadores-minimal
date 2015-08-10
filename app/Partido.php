@@ -23,6 +23,8 @@ class Partido extends Model {
 		// par_linea1
 		// par_linea2
 		// par_cuarto_arbitro
+		'goles_visitante',
+		'goles_local'
 	];
 
 	public function getParHoraAttribute($value)

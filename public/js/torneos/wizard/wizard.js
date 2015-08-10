@@ -5,7 +5,7 @@
         .module('wizardTorneo', [
         	'ngAnimate',
         	'ngResource',
-        	'ui.bootstrap'
+        	'ui.bootstrap',
         	])
         
 })();

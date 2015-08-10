@@ -24,7 +24,6 @@ class FechaRequest extends Request {
 		return [
 			'fas_id' => 'required|integer',
 			'fec_numero' => 'required|integer|min:1',
-			'fec_fecha_referencia' => 'required|date_format:Y-m-d',
 		];
 	}
 
@@ -36,8 +35,6 @@ class FechaRequest extends Request {
 			'fec_numero.required' => 'Es obligatorio indicar número de la fecha.',
 			'fec_numero.integer' => 'El número de fecha debe ser un entero.',
 			'fec_numero.min' => 'El número de fecha debe tener al menos 1 digito.',
-			'fec_fecha_referencia.required' => 'Es obligatorio indicar la fecha de refencia.',
-			'fec_fecha_referencia.date_format' => 'El formato de la fecha de referencia es incorrecto',
 		];
 	}
 

@@ -30,6 +30,19 @@ function wizardTorneo($http, wizardFactory) {
 	// crear fase de un torneo
 	vm.crearFase = crearFase;
 
+	// editar fase de un torneo
+	// ver las fechas de un torneo
+	vm.editarFase = editarFase;
+
+	// borrar la fase de un torneo
+	vm.borrarFase = borrarFase;
+
+	// agregar una fecha en una fase
+	vm.agregarFecha = agregarFecha;
+
+	// borrar una fecha
+	vm.borrarFecha = borrarFecha;
+
 	// obtener los torneos creados
 	getTorneos();
 
@@ -124,7 +137,6 @@ function wizardTorneo($http, wizardFactory) {
 
 	function crearFase() {
 		vm.nuevaFase.tor_id = vm.torneoSelected.tor_id;
-		console.log(vm.nuevaFase);
 		wizardFactory.crearFase(vm.nuevaFase)
 			.success(function () {
 				vm.alerts.push(
@@ -139,6 +151,62 @@ function wizardTorneo($http, wizardFactory) {
 					})
 			})
 	}
+
+	function editarFase(fase) {
+		vm.paso = 4;
+		vm.faseSelected = fase;
+
+		wizardFactory.fechas(vm.faseSelected.fas_id)
+			.success(function (data) {
+				vm.fechas = data;
+			})
+	}
+
+	function borrarFase(fase) {
+		
+		wizardFactory.deleteFase(fase.fas_id)
+			.success(function () {
+				vm.alerts.push(
+					{ type: 'success', msg: fase.fas_descripcion + ' fue eliminada exitosamente' }
+				);
+				wizardFactory.fases(vm.torneoSelected.tor_id)
+					.success(function (data) {
+						vm.fases = data;
+					})
+				})
+			.error(function () {
+				vm.alerts.push(
+					{ type: 'danger', msg: fase.fas_descripcion + ' no pudo ser eliminada' }
+				);
+			})
+
+	}
+
+	function agregarFecha() {
+		var fecha = {
+			fec_numero: vm.fechas.length + 1,
+			fas_id: vm.faseSelected.fas_id
+		}
+
+		wizardFactory.createFecha(fecha)
+			.success(function () {
+				wizardFactory.fechas(vm.faseSelected.fas_id)
+					.success(function (data) {
+						vm.fechas = data;
+					})
+			})
+	}
+
+	function borrarFecha(fecha) {
+		wizardFactory.deleteFecha(fecha.fec_id)
+			.success(function () {
+				wizardFactory.fechas(vm.faseSelected.fas_id)
+					.success(function (data) {
+						vm.fechas = data;
+					})
+			})
+	}
+
 
 }
         
