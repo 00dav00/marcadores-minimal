@@ -11,8 +11,8 @@
 |
 */
 
-// Route::group(['middleware' => 'auth'], function()
-// {
+//Route::group(['middleware' => 'auth'], function()
+//{
 
 	Route::get('/', 'TorneosController@index');
 
@@ -23,9 +23,12 @@
 	// Route::resource('jugadores', 'JugadoresController');
 
 	Route::get('equipos/consulta', 'EquiposController@consulta');
+	Route::get('api/equipos', 'EquiposController@apiAll');
 	Route::resource('equipos', 'EquiposController');
 
 	Route::get('torneos/wizard', 'TorneosController@wizard');
+	Route::get('torneos/config', 'TorneosController@config');
+	Route::get('torneos/config/{config}', 'TorneosController@config');
 	Route::get('torneos/consulta', 'TorneosController@consulta');
 	// Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'TorneosController@jugadoresEquipoParticipante');
 	Route::resource('torneos', 'TorneosController');
@@ -34,6 +37,7 @@
 	Route::get('api/torneos/{torneos}', 'TorneosController@apiShow');
 	Route::get('api/torneos/{torneos}/equipos', 'TorneosController@equiposParticipantes');
 	Route::get('api/torneos/{torneos}/fases', 'TorneosController@fasesRegistradas');
+	Route::get('api/torneos', 'TorneosController@apiAll');
 
 
 	Route::get('tipo_fase/nuevo', 'TipoFaseController@fastCreate');
@@ -74,9 +78,7 @@
 	Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'TablasController@apiShow');
 
 
-// });
+//});
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-
-

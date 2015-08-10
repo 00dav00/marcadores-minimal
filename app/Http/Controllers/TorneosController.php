@@ -168,6 +168,11 @@ class TorneosController extends Controller {
 		return view('torneos.wizard');
 	}
 
+	public function config()
+	{
+		return view('torneos.config');
+	}
+
 	public function apiShow($id)
 	{
 		$torneo = Torneo::findOrFail($id)
@@ -175,5 +180,11 @@ class TorneosController extends Controller {
 							->where('tor_id',$id)
 							->first();
 		return $torneo->toJson();
+	}
+
+	public function apiAll()
+	{
+		$torneos = Torneo::all();
+		return $torneos->toJson();
 	}
 }

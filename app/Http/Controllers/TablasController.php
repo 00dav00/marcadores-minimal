@@ -61,7 +61,7 @@ class TablasController extends Controller {
 			where
 				dfe_torneo_id = ?
 				and (
-					(? = -1)
+					(? = -1 and dfe_fase_acumulada = 1)
 					or (? = dfe_fase_id)
 				)
 			group by deq_equipo_nombre

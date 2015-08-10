@@ -29,13 +29,13 @@ class CreateFechasDimension extends Migration {
 
 			$table->integer('dfe_fase_id');
 			$table->string('dfe_fase_descripcion', 200);
+			$table->boolean('dfe_fase_acumulada');
 
 			$table->integer('dfe_tipo_fase_id');
 			$table->string('dfe_tipo_fase_nombre', 100);
 
 			$table->integer('dfe_fecha_id');
-			$table->integer('dfe_fecha_numero');
-			$table->date('dfe_fecha_fecha_referencia');
+			$table->integer('dfe_fecha_numero');			
 
 			$table->date('scd_valido_inicio');
 			$table->date('scd_valido_fin')->nullable();
