@@ -169,4 +169,10 @@ class EquiposController extends Controller {
 
 	}
 
+	public function apiAll()
+	{
+		$equipos = Equipo::all();
+		return $equipos->toJson();
+	}
+
 }

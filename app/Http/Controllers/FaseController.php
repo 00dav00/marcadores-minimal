@@ -139,6 +139,7 @@ class FaseController extends Controller {
 		$data->fas_descripcion = $request['fas_descripcion'];
 		$data->tfa_id = $request['tfa_id'];
 		$data->tor_id = $request['tor_id'];
+		$data->fas_sumatoria = $request['fas_sumatoria'];
 
 		$data->save();
 

@@ -18,6 +18,7 @@ class Fase extends Model {
 		'tfa_id',
 		'fas_descripcion',
 		'tor_id',
+		'fas_sumatoria',
 		];
 
 	/**
