@@ -19,7 +19,6 @@ class FechasController extends Controller {
 	public function index()
 	{
 		$fechas = Fecha::with('fase')
-					->orderBy('fec_fecha_referencia')
 					->paginate(20);
 
 		return view('fechas.index', compact('fechas'));
@@ -149,7 +148,6 @@ class FechasController extends Controller {
 				$auxFecha->update(array(
 					'fec_id' => $auxFecha['fec_id'],
 					'fec_numero' => $auxFecha['fec_numero'],
-					'fec_fecha_referencia' => $auxFecha['fec_fecha_referencia'],
 					'fas_id' => $auxFecha['fas_id'],
 				));
 				$i++;

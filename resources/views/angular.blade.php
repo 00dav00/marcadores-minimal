@@ -47,6 +47,7 @@
 	<script src="{!! asset('/js/torneos/wizard/wizard.config.js') !!}"></script>
 	<script src="{!! asset('/js/torneos/wizard/wizard.controller.js') !!}"></script>
 	<script src="{!! asset('/js/torneos/wizard/wizard.factory.js') !!}"></script>
+	<script src="{!! asset('/js/torneos/wizard/wizard.filter.js') !!}"></script>
 
 </body>
 </html>
