@@ -54,18 +54,6 @@
 	Route::get('estadios/consulta', 'EstadiosController@consulta');
 	Route::resource('estadios', 'EstadiosController');
 
-	// Route::get('tipos_evento/consulta', 'TiposEventoController@consulta');
-	// Route::resource('tipos_evento', 'TiposEventoController');
-
-
-	// Route::get('plantillas/config', 'PlantillasTorneoController@config');
-	// Route::resource('plantillas', 'PlantillasTorneoController');
-	// Route::get('api/plantillas/{plantillas}', 'PlantillasTorneoController@apiShow');
-	// Route::post('api/plantillas/', 'PlantillasTorneoController@apiStore');
-	// Route::put('api/plantillas/{plantillas}', 'PlantillasTorneoController@apiUpdate');
-	// Route::delete('api/plantillas/{plantillas}', 'PlantillasTorneoController@apiDestroy');
-
-
 	Route::resource('equipos_participantes', 'EquiposParticipantesController');
 	Route::post('api/equipos_participantes/', 'EquiposParticipantesController@apiStore');
 	Route::delete('api/torneos/{torneos}/equipos/{equipos}', 'EquiposParticipantesController@apiDestroy');
@@ -80,6 +68,11 @@
 	// Route::get('auth/register', 'Auth\AuthController@getRegister');
 	// Route::post('auth/register', 'Auth\AuthController@postRegister');
 	// Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+	Route::get('tablas', 'TablasController@index');
+	Route::get('api/torneos/{torneos}/tablas', 'TablasController@apiShow');
+	Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'TablasController@apiShow');
+
 
 // });
 

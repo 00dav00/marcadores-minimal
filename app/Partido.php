@@ -19,6 +19,8 @@ class Partido extends Model {
 		'par_fecha',
 		'par_hora',
 		'par_cronica',
+		'par_goles_local',
+		'par_goles_visitante',
 		// par_arbitro_central
 		// par_linea1
 		// par_linea2

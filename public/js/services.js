@@ -141,3 +141,27 @@ torneoServices.factory('Plantillas',
 		}
 	]
 );
+
+torneoServices.factory('Tablas', 
+	[
+		'$resource',
+		function($resource)	{
+			return	$resource(
+				"/api/torneos/:torneo/tablas/fases/:fase", 
+				{torneo: '@torneo_id',fase: '@fase_id'},	
+				{
+					query:{
+						url: "/api/torneos/:torneo/tablas/", 
+						params: {torneo: '@torneo_id'},	
+						method:	'GET',	cache:	false,	isArray:	true
+					},
+					get:{
+						// url: "/api/torneos/:torneo/tablas/fases/:fase", 
+						// params: {torneo: '@torneo_id',fase: '@fase_id'},	
+						method:	'GET',	cache:	false,	isArray:	true
+					},
+				}
+			);
+		}
+	]
+);

@@ -44,6 +44,16 @@
 </div>
 
 <div class="form-group">
+	<small>{!! Form::label('par_goles_local', 'Goles Local') !!}</small>
+	{!! Form::input('number','par_goles_local', 0, array('class'=>'form-control input-sm')) !!}
+</div>
+
+<div class="form-group">
+	<small>{!! Form::label('par_goles_visitante', 'Goles Visitante') !!}</small>
+	{!! Form::input('number','par_goles_visitante', 0, array('class'=>'form-control input-sm')) !!}
+</div>
+
+<div class="form-group">
 	<small>{!! Form::label('par_cronica', 'Crónica del Patido') !!}</small>
 	{!! Form::text('par_cronica', null, array('class'=>'form-control input-sm','placeholder'=>'Crónica del Partido')) !!}
 </div>

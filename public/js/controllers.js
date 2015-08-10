@@ -4,6 +4,7 @@
 
 var plantillaControllers = angular.module('plantillaControllers', []);
 var torneoControllers = angular.module('torneoControllers', []);
+var tablasControllers = angular.module('tablasControllers', []);
 
 
 plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipantes','JugadoresInscritos','Plantillas',
@@ -590,3 +591,60 @@ torneoControllers.controller('TorneoCtrl', [
 	}
 ]);
 
+tablasControllers.controller('TablasCtrl', [
+	'$scope','$modal','Torneos','Tablas','Fases',
+	
+	function($scope, $modal, Torneos, Tablas, Fases){
+		
+		$scope.torneoSeleccionado = null;
+	 	$scope.fases = [];
+	 	$scope.faseSeleccionada = null;
+	 	$scope.tabla = [];
+
+	 	function obtenerFases(){
+	 		Fases.query(
+	 			{torneo: $scope.torneoSeleccionado.tor_id},
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                response.unshift({"fas_id":-1,"tipo_fase":{"tfa_nombre":"Acumulada"}});
+	                $scope.fases = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	$scope.definirTorneo = function(torneo_id){
+			Torneos.get(
+	            {torneo: torneo_id},
+	            function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.torneoSeleccionado = response;
+	                obtenerFases();
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+	        );
+		}
+
+		$scope.obtenerTabla = function(){
+			Tablas.get(
+				{torneo:  $scope.torneoSeleccionado.tor_id, fase: $scope.faseSeleccionada},
+				function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.tabla = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+			);
+		}
+
+		
+	}
+]);

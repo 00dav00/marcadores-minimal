@@ -24,6 +24,7 @@
 						<li><a href="{{ url('fases') }}">Fases</a></li>
 						<li><a href="{{ url('equipos_participantes') }}">Equipos Participantes</a></li>
 						<li><a href="{{ url('fechas') }}">Fechas</a></li>
+						<li><a href="{{ url('tablas') }}">Tablas de posición</a></li>
 					</ul>
 				</li>
 				<li><a href="{{ url('estadios') }}">Estadios</a></li>
