@@ -48,7 +48,8 @@ function wizardTorneo($http, wizardFactory, $timeout) {
 
 	// cerrar alertas
 	function closeAlert(index) {
-		vm.alerts.splice(index, 1);
+		if (vm.alerts.length >= (index + 1))
+			vm.alerts.splice(index, 1);
 	}
 
 	// agregar alerts
@@ -246,10 +247,6 @@ function wizardTorneo($http, wizardFactory, $timeout) {
 			.success(function () {
 				createAlert('warning', 'Fecha '+ fecha.fec_numero + ' del torneo, fue eliminada exitosamente');
 				obtenerFechas();
-				// wizardFactory.fechas(vm.faseSelected.fas_id)
-				// 	.success(function (data) {
-				// 		vm.fechas = data;
-				// 	})
 			})
 			.error( errorHandler );	
 	}

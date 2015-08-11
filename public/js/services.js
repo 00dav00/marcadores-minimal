@@ -10,6 +10,10 @@ torneoServices.factory('Torneos',
 				"/api/torneos/:torneo", 
 				{torneo: '@torneo_id'},	
 				{
+					query:{
+						url: '/api/torneos/',
+						method:	'GET',	cache:	false,	isArray:	true
+					},
 					get:	{method:	'GET',	cache:	false,	isArray:	false},
 					// save:	{method:	'POST',	cache:	false,	isArray:	false},
 					// update:	{method:	'PUT',	cache:	false,	isArray:	false},

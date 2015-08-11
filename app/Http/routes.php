@@ -37,7 +37,7 @@
 	Route::get('api/torneos/{torneos}', 'TorneosController@apiShow');
 	Route::get('api/torneos/{torneos}/equipos', 'TorneosController@equiposParticipantes');
 	Route::get('api/torneos/{torneos}/fases', 'TorneosController@fasesRegistradas');
-	Route::get('api/torneos', 'TorneosController@apiAll');
+	Route::get('api/torneos', 'TorneosController@apiIndex');
 
 
 	Route::get('tipo_fase/nuevo', 'TipoFaseController@fastCreate');
@@ -74,9 +74,12 @@
 	// Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 	Route::get('tablas', 'TablasController@index');
+	Route::get('tablas/list', 'TablasController@listado');
 	Route::get('api/torneos/{torneos}/tablas', 'TablasController@apiShow');
 	Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'TablasController@apiShow');
 
+
+	Route::get('/visual/torneo/{torneo}/tablas', 'TablasController@preview');
 
 //});
 

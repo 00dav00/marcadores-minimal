@@ -42,6 +42,16 @@ class TablasController extends Controller {
 	{
 	}
 
+	public function listado()
+	{
+		return view('tablas.list');
+	}
+
+	public function preview($torneo_id)
+	{
+		return view('tablas.preview', compact('torneo_id'));
+	}
+
 	public function apiShow($torneo_id, $fase_id = -1){
 
 		$resultados = DB::select(

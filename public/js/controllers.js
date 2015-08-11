@@ -592,14 +592,40 @@ torneoControllers.controller('TorneoCtrl', [
 ]);
 
 tablasControllers.controller('TablasCtrl', [
-	'$scope','$modal','Torneos','Tablas','Fases',
+	'$scope','$window','Torneos','Tablas','Fases',
 	
-	function($scope, $modal, Torneos, Tablas, Fases){
+	function($scope, $window, Torneos, Tablas, Fases){
 		
+		$scope.torneos = [];
 		$scope.torneoSeleccionado = null;
 	 	$scope.fases = [];
 	 	$scope.faseSeleccionada = null;
 	 	$scope.tabla = [];
+
+	 	$scope.initList = function(){
+			$scope.obtenerTorneos();	 		
+	 	}
+
+	 	$scope.initPreview = function(torneo_id){
+	 		$scope.definirTorneo(torneo_id);
+	 	}
+
+	 	$scope.irTabla = function(torneo){
+   			$window.location.href = '/visual/torneo/'+ torneo.tor_id +'/tablas';
+	 	}
+
+	 	$scope.obtenerTorneos = function(){
+	 		Torneos.query(
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.torneos = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
 
 	 	function obtenerFases(){
 	 		Fases.query(
@@ -608,6 +634,8 @@ tablasControllers.controller('TablasCtrl', [
 	                console.log("Success:" + JSON.stringify(response));
 	                response.unshift({"fas_id":-1,"tipo_fase":{"tfa_nombre":"Acumulada"}});
 	                $scope.fases = response;
+	                $scope.faseSeleccionada = -1;
+	                $scope.obtenerTabla();
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
