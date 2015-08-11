@@ -19,6 +19,7 @@
 				<small><label for="cbo_fases">Fases</label></small>
 				<select id="cbo_fases" ng-model="faseSeleccionada" ng-change="obtenerTabla()" 
 					ng-options="fase.fas_id as fase.tipo_fase.tfa_nombre for fase in fases">
+					<option value="" disabled>Elegir Fase ...</option>
 				</select>
 			</div>
 
