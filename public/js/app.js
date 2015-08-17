@@ -24,3 +24,13 @@ var app3 = angular.module(
 		$interpolateProvider.endSymbol('%>');
 	}
 );
+
+
+var app3 = angular.module(
+	'fechasApp', 
+	['torneoServices','fechasControllers','ui.bootstrap'], 
+	function($interpolateProvider) {
+		$interpolateProvider.startSymbol('<%');
+		$interpolateProvider.endSymbol('%>');
+	}
+);

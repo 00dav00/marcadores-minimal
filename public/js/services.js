@@ -51,7 +51,7 @@ torneoServices.factory('Fases',
 				'/api/fases/:fase',
 				{fase: '@fase_id'},
 				{
-					// get:	{method:	'GET',	cache:	false,	isArray:	false},
+					get:	{method:	'GET',	cache:	false,	isArray:	false},
 					query:	{
 						url: '/api/torneos/:torneo/fases', 
 						params: {torneo: '@torneo_id'},	
@@ -74,7 +74,7 @@ torneoServices.factory('Fechas',
 				'/api/fechas/:fecha',
 				{fecha: '@fecha_id'},
 				{
-					// get:	{method:	'GET',	cache:	false,	isArray:	false},
+					get:	{method:	'GET',	cache:	false,	isArray:	false},
 					query:	{
 						url: '/api/fases/:fase/fechas', 
 						params: {fase: '@fase_id'},	
@@ -83,6 +83,29 @@ torneoServices.factory('Fechas',
 					save:	{method:	'POST',	cache:	false,	isArray:	false},
 					update:	{method:	'PUT',	cache:	false,	isArray:	false},
 					delete:	{method:	'DELETE',	cache:	false,	isArray:	false}
+				}
+			);
+		}
+	]
+);
+
+torneoServices.factory('Partidos', 
+	[
+		'$resource',
+		function($resource)	{
+			return	$resource(
+				'/api/partidos/:partido',
+				{partido: '@partido_id'},
+				{
+					// get:	{method:	'GET',	cache:	false,	isArray:	false},
+					query:	{
+						url: '/api/fechas/:fecha/partidos', 
+						params: {fecha: '@fecha_id'},	
+						method:	'GET',	cache:	false,	isArray:	true
+					},
+					// save:	{method:	'POST',	cache:	false,	isArray:	false},
+					// update:	{method:	'PUT',	cache:	false,	isArray:	false},
+					// delete:	{method:	'DELETE',	cache:	false,	isArray:	false}
 				}
 			);
 		}

@@ -51,6 +51,7 @@
 
 	// Route::get('fases/consulta', 'FaseController@consulta');
 	Route::resource('fases', 'FaseController');
+	Route::get('api/fases/{fases}', 'FaseController@apiShow');
 	Route::post('api/fases', 'FaseController@apiStore');
 	Route::delete('api/fases/{fases}', 'FaseController@apiDestroy');
 	Route::get('api/fases/{fases}/fechas', 'FaseController@apiFechasRegistradas');
@@ -62,12 +63,15 @@
 	Route::post('api/equipos_participantes/', 'EquiposParticipantesController@apiStore');
 	Route::delete('api/torneos/{torneos}/equipos/{equipos}', 'EquiposParticipantesController@apiDestroy');
 
+	Route::get('fechas/list', 'FechasController@listado');
 	Route::resource('fechas', 'FechasController');
+	Route::get('api/fechas/{fechas}', 'FechasController@apiShow');
 	Route::post('api/fechas', 'FechasController@apiStore');
 	Route::put('api/fechas/{fechas}', 'FechasController@apiUpdate');
 	Route::delete('api/fechas/{fechas}', 'FechasController@apiDestroy');
 
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
+	Route::get('api/fechas/{fechas}/partidos','PartidoController@apiIndex');
 
 	// Route::get('auth/register', 'Auth\AuthController@getRegister');
 	// Route::post('auth/register', 'Auth\AuthController@postRegister');
@@ -80,6 +84,8 @@
 
 
 	Route::get('/visual/torneo/{torneo}/tablas', 'TablasController@preview');
+	Route::get('/visual/fechas/{fechas}/partidos', 'FechasController@preview');
+
 
 //});
 

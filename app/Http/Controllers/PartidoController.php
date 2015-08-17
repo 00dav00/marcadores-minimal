@@ -143,4 +143,11 @@ class PartidoController extends Controller {
 		return redirect('fechas/'.$fecha_id.'/partidos');
 	}
 
+	public function apiIndex($fecha_id)
+	{
+		$partidos = Partido::where('fec_id',$fecha_id)->with('equipoLocal','equipoVisitante','estadio')->get();
+
+		return $partidos->toJson();
+		// return \Response::json($partidos);
+	}
 }

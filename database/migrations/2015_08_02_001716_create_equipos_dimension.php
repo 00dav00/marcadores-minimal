@@ -19,6 +19,7 @@ class CreateEquiposDimension extends Migration {
 			$table->integer('deq_equipo_id');
 			$table->string('deq_equipo_nombre', 100);
 			$table->enum('deq_equipo_tipo', ['seleccion', 'profesional', 'amateur']);
+			$table->string('deq_equipo_escudo', 200);
 
 			$table->date('scd_valido_inicio');
 			$table->date('scd_valido_fin')->nullable();

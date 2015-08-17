@@ -33,7 +33,7 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Previews <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="{{ url('tablas/list') }}">Tablas de posición</a></li>
-						<li><a href="{{ url('tipo_torneo') }}">Fechas</a></li>
+						<li><a href="{{ url('fechas/list') }}">Fechas</a></li>
 					</ul>
 				</li>
 			</ul>

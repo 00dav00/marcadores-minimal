@@ -12,11 +12,10 @@
 			<div class="form-group" >
 				<table class="table table-striped table-hover">
 					<thead>
-						<td>Torneo</td>
-						<td>Temporada</td>
+						<td><b>Torneo</b></td>
+						<td><b>Temporada</b></td>
 					</thead>
 					<tbody>
-
 						<tr ng-repeat='torneo in torneos' ng-click="irTabla(torneo)">
 							<td> <% torneo.tor_nombre %> </td>
 							<td> <% torneo.tor_anio_referencia %> </td>
