@@ -25,7 +25,7 @@ class FaseRequest extends Request {
 			'tfa_id' => 'required|integer',
 			'fas_descripcion' => 'required|string|min:3',
 			'tor_id' => 'required|integer',
-			'fas_acumulada' => 'integer',
+			'fas_acumulada' => 'required',
 		];
 	}
 

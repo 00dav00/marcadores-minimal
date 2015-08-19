@@ -18,7 +18,12 @@ function wizardFactory($http) {
 		deleteFase: deleteFase,
 		fechas: fechas,
 		createFecha: createFecha,
-		deleteFecha: deleteFecha
+		deleteFecha: deleteFecha,
+		partidos: partidos,
+		estadios: estadios,
+		crearPartido: crearPartido,
+		borrarPartido: borrarPartido,
+		editarPartido: editarPartido
 	}
 
 	function getTorneos() {
@@ -83,6 +88,28 @@ function wizardFactory($http) {
 		if (fec_id) {
 			return $http.delete("/api/fechas/" + fec_id);
 		}
+	}
+
+	function partidos(fec_id) {
+		if (fec_id) {
+			return $http.get("/api/partidos/" + fec_id);
+		}
+	}
+
+	function estadios() {
+		return $http.get("/api/estadios");
+	}
+
+	function crearPartido(partido) {
+		return $http.post("/api/partidos", partido);
+	}
+
+	function borrarPartido(partido) {
+		return $http.delete("/api/partidos/" + partido);
+	}
+
+	function editarPartido(partido) {
+		return $http.put("/api/partidos/" + partido.par_id, partido);
 	}
 
 }

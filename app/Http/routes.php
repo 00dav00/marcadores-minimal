@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::get('estadios/consulta', 'EstadiosController@consulta');
 	Route::resource('estadios', 'EstadiosController');
+	Route::get('api/estadios', 'EstadiosController@apiIndex');
 
 	Route::resource('equipos_participantes', 'EquiposParticipantesController');
 	Route::post('api/equipos_participantes/', 'EquiposParticipantesController@apiStore');
@@ -67,7 +68,13 @@ Route::group(['middleware' => 'auth'], function()
 	Route::put('api/fechas/{fechas}', 'FechasController@apiUpdate');
 	Route::delete('api/fechas/{fechas}', 'FechasController@apiDestroy');
 
+	Route::get('api/fechas/{fechas}/partidos', 'FechasController@apiFechaPartidos');
+
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
+	Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
+	Route::post('api/partidos','PartidoController@apiStore');
+	Route::delete('api/partidos/{partido}','PartidoController@apiDestroy');
+	Route::put('api/partidos/{partido}','PartidoController@apiUpdate');
 
 	// Route::get('auth/register', 'Auth\AuthController@getRegister');
 	// Route::post('auth/register', 'Auth\AuthController@postRegister');

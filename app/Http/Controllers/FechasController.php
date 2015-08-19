@@ -158,4 +158,10 @@ class FechasController extends Controller {
 
 		return response()->json(['data' => $mensaje]);
 	}
+
+	public function apiFechaPartidos($id)
+	{
+		$fecha = Fecha::findOrFail($id);
+		return $fecha->partidos->toJson();
+	}
 }
