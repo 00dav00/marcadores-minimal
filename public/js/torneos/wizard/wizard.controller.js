@@ -448,7 +448,9 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 function editarPartido ($modalInstance, partido, estadios, wizardFactory) {
 	var md = this;
 
-	formatHours(partido.par_hora);
+	var partidoEdicion = angular.copy(partido);
+
+	formatHours(partidoEdicion.par_hora);
 
 	md.cancel = function () {
     	$modalInstance.dismiss('cancel');
@@ -466,14 +468,14 @@ function editarPartido ($modalInstance, partido, estadios, wizardFactory) {
 		startingDay: 1
 	};
 
-	md.partido = partido;
+	md.partido = partidoEdicion;
 	md.estadios = estadios;
 
 	function formatHours(hour) {
 		var res = hour.split(":")
 		var d = new Date();
 		d.setHours(parseInt(res[0]), parseInt(res[1]));
-		partido.par_hora = d;
+		partidoEdicion.par_hora = d;
 	}
 
 	md.editar = function() {
@@ -481,6 +483,8 @@ function editarPartido ($modalInstance, partido, estadios, wizardFactory) {
 		delete partido.equipo_local;
 		delete partido.equipo_visitante;
 		delete partido.estadio;
+
+		console.log(partido);
 
 		wizardFactory.editarPartido(partido)
 			.success(function () {
