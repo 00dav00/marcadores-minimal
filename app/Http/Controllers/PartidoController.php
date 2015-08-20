@@ -26,9 +26,11 @@ class PartidoController extends Controller {
 
 		$fecha = Fecha::findOrFail($fecha_id)
 							->with('fase.torneo.equiposParticipantes','fase.tipoFase')
+							->where('fec_id',$fecha_id)
 							->first();
 
-		return view('partidos.index',compact('partidos'))->with('fecha', $fecha);
+		// return view('partidos.index',compact('partidos'))->with('fecha', $fecha);
+		return view('partidos.index',compact('partidos','fecha'));
 	}
 
 	/**
@@ -215,6 +217,14 @@ class PartidoController extends Controller {
 		$partido->update($nuevosDatos);
 
 		return response()->json(['data' => 'Partido borrado exitosamente']);
+	}
+
+	public function apiIndex($fecha_id)
+	{
+		$partidos = Partido::where('fec_id',$fecha_id)->with('equipoLocal','equipoVisitante','estadio')->get();
+
+		return $partidos->toJson();
+		// return \Response::json($partidos);
 	}
 
 }

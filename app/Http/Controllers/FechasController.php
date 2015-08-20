@@ -61,6 +61,8 @@ class FechasController extends Controller {
 		return view('fechas.show', compact('fecha'));
 	}
 
+
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -110,6 +112,23 @@ class FechasController extends Controller {
 		}
 
 		return redirect('fechas')->with('message', 'Fecha no encontrada');
+	}
+
+	public function listado()
+	{
+		return view('fechas.list');
+	}
+
+
+	public function preview($fecha_id)
+	{
+		return view('fechas.preview', compact('fecha_id'));
+	}
+
+	public function apiShow($id)
+	{
+		$fecha = Fecha::findOrFail($id);
+		return $fecha->toJson();
 	}
 
 	public function apiStore(FechaRequest $request)

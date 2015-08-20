@@ -25,7 +25,7 @@ class FaseRequest extends Request {
 			'tfa_id' => 'required|integer',
 			'fas_descripcion' => 'required|string|min:3',
 			'tor_id' => 'required|integer',
-			'fas_acumulada' => 'required',
+			'fas_acumulada' => 'required|boolean',
 		];
 	}
 
@@ -39,6 +39,8 @@ class FaseRequest extends Request {
 			'fas_descripcion.min' => 'La descripción de la fase debe tener como mínimo :min caracteres.',
 			'tor_id.required' => 'Es obligatorio indicar el torneo de la fase.',
 			'tor_id.integer	' => 'La clave del tornero no es del tipo adecuado.',
+			'fas_acumulada.required' => 'Es obligatorio indicar si la fase es parte de la tala acumulada.',
+			'fas_acumulada.boolean' => 'La forma de indicar si la fase es parte de la tala acumulada es mediante un booleano.',
 		];
 	}
 

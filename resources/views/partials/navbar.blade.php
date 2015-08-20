@@ -13,6 +13,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="{{ url('lugares') }}">Lugares</a></li>
+				<li><a href="{{ url('estadios') }}">Estadios</a></li>
 				<li><a href="{{ url('equipos') }}">Equipos</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Torneos <span class="caret"></span></a>
@@ -25,9 +26,16 @@
 						<li><a href="{{ url('fases') }}">Fases</a></li>
 						<li><a href="{{ url('equipos_participantes') }}">Equipos Participantes</a></li>
 						<li><a href="{{ url('fechas') }}">Fechas</a></li>
+						<li><a href="{{ url('tablas') }}">Tablas de posición</a></li>
 					</ul>
 				</li>
-				<li><a href="{{ url('estadios') }}">Estadios</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Previews <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ url('tablas/list') }}">Tablas de posición</a></li>
+						<li><a href="{{ url('fechas/list') }}">Fechas</a></li>
+					</ul>
+				</li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">

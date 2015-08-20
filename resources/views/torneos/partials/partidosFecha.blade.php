@@ -159,7 +159,7 @@
 		</div>
 		<div class="form-group">
 			<label for="golesLocal">Goles local</label>
-			<input type="number" class="form-control" id="golesLocal" ng-model="md.partido.goles_local">
+			<input type="number" class="form-control" id="golesLocal" ng-model="md.partido.par_goles_local">
 		</div>
 		<div class="form-group">
 			<label for="equipoVisitante">Equipo local</label>
@@ -167,7 +167,7 @@
 		</div>
 		<div class="form-group">
 			<label for="golesVisitante">Goles visitante</label>
-			<input type="number" class="form-control" id="golesVisitante" ng-model="md.partido.goles_visitante">
+			<input type="number" class="form-control" id="golesVisitante" ng-model="md.partido.par_goles_visitante">
 		</div>
 		<div class="form-group">
 			<label>Estadio</label>

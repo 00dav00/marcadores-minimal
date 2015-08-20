@@ -14,7 +14,7 @@ class Addsumatoriafases extends Migration {
 	{
 		Schema::table('fases', function(Blueprint $table)
 		{
-			$table->boolean('fas_acumulada')->nullable();
+			$table->boolean('fas_acumulada')->default(true);
 		});
 	}
 

@@ -182,7 +182,7 @@ class TorneosController extends Controller {
 		return $torneo->toJson();
 	}
 
-	public function apiAll()
+	public function apiIndex()
 	{
 		$torneos = Torneo::all();
 		return $torneos->toJson();

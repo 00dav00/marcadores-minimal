@@ -133,6 +133,17 @@ class FaseController extends Controller {
 
 	}
 
+	public function apiShow($id)
+	{
+		$fase = Fase::findOrFail($id)
+					->with('tipoFase', 'torneo')
+					->where('fas_id',$id)
+					->first();
+					// ->get();
+
+		return $fase->toJson();
+	}
+
 	public function apiStore(FaseRequest $request)
 	{
 		$data = new Fase;

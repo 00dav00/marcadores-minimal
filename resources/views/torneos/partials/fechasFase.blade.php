@@ -3,7 +3,7 @@
 	{{-- informacion de una fase seleccionada --}}
 	<div class="panel-body text-center">
 		<h4><%vm.faseSelected.fas_descripcion%></h4>
-		<p>Sumatoria: <%vm.faseSelected.fas_acumulada | filtroCheckbox%></p>
+		<p>Tabla acumulada: <%vm.faseSelected.fas_acumulada | filtroCheckbox%></p>
 		<p>Tipo de fase: <%vm.faseSelected.tipo_fase.tfa_nombre%></p>
 	</div>
 

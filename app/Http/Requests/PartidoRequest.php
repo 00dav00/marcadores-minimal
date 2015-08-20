@@ -32,8 +32,8 @@ class PartidoRequest extends Request {
 			// 'par_linea1' => 'required|integer',
 			// 'par_linea2' => 'required|integer',
 			// 'par_cuarto_arbitro' => 'required|integer',
-			'goles_visitante' => 'integer',
-			'goles_local' => 'integer',
+			'par_goles_visitante' => 'integer',
+			'par_goles_local' => 'integer',
 		];
 	}
 

@@ -4,6 +4,8 @@
 
 var plantillaControllers = angular.module('plantillaControllers', []);
 var torneoControllers = angular.module('torneoControllers', []);
+var tablasControllers = angular.module('tablasControllers', []);
+var fechasControllers = angular.module('fechasControllers', []);
 
 
 plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipantes','JugadoresInscritos','Plantillas',
@@ -590,3 +592,206 @@ torneoControllers.controller('TorneoCtrl', [
 	}
 ]);
 
+tablasControllers.controller('TablasCtrl', [
+	'$scope','$window','Torneos','Tablas','Fases',
+	
+	function($scope, $window, Torneos, Tablas, Fases){
+		
+		$scope.torneos = [];
+		$scope.torneoSeleccionado = null;
+	 	$scope.fases = [];
+	 	$scope.faseSeleccionada = null;
+	 	$scope.tabla = [];
+
+
+
+	 	$scope.initList = function(){
+			$scope.obtenerTorneos();	 		
+	 	}
+
+	 	$scope.initPreview = function(torneo_id){
+	 		$scope.definirTorneo(torneo_id);
+	 	}
+
+	 	$scope.irTabla = function(torneo){
+   			$window.location.href = '/visual/torneo/'+ torneo.tor_id +'/tablas';
+	 	}
+
+	 	$scope.obtenerTorneos = function(){
+	 		Torneos.query(
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.torneos = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	function obtenerFases(){
+	 		Fases.query(
+	 			{torneo: $scope.torneoSeleccionado.tor_id},
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                response.unshift({"fas_id":-1,"tipo_fase":{"tfa_nombre":"Acumulada"}});
+	                $scope.fases = response;
+	                $scope.faseSeleccionada = -1;
+	                $scope.obtenerTabla();
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	$scope.definirTorneo = function(torneo_id){
+			Torneos.get(
+	            {torneo: torneo_id},
+	            function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.torneoSeleccionado = response;
+	                obtenerFases();
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+	        );
+		}
+
+		$scope.obtenerTabla = function(){
+			Tablas.get(
+				{torneo:  $scope.torneoSeleccionado.tor_id, fase: $scope.faseSeleccionada},
+				function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.tabla = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+			);
+		}
+
+		
+	}
+]);
+
+fechasControllers.controller('FechasCtrl', [
+	'$scope','$window','Torneos','Fases','Fechas','Partidos',
+	
+	function($scope, $window, Torneos, Fases, Fechas, Partidos){
+		
+		$scope.torneos = [];
+		$scope.torneoSeleccionado = null;
+	 	$scope.fases = [];
+	 	$scope.faseSeleccionada = null;
+	 	$scope.fechas = [];
+	 	$scope.fechasSeleccionada = null;
+	 	$scope.partidos = [];
+
+
+
+	 	$scope.initList = function(){
+			$scope.obtenerTorneos();	 		
+	 	}
+
+	 	$scope.initPreview = function(fecha_id){
+	 		$scope.obtenerFecha(fecha_id);
+	 	}
+
+	 	$scope.irFecha = function(fecha){
+   			$window.location.href = '/visual/fechas/'+ fecha.fec_id +'/partidos';
+	 	}
+
+	 	$scope.obtenerTorneos = function(){
+	 		Torneos.query(
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.torneos = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	$scope.obtenerFase = function(fase_id){
+	 		Fases.get(
+	 			{fase: fase_id},
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.faseSeleccionada = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	$scope.obtenerFases = function(){
+	 		Fases.query(
+	 			{torneo: $scope.torneoSeleccionado.tor_id},
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.fases = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	$scope.obtenerFecha = function (fecha_id){
+	 		Fechas.get(
+	 			{fecha: fecha_id},
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.fechaSeleccionada = response;
+	                $scope.obtenerFase($scope.fechaSeleccionada.fas_id);
+	                $scope.obtenerPartidos();
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	$scope.obtenerFechas = function (){
+	 		Fechas.query(
+	 			{fase: $scope.faseSeleccionada.fas_id},
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.fechas = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+		$scope.obtenerPartidos = function(){
+			Partidos.query(
+				{fecha:  $scope.fechaSeleccionada.fec_id},
+				function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.partidos = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+			);
+		}
+
+		
+	}
+]);
