@@ -372,9 +372,9 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 	function quitarEquipoSeleccionado(partidos, equipos) {
 		for (var i = 0; i < partidos.length; i++) {
 			for (var j = 0; j < equipos.length; j++) {
-				if (equipos[j].eqp_id === partidos[i].par_eqp_local) {
+				if (equipos[j].eqp_id == partidos[i].par_eqp_local) {
 					equipos.splice(j, 1);
-				} else if (equipos[j].eqp_id === partidos[i].par_eqp_visitante) {
+				} else if (equipos[j].eqp_id == partidos[i].par_eqp_visitante) {
 					equipos.splice(j, 1);
 				}
 			};
@@ -426,7 +426,7 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 				vm.equiposSeleccionables.push(partido.equipo_local);
 				vm.equiposSeleccionables.push(partido.equipo_visitante);
 				for (var j = 0; j < vm.partidos.length; j++) {
-					if (vm.partidos[j].par_id === partido.par_id) {
+					if (vm.partidos[j].par_id == partido.par_id) {
 						vm.partidos.splice(j, 1);
 						break;
 					}
