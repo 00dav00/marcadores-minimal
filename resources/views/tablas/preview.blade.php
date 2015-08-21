@@ -31,7 +31,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat='equipo in tabla'>
-							<td> <img class="imagenPromo" src="<% equipo.escudo %>" style="max-width:30px;max-height:30px;"/> </td>
+							<td> <img class="imagenPromo" src="/<% equipo.escudo %>" style="max-width:30px;max-height:30px;"/> </td>
 							<td> <% equipo.nombre %> </td>
 							<td> <% equipo.partidos_jugados %> </td>
 							<td> <% equipo.partidos_ganados %> </td>
