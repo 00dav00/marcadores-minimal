@@ -28,7 +28,7 @@
 							<td> <b>VS</b> </td>
 							<td> <% partido.par_goles_visitante %> </td>
 							<td> <% partido.equipo_visitante.eqp_nombre %> </td>
-							<td> <img src="<% partido.equipo_visitante.eqp_escudo %>" style="max-width:30px;max-height:30px;"/> </td>
+							<td> <img src="/<% partido.equipo_visitante.eqp_escudo %>" style="max-width:30px;max-height:30px;"/> </td>
 						</tr>
 					</tbody>
 				</table>
