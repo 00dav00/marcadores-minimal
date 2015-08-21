@@ -20,7 +20,7 @@
 			<div class="form-group" ng-show="torneoSeleccionado">
 				<label for="fas_id" class="control-label">Seleccionar Fase</label>
 				<select id="fas_id" name="fas_id" class="form-control" ng-model="faseSeleccionada" ng-change="obtenerFechas()"
-					ng-options="fase.tipo_fase.tfa_nombre for fase in fases">
+					ng-options="fase.fas_descripcion for fase in fases">
 					<option value="" disabled>Fase ...</option>
 				</select>
 			</div>

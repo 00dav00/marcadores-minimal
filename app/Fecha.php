@@ -47,4 +47,14 @@ class Fecha extends Model {
 			    	->selectRaw('par_id, count(*) as contador')
 			    	->groupBy('par_id');
 	}
+
+	public function equipoLocal()
+	{
+		return $this->belongsTo('App\Equipo','par_eqp_local','eqp_id');
+	}
+
+	public function equipoVisitante()
+	{
+		return $this->belongsTo('App\Equipo','par_eqp_visitante','eqp_id');
+	}
 }
