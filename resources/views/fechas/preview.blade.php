@@ -22,7 +22,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat='partido in partidos'>
-							<td> <img src="<% partido.equipo_local.eqp_escudo %>" style="max-width:30px;max-height:30px;"/> </td>
+							<td> <img src="/<% partido.equipo_local.eqp_escudo %>" style="max-width:30px;max-height:30px;"/> </td>
 							<td> <% partido.equipo_local.eqp_nombre %> </td>
 							<td> <% partido.par_goles_local %> </td>
 							<td> <b>VS</b> </td>

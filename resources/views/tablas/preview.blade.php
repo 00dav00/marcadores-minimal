@@ -11,7 +11,7 @@
 			<div class="form-group" ng-show="torneoSeleccionado">
 				<small><label for="cbo_fases">Fases</label></small>
 				<select id="cbo_fases" ng-model="faseSeleccionada" ng-change="obtenerTabla()" 
-					ng-options="fase.fas_id as fase.tipo_fase.tfa_nombre for fase in fases">
+					ng-options="fase.fas_id as fase.fas_descripcion for fase in fases">
 				</select>
 			</div>
 

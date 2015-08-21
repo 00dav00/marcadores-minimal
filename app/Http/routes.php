@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
 
-	Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
+	//Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
 	Route::post('api/partidos','PartidoController@apiStore');
 	Route::delete('api/partidos/{partido}','PartidoController@apiDestroy');
 	Route::put('api/partidos/{partido}','PartidoController@apiUpdate');
@@ -105,3 +105,5 @@ Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'TablasController@apiSh
 Route::get('api/fechas/{fechas}', 'FechasController@apiShow');
 Route::get('api/fases/{fases}', 'FaseController@apiShow');
 Route::get('api/fechas/{fechas}/partidos', 'FechasController@apiFechaPartidos');
+
+Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
