@@ -635,7 +635,7 @@ tablasControllers.controller('TablasCtrl', [
 	 			{torneo: $scope.torneoSeleccionado.tor_id},
 	 			function success(response){
 	                console.log("Success:" + JSON.stringify(response));
-	                response.unshift({"fas_id":-1,"tipo_fase":{"tfa_nombre":"Acumulada"}});
+	                response.unshift({"fas_id":-1,"fas_descripcion":"Acumulada"});
 	                $scope.fases = response;
 	                $scope.faseSeleccionada = -1;
 	                $scope.obtenerTabla();
