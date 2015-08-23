@@ -30,6 +30,8 @@ class EquipoRequest extends Request {
 			'eqp_sitioweb' => 'url',
 			'eqp_tipo' => 'required|in:seleccion,profesional,amateur',
 			'lug_id' => 'required|integer'
+			'eqp_nombre_corto' => 'string',
+			'eqp_abreviatura' => 'string',
 		];
 	}
 
