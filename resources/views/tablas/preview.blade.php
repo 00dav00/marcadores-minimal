@@ -36,7 +36,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat='equipo in tabla'>
-								<td> <img class="imagenPromo" src="/<% equipo.escudo %>" style="max-width:22px;max-height:26px;"/> </td>
+								<td> <img class="imagenPromo" src="/<% equipo.escudo %>" style="max-width:20px;max-height:20px;"/> </td>
 								<td class="hidden-xs hidden-sm"> <% equipo.nombre %> </td>
 								<td class="hidden-md hidden-lg"> <% equipo.nombre_corto %> </td>
 								<!-- <td> <% equipo.abreviatura %> </td> -->
