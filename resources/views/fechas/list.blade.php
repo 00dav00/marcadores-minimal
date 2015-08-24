@@ -31,9 +31,18 @@
 						<td><b>Numero</b></td>
 					</thead>
 					<tbody>
-						<tr ng-repeat='fecha in fechas' ng-click="irFecha(fecha)">
+						<tr ng-repeat='fecha in fechas'>
 							<td> <% fecha.fec_numero %> </td>
-							
+							<td> 
+								<button class="btn btn-info btn-xs" ng-click="irFechaTabla(fecha)">  
+									<span class="glyphicon glyphicon-calendar" > Formato Tabla</span>
+								</button>
+						 	</td>
+							<td> 
+								<button class="btn btn-success btn-xs" ng-click="irFechaWidget(fecha)">  
+									<span class="glyphicon glyphicon-tasks" > Formato Widget</span>
+								</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>

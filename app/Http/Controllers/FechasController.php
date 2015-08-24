@@ -125,6 +125,11 @@ class FechasController extends Controller {
 		return view('fechas.preview', compact('fecha_id'));
 	}
 
+	public function widget($fecha_id)
+	{
+		return view('fechas.widget', compact('fecha_id'));
+	}
+
 	public function apiShow($id)
 	{
 		$fecha = Fecha::findOrFail($id);

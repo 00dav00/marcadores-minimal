@@ -703,8 +703,12 @@ fechasControllers.controller('FechasCtrl', [
 	 		$scope.obtenerFecha(fecha_id);
 	 	}
 
-	 	$scope.irFecha = function(fecha){
-   			$window.location.href = '/visual/fechas/'+ fecha.fec_id +'/partidos';
+	 	$scope.irFechaTabla = function(fecha){
+   			$window.location.href = '/visual/tabla/fechas/'+ fecha.fec_id +'/partidos';
+	 	}
+
+	 	$scope.irFechaWidget = function(fecha){
+   			$window.location.href = '/visual/widget/fechas/'+ fecha.fec_id +'/partidos';
 	 	}
 
 	 	$scope.obtenerTorneos = function(){

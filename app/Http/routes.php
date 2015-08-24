@@ -84,7 +84,8 @@
 
 
 	Route::get('/visual/torneo/{torneo}/tablas', 'TablasController@preview');
-	Route::get('/visual/fechas/{fechas}/partidos', 'FechasController@preview');
+	Route::get('/visual/tabla/fechas/{fechas}/partidos', 'FechasController@preview');
+	Route::get('/visual/widget/fechas/{fechas}/partidos', 'FechasController@widget');
 
 
 //});
