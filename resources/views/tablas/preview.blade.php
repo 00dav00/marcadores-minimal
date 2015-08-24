@@ -22,8 +22,8 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<td  class="col-xs-1"></td>
-							<td  class="col-xs-3 hidden-xs">Equipo</td>
-							<td  class="col-xs-3">Equipo</td>
+							<td  class="col-xs-3 hidden-xs hidden-sm">Equipo</td>
+							<td  class="col-xs-3 hidden-md hidden-lg">Equipo</td>
 							<!-- <td  class="col-xs-3">Equipo</td> -->
 							<td  class="col-xs-1">PJ</td>
 							<td  class="col-xs-1">PG</td>
@@ -37,8 +37,8 @@
 						<tbody>
 							<tr ng-repeat='equipo in tabla'>
 								<td> <img class="imagenPromo" src="/<% equipo.escudo %>" style="max-width:22px;max-height:26px;"/> </td>
-								<td class="hidden-xs"> <% equipo.nombre %> </td>
-								<td> <% equipo.nombre_corto %> </td>
+								<td class="hidden-xs hidden-sm"> <% equipo.nombre %> </td>
+								<td class="hidden-md hidden-lg"> <% equipo.nombre_corto %> </td>
 								<!-- <td> <% equipo.abreviatura %> </td> -->
 								<td> <% equipo.partidos_jugados %> </td>
 								<td> <% equipo.partidos_ganados %> </td>
