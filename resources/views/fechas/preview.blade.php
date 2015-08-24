@@ -22,13 +22,13 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat='partido in partidos'>
-							<td> <img src="<% partido.equipo_local.eqp_escudo %>" style="max-width:30px;max-height:30px;"/> </td>
-							<td> <% partido.equipo_local.eqp_nombre %> </td>
+							<td> <img src="/<% partido.equipo_local.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
+							<td> <% partido.equipo_local.eqp_nombre_corto %> </td>
 							<td> <% partido.par_goles_local %> </td>
 							<td> <b>VS</b> </td>
 							<td> <% partido.par_goles_visitante %> </td>
-							<td> <% partido.equipo_visitante.eqp_nombre %> </td>
-							<td> <img src="<% partido.equipo_visitante.eqp_escudo %>" style="max-width:30px;max-height:30px;"/> </td>
+							<td> <% partido.equipo_visitante.eqp_nombre_corto %> </td>
+							<td> <img src="/<% partido.equipo_visitante.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
 						</tr>
 					</tbody>
 				</table>

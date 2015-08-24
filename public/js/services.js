@@ -99,7 +99,7 @@ torneoServices.factory('Partidos',
 				{
 					// get:	{method:	'GET',	cache:	false,	isArray:	false},
 					query:	{
-						url: '/api/fechas/:fecha/partidos', 
+						url: '/api/partidos/:fecha', 
 						params: {fecha: '@fecha_id'},	
 						method:	'GET',	cache:	false,	isArray:	true
 					},

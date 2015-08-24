@@ -25,15 +25,15 @@ class PartidoRequest extends Request {
 			'par_eqp_local' => 'required|integer',
 			'par_eqp_visitante' => 'required|integer|different:par_eqp_local',
 			'est_id' => 'integer',
-			'par_fecha' => 'date_format:Y-m-d',
-			'par_hora' => array('regex:/^([01]?[0-9]|2[0-3]):([0-5][0-9])$/'),
+			'par_fecha' => 'date',
+			'par_hora' => 'date',
 			'par_cronica' => 'url',
 			// 'par_arbitro_central' => 'required|integer',
 			// 'par_linea1' => 'required|integer',
 			// 'par_linea2' => 'required|integer',
 			// 'par_cuarto_arbitro' => 'required|integer',
-			'goles_visitante' => 'integer',
-			'goles_local' => 'integer',
+			'par_goles_visitante' => 'integer',
+			'par_goles_local' => 'integer',
 		];
 	}
 

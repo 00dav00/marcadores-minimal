@@ -55,7 +55,12 @@
 					<div class="row" ng-switch-when="4">
 						@include('torneos.partials.fechasFase')
 					</div>
-					
+
+					{{-- partidos de una fecha --}}
+					<div class="row" ng-switch-when="5">
+						@include('torneos.partials.partidosFecha')
+					</div>
+
 				</div>
 
 			</div>

@@ -35,6 +35,9 @@
 	<script src="{!! asset('/js/libs/angular/angular.min.js') !!}"></script>
 	<script src="{!! asset('/js/libs/angular-resource/angular-resource.min.js') !!}"></script>
 	<script src="{!! asset('/js/libs/angular-animate/angular-animate.min.js') !!}"></script>
+
+	<script src="{!! asset('/js/libs/angular-dragdrop/src/angular-dragdrop.min.js') !!}"></script>
+
 	<script src="{!! asset('/js/libs/angular-ui-router/release/angular-ui-router.min.js') !!}"></script>
 
 	<script src="{!! asset('/js/libs/angular-bootstrap/ui-bootstrap-tpls.min.js') !!}"></script>

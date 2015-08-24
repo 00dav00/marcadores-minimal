@@ -125,5 +125,12 @@ class EstadiosController extends Controller {
 
 		return response()->json(['data' => $resultados]);
 
+	}
+
+	public function apiIndex()
+	{
+		$estadios = Estadio::all();
+
+		return $estadios->toJson();
 	}	
 }

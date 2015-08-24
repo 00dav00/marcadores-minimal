@@ -27,7 +27,9 @@ class Equipo extends Model {
 		'eqp_facebook',
 		'eqp_sitioweb',
 		'eqp_tipo',
-		'lug_id'
+		'lug_id',
+		'eqp_nombre_corto',
+		'eqp_abreviatura',
 	];
 
 	protected $searchArray = [

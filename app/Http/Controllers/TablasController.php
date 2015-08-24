@@ -57,6 +57,8 @@ class TablasController extends Controller {
 		$resultados = DB::select(
 			'SELECT
 				deq_equipo_nombre									nombre
+				,deq_equipo_nombre_corto							nombre_corto
+				,deq_equipo_abreviatura								abreviatura
 				,deq_equipo_escudo 									escudo
 				,sum(puntos) 										puntos
 				,count(*)											partidos_jugados
@@ -75,8 +77,8 @@ class TablasController extends Controller {
 					(? = -1 and dfe_fase_acumulada = 1)
 					or (? = dfe_fase_id)
 				)
-			group by deq_equipo_nombre, deq_equipo_escudo
-			order by 3 desc', 
+			group by deq_equipo_nombre, deq_equipo_nombre_corto, deq_equipo_abreviatura, deq_equipo_escudo
+			order by 5 desc', 
 			[$torneo_id, $fase_id, $fase_id]
 		);
 

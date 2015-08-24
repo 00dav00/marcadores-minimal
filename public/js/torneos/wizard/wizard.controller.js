@@ -1,12 +1,12 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    angular
-        .module('wizardTorneo')
-        .controller('wizardTorneoController', wizardTorneo);
+	angular
+	.module('wizardTorneo')
+	.controller('wizardTorneoController', wizardTorneo);
 
-function wizardTorneo($http, wizardFactory, $timeout) {
-	
+function wizardTorneo($http, wizardFactory, $timeout, $modal) {
+
 	var vm = this;
 
 	vm.equiposParticipantes = [];
@@ -42,6 +42,52 @@ function wizardTorneo($http, wizardFactory, $timeout) {
 
 	// borrar una fecha
 	vm.borrarFecha = borrarFecha;
+
+	// editar los partidos de una fecha
+	vm.editarFecha = editarFecha;
+
+	// agregar partido
+	vm.agregarPartido = agregarPartido;
+
+	vm.regresarFechasFase = regresarFechasFase;
+
+	vm.showAgregarPartido = showAgregarPartido;
+
+	vm.editarPartido = editarPartido;
+
+	vm.borrarPartido = borrarPartido;
+
+	vm.optionsEquipoLocal = {
+		accept: function(dragEl) {
+			if (vm.nuevoPartido.equipoLocal.length >= 1) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	};
+	vm.optionsEquipoVisitante = {
+		accept: function(dragEl) {
+			if (vm.nuevoPartido.equipoVisitante.length >= 1) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	};
+
+	// date picker
+	vm.status = {
+		opened: false
+	};
+
+	vm.dateOptions = {
+		startingDay: 1
+	};
+
+	vm.open = function($event) {
+		vm.status.opened = true;
+	};
 
 	// obtener los torneos creados
 	getTorneos();
@@ -86,6 +132,7 @@ function wizardTorneo($http, wizardFactory, $timeout) {
 	// torneos creados
 	function getTorneos() {
 		wizardFactory.getTorneos()
+
 			.success(function(data) {
 				vm.torneos = data;
 			})
@@ -172,7 +219,7 @@ function wizardTorneo($http, wizardFactory, $timeout) {
 	//obtener tipos de fases disponibles
 	function obtenerTiposDeFase(){
 		wizardFactory.tiposFase()
-			.success(function (data) {
+		.success(function (data) {
 				vm.tiposFase = data;
 			})
 		.error( errorHandler );			
@@ -244,14 +291,216 @@ function wizardTorneo($http, wizardFactory, $timeout) {
 
 	function borrarFecha(fecha) {
 		wizardFactory.deleteFecha(fecha.fec_id)
-			.success(function () {
+		.success(function () {
 				createAlert('warning', 'Fecha '+ fecha.fec_numero + ' del torneo, fue eliminada exitosamente');
 				obtenerFechas();
 			})
 			.error( errorHandler );	
 	}
 
+	function editarFecha(fecha) {
+		vm.paso = 5;
+		vm.fechaSelected = fecha;
+
+		wizardFactory.partidos(vm.fechaSelected.fec_id)
+		.success(function (data) {
+			vm.partidos = data;
+			vm.equiposSeleccionables = angular.copy(vm.equiposParticipantes);
+		})
+		.then(function () {
+			wizardFactory.estadios()
+			.success(function (data) {
+				vm.estadios = data;
+				quitarEquipoSeleccionado(vm.partidos, vm.equiposSeleccionables);
+				resetNuevoPartido()
+			})
+		})
+	}
+
+	function agregarPartido() {
+		if (vm.nuevoPartido.equipoLocal[0] && vm.nuevoPartido.equipoVisitante[0] && vm.nuevoPartido.par_fecha && vm.nuevoPartido.par_hora) {
+			var partido = {
+				par_eqp_local: vm.nuevoPartido.equipoLocal[0].eqp_id,
+				par_eqp_visitante: vm.nuevoPartido.equipoVisitante[0].eqp_id,
+				est_id: vm.nuevoPartido.est_id,
+				par_fecha: vm.nuevoPartido.par_fecha,
+				par_hora: vm.nuevoPartido.par_hora,
+				par_cronica: "",
+				fec_id: vm.fechaSelected.fec_id
+			};
+
+			wizardFactory.crearPartido(partido)
+			.success(function (data) {
+				console.log(data);
+			})
+			.then(function () {
+				resetNuevoPartido();
+				vm.mostrarAgregarPartido = false;
+
+				wizardFactory.partidos(vm.fechaSelected.fec_id)
+				.success(function (data) {
+					vm.partidos = data;
+				})
+			})
+
+		}
+
+	}
+
+	function regresarFechasFase() {
+		vm.paso = 4;
+
+		wizardFactory.fechas(vm.faseSelected.fas_id)
+		.success(function (data) {
+			vm.fechas = data;
+		})
+	}
+
+	function defaultHour() {
+		var d = new Date();
+		d.setHours(8);
+		d.setMinutes(0);
+		vm.nuevoPartido.par_hora = d;
+	}
+
+	function defaultDate() {
+		vm.nuevoPartido.par_fecha = new Date();
+	}
+
+	function quitarEquipoSeleccionado(partidos, equipos) {
+		for (var i = 0; i < partidos.length; i++) {
+			for (var j = 0; j < equipos.length; j++) {
+				if (equipos[j].eqp_id == partidos[i].par_eqp_local) {
+					equipos.splice(j, 1);
+				} 
+			};
+		};
+
+		for (var i = 0; i < partidos.length; i++) {
+			for (var j = 0; j < equipos.length; j++) {
+				if (equipos[j].eqp_id == partidos[i].par_eqp_visitante) {
+					equipos.splice(j, 1);
+				} 
+			};
+		};
+	}
+
+	function resetNuevoPartido() {
+		vm.nuevoPartido = {};
+		vm.nuevoPartido.equipoLocal = [];
+		vm.nuevoPartido.equipoVisitante = [];
+		defaultHour();
+		defaultDate();
+	}
+
+	function showAgregarPartido() {
+		vm.mostrarAgregarPartido = !vm.mostrarAgregarPartido;
+	}
+
+	function editarPartido(partido) {
+
+		var modalInstance = $modal.open({
+			animation: true,
+			templateUrl: 'editarPartido.html',
+			controller: 'ModalEditarPartidoCtrl as md',
+			size: 'md',
+			resolve: {
+				partido: function () {
+					return partido;
+				},
+				estadios: function () {
+					return vm.estadios;
+				}
+			}
+		});
+
+		modalInstance.result.then(function () {
+			wizardFactory.partidos(vm.fechaSelected.fec_id)
+				.success(function (data) {
+					vm.partidos = data;
+				})
+		}, function () {
+			console.log('Modal dismissed at: ' + new Date());
+		});
+	}
+
+	function borrarPartido(partido) {
+		wizardFactory.borrarPartido(partido.par_id)
+			.success(function () {
+				vm.equiposSeleccionables.push(partido.equipo_local);
+				vm.equiposSeleccionables.push(partido.equipo_visitante);
+				for (var j = 0; j < vm.partidos.length; j++) {
+					if (vm.partidos[j].par_id == partido.par_id) {
+						vm.partidos.splice(j, 1);
+						break;
+					}
+				};
+			})
+	}
 
 }
-        
+
+})();
+
+(function() {
+	'use strict';
+
+	angular
+	.module('wizardTorneo')
+	.controller('ModalEditarPartidoCtrl', editarPartido);
+
+function editarPartido ($modalInstance, partido, estadios, wizardFactory) {
+	var md = this;
+
+	var partidoEdicion = angular.copy(partido);
+
+	formatHours(partidoEdicion.par_hora);
+	formatGoles(partido.par_goles_local, partido.par_goles_visitante);
+
+	md.cancel = function () {
+    	$modalInstance.dismiss('cancel');
+	};
+
+	md.open = function($event) {
+    	md.status.opened = true;
+	};
+
+	md.status = {
+		opened: false
+	};
+
+	md.dateOptions = {
+		startingDay: 1
+	};
+
+	md.partido = partidoEdicion;
+	md.estadios = estadios;
+
+	function formatHours(hour) {
+		var res = hour.split(":")
+		var d = new Date();
+		d.setHours(parseInt(res[0]), parseInt(res[1]));
+		partidoEdicion.par_hora = d;
+	}
+
+	function formatGoles(goles_local, goles_visitante) {
+		partidoEdicion.par_goles_local = parseInt(goles_local);
+		partidoEdicion.par_goles_visitante = parseInt(goles_visitante);
+	}
+
+	md.editar = function() {
+		var partido = angular.copy(md.partido);
+		delete partido.equipo_local;
+		delete partido.equipo_visitante;
+		delete partido.estadio;
+
+		console.log(partido);
+
+		wizardFactory.editarPartido(partido)
+			.success(function () {
+				$modalInstance.close();
+			})
+	}
+}
+
 })();

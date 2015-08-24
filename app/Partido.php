@@ -25,14 +25,12 @@ class Partido extends Model {
 		// par_linea1
 		// par_linea2
 		// par_cuarto_arbitro
-		'goles_visitante',
-		'goles_local'
 	];
 
 	public function getParHoraAttribute($value)
     {
     	// return date("H:i p", strtotime("10:20:00"));
-    	return Carbon::createFromFormat('h:i:s', $value)->format('h:i');
+    	return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
         // return Carbon::createFromFormat('HH:mm', $value);
     }
 

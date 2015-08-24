@@ -6,6 +6,7 @@
         	'ngAnimate',
         	'ngResource',
         	'ui.bootstrap',
+        	'ngDragDrop'
         	])
         
 })();

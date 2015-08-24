@@ -4,6 +4,16 @@
 </div>
 
 <div class="form-group">
+	<small>{!! Form::label('eqp_nombre_corto', 'Nombre corto') !!}</small>
+	{!! Form::text('eqp_nombre_corto', null, array('class'=>'form-control input-sm','placeholder'=>'Nombre corto')) !!}
+</div>
+
+<div class="form-group">
+	<small>{!! Form::label('eqp_abreviatura', 'Abreviatura') !!}</small>
+	{!! Form::text('eqp_abreviatura', null, array('class'=>'form-control input-sm','placeholder'=>'Abreviatura')) !!}
+</div>
+
+<div class="form-group">
 	<small>{!! Form::label('eqp_fecha_fundacion', 'Fecha de fundación') !!}</small>
 	{!! Form::text('eqp_fecha_fundacion', null, array('class'=>'form-control input-sm','placeholder'=>'Fecha de fundación')) !!}
 </div>

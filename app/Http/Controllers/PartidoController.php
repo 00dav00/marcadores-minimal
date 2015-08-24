@@ -9,6 +9,8 @@ use App\Partido;
 use App\Fecha;
 use App\Http\Requests\PartidoRequest;
 
+use Carbon\Carbon;
+
 class PartidoController extends Controller {
 
 	/**
@@ -143,6 +145,80 @@ class PartidoController extends Controller {
 		return redirect('fechas/'.$fecha_id.'/partidos');
 	}
 
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function apiStore(PartidoRequest $request)
+	{
+		$partido = $request->all();
+
+		$fecha = Carbon::parse($request->input('par_fecha'));
+		$fecha->setTimezone('America/Bogota');
+		$hora = Carbon::parse($request->input('par_hora'));
+		$hora->setTimezone('America/Bogota');
+
+		$partido['par_fecha'] = $fecha->toDateString();
+		$partido['par_hora'] = $hora->toTimeString();
+
+		Partido::create($partido);
+
+		return response()->json(['data' => 'Partido creado exitosamente']);
+	}
+
+	public function apiShowPartidosFecha($fecha)
+	{
+		$partidos = Partido::with('equipoLocal',
+								'equipoVisitante',
+								'estadio')
+							->where('fec_id',$fecha)
+							->get();
+		return response()->json($partidos);
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function apiDestroy($partido_id)
+	{
+		$partido = Partido::findOrFail($partido_id);
+
+		if ($partido) {
+			$partido->delete();
+		}
+
+		return response()->json(['data' => 'Partido borrado exitosamente']);
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function apiUpdate($partido_id, PartidoRequest $request)
+	{
+		$partido = Partido::findOrFail($partido_id);
+
+		$nuevosDatos = $request->all();
+
+		$fecha = Carbon::parse($request->input('par_fecha'));
+		$fecha->setTimezone('America/Bogota');
+		$hora = Carbon::parse($request->input('par_hora'));
+		$hora->setTimezone('America/Bogota');
+
+		$nuevosDatos['par_fecha'] = $fecha->toDateString();
+		$nuevosDatos['par_hora'] = $hora->toTimeString();
+		
+		$partido->update($nuevosDatos);
+
+		return response()->json(['data' => 'Partido borrado exitosamente']);
+	}
+
 	public function apiIndex($fecha_id)
 	{
 		$partidos = Partido::where('fec_id',$fecha_id)->with('equipoLocal','equipoVisitante','estadio')->get();
@@ -150,4 +226,5 @@ class PartidoController extends Controller {
 		return $partidos->toJson();
 		// return \Response::json($partidos);
 	}
+
 }

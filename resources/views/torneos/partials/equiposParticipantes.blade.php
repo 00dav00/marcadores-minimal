@@ -28,9 +28,7 @@
 			<td><%$index + 1%></td>
 			<td><%equipoParticipante.eqp_nombre%></td>
 			<td>
-				<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align">
-					<span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="vm.borrarEquipoParticipante(equipoParticipante)"></span>
-				</button>
+				<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align" ng-click="vm.borrarEquipoParticipante(equipoParticipante)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 			</td>
 		</tr>
 	</table>

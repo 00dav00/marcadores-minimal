@@ -24,6 +24,13 @@
 	<script src="{!! asset('/js/vendor/selectize.min.js') !!}"></script>
 	<script src="{!! asset('/js/libs/underscore/underscore-min.js') !!}"></script>
 
+
+	<style type="text/css">
+		@media (max-width: 360px) {
+		    body{font-size: 12px;}
+		}
+	</style>
+
 </head>
 <body>
 	<div class="widget">

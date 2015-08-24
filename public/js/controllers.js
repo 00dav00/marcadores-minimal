@@ -620,7 +620,7 @@ tablasControllers.controller('TablasCtrl', [
 	 	$scope.obtenerTorneos = function(){
 	 		Torneos.query(
 	 			function success(response){
-	                console.log("Success:" + JSON.stringify(response));
+	                //console.log("Success:" + JSON.stringify(response));
 	                $scope.torneos = response;
 	            },
 	            function error(errorResponse){
@@ -634,8 +634,8 @@ tablasControllers.controller('TablasCtrl', [
 	 		Fases.query(
 	 			{torneo: $scope.torneoSeleccionado.tor_id},
 	 			function success(response){
-	                console.log("Success:" + JSON.stringify(response));
-	                response.unshift({"fas_id":-1,"tipo_fase":{"tfa_nombre":"Acumulada"}});
+	                //console.log("Success:" + JSON.stringify(response));
+	                response.unshift({"fas_id":-1,"fas_descripcion":"Acumulada"});
 	                $scope.fases = response;
 	                $scope.faseSeleccionada = -1;
 	                $scope.obtenerTabla();
@@ -651,7 +651,7 @@ tablasControllers.controller('TablasCtrl', [
 			Torneos.get(
 	            {torneo: torneo_id},
 	            function success(response){
-	                console.log("Success:" + JSON.stringify(response));
+	                //console.log("Success:" + JSON.stringify(response));
 	                $scope.torneoSeleccionado = response;
 	                obtenerFases();
 	            },
@@ -666,7 +666,7 @@ tablasControllers.controller('TablasCtrl', [
 			Tablas.get(
 				{torneo:  $scope.torneoSeleccionado.tor_id, fase: $scope.faseSeleccionada},
 				function success(response){
-	                console.log("Success:" + JSON.stringify(response));
+	                // console.log("Success:" + JSON.stringify(response));
 	                $scope.tabla = response;
 	            },
 	            function error(errorResponse){
