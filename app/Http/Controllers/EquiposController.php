@@ -62,6 +62,8 @@ class EquiposController extends Controller {
 	{
 		$data = $request->all();
 
+		$this->_setImageSize(200, 200);
+
 		$data['eqp_escudo'] = $this->procesarImagen(
 										$request->file('eqp_escudo'),
 										Equipo::getImagePath()
@@ -112,6 +114,8 @@ class EquiposController extends Controller {
 		$equipo = Equipo::findOrFail($id);
 
 		$data = $request->all();
+
+		$this->_setImageSize(200, 200);
 
 		if ($request->file('eqp_escudo')) {
 			File::delete(public_path($equipo->eqp_escudo));

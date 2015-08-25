@@ -13,7 +13,7 @@
 					{!! HTML::image(
 						$equipo->eqp_escudo, 
 						$equipo->eqp_nombre, 
-						array('class'=>'feature', 'width'=>'200', 'height'=>'300')
+						array('class'=>'feature', 'width'=>'200', 'height'=>'200')
 					) !!}
 				</div>
 				<div class="form-group">
