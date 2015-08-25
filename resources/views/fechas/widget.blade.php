@@ -19,7 +19,7 @@
 								</div>
 								
 								<div class="row">
-									<span class="col-xs-8 col-sm-8 col-md-1 col-lg-2" ng-repeat='partido in partidos'>
+									<span class="col-xs-8 col-sm-8 col-md-2 col-lg-2" ng-repeat='partido in partidos'>
 										<table class="table table-striped table-hover">
 											<thead>
 												<tr>
