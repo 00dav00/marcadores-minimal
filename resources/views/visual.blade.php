@@ -35,14 +35,15 @@
 <body>
 	<div class="widget">
 		<div class="container-fluid">
-			<div class="row">
 
-      			<div class="col-sm-12">
-	  	@yield('widget')
-          			<!-- <p>Nunc congue, enim nec faucibus rutrum, orci magna bibendum odio, nec euismod lectus neque at felis. Vestibulum lectus arcu, aliquet vel vulputate sed, aliquet convallis massa. Aenean urna ante, pretium in pellentesque at, posuere vitae urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in ipsum urna, id aliquet erat. Aliquam id nisi eu nunc pulvinar faucibus quis quis erat. Aliquam placerat auctor lectus, sit amet consectetur ipsum lacinia sit amet.</p> -->
+			<div class="row">
+      			<div class="col-xs-12 col-sm-12 col-sm-12 col-lg-12">
+	  				@yield('widget')
+          			
       			</div>
 			</div>
 		</div>
+	</div>
 
 	<div class="container">
 		@yield('content')
