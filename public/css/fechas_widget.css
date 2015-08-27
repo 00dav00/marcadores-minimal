@@ -4,25 +4,18 @@
   margin: auto;  
 }
 
-.presentacion { 
-    position:fixed;
-    top:5px;
-    
-    right:1%; 
-    z-index: 100;
-    opacity: 0.2;
+.escudoEquiposMini{
+  max-width: 20px;
+  max-height: 20px;
 }
 
-/*.endColor{
-}*/
-
-.framePromo {
-  /*width: 800px;*/
-  height: 600px;
-
-  background-color: #ffffff;
-
-  width:100%; 
-  text-align: center; 
-  display: none;
+.equiposImagenLeft{
+  border-left-width:0px !important;;
 }
+
+.equiposImagenRight{
+  max-width: 25px;
+  max-height: 25px;
+  border-right-width:0px !important;;
+}
+

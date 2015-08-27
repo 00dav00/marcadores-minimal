@@ -133,6 +133,13 @@ class FechasController extends Controller {
 	public function apiShow($id)
 	{
 		$fecha = Fecha::findOrFail($id);
+
+		$fecha['fecha_anterior'] = Fecha::where('fas_id', $fecha->fas_id)
+									->where('fec_numero',$fecha->fec_numero - 1)->first();
+
+		$fecha['fecha_siguiente'] = Fecha::where('fas_id', $fecha->fas_id)
+									->where('fec_numero',$fecha->fec_numero + 1)->first();
+
 		return $fecha->toJson();
 	}
 

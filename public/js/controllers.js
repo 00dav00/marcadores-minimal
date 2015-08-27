@@ -690,7 +690,9 @@ fechasControllers.controller('FechasCtrl', [
 	 	$scope.fases = [];
 	 	$scope.faseSeleccionada = null;
 	 	$scope.fechas = [];
-	 	$scope.fechasSeleccionada = null;
+	 	$scope.fechaSeleccionada = null;
+	 	$scope.existeFechaAnterior = null;
+	 	$scope.existeFechaSiguiente = null;
 	 	$scope.partidos = [];
 
 
@@ -701,6 +703,14 @@ fechasControllers.controller('FechasCtrl', [
 
 	 	$scope.initPreview = function(fecha_id){
 	 		$scope.obtenerFecha(fecha_id);
+	 	}
+
+	 	$scope.irFechaAnterior = function(){
+			$scope.irFechaWidget($scope.fechaSeleccionada.fecha_anterior);	 		
+	 	}
+
+	 	$scope.irFechaSiguiente = function(){
+			$scope.irFechaWidget($scope.fechaSeleccionada.fecha_siguiente);	 		
 	 	}
 
 	 	$scope.irFechaTabla = function(fecha){
@@ -758,6 +768,8 @@ fechasControllers.controller('FechasCtrl', [
 	 			function success(response){
 	                console.log("Success:" + JSON.stringify(response));
 	                $scope.fechaSeleccionada = response;
+	                $scope.existeFechaAnterior = $scope.fechaSeleccionada.fecha_anterior != null ? true : false;
+	                $scope.existeFechaSiguiente = $scope.fechaSeleccionada.fecha_siguiente != null ? true : false;
 	                $scope.obtenerFase($scope.fechaSeleccionada.fas_id);
 	                $scope.obtenerPartidos();
 	            },
