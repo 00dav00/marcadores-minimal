@@ -34,15 +34,7 @@
 </head>
 <body>
 	<div class="widget">
-		<div class="container-fluid">
-
-			<div class="row">
-      			<div class="col-xs-12 col-sm-12 col-sm-12 col-lg-12">
-	  				@yield('widget')
-          			
-      			</div>
-			</div>
-		</div>
+		@yield('widget')
 	</div>
 
 	<div class="container">
