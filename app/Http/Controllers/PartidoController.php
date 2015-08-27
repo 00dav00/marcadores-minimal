@@ -174,7 +174,8 @@ class PartidoController extends Controller {
 								'estadio')
 							->where('fec_id',$fecha)
 							->get();
-		return response()->json($partidos);
+		//return response()->json($partidos);
+		return $partidos->toJson();
 	}
 
 	/**

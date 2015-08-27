@@ -27,7 +27,7 @@
 
 	<style type="text/css">
 		@media (max-width: 360px) {
-		    body{font-size: 12px;}
+		    body{font-size: 6px;}
 		}
 	</style>
 

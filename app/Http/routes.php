@@ -82,8 +82,8 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::get('api/fechas/{fechas}/partidos','PartidoController@apiIndex');
 
-	// Route::get('auth/register', 'Auth\AuthController@getRegister');
-	// Route::post('auth/register', 'Auth\AuthController@postRegister');
+	Route::get('auth/register', 'Auth\AuthController@getRegister');
+	Route::post('auth/register', 'Auth\AuthController@postRegister');
 	Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 	Route::get('tablas', 'TablasController@index');

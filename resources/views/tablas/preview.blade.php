@@ -8,7 +8,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
 			<div class="panel panel-default">
 
-				<div class="panel-heading">Tablas de resultados</div>
+				<div class="panel-heading">Tabla de posiciones</div>
 
 				<div class="form-group" ng-show="torneoSeleccionado">
 					<small><label for="cbo_fases">Fases</label></small>
@@ -21,8 +21,8 @@
 					<thead >
 						<tr class="row">
 							<td  class="col-xs-1 col-sm-1">&nbsp;</td>
-							<td  class="col-xs-3 col-sm-2 hidden-xs hidden-sm">Equipo</td>
-							<td  class="col-xs-3 col-sm-2 hidden-md hidden-lg">Equipo</td>
+							<td  class="col-xs-2 col-sm-2 hidden-xs hidden-sm">Equipo</td>
+							<td  class="col-xs-2 col-sm-2 hidden-md hidden-lg">Equipo</td>
 							<td  class="col-xs-1 col-sm-1">PJ</td>
 							<td  class="col-xs-1 col-sm-1">PG</td>
 							<td  class="col-xs-1 col-sm-1">PE</td>
@@ -35,7 +35,7 @@
 					</thead>
 					<tbody>
 						<tr class="row" ng-repeat='equipo in tabla'>
-							<td> <img class="imagenPromo" src="/<% equipo.escudo %>" style="max-width:22px;max-height:26px;"/> </td>
+							<td> <img class="imagenPromo" src="/<% equipo.escudo %>" style="max-width:15px;max-height:15px;"/> </td>
 							<td class="hidden-xs hidden-sm"> <% equipo.nombre %> </td>
 							<td class="hidden-md hidden-lg"> <% equipo.nombre_corto %> </td>
 							<td> <% equipo.partidos_jugados %> </td>
