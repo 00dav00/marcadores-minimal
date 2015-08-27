@@ -27,13 +27,13 @@
 
 	<style type="text/css">
 		@media (max-width: 360px) {
-		    body{font-size: 12px;}
+		    body{font-size: 6px;}
 		}
 	</style>
 
 </head>
 <body>
-	<div class="widget">
+	<!--<div class="widget">
 		<div class="container-fluid">
 
 			<div class="row">
@@ -43,7 +43,7 @@
       			</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="container">
 		@yield('content')
