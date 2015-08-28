@@ -48,7 +48,7 @@
 													<td> <% partido.par_goles_visitante %> </td>
 												</tr>
 												<tr>
-													<td colspan="3"><b><% partido.estadio.est_nombre %></b></td>
+													<td class="estadioPartido" colspan="3"><b><% partido.estadio.est_nombre %></b></td>
 												</tr>
 											</tbody>
 										</table>
