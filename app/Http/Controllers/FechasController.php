@@ -124,6 +124,9 @@ class FechasController extends Controller {
 											->where('fec_estado','jugada')
 											->max('fec_id');
 
+		if( is_null($ultima_fecha_jugada_id) )
+			$ultima_fecha_jugada_id = Fecha::where('fas_id', $fase_id)->min('fec_id');			
+
 		return $this->apiShow($ultima_fecha_jugada_id);
 	}
 
