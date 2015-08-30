@@ -7,7 +7,7 @@
 
 		<div class="col-xs-12 col-sm-12 col-sm-12 col-lg-12">
 
-			<div class="row" ng-app="fechasApp" ng-controller="FechasCtrl" data-ng-init="initPreview({!! $fecha_id !!})">
+			<div class="row" ng-app="fechasApp" ng-controller="FechasCtrl" data-ng-init="initPreview({!! $fecha_id !!},{!! $fase_id !!})">
 
 				<table class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<tbody>

@@ -11,11 +11,6 @@ use App\Http\Requests\FechaRequest;
 
 class FechasController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$fechas = Fecha::with('fase')
@@ -24,21 +19,11 @@ class FechasController extends Controller {
 		return view('fechas.index', compact('fechas'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		return view('fechas.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
 	public function store(FechaRequest $request)
 	{
 		Fecha::create($request->all());
@@ -48,12 +33,6 @@ class FechasController extends Controller {
 		return redirect('fechas');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function show($id)
 	{
 		$fecha = Fecha::findOrFail($id);
@@ -63,12 +42,6 @@ class FechasController extends Controller {
 
 
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id)
 	{
 		$fecha = Fecha::findOrFail($id);
@@ -76,12 +49,6 @@ class FechasController extends Controller {
 		return view('fechas.edit', compact('fecha'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($id, FechaRequest $request)
 	{
 		$fecha = Fecha::findOrFail($id);
@@ -93,12 +60,6 @@ class FechasController extends Controller {
 		return redirect('fechas');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($id)
 	{
 		$fecha = Fecha::findOrFail($id);
@@ -122,12 +83,26 @@ class FechasController extends Controller {
 
 	public function preview($fecha_id)
 	{
-		return view('fechas.preview', compact('fecha_id'));
+		$fase_id = -1;
+		return view('fechas.preview', compact('fecha_id','fase_id'));
+	}
+
+	public function previewFechaActual($fase_id)
+	{
+		$fecha_id = -1;
+		return view('fechas.preview', compact('fecha_id','fase_id'));
 	}
 
 	public function widget($fecha_id)
 	{
-		return view('fechas.widget', compact('fecha_id'));
+		$fase_id = -1;
+		return view('fechas.widget', compact('fecha_id','fase_id'));
+	}
+
+	public function widgetFechaActual($fase_id)
+	{
+		$fecha_id = -1;
+		return view('fechas.widget', compact('fecha_id','fase_id'));
 	}
 
 	public function apiShow($id)
@@ -141,6 +116,15 @@ class FechasController extends Controller {
 									->where('fec_numero',$fecha->fec_numero + 1)->first();
 
 		return $fecha->toJson();
+	}
+
+	public function apiShowFechaActual($fase_id)
+	{
+		$ultima_fecha_jugada_id = Fecha::where('fas_id', $fase_id)
+											->where('fec_estado','jugada')
+											->max('fec_id');
+
+		return $this->apiShow($ultima_fecha_jugada_id);
 	}
 
 	public function apiStore(FechaRequest $request)
@@ -189,6 +173,7 @@ class FechasController extends Controller {
 
 		return response()->json(['data' => $mensaje]);
 	}
+
 
 	public function apiFechaPartidos($id)
 	{

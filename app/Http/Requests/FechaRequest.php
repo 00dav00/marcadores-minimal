@@ -24,6 +24,7 @@ class FechaRequest extends Request {
 		return [
 			'fas_id' => 'required|integer',
 			'fec_numero' => 'required|integer|min:1',
+			'fec_estado' => 'in:jugada,no_jugada,en_juego,suspendida',
 		];
 	}
 

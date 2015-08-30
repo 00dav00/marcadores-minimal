@@ -11,6 +11,6 @@
 </div>
 
 <div class="form-group">
-	<small>{!! Form::label('fec_fecha_referencia', 'Fecha de referencia') !!}</small>
-	{!! Form::text('fec_fecha_referencia', null, array('class'=>'form-control input-sm','placeholder'=>'Fecha de referencia')) !!}
+	<small>{!! Form::label('fec_estado', 'Tipo') !!}</small>
+	{!! Form::select('fec_estado', ['jugada' => 'Jugada' , 'no_jugada' => 'No jugada' , 'en_juego' => 'En juego', 'suspendida' => 'Suspendida' ], null, ['class' => 'form-control input-sm']) !!}	
 </div>

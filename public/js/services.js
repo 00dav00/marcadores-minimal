@@ -75,6 +75,11 @@ torneoServices.factory('Fechas',
 				{fecha: '@fecha_id'},
 				{
 					get:	{method:	'GET',	cache:	false,	isArray:	false},
+					actual:	{
+						url: '/api/fases/:fase/fecha_actual', 
+						params: {fase: '@fase_id'},	
+						method:	'GET',	cache:	false,	isArray:	false
+					},
 					query:	{
 						url: '/api/fases/:fase/fechas', 
 						params: {fase: '@fase_id'},	

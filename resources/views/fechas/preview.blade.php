@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="row centered-form" ng-app="fechasApp" ng-controller="FechasCtrl" data-ng-init="initPreview({!! $fecha_id !!})">
+<div class="row centered-form" ng-app="fechasApp" ng-controller="FechasCtrl" data-ng-init="initPreview({!! $fecha_id !!},{!! $fase_id !!})">
 	<div class="col-xs-12 col-md-5">
 		<div class="panel panel-default">
 
 			<div class="panel-heading">
 				<b><% faseSeleccionada.torneo.tor_nombre %> </b><br/>
-				<% faseSeleccionada.tipo_fase.tfa_nombre %>, Fecha <% fechaSeleccionada.fec_numero %> 
+				<% faseSeleccionada.tipo_fase.tfa_nombre %>, Fecha <% fechaSeleccionada.fec_numero %>
 			</div>
 
 			<br/>

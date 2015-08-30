@@ -18,6 +18,7 @@ function wizardFactory($http) {
 		deleteFase: deleteFase,
 		fechas: fechas,
 		createFecha: createFecha,
+		updateFecha: updateFecha,
 		deleteFecha: deleteFecha,
 		partidos: partidos,
 		estadios: estadios,
@@ -81,6 +82,12 @@ function wizardFactory($http) {
 	function createFecha(fecha) {
 		if (fecha) {
 			return $http.post("/api/fechas", fecha);
+		}
+	}
+
+	function updateFecha(fecha) {
+		if (fecha) {
+			return $http.put("/api/fechas/"+fecha.fec_id, fecha);
 		}
 	}
 

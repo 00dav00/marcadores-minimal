@@ -29,10 +29,14 @@
 				<table class="table table-striped table-hover">
 					<thead>
 						<td><b>Numero</b></td>
+						<td><b>Estado</b></td>
+						<td></td>
+						<td></td>
 					</thead>
 					<tbody>
 						<tr ng-repeat='fecha in fechas'>
 							<td> <% fecha.fec_numero %> </td>
+							<td> <% fecha.fec_estado %> </td>
 							<td> 
 								<button class="btn btn-info btn-xs" ng-click="irFechaTabla(fecha)">  
 									<span class="glyphicon glyphicon-calendar" > Formato Tabla</span>

@@ -701,8 +701,14 @@ fechasControllers.controller('FechasCtrl', [
 			$scope.obtenerTorneos();	 		
 	 	}
 
-	 	$scope.initPreview = function(fecha_id){
-	 		$scope.obtenerFecha(fecha_id);
+	 	$scope.initPreview = function(fecha_id, fase_id){
+	 		if (fase_id == -1)
+	 			$scope.obtenerFecha(fecha_id);
+	 		else
+	 			$scope.obtenerFechaActual(fase_id);
+
+ 			// else
+
 	 	}
 
 	 	$scope.irFechaAnterior = function(){
@@ -765,6 +771,24 @@ fechasControllers.controller('FechasCtrl', [
 	 	$scope.obtenerFecha = function (fecha_id){
 	 		Fechas.get(
 	 			{fecha: fecha_id},
+	 			function success(response){
+	                console.log("Success:" + JSON.stringify(response));
+	                $scope.fechaSeleccionada = response;
+	                $scope.existeFechaAnterior = $scope.fechaSeleccionada.fecha_anterior != null ? true : false;
+	                $scope.existeFechaSiguiente = $scope.fechaSeleccionada.fecha_siguiente != null ? true : false;
+	                $scope.obtenerFase($scope.fechaSeleccionada.fas_id);
+	                $scope.obtenerPartidos();
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+ 			);
+	 	}
+
+	 	$scope.obtenerFechaActual = function (fase_id){
+	 		Fechas.actual(
+	 			{fase: fase_id},
 	 			function success(response){
 	                console.log("Success:" + JSON.stringify(response));
 	                $scope.fechaSeleccionada = response;
