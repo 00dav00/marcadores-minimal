@@ -1,3 +1,5 @@
+<h3 class="text-center">Fases del Torneo</h3>
+
 <div class="panel panel-default">
 	<div class="panel-body">
 
@@ -28,10 +30,6 @@
 	</div>
 </div>
 
-<br>
-
-<h3 class="text-center">Fases del Torneo</h3>
-
 <table class="table">
 	<thead>
 		<tr>
@@ -54,3 +52,52 @@
 			</td>
 		</tr>
 	</table>
+
+	<br>
+
+	<h3 class="text-center">Penalizaciones</h3>
+
+	<div class="panel panel-default">
+	<div class="panel-body">
+
+		<h5 class="text-center">Agregar una penalización</h5>
+
+		<form class="form-inline text-center" ng-submit="vm.crearPenalizacion()" name="agregarPenalizacion">
+			<div class="form-group">
+				<select class="form-control" ng-model="vm.nuevaPenalizacion.eqp_id" ng-options="equipo.eqp_id as equipo.eqp_nombre for equipo in vm.equiposParticipantes" required>
+					<option value="" disabled>Equipo...</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="penalizacionPuntos">Puntos</label>
+				<input type="number" class="form-control" ng-model="vm.nuevaPenalizacion.ptr_puntos" id="penalizacionPuntos" placeholder="Puntos" required>
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="penalizacionMotivo">Motivo</label>
+				<input type="text" class="form-control" ng-model="vm.nuevaPenalizacion.ptr_motivo" id="penalizacionMotivo" placeholder="Motivo" required>
+			</div>
+			<input type="submit" class="btn btn-default" value="Agregar" ng-disabled="agregarPenalizacion.$invalid">
+		</form>
+
+	</div>
+</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Equipo</th>
+				<th>Puntos</th>
+				<th>Motivo</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="penalizacion in vm.penalizaciones">
+				<td><%penalizacion.equipo.eqp_nombre%></td>
+				<td><%penalizacion.ptr_puntos%></td>
+				<td><%penalizacion.ptr_motivo%></td>
+				<td>
+					<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align" ng-click="vm.borrarPenalizacion(penalizacion)">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+				</td>
+			</tr>
+		</table>

@@ -91,6 +91,15 @@ Route::group(['middleware' => 'auth'], function()
 
 });
 
+// Rutas para consultar datos REST
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+
+	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');
+	Route::put('penalizaciones/{torneo}/{equipo}', 'ApiPenalizacionesTorneoController@update');
+	Route::delete('penalizaciones/{torneo}/{equipo}', 'ApiPenalizacionesTorneoController@destroy');
+
+});
+
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 
@@ -108,3 +117,9 @@ Route::get('api/fases/{fases}', 'FaseController@apiShow');
 Route::get('api/fechas/{fechas}/partidos', 'FechasController@apiFechaPartidos');
 
 Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
+
+Route::group(['prefix' => 'api'], function () {
+
+	Route::get('penalizaciones/{torneo}', 'ApiPenalizacionesTorneoController@show');
+
+});

@@ -16,8 +16,11 @@ function wizardFactory($http) {
 		fases: fases,
 		crearFase: crearFase,
 		deleteFase: deleteFase,
+		crearPenalizacion: crearPenalizacion,
+		borrarPenalizacion: borrarPenalizacion,
 		fechas: fechas,
 		createFecha: createFecha,
+		penalizaciones: penalizaciones,
 		deleteFecha: deleteFecha,
 		partidos: partidos,
 		estadios: estadios,
@@ -69,6 +72,24 @@ function wizardFactory($http) {
 	function deleteFase(fas_id) {
 		if (fas_id) {
 			return $http.delete("/api/fases/" + fas_id)
+		}
+	}
+
+	function crearPenalizacion(penalizacion) {
+		if (penalizacion) {
+			return $http.post("/api/penalizaciones", penalizacion);
+		}
+	}
+
+	function penalizaciones(tor_id) {
+		if (tor_id) {
+			return $http.get("/api/penalizaciones/" + tor_id);
+		}
+	}
+
+	function borrarPenalizacion(tor_id, eqp_id) {
+		if (tor_id && eqp_id) {
+			return $http.delete("/api/penalizaciones/" + tor_id + "/" + eqp_id);
 		}
 	}
 

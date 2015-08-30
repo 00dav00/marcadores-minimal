@@ -37,6 +37,11 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 	// borrar la fase de un torneo
 	vm.borrarFase = borrarFase;
 
+	// crear una penalizacion
+	vm.nuevaPenalizacion = {};
+	vm.crearPenalizacion = crearPenalizacion;
+	vm.borrarPenalizacion = borrarPenalizacion;
+
 	// agregar una fecha en una fase
 	vm.agregarFecha = agregarFecha;
 
@@ -214,6 +219,7 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 		vm.paso = 3;
 		obtenerFases();
 		obtenerTiposDeFase();
+		obtenerPenalizaciones();
 	}
 
 	//obtener tipos de fases disponibles
@@ -264,6 +270,36 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 		vm.paso = 4;
 		vm.faseSelected = fase;
 		obtenerFechas();
+	}
+
+	function obtenerPenalizaciones() {
+		wizardFactory.penalizaciones(vm.torneoSelected.tor_id)
+			.success(function (data) {
+				vm.penalizaciones = data.data;
+			})
+			.error( errorHandler );	
+	}
+
+	function crearPenalizacion() {
+		
+		vm.nuevaPenalizacion.tor_id = vm.torneoSelected.tor_id;
+
+		wizardFactory.crearPenalizacion(vm.nuevaPenalizacion)
+			.success(function () {
+				createAlert('success', 'La penalización fue agregada exitosamente')				
+				vm.nuevaPenalizacion = {};
+				obtenerPenalizaciones();
+			})
+			.error( errorHandler );
+	}
+
+	function borrarPenalizacion(penalizacion) {
+		wizardFactory.borrarPenalizacion(penalizacion.tor_id, penalizacion.eqp_id)
+			.success(function () {
+				createAlert('warning', 'Penalizacion fue eliminada exitosamente');
+				obtenerPenalizaciones();
+			})
+			.error( errorHandler );
 	}
 
 	function obtenerFechas(){

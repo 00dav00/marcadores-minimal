@@ -60,15 +60,6 @@ class Lugar extends Model {
 	 * Obtener la nacionalidad de un jugador
 	 * @return object relacion con la tabla lugares
 	 */
-	// public function nacionalidad()
-	// {
-	// 	return $this->belongsToMany('App\Jugador', 'lug_id', 'lug_id');
-	// }
-
-	/**
-	 * Obtener la nacionalidad de un jugador
-	 * @return object relacion con la tabla lugares
-	 */
 	public function equipo()
 	{
 		return $this->belongsToMany('App\Equipo', 'lug_id', 'lug_id');
