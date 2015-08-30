@@ -17,6 +17,7 @@
 	<thead>
 		<tr>
 			<th>Número</th>
+			<th>Estado</th>
 			<th>Acción</th>
 		</tr>
 	</thead>
@@ -24,8 +25,16 @@
 		<tr ng-repeat="fecha in vm.fechas">
 			<td>Fecha <%$index + 1%></td>
 			<td>
-				<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" ng-click="vm.editarFecha(fecha)">Ver <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
+				<div class="btn-group">
+			        <label ng-class="{jugada: selected}" class="btn btn-default" ng-change="vm.actualizarFecha(fecha)" ng-model="fecha.fec_estado" btn-radio="'jugada'">Jugada</label>
+			        <label ng-class="{no_jugada: selected}" class="btn btn-default" ng-change="vm.actualizarFecha(fecha)" ng-model="fecha.fec_estado" btn-radio="'no_jugada'">No jugada</label>
+			        <label ng-class="{en_juego: selected}" class="btn btn-default" ng-change="vm.actualizarFecha(fecha)" ng-model="fecha.fec_estado" btn-radio="'en_juego'">En juego</label>
+			        <label ng-class="{suspendida: selected}" class="btn btn-default" ng-change="vm.actualizarFecha(fecha)" ng-model="fecha.fec_estado" btn-radio="'suspendida'">Suspendida</label>
+			    </div>
+			</td>
 
+			<td>
+				<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" ng-click="vm.editarFecha(fecha)">Ver <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button>
 				<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align" ng-click="vm.borrarFecha(fecha)">Borrar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 			</td>
 		</tr>
@@ -39,3 +48,4 @@
 		</div>
 
 	</div>
+

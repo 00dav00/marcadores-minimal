@@ -217,7 +217,7 @@ class PartidoController extends Controller {
 		
 		$partido->update($nuevosDatos);
 
-		return response()->json(['data' => 'Partido borrado exitosamente']);
+		return response()->json(['data' => 'Partido actualizado exitosamente']);
 	}
 
 	public function apiIndex($fecha_id)

@@ -105,7 +105,9 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 
 Route::get('/visual/torneo/{torneo}/tablas', 'TablasController@preview');
 Route::get('/visual/fechas/{fechas}/partidos', 'FechasController@preview');
+Route::get('/visual/fases/{fases}/fecha_actual/partidos', 'FechasController@previewFechaActual');
 Route::get('/visual/widget/fechas/{fechas}/partidos', 'FechasController@widget');
+Route::get('/visual/widget/fases/{fases}/fecha_actual/partidos', 'FechasController@widgetFechaActual');
 
 Route::get('api/torneos/{torneos}', 'TorneosController@apiShow');
 Route::get('api/torneos/{torneos}/fases', 'TorneosController@fasesRegistradas');
@@ -114,6 +116,7 @@ Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'TablasController@apiSh
 
 Route::get('api/fechas/{fechas}', 'FechasController@apiShow');
 Route::get('api/fases/{fases}', 'FaseController@apiShow');
+Route::get('api/fases/{fases}/fecha_actual', 'FechasController@apiShowFechaActual');
 Route::get('api/fechas/{fechas}/partidos', 'FechasController@apiFechaPartidos');
 
 Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');

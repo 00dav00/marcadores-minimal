@@ -16,7 +16,8 @@ class Fecha extends Model {
 	 */
 	protected $fillable = [
 		'fas_id',
-		'fec_numero'
+		'fec_numero',
+		'fec_estado'
 		];
 
 	/**

@@ -45,6 +45,9 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 	// agregar una fecha en una fase
 	vm.agregarFecha = agregarFecha;
 
+	// actualizar una fecha del torneo
+	vm.actualizarFecha = actualizarFecha;
+
 	// borrar una fecha
 	vm.borrarFecha = borrarFecha;
 
@@ -321,8 +324,16 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 				createAlert('success', 'Fecha '+ fecha.fec_numero + ' del torneo, fue agregada exitosamente');
 				obtenerFechas();
 			})
-			.error( errorHandler );
-		
+			.error( errorHandler );	
+	}
+
+	function actualizarFecha(fecha){
+		wizardFactory.updateFecha(fecha)
+		.success(function () {
+				createAlert('success', 'Fecha '+ fecha.fec_numero + ' del torneo, fue actualizada exitosamente');
+				obtenerFechas();
+			})
+			.error( errorHandler );	
 	}
 
 	function borrarFecha(fecha) {
