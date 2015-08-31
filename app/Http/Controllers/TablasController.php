@@ -60,7 +60,7 @@ class TablasController extends Controller {
 				,deq_equipo_nombre_corto							nombre_corto
 				,deq_equipo_abreviatura								abreviatura
 				,deq_equipo_escudo 									escudo
-				,sum(puntos) 										puntos
+				,sum(puntos-penalizacion) 										puntos
 				,count(*)											partidos_jugados
 				,count(case when puntos = 3 then 1 else NULL end)	partidos_ganados
 				,count(case when puntos = 1 then 1 else NULL end)	partidos_empatados
