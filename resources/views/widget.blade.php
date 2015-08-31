@@ -34,8 +34,9 @@
 </head>
 <body>
 
-	<div class="container">
-		@yield('content')
+
+	<div class="widget">
+		@yield('widget')
 	</div>
 
 	<!--AngularJS-->

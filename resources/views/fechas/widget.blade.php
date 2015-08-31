@@ -1,4 +1,4 @@
-@extends('visual')
+@extends('widget')
 
 @section('widget')
 <div class="container-fluid">
