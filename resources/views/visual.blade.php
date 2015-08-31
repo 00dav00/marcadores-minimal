@@ -33,12 +33,13 @@
 
 </head>
 <body>
-	<div class="widget">
-		@yield('widget')
-	</div>
 
 	<div class="container">
 		@yield('content')
+	</div>
+
+	<div class="widget">
+		@yield('widget')
 	</div>
 
 	<!-- <div class="container">
