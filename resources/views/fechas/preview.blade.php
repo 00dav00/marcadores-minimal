@@ -8,7 +8,7 @@
 
 			<div class="panel-heading">
 				<b><% faseSeleccionada.torneo.tor_nombre %> </b><br/>
-				<% faseSeleccionada.tipo_fase.tfa_nombre %>, Fecha <% fechaSeleccionada.fec_numero %>
+				<% faseSeleccionada.fas_descripcion %>, Fecha <% fechaSeleccionada.fec_numero %>
 			</div>
 
 			<br/>
