@@ -297,7 +297,7 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 	}
 
 	function borrarPenalizacion(penalizacion) {
-		wizardFactory.borrarPenalizacion(penalizacion.tor_id, penalizacion.eqp_id)
+		wizardFactory.borrarPenalizacion(penalizacion.tor_id, penalizacion.fas_id, penalizacion.eqp_id)
 			.success(function () {
 				createAlert('warning', 'Penalizacion fue eliminada exitosamente');
 				obtenerPenalizaciones();

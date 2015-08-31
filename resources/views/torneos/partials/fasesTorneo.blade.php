@@ -64,6 +64,11 @@
 
 		<form class="form-inline text-center" ng-submit="vm.crearPenalizacion()" name="agregarPenalizacion">
 			<div class="form-group">
+				<select class="form-control" ng-model="vm.nuevaPenalizacion.fas_id" ng-options="fase.fas_id as fase.fas_descripcion for fase in vm.fases" required>
+					<option value="" disabled>Fase...</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<select class="form-control" ng-model="vm.nuevaPenalizacion.eqp_id" ng-options="equipo.eqp_id as equipo.eqp_nombre for equipo in vm.equiposParticipantes" required>
 					<option value="" disabled>Equipo...</option>
 				</select>
@@ -85,6 +90,7 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th>Fase</th>
 				<th>Equipo</th>
 				<th>Puntos</th>
 				<th>Motivo</th>
@@ -93,6 +99,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="penalizacion in vm.penalizaciones">
+				<td><%penalizacion.fase.fas_descripcion%></td>
 				<td><%penalizacion.equipo.eqp_nombre%></td>
 				<td><%penalizacion.ptr_puntos%></td>
 				<td><%penalizacion.ptr_motivo%></td>

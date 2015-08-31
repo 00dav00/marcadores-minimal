@@ -16,6 +16,7 @@ class PenalizacionTorneo extends Model {
 	 */
 	protected $fillable = [
 		'eqp_id',
+		'fas_id',
 		'tor_id',
 		'ptr_puntos',
 		'ptr_motivo'
@@ -39,14 +40,19 @@ class PenalizacionTorneo extends Model {
 	 */
 	public $timestamps = false;
 
-	public function torneo()
+	public function fase()
 	{
-		return $this->belongsTo('App\Torneo', 'tor_id', 'tor_id');
+		return $this->belongsTo('App\Fase', 'fas_id', 'fas_id');
 	}
 
 	public function equipo()
 	{
 		return $this->belongsTo('App\Equipo', 'eqp_id', 'eqp_id');
+	}
+
+	public function torneo()
+	{
+		return $this->belongsTo('App\Torneo', 'tor_id', 'tor_id');
 	}
 
 }

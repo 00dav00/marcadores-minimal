@@ -25,7 +25,9 @@ class AddEstadoFechas extends Migration {
 	 */
 	public function down()
 	{
-		$table->dropColumn('fec_estado');
+		Schema::table('fechas', function (Blueprint $table) {
+			$table->dropColumn('fec_estado');
+		});
 	}
 
 }

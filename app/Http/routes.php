@@ -95,8 +95,8 @@ Route::group(['middleware' => 'auth'], function()
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');
-	Route::put('penalizaciones/{torneo}/{equipo}', 'ApiPenalizacionesTorneoController@update');
-	Route::delete('penalizaciones/{torneo}/{equipo}', 'ApiPenalizacionesTorneoController@destroy');
+	Route::put('penalizaciones/{torneo}/{fase}/{equipo}', 'ApiPenalizacionesTorneoController@update');
+	Route::delete('penalizaciones/{torneo}/{fase}/{equipo}', 'ApiPenalizacionesTorneoController@destroy');
 
 });
 

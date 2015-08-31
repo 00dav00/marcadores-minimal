@@ -23,6 +23,7 @@ class PenalizacionTorneoRequest extends Request {
 	{
 		return [
 			'eqp_id' => 'required|integer',
+			'fas_id' => 'required|integer',
 			'tor_id' => 'required|integer',
 			'ptr_puntos' => 'required|integer',
 			'ptr_motivo' => 'string|min:3'
@@ -34,6 +35,8 @@ class PenalizacionTorneoRequest extends Request {
 		return [
 			'eqp_id.required' => 'Es obligatorio indicar el equipo.',
 	    	'eqp_id.integer' => 'La clave del equipo no es del tipo adecuado.',
+	    	'fas_id.required' => 'Es obligatorio indicar la fase.',
+	    	'fas_id.integer' => 'La clave de la fase no es del tipo adecuado.',
 	    	'tor_id.required' => 'Es obligatorio indicar el torneo.',
 	    	'tor_id.integer' => 'La clave del torneo no es del tipo adecuado.',
 	    	'ptr_puntos.required' => 'Es obligatorio indicar la cantidad de puntos.',

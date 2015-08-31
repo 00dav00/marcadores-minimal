@@ -14,6 +14,8 @@ class CreatePenalizaciones extends Migration {
 	{
 		Schema::create('penalizaciones_torneo', function(Blueprint $table)
 		{
+			$table->integer('fas_id')->unsigned();
+			$table->foreign('fas_id')->references('fas_id')->on('fases');
 			$table->integer('tor_id')->unsigned();
 			$table->foreign('tor_id')->references('tor_id')->on('torneos');
 			$table->integer('eqp_id')->unsigned();

@@ -88,9 +88,9 @@ function wizardFactory($http) {
 		}
 	}
 
-	function borrarPenalizacion(tor_id, eqp_id) {
-		if (tor_id && eqp_id) {
-			return $http.delete("/api/penalizaciones/" + tor_id + "/" + eqp_id);
+	function borrarPenalizacion(tor_id, fas_id, eqp_id) {
+		if (tor_id && fas_id && eqp_id) {
+			return $http.delete("/api/penalizaciones/" + tor_id + "/" + fas_id + "/" + eqp_id);
 		}
 	}
 

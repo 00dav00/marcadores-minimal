@@ -33,7 +33,7 @@ class ApiPenalizacionesTorneoController extends Controller {
 	 */
 	public function show($torneo)
 	{
-		$penalizaciones = PenalizacionTorneo::with('torneo', 'equipo')
+		$penalizaciones = PenalizacionTorneo::with('torneo', 'equipo', 'fase')
 			->where('tor_id', '=', $torneo)
 			->get();
 
@@ -48,10 +48,11 @@ class ApiPenalizacionesTorneoController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($torneo, $equipo, PenalizacionTorneoRequest $request)
+	public function update($torneo, $fase, $equipo, PenalizacionTorneoRequest $request)
 	{
 		$penalizacion = PenalizacionTorneo::where('tor_id', $torneo)
                     						->where('eqp_id', $equipo)
+                    						->where('fas_id', $fase)
                     						->firstOrFail();
 
         $penalizacion->update($request->all());
@@ -67,10 +68,11 @@ class ApiPenalizacionesTorneoController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($torneo, $equipo) 
+	public function destroy($torneo, $fase, $equipo) 
 	{
 		$penalizacion = PenalizacionTorneo::where('tor_id', $torneo)
                     						->where('eqp_id', $equipo)
+                    						->where('fas_id', $fase)
                     						->firstOrFail();
 
         $penalizacion->delete();
