@@ -16,19 +16,21 @@
 			<div class="form-group">
 				<table class="table table-striped table-hover table-condensed">
 					<thead>
-						<td colspan="3" class="col-xs-2 text-center"><b>LOCAL</b></td>
-						<td class="col-xs-1">&nbsp;&nbsp;&nbsp;</td>
-						<td colspan="3" class="col-xs-2 text-center"><b>VISITANTE</b></td>
+						<tr class="row">
+							<td class="col-xs-5 text-center" colspan="3" ><b>LOCAL</b></td>
+							<td class="col-xs-2 text-center">&nbsp;&nbsp;&nbsp;</td>
+							<td class="col-xs-5 text-center" colspan="3" ><b>VISITANTE</b></td>
+						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat='partido in partidos'>
-							<td> <img src="/<% partido.equipo_local.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
-							<td> <% partido.equipo_local.eqp_nombre_corto %> </td>
-							<td> <% partido.par_goles_local %> </td>
-							<td> <b>VS</b> </td>
-							<td> <% partido.par_goles_visitante %> </td>
-							<td> <% partido.equipo_visitante.eqp_nombre_corto %> </td>
-							<td> <img src="/<% partido.equipo_visitante.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
+						<tr class="row" ng-repeat='partido in partidos'>
+							<td class="text-left" > <img src="/<% partido.equipo_local.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
+							<td class="text-left"> <% partido.equipo_local.eqp_nombre_corto %> </td>
+							<td class="text-left"> <% partido.par_goles_local %> </td>
+							<td class="text-center"> <b><% partido.separador %></b> </td>
+							<td class="text-right"> <% partido.par_goles_visitante %> </td>
+							<td class="text-right"> <% partido.equipo_visitante.eqp_nombre_corto %> </td>
+							<td class="text-right"> <img src="/<% partido.equipo_visitante.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
 						</tr>
 					</tbody>
 				</table>

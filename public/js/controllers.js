@@ -625,7 +625,7 @@ tablasControllers.controller('TablasCtrl', [
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	                // console.log("Error:" + JSON.stringify(errorResponse));
 	            }
  			);
 	 	}
@@ -657,7 +657,7 @@ tablasControllers.controller('TablasCtrl', [
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	                // console.log("Error:" + JSON.stringify(errorResponse));
 	            }
 	        );
 		}
@@ -822,12 +822,20 @@ fechasControllers.controller('FechasCtrl', [
 			Partidos.query(
 				{fecha:  $scope.fechaSeleccionada.fec_id},
 				function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                angular.forEach(response, function(value, key) {
+		                if (value.par_goles_local != null)
+		                	value['separador'] = 'x';
+		                else
+		                	value['separador'] = 'VS';
+					});
+	                
 	                console.log("Success:" + JSON.stringify(response));
 	                $scope.partidos = response;
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	                // console.log("Error:" + JSON.stringify(errorResponse));
 	            }
 			);
 		}
