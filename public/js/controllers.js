@@ -711,16 +711,18 @@ fechasControllers.controller('FechasCtrl', [
 
 	 	}
 
-	 	$scope.irFechaAnterior = function(){
-			$scope.irFechaWidget($scope.fechaSeleccionada.fecha_anterior);	 		
+	 	$scope.irFechaAnterior = function(anteriorFecha){
+			// $scope.irFechaWidget($scope.fechaSeleccionada.fecha_anterior);	 		
+			anteriorFecha($scope.fechaSeleccionada.fecha_anterior);	 		
 	 	}
 
-	 	$scope.irFechaSiguiente = function(){
-			$scope.irFechaWidget($scope.fechaSeleccionada.fecha_siguiente);	 		
+	 	$scope.irFechaSiguiente = function(siguienteFecha){
+			// $scope.irFechaWidget($scope.fechaSeleccionada.fecha_siguiente);	 		
+			siguienteFecha($scope.fechaSeleccionada.fecha_siguiente);	 		
 	 	}
 
 	 	$scope.irFechaTabla = function(fecha){
-   			$window.location.href = '/visual/tabla/fechas/'+ fecha.fec_id +'/partidos';
+   			$window.location.href = '/visual/fechas/'+ fecha.fec_id +'/partidos';
 	 	}
 
 	 	$scope.irFechaWidget = function(fecha){

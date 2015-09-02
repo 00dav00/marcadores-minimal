@@ -14,7 +14,7 @@
 						<tr class="row">
 
 							<td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >
-								<button class="btn btn-success btn-md"  ng-disabled="!existeFechaAnterior" ng-click="irFechaAnterior()">  
+								<button class="btn btn-success btn-md"  ng-disabled="!existeFechaAnterior" ng-click="irFechaAnterior(irFechaWidget)">  
 									<span class="glyphicon glyphicon-chevron-left" ></span>
 								</button>
 							</td>
@@ -57,7 +57,7 @@
 							</td>
 
 							<td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-								<button class="btn btn-success btn-md" ng-disabled="!existeFechaSiguiente" ng-click="irFechaSiguiente()">  
+								<button class="btn btn-success btn-md" ng-disabled="!existeFechaSiguiente" ng-click="irFechaSiguiente(irFechaWidget)">  
 									<span class="glyphicon glyphicon-chevron-right" ></span>
 								</button>
 							</td>

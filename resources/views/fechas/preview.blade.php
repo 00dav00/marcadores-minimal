@@ -36,6 +36,16 @@
 				</table>
 			</div>
 
+			<div class="text-right panel-heading">
+				<button class="btn btn-success btn-xs btn-sm"  ng-disabled="!existeFechaAnterior" ng-click="irFechaAnterior(irFechaTabla)">  
+					<span class="glyphicon glyphicon-chevron-left" > Anterior</span>
+				</button>
+				
+				<button class="btn btn-success btn-xs btn-sm" ng-disabled="!existeFechaSiguiente" ng-click="irFechaSiguiente(irFechaTabla)">  
+					Siguiente<span class="glyphicon glyphicon-chevron-right" ></span>
+				</button>
+			</div>
+
 		</div>
 	</div>
 </div>
