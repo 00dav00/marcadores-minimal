@@ -21,8 +21,9 @@
 					<thead >
 						<tr class="row">
 							<td  class="col-xs-1 col-sm-1">&nbsp;</td>
-							<td  class="col-xs-2 col-sm-2 hidden-xs hidden-sm">Equipo</td>
-							<td  class="col-xs-2 col-sm-2 hidden-md hidden-lg">Equipo</td>
+							<td  class="col-xs-2 hidden-sm hidden-xs">Equipo</td>
+							<td  class="col-sm-2 hidden-xs hidden-md hidden-lg">Equipo</td>
+							<td  class="col-xs-2 hidden-sm hidden-md hidden-lg">Equipo</td>
 							<td  class="col-xs-1 col-sm-1">PJ</td>
 							<td  class="col-xs-1 col-sm-1">PG</td>
 							<td  class="col-xs-1 col-sm-1">PE</td>
@@ -36,8 +37,9 @@
 					<tbody>
 						<tr class="row" ng-repeat='equipo in tabla'>
 							<td> <img class="imagenPromo" src="/<% equipo.escudo %>" style="max-width:15px;max-height:15px;"/> </td>
-							<td class="hidden-xs hidden-sm"> <% equipo.nombre %> </td>
-							<td class="hidden-md hidden-lg"> <% equipo.nombre_corto %> </td>
+							<td  class="hidden-xs hidden-sm"><% equipo.nombre %></td>
+							<td  class="hidden-xs hidden-md hidden-lg"><% equipo.nombre_corto %></td>
+							<td  class="hidden-sm hidden-md hidden-lg"><% equipo.abreviatura %></td>
 							<td> <% equipo.partidos_jugados %> </td>
 							<td> <% equipo.partidos_ganados %> </td>
 							<td> <% equipo.partidos_empatados %> </td>
