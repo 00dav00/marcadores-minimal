@@ -8,7 +8,12 @@
 		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
 			<div class="panel panel-default">
 
-				<div class="panel-heading">Tabla de posiciones</div>
+				<div class="panel-heading text-center">
+					<b>
+						Tabla de posiciones <br>
+						<% torneoSeleccionado.tor_nombre %>
+					</b>
+				</div>
 
 				<div class="form-group" ng-show="torneoSeleccionado">
 					<small><label for="cbo_fases">Fases</label></small>

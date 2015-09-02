@@ -637,7 +637,8 @@ tablasControllers.controller('TablasCtrl', [
 	                //console.log("Success:" + JSON.stringify(response));
 	                response.unshift({"fas_id":-1,"fas_descripcion":"Acumulada"});
 	                $scope.fases = response;
-	                $scope.faseSeleccionada = -1;
+	                // $scope.faseSeleccionada = -1;
+	                $scope.faseSeleccionada = $scope.fases.length - 1;
 	                $scope.obtenerTabla();
 	            },
 	            function error(errorResponse){
