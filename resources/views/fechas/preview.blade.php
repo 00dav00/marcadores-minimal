@@ -14,7 +14,7 @@
 			<br/>
 
 			<div class="form-group">
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover table-condensed">
 					<thead>
 						<td colspan="3" class="col-xs-2 text-center"><b>LOCAL</b></td>
 						<td class="col-xs-1">&nbsp;&nbsp;&nbsp;</td>
