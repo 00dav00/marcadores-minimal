@@ -17,13 +17,13 @@
 					</select>
 				</div>
 
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover table-condensed">
 					<thead >
 						<tr class="row">
 							<td  class="col-xs-1 col-sm-1">&nbsp;</td>
 							<td  class="col-xs-2 hidden-sm hidden-xs">Equipo</td>
 							<td  class="col-sm-2 hidden-xs hidden-md hidden-lg">Equipo</td>
-							<td  class="col-xs-2 hidden-sm hidden-md hidden-lg">Equipo</td>
+							<td  class="col-xs-2 hidden-sm hidden-md hidden-lg">EQP</td>
 							<td  class="col-xs-1 col-sm-1">PJ</td>
 							<td  class="col-xs-1 col-sm-1">PG</td>
 							<td  class="col-xs-1 col-sm-1">PE</td>
