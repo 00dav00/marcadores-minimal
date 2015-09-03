@@ -23,7 +23,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="row" ng-repeat='partido in partidos'>
+						<tr class="row" ng-repeat-start='partido in partidos'>
 							<td class="text-left" > <img src="/<% partido.equipo_local.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
 							<td class="text-left"> <% partido.equipo_local.eqp_nombre_corto %> </td>
 							<td class="text-left"> <% partido.par_goles_local %> </td>
@@ -32,6 +32,13 @@
 							<td class="text-right"> <% partido.equipo_visitante.eqp_nombre_corto %> </td>
 							<td class="text-right"> <img src="/<% partido.equipo_visitante.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
 						</tr>
+						<tr ng-repeat-end ng-if="partido.par_goles_local == null">
+							<td class="text-center" colspan="12">
+								<% partido.par_fecha %> (<% partido.par_hora %>) <br/>
+								<b><% partido.estadio.est_nombre %></b>
+							</td>
+						</tr>
+
 					</tbody>
 				</table>
 			</div>
