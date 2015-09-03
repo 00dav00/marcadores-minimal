@@ -29,7 +29,7 @@ class EquipoRequest extends Request {
 			'eqp_facebook' => 'string|min:5',
 			'eqp_sitioweb' => 'url',
 			'eqp_tipo' => 'required|in:seleccion,profesional,amateur',
-			'lug_id' => 'required|integer'
+			'lug_id' => 'required|integer',
 			'eqp_nombre_corto' => 'string',
 			'eqp_abreviatura' => 'string',
 		];
