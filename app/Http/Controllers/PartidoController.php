@@ -173,6 +173,7 @@ class PartidoController extends Controller {
 								'equipoVisitante',
 								'estadio')
 							->where('fec_id',$fecha)
+							->orderBy('par_goles_local','desc')
 							->get();
 		//return response()->json($partidos);
 		return $partidos->toJson();

@@ -78,7 +78,7 @@ class TablasController extends Controller {
 					or (? = dfe_fase_id)
 				)
 			group by deq_equipo_nombre, deq_equipo_nombre_corto, deq_equipo_abreviatura, deq_equipo_escudo
-			order by 5 desc', 
+			order by puntos desc, goles_diferencia desc', 
 			[$torneo_id, $fase_id, $fase_id]
 		);
 

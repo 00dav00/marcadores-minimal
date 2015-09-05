@@ -14,12 +14,15 @@
 						<% torneoSeleccionado.tor_nombre %>
 					</b>
 				</div>
+				<br/>
 
 				<div class="form-group" ng-show="torneoSeleccionado">
-					<small><label for="cbo_fases">Fases</label></small>
-					<select id="cbo_fases" ng-model="faseSeleccionada" ng-change="obtenerTabla()" 
-						ng-options="fase.fas_id as fase.fas_descripcion for fase in fases">
-					</select>
+					<div class="btn-group-justified">
+			        	<label ng-repeat="fase in fases" class="btn btn-default" ng-click="obtenerTabla(fase)" ng-model="faseSeleccionada" btn-radio="fase">
+			        		<% fase.fas_descripcion %>
+		        		</label>
+				    </div>
+					
 				</div>
 
 				<table class="table table-striped table-hover table-condensed">

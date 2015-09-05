@@ -637,9 +637,8 @@ tablasControllers.controller('TablasCtrl', [
 	                //console.log("Success:" + JSON.stringify(response));
 	                response.unshift({"fas_id":-1,"fas_descripcion":"Acumulada"});
 	                $scope.fases = response;
-	                $scope.faseSeleccionada = -1;
-	                //$scope.faseSeleccionada = $scope.fases.length - 1;
-	                $scope.obtenerTabla();
+	                // $scope.obtenerTabla($scope.fases[0]);
+	                $scope.obtenerTabla($scope.fases[$scope.fases.length - 1]);
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
@@ -663,9 +662,15 @@ tablasControllers.controller('TablasCtrl', [
 	        );
 		}
 
-		$scope.obtenerTabla = function(){
+		$scope.obtenerTabla = function(fase){
+			// alert(JSON.stringify(fase));
+			// if (fase != null){
+				$scope.faseSeleccionada = fase;//$scope.fases[index].fas_id;
+			// }<div></div>
+			// alert(JSON.stringify($scope.faseSeleccionada));
+	        console.log("Success:" + JSON.stringify($scope.faseSeleccionada));
 			Tablas.get(
-				{torneo:  $scope.torneoSeleccionado.tor_id, fase: $scope.faseSeleccionada},
+				{torneo:  $scope.torneoSeleccionado.tor_id, fase: $scope.faseSeleccionada.fas_id},
 				function success(response){
 	                // console.log("Success:" + JSON.stringify(response));
 	                $scope.tabla = response;
