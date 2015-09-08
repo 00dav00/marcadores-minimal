@@ -177,18 +177,25 @@
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label>Fecha</label>
-			<p class="input-group">
-				<input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="md.partido.par_fecha" is-open="md.status.opened" datepicker-options="md.dateOptions" ng-required="true" close-text="Cerrar" />
-				<span class="input-group-btn">
-					<button type="button" class="btn btn-default" ng-click="md.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-				</span>
-			</p>
+		<div class="checkbox">
+    		<label>
+    			<input type="checkbox" ng-model="md.partidoDiferido" ng-true-value=true ng-false-value=false> Partido diferido
+    		</label>
 		</div>
-		<div class="form-group">
-			<label>Hora</label>
-			<timepicker ng-model="md.partido.par_hora" hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+		<div ng-hide="md.partidoDiferido">
+			<div class="form-group">
+				<label>Fecha</label>
+				<p class="input-group">
+					<input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="md.partido.par_fecha" is-open="md.status.opened" datepicker-options="md.dateOptions" ng-required="true" close-text="Cerrar" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="md.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+			<div class="form-group">
+				<label>Hora</label>
+				<timepicker ng-model="md.partido.par_hora" hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+			</div>
 		</div>
 
 	</div>

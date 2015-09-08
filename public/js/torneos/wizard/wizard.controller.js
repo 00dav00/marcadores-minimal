@@ -501,7 +501,13 @@ function editarPartido ($modalInstance, partido, estadios, wizardFactory) {
 
 	var partidoEdicion = angular.copy(partido);
 
-	formatHours(partidoEdicion.par_hora);
+	if (partidoEdicion.par_hora) {
+		formatHours(partidoEdicion.par_hora);
+		md.partidoDiferido = false;
+	} else {
+		md.partidoDiferido = true;
+	}
+
 	formatGoles(partido.par_goles_local, partido.par_goles_visitante);
 
 	md.cancel = function () {
@@ -540,6 +546,11 @@ function editarPartido ($modalInstance, partido, estadios, wizardFactory) {
 		delete partido.equipo_local;
 		delete partido.equipo_visitante;
 		delete partido.estadio;
+
+		if (md.partidoDiferido) {
+			partido.par_fecha = null;
+			partido.par_hora = null;
+		}
 
 		console.log(partido);
 

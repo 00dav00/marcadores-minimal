@@ -208,17 +208,19 @@ class PartidoController extends Controller {
 
 		$nuevosDatos = $request->all();
 
-		$fecha = Carbon::parse($request->input('par_fecha'));
-		$fecha->setTimezone('America/Bogota');
-		$hora = Carbon::parse($request->input('par_hora'));
-		$hora->setTimezone('America/Bogota');
+		if ($request->input('par_fecha') && $request->input('par_fecha')) {
+			$fecha = Carbon::parse($request->input('par_fecha'));
+			$fecha->setTimezone('America/Bogota');
+			$hora = Carbon::parse($request->input('par_hora'));
+			$hora->setTimezone('America/Bogota');
 
-		$nuevosDatos['par_fecha'] = $fecha->toDateString();
-		$nuevosDatos['par_hora'] = $hora->toTimeString();
+			$nuevosDatos['par_fecha'] = $fecha->toDateString();
+			$nuevosDatos['par_hora'] = $hora->toTimeString();
+		}
 		
 		$partido->update($nuevosDatos);
 
-		return response()->json(['data' => 'Partido actualizado exitosamente']);
+		return response()->json($request->input('par_fecha'));
 	}
 
 	public function apiIndex($fecha_id)

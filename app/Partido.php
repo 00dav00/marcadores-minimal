@@ -27,12 +27,12 @@ class Partido extends Model {
 		// par_cuarto_arbitro
 	];
 
-	public function getParHoraAttribute($value)
-    {
-    	// return date("H:i p", strtotime("10:20:00"));
-    	return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
-        // return Carbon::createFromFormat('HH:mm', $value);
-    }
+	// public function getParHoraAttribute($value)
+ //    {
+ //    	// return date("H:i p", strtotime("10:20:00"));
+ //    	return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
+ //        // return Carbon::createFromFormat('HH:mm', $value);
+ //    }
 
 	public function fecha()
 	{
