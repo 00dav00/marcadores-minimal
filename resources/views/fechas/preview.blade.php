@@ -26,9 +26,8 @@
 						<tr class="row" ng-repeat-start='partido in partidos' ng-class="['even', 'odd'][$index %2]">
 							<td class="text-center" colspan="12">
 								<b><% partido.estadio.est_nombre %></b><br/>
-								<span ng-if="partido.par_fecha != null">
-									<% partido.par_fecha %> (<% partido.par_hora %>)
-								</span>
+								<span ng-if="partido.par_fecha != null"><% partido.par_fecha %> (<% partido.par_hora %>)</span>
+								<span ng-if="partido.par_fecha == null"><b>ENCUENTRO DIFERIDO</b></span>
 							</td>
 						</tr>
 						
