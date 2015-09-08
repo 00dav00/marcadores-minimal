@@ -29,6 +29,21 @@
 		@media (max-width: 360px) {
 		    body{font-size: 10px;}
 		}
+
+		.even{
+			background-color: #f3f3f3 !important;;			
+		}
+
+		.odd{
+			background-color: #ffffff !important;;
+		}
+
+		.middle{
+			border-top-width: 10px !important;;
+			border-bottom-width: 10px !important;;
+			
+			border-top-color: #ffffff !important;;
+		}
 	</style>
 
 </head>

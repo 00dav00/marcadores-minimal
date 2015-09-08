@@ -14,7 +14,7 @@
 			<br/>
 
 			<div class="form-group">
-				<table class="table table-striped table-hover table-condensed">
+				<table class="table table-hover table-condensed">
 					<thead>
 						<tr class="row">
 							<td class="col-xs-5 text-center" colspan="3" ><b>LOCAL</b></td>
@@ -23,7 +23,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="row" ng-repeat-start='partido in partidos'>
+						<tr class="row" ng-repeat-start='partido in partidos' ng-class="['even', 'odd'][$index %2]">
+							<td class="text-center" colspan="12">
+								<b><% partido.estadio.est_nombre %></b><br/>
+								<span ng-if="partido.par_fecha != null">
+									<% partido.par_fecha %> (<% partido.par_hora %>)
+								</span>
+							</td>
+						</tr>
+						
+						<tr class="row" ng-repeat-end  ng-class="['even', 'odd'][$index %2]">
 							<td class="text-left" > <img src="/<% partido.equipo_local.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
 							<td class="text-left"> <% partido.equipo_local.eqp_nombre_corto %> </td>
 							<td class="text-left"> <% partido.par_goles_local %> </td>
@@ -31,12 +40,6 @@
 							<td class="text-right"> <% partido.par_goles_visitante %> </td>
 							<td class="text-right"> <% partido.equipo_visitante.eqp_nombre_corto %> </td>
 							<td class="text-right"> <img src="/<% partido.equipo_visitante.eqp_escudo %>" style="max-width:22px;max-height:26px;"/> </td>
-						</tr>
-						<tr ng-repeat-end ng-if="partido.par_goles_local == null">
-							<td class="text-center" colspan="12">
-								<% partido.par_fecha %> (<% partido.par_hora %>) <br/>
-								<b><% partido.estadio.est_nombre %></b>
-							</td>
 						</tr>
 
 					</tbody>
