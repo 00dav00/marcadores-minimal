@@ -11,11 +11,6 @@ use App\Http\Requests\PenalizacionTorneoRequest;
 
 class ApiPenalizacionesTorneoController extends Controller {
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
 	public function store(PenalizacionTorneoRequest $request)
 	{
 		PenalizacionTorneo::create($request->all());
@@ -25,12 +20,6 @@ class ApiPenalizacionesTorneoController extends Controller {
 			]);
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function show($torneo)
 	{
 		$penalizaciones = PenalizacionTorneo::with('torneo', 'equipo', 'fase')
@@ -42,12 +31,6 @@ class ApiPenalizacionesTorneoController extends Controller {
 			]);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($torneo, $fase, $equipo, PenalizacionTorneoRequest $request)
 	{
 		$penalizacion = PenalizacionTorneo::where('tor_id', $torneo)
@@ -62,12 +45,6 @@ class ApiPenalizacionesTorneoController extends Controller {
 			]);
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($torneo, $fase, $equipo) 
 	{
 		$penalizacion = PenalizacionTorneo::where('tor_id', $torneo)

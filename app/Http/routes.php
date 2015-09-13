@@ -39,12 +39,7 @@ Route::group(['middleware' => 'auth'], function()
 	//Route::get('api/torneos/{torneos}/fases', 'TorneosController@fasesRegistradas');
 	Route::get('api/torneos', 'TorneosController@apiIndex');
 
-
-	Route::get('tipo_fase/nuevo', 'TipoFaseController@fastCreate');
-	// Route::get('tipo_fase/consulta', 'TipoFaseController@consulta');
 	Route::resource('tipo_fase', 'TipoFaseController');
-	Route::get('api/tipo_fase', 'TipoFaseController@apiIndex');
-	Route::post('api/tipo_fase', 'TipoFaseController@apiStore');
 
 	Route::resource('tipo_torneo', 'TipoTorneoController');
 	Route::get('tipo_torneo/consulta', 'TipoTorneoController@consulta');
@@ -93,6 +88,8 @@ Route::group(['middleware' => 'auth'], function()
 
 // Rutas para consultar datos REST
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+
+	Route::get('tipo_fase/consulta', 'ApiTipoFaseController@consulta');
 
 	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');
 	Route::put('penalizaciones/{torneo}/{fase}/{equipo}', 'ApiPenalizacionesTorneoController@update');
