@@ -19,7 +19,6 @@ class TipoFaseController extends Controller {
 		return view ('tipo_fase.index', compact('tipo_fase'));
 	}
 
-
 	public function fastCreate()
 	{
 		return view('tipo_fase.fast_create');
@@ -31,7 +30,6 @@ class TipoFaseController extends Controller {
 		return view('tipo_fase.create');
 	}
 
-
 	public function store(TipoFaseRequest $request)
 	{
 		TipoFase::create($request->all());
@@ -41,7 +39,6 @@ class TipoFaseController extends Controller {
 		return redirect('tipo_fase');
 	}
 
-
 	public function show($id)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
@@ -49,14 +46,12 @@ class TipoFaseController extends Controller {
 		return view('tipo_fase.show', compact('tipo_fase'));
 	}
 
-
 	public function edit($id)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
 
 		return view('tipo_fase.edit', compact('tipo_fase'));
 	}
-
 
 	public function update($id, TipoFaseRequest $request)
 	{
@@ -68,7 +63,6 @@ class TipoFaseController extends Controller {
 
 		return redirect('tipo_fase');
 	}
-
 
 	public function destroy($id)
 	{
