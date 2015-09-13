@@ -9,20 +9,12 @@ use App\Http\Requests\LugarRequest;
 
 class LugaresController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index(Request $request)
 	{
-
 		$keyword = $request->get('keyword');
-
 		$column = $request->get('column');
 		
 		$lugares = Lugar::search($keyword, $column);
-
 		$searchFields = Lugar::getSearchFields();
 
 		if (!empty($keyword)) {
@@ -32,21 +24,13 @@ class LugaresController extends Controller {
 		return view('lugares.index', compact('lugares', 'keyword', 'column', 'searchFields'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
 	public function create()
 	{
 		return view('lugares.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+
 	public function store(LugarRequest $request)
 	{
 		$lugar = $request->all();
@@ -61,35 +45,18 @@ class LugaresController extends Controller {
 		return redirect('lugares');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($id)
 	{
 		//
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id)
 	{
 		$lugar = Lugar::findOrFail($id);
 		return view('lugares.edit', compact('lugar'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($id, LugarRequest $request)
 	{
 		$lugar = Lugar::findOrFail($id);
@@ -107,39 +74,33 @@ class LugaresController extends Controller {
 
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($id)
 	{
 		//
 	}
 
-	/**
-	 * Buscar un lugar, retorna JSON
-	 * @param  string  $busqueda tipo de busqueda a realizar
-	 * @param  Request $request  palabra que se va a Buscar
-	 * @return json            	Los datos se devuelven en JSON
-	 */
-	public function consulta($busqueda, Request $request)
-	{
-		$keyword = $request->get('nombre');
-		$tipos = $busqueda == 'all' ? ['pais','continente','ciudad'] : [$busqueda];
+	// /**
+	//  * Buscar un lugar, retorna JSON
+	//  * @param  string  $busqueda tipo de busqueda a realizar
+	//  * @param  Request $request  palabra que se va a Buscar
+	//  * @return json            	Los datos se devuelven en JSON
+	//  */
+	// public function consulta($busqueda, Request $request)
+	// {
+	// 	$keyword = $request->get('nombre');
+	// 	$tipos = $busqueda == 'all' ? ['pais','continente','ciudad'] : [$busqueda];
 
-		if (trim(urldecode($keyword)) != '') {
-			$resultados = Lugar::whereIn('lug_tipo', $tipos)
-									->where('lug_nombre', 'LIKE', $keyword.'%')
-									->orderBy('lug_nombre')
-									->take(3)
-									->get(['lug_id', 'lug_nombre', 'lug_tipo']);	
-		}
+	// 	if (trim(urldecode($keyword)) != '') {
+	// 		$resultados = Lugar::whereIn('lug_tipo', $tipos)
+	// 								->where('lug_nombre', 'LIKE', $keyword.'%')
+	// 								->orderBy('lug_nombre')
+	// 								->take(3)
+	// 								->get(['lug_id', 'lug_nombre', 'lug_tipo']);	
+	// 	}
 
-		return response()->json(['data' => $resultados]);
+	// 	return response()->json(['data' => $resultados]);
 
-	}
+	// }
 
 
 

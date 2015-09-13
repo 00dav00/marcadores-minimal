@@ -54,10 +54,18 @@ class PartidoController extends Controller {
 	 */
 	public function store($fecha_id, PartidoRequest $request)
 	{
+		// $fecha = Carbon::parse($request->input('par_fecha'));
+		// $fecha->setTimezone('America/Bogota');
+		// $hora = Carbon::parse($request->input('par_hora'));
+		// syslog(LOG_WARNING, "-------------------".$hora->toTimeString());
+
 		$partido = $request->all();
 		$partido['fec_id'] = $fecha_id;
-		Partido::create($partido);
+		// $partido['par_fecha'] = $fecha->toDateString();
+		// $partido['par_hora'] = $hora->toTimeString();
+		// flash()->success($hora->toTimeString());
 
+		Partido::create($partido);
 		flash()->success('Partido creado exitosamente');
 
 		return redirect('fechas/'.$fecha_id.'/partidos');

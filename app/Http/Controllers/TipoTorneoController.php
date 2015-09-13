@@ -11,11 +11,6 @@ use App\Http\Requests\TipoTorneoRequest;
 
 class TipoTorneoController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$tipo_torneo = TipoTorneo::orderBy('ttr_nombre')
@@ -24,21 +19,13 @@ class TipoTorneoController extends Controller {
 		return view ('tipo_torneo.index', compact('tipo_torneo'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
 	public function create()
 	{
 		return view('tipo_torneo.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+
 	public function store(TipoTorneoRequest $request)
 	{
 		TipoTorneo::create($request->all());
@@ -48,36 +35,21 @@ class TipoTorneoController extends Controller {
 		return redirect('tipo_torneo');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($id)
 	{
 		$torneo = TipoTorneo::findOrFail($id);
 		return view('tipo_torneo.show', compact('torneo'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($id)
 	{
 		$torneo = TipoTorneo::findOrFail($id);
 		return view('tipo_torneo.edit', compact('torneo'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update($id, TipoTorneoRequest $request)
 	{
 		$equipo = TipoTorneo::findOrFail($id);
@@ -89,12 +61,7 @@ class TipoTorneoController extends Controller {
 		return redirect('tipo_torneo');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function destroy($id)
 	{
 		$torneo = TipoTorneo::findOrFail($id);
@@ -110,22 +77,22 @@ class TipoTorneoController extends Controller {
 		return redirect('tipo_torneo')->with('message', 'Tipo de torneo no encontrado');
 	}
 
-	public function consulta(Request $request)
-	{
-		$keyword = $request->get('nombre');
+	// public function consulta(Request $request)
+	// {
+	// 	$keyword = $request->get('nombre');
 
-		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
-		}
-
-
-		$resultados = TipoTorneo::where('ttr_nombre', 'LIKE', '%' . $keyword . '%')
-							->orderBy('ttr_nombre')
-							->take(3)
-							->get(['ttr_id', 'ttr_nombre']);
+	// 	if (trim(urldecode($keyword)) == '') {
+	// 		return response()->json(['data' => []], 200);
+	// 	}
 
 
-		return response()->json(['data' => $resultados]);
+	// 	$resultados = TipoTorneo::where('ttr_nombre', 'LIKE', '%' . $keyword . '%')
+	// 						->orderBy('ttr_nombre')
+	// 						->take(3)
+	// 						->get(['ttr_id', 'ttr_nombre']);
 
-	}
+
+	// 	return response()->json(['data' => $resultados]);
+
+	// }
 }

@@ -49,7 +49,7 @@ $(function() {
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/tipo_torneo/consulta',
+				url: '/api/tipo_torneo/consulta',
 				type: 'GET',
 				dataType: 'json',
 				data: {
@@ -74,7 +74,7 @@ $(function() {
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/lugares/consulta/all',
+				url: '/api/lugares/consulta/all',
 				type: 'GET',
 				dataType: 'json',
 				data: {

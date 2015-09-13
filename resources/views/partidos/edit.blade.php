@@ -69,7 +69,7 @@ $(function() {
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/estadios/consulta',
+				url: '/api/estadios/consulta',
 				type: 'GET',
 				dataType: 'json',
 				data: {

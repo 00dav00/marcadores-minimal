@@ -27,7 +27,6 @@ class EstadiosController extends Controller {
 		$column = $request->get('column');
 
 		$estadios = Estadio::search($keyword, $column);
-
 		$searchFields = Estadio::getSearchFields();
 
 		if (!empty($keyword)) {
@@ -108,29 +107,29 @@ class EstadiosController extends Controller {
 	}
 
 
-	public function consulta(Request $request)
-	{
-		$keyword = $request->get('nombre');
+	// public function consulta(Request $request)
+	// {
+	// 	$keyword = $request->get('nombre');
 
-		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
-		}
-
-
-		$resultados = Estadio::where('est_nombre', 'LIKE', '%' . $keyword . '%')
-							->orderBy('est_nombre')
-							->take(3)
-							->get(['est_id', 'est_nombre']);
+	// 	if (trim(urldecode($keyword)) == '') {
+	// 		return response()->json(['data' => []], 200);
+	// 	}
 
 
-		return response()->json(['data' => $resultados]);
+	// 	$resultados = Estadio::where('est_nombre', 'LIKE', '%' . $keyword . '%')
+	// 						->orderBy('est_nombre')
+	// 						->take(3)
+	// 						->get(['est_id', 'est_nombre']);
 
-	}
 
-	public function apiIndex()
-	{
-		$estadios = Estadio::all();
+	// 	return response()->json(['data' => $resultados]);
 
-		return $estadios->toJson();
-	}	
+	// }
+
+	// public function apiIndex()
+	// {
+	// 	$estadios = Estadio::all();
+
+	// 	return $estadios->toJson();
+	// }	
 }

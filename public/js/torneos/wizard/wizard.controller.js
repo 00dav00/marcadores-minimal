@@ -212,7 +212,7 @@ function wizardTorneo($http, wizardFactory, $timeout, $modal) {
 		wizardFactory.borrarEquipoParticipante(vm.torneoSelected.tor_id, equipo.eqp_id)
 			.success(function () {
 				obtenerEquiposParticipantes();
-				createAlert('warning', equipo.eqp_nombre + ' fue eliminado');
+				createAlert('warning', equipo.eqp_nombre + ' fue retirado del torneo.');
 			})
 			.error( errorHandler );
 	}

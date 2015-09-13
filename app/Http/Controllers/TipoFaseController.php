@@ -11,11 +11,6 @@ use App\Http\Requests\TipoFaseRequest;
 
 class TipoFaseController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$tipo_fase = TipoFase::orderBy('tfa_nombre')
@@ -24,21 +19,19 @@ class TipoFaseController extends Controller {
 		return view ('tipo_fase.index', compact('tipo_fase'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
+	public function fastCreate()
+	{
+		return view('tipo_fase.fast_create');
+	}
+
+
 	public function create()
 	{
 		return view('tipo_fase.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+
 	public function store(TipoFaseRequest $request)
 	{
 		TipoFase::create($request->all());
@@ -48,12 +41,7 @@ class TipoFaseController extends Controller {
 		return redirect('tipo_fase');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($id)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
@@ -61,12 +49,7 @@ class TipoFaseController extends Controller {
 		return view('tipo_fase.show', compact('tipo_fase'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($id)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
@@ -74,12 +57,7 @@ class TipoFaseController extends Controller {
 		return view('tipo_fase.edit', compact('tipo_fase'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update($id, TipoFaseRequest $request)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
@@ -91,12 +69,7 @@ class TipoFaseController extends Controller {
 		return redirect('tipo_fase');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function destroy($id)
 	{
 		$tipo_fase = TipoFase::findOrFail($id);
@@ -112,41 +85,37 @@ class TipoFaseController extends Controller {
 		return redirect('tipo_fase')->with('message', 'Tipo de tipo_fase no encontrado');
 	}
 
-	public function consulta(Request $request)
-	{
-		$keyword = $request->get('nombre');
+	// public function consulta(Request $request)
+	// {
+	// 	$keyword = $request->get('nombre');
 
-		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
-		}
-
-
-		$resultados = TipoFase::where('tfa_nombre', 'LIKE', '%' . $keyword . '%')
-							->orderBy('tfa_nombre')
-							->take(3)
-							->get(['tfa_id', 'tfa_nombre']);
+	// 	if (trim(urldecode($keyword)) == '') {
+	// 		return response()->json(['data' => []], 200);
+	// 	}
 
 
-		return response()->json(['data' => $resultados]);
+	// 	$resultados = TipoFase::where('tfa_nombre', 'LIKE', '%' . $keyword . '%')
+	// 						->orderBy('tfa_nombre')
+	// 						->take(3)
+	// 						->get(['tfa_id', 'tfa_nombre']);
 
-	}
 
-	public function fastCreate()
-	{
-		return view('tipo_fase.fast_create');
-	}
+	// 	return response()->json(['data' => $resultados]);
 
-	public function apiIndex()
-	{
-		$tipo_fase = TipoFase::all();//->orderBy('tfa_nombre');
+	// }
 
-		return $tipo_fase->toJson();
-	}
 
-	public function apiStore(TipoFaseRequest $request)
-	{
-		TipoFase::create($request->all());
+	// public function apiIndex()
+	// {
+	// 	$tipo_fase = TipoFase::all();//->orderBy('tfa_nombre');
 
-		return response()->json(['data' => 'Tipo de fase creada exitosamente']);
-	}
+	// 	return $tipo_fase->toJson();
+	// }
+
+	// public function apiStore(TipoFaseRequest $request)
+	// {
+	// 	TipoFase::create($request->all());
+
+	// 	return response()->json(['data' => 'Tipo de fase creada exitosamente']);
+	// }
 }

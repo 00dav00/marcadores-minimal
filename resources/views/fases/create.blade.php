@@ -37,7 +37,7 @@ $(function() {
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/tipo_fase/consulta',
+				url: '/api/tipo_fase/consulta',
 				type: 'GET',
 				dataType: 'json',
 				data: {
@@ -62,7 +62,7 @@ $(function() {
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/torneos/consulta',
+				url: '/api/torneos/consulta',
 				type: 'GET',
 				dataType: 'json',
 				data: {
