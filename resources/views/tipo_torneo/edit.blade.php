@@ -12,7 +12,7 @@
 				
 				@include('partials.validation_errors')
 
-				{!! Form::model($torneo, ['method' => 'PATCH', 'route' => ['tipo_torneo.update', $torneo->ttr_id]]) !!}
+				{!! Form::model($tipo_torneo, ['method' => 'PATCH', 'route' => ['tipo_torneo.update', $tipo_torneo->ttr_id]]) !!}
 					@include('tipo_torneo.partials._form')
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}

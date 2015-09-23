@@ -53,6 +53,8 @@ class TorneosController extends Controller {
 
 	public function update($id, TorneoRequest $request)
 	{
+		openlog('myapplication', LOG_NDELAY, LOG_USER);
+ 		syslog(LOG_NOTICE, "Something has happened");
 		$torneo = Torneo::findOrFail($id);
 		$torneo->update($request->all());
 		flash()->success('Torneo editado correctamente');

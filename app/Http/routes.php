@@ -47,9 +47,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
 
 	//Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
-	Route::post('api/partidos','PartidoController@apiStore');
-	Route::delete('api/partidos/{partido}','PartidoController@apiDestroy');
-	Route::put('api/partidos/{partido}','PartidoController@apiUpdate');
 
 
 	Route::get('auth/register', 'Auth\AuthController@getRegister');
@@ -93,10 +90,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::put('fechas/{fechas}', 'ApiFechasController@Update');
 	Route::delete('fechas/{fechas}', 'ApiFechasController@Destroy');
 
-
-
-
 	Route::get('fechas/{fechas}/partidos','ApiFechasController@fechaPartidosRegistrados');
+	Route::post('partidos','ApiPartidosController@store');
+	Route::delete('partidos/{partido}','ApiPartidosController@destroy');
+	Route::put('partidos/{partido}','ApiPartidosController@update');
 
 
 	Route::get('penalizaciones/{torneo}', 'ApiPenalizacionesTorneoController@show');
@@ -120,12 +117,12 @@ Route::get('/visual/widget/fases/{fases}/fecha_actual/partidos', 'FechasControll
 
 Route::get('api/torneos/{torneos}', 'ApiTorneosController@show');
 Route::get('api/torneos/{torneos}/fases', 'ApiTorneosController@fasesRegistradas');
-Route::get('api/torneos/{torneos}/tablas', 'TablasController@apiShow');
-Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'TablasController@apiShow');
+Route::get('api/torneos/{torneos}/tablas', 'ApiTablasController@show');
+Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'ApiTablasController@show');
 
 Route::get('api/fechas/{fechas}', 'ApiFechasController@show');
 Route::get('api/fases/{fases}', 'ApiFaseController@show');
 Route::get('api/fases/{fases}/fecha_actual', 'ApiFechasController@showFechaActual');
 Route::get('api/fechas/{fechas}/partidos', 'ApiFechasController@fechaPartidosRegistrados');
 
-Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
+Route::get('api/partidos/{fecha}','ApiPartidosController@showPartidosFecha');

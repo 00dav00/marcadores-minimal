@@ -13,11 +13,7 @@ use Carbon\Carbon;
 
 class PartidoController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+
 	public function index($fecha_id)
 	{
 		$partidos = Partido::where('fec_id',$fecha_id)
@@ -33,11 +29,7 @@ class PartidoController extends Controller {
 		return view('partidos.index',compact('partidos','fecha'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
 	public function create($fecha_id)
 	{
 		$fecha = Fecha::findOrFail($fecha_id)
@@ -47,23 +39,11 @@ class PartidoController extends Controller {
 		return view('partidos.create',compact('fecha'));
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+
 	public function store($fecha_id, PartidoRequest $request)
 	{
-		// $fecha = Carbon::parse($request->input('par_fecha'));
-		// $fecha->setTimezone('America/Bogota');
-		// $hora = Carbon::parse($request->input('par_hora'));
-		// syslog(LOG_WARNING, "-------------------".$hora->toTimeString());
-
 		$partido = $request->all();
 		$partido['fec_id'] = $fecha_id;
-		// $partido['par_fecha'] = $fecha->toDateString();
-		// $partido['par_hora'] = $hora->toTimeString();
-		// flash()->success($hora->toTimeString());
 
 		Partido::create($partido);
 		flash()->success('Partido creado exitosamente');
@@ -71,12 +51,7 @@ class PartidoController extends Controller {
 		return redirect('fechas/'.$fecha_id.'/partidos');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($fecha_id, $partido_id)
 	{
 		$partido = Partido::findOrFail($partido_id)
@@ -94,12 +69,7 @@ class PartidoController extends Controller {
 		return view('partidos.show',compact('partido'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($fecha_id, $partido_id)
 	{
 		$partido = Partido::findOrFail($partido_id)
@@ -116,12 +86,7 @@ class PartidoController extends Controller {
 		return view('partidos.edit',compact('partido'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update($fecha_id, $partido_id, PartidoRequest $request)
 	{
 		$partido = Partido::findOrFail($partido_id);
@@ -132,12 +97,7 @@ class PartidoController extends Controller {
 		return redirect('fechas/'.$fecha_id.'/partidos');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function destroy($fecha_id, $partido_id)
 	{
 		$message = 'Partido no encontrado';
@@ -153,90 +113,74 @@ class PartidoController extends Controller {
 		return redirect('fechas/'.$fecha_id.'/partidos');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function apiStore(PartidoRequest $request)
-	{
-		$partido = $request->all();
 
-		$fecha = Carbon::parse($request->input('par_fecha'));
-		$fecha->setTimezone('America/Bogota');
-		$hora = Carbon::parse($request->input('par_hora'));
-		$hora->setTimezone('America/Bogota');
+	// public function apiStore(PartidoRequest $request)
+	// {
+	// 	$partido = $request->all();
 
-		$partido['par_fecha'] = $fecha->toDateString();
-		$partido['par_hora'] = $hora->toTimeString();
+	// 	$fecha = Carbon::parse($request->input('par_fecha'));
+	// 	$fecha->setTimezone('America/Bogota');
+	// 	$hora = Carbon::parse($request->input('par_hora'));
+	// 	$hora->setTimezone('America/Bogota');
 
-		Partido::create($partido);
+	// 	$partido['par_fecha'] = $fecha->toDateString();
+	// 	$partido['par_hora'] = $hora->toTimeString();
 
-		return response()->json(['data' => 'Partido creado exitosamente']);
-	}
+	// 	Partido::create($partido);
 
-	public function apiShowPartidosFecha($fecha)
-	{
-		$partidos = Partido::with('equipoLocal',
-								'equipoVisitante',
-								'estadio')
-							->where('fec_id',$fecha)
-							->orderBy('par_goles_local','desc')
-							->get();
-		//return response()->json($partidos);
-		return $partidos->toJson();
-	}
+	// 	return response()->json(['data' => 'Partido creado exitosamente']);
+	// }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function apiDestroy($partido_id)
-	{
-		$partido = Partido::findOrFail($partido_id);
+	// public function apiShowPartidosFecha($fecha)
+	// {
+	// 	$partidos = Partido::with('equipoLocal',
+	// 							'equipoVisitante',
+	// 							'estadio')
+	// 						->where('fec_id',$fecha)
+	// 						->orderBy('par_goles_local','desc')
+	// 						->get();
+	// 	//return response()->json($partidos);
+	// 	return $partidos->toJson();
+	// }
 
-		if ($partido) {
-			$partido->delete();
-		}
+	// public function apiDestroy($partido_id)
+	// {
+	// 	$partido = Partido::findOrFail($partido_id);
 
-		return response()->json(['data' => 'Partido borrado exitosamente']);
-	}
+	// 	if ($partido) {
+	// 		$partido->delete();
+	// 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function apiUpdate($partido_id, PartidoRequest $request)
-	{
-		$partido = Partido::findOrFail($partido_id);
+	// 	return response()->json(['data' => 'Partido borrado exitosamente']);
+	// }
 
-		$nuevosDatos = $request->all();
+	// public function apiUpdate($partido_id, PartidoRequest $request)
+	// {
+	// 	$partido = Partido::findOrFail($partido_id);
 
-		if ($request->input('par_fecha') && $request->input('par_fecha')) {
-			$fecha = Carbon::parse($request->input('par_fecha'));
-			$fecha->setTimezone('America/Bogota');
-			$hora = Carbon::parse($request->input('par_hora'));
-			$hora->setTimezone('America/Bogota');
+	// 	$nuevosDatos = $request->all();
 
-			$nuevosDatos['par_fecha'] = $fecha->toDateString();
-			$nuevosDatos['par_hora'] = $hora->toTimeString();
-		}
+	// 	if ($request->input('par_fecha') && $request->input('par_fecha')) {
+	// 		$fecha = Carbon::parse($request->input('par_fecha'));
+	// 		$fecha->setTimezone('America/Bogota');
+	// 		$hora = Carbon::parse($request->input('par_hora'));
+	// 		$hora->setTimezone('America/Bogota');
+
+	// 		$nuevosDatos['par_fecha'] = $fecha->toDateString();
+	// 		$nuevosDatos['par_hora'] = $hora->toTimeString();
+	// 	}
 		
-		$partido->update($nuevosDatos);
+	// 	$partido->update($nuevosDatos);
 
-		return response()->json($request->input('par_fecha'));
-	}
+	// 	return response()->json($request->input('par_fecha'));
+	// }
 
-	public function apiIndex($fecha_id)
-	{
-		$partidos = Partido::where('fec_id',$fecha_id)->with('equipoLocal','equipoVisitante','estadio')->get();
+	// public function apiIndex($fecha_id)
+	// {
+	// 	$partidos = Partido::where('fec_id',$fecha_id)->with('equipoLocal','equipoVisitante','estadio')->get();
 
-		return $partidos->toJson();
-		// return \Response::json($partidos);
-	}
+	// 	return $partidos->toJson();
+	// 	// return \Response::json($partidos);
+	// }
 
 }

@@ -38,24 +38,24 @@ class TipoTorneoController extends Controller {
 
 	public function show($id)
 	{
-		$torneo = TipoTorneo::findOrFail($id);
-		return view('tipo_torneo.show', compact('torneo'));
+		$tipo_torneo = TipoTorneo::findOrFail($id);
+		return view('tipo_torneo.show', compact('tipo_torneo'));
 	}
 
 
 	public function edit($id)
 	{
-		$torneo = TipoTorneo::findOrFail($id);
-		return view('tipo_torneo.edit', compact('torneo'));
+		$tipo_torneo = TipoTorneo::findOrFail($id);
+		return view('tipo_torneo.edit', compact('tipo_torneo'));
 	}
 
 
 	public function update($id, TipoTorneoRequest $request)
 	{
-		$equipo = TipoTorneo::findOrFail($id);
-
-		$equipo->update($request->all());
-
+		// openlog('myapplication', LOG_NDELAY, LOG_USER);
+ 	// 	syslog(LOG_NOTICE, "Something has happened");
+		$tipo_torneo = TipoTorneo::findOrFail($id);
+		$tipo_torneo->update($request->all());
 		flash()->success('Tipo de torneo actualizado correctamente');
 
 		return redirect('tipo_torneo');
@@ -64,11 +64,10 @@ class TipoTorneoController extends Controller {
 
 	public function destroy($id)
 	{
-		$torneo = TipoTorneo::findOrFail($id);
+		$tipo_torneo = TipoTorneo::findOrFail($id);
 
-		if ($torneo) {
-			$torneo->delete();
-
+		if ($tipo_torneo) {
+			$tipo_torneo->delete();
 			flash()->warning('Tipo de torneo borrado correctamente');
 
 			return redirect('tipo_torneo');
@@ -77,22 +76,4 @@ class TipoTorneoController extends Controller {
 		return redirect('tipo_torneo')->with('message', 'Tipo de torneo no encontrado');
 	}
 
-	// public function consulta(Request $request)
-	// {
-	// 	$keyword = $request->get('nombre');
-
-	// 	if (trim(urldecode($keyword)) == '') {
-	// 		return response()->json(['data' => []], 200);
-	// 	}
-
-
-	// 	$resultados = TipoTorneo::where('ttr_nombre', 'LIKE', '%' . $keyword . '%')
-	// 						->orderBy('ttr_nombre')
-	// 						->take(3)
-	// 						->get(['ttr_id', 'ttr_nombre']);
-
-
-	// 	return response()->json(['data' => $resultados]);
-
-	// }
 }
