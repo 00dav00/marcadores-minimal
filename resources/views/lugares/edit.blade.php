@@ -43,7 +43,7 @@ $(function() {
 					nombre: query
 				},
 				success: function(res) {
-					callback(res.data);
+					callback(res);
 				}
 			});
 		}

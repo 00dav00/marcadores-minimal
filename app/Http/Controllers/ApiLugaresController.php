@@ -44,19 +44,26 @@ class ApiLugaresController extends Controller {
 	 */
 	public function consulta($busqueda, Request $request)
 	{
+		$terms = ['pais','continente','ciudad'];
+
 		$keyword = $request->get('nombre');
-		$tipos = $busqueda == 'all' ? ['pais','continente','ciudad'] : [$busqueda];
+
+		if (in_array($busqueda, $terms)) {
+			$tipos = [$busqueda];
+		} else {
+			$tipos = ['pais','continente','ciudad'];
+		}
 
 		if (trim(urldecode($keyword)) != '') {
 			$resultados = Lugar::whereIn('lug_tipo', $tipos)
 									->where('lug_nombre', 'LIKE', $keyword.'%')
 									->orderBy('lug_nombre')
 									->take(3)
-									->get(['lug_id', 'lug_nombre', 'lug_tipo']);	
+									->get(['lug_id', 'lug_nombre', 'lug_tipo']);
+			return response()->json([$resultados]);	
+		} else {
+			return response()->json([], 200);
 		}
-
-		return response()->json(['data' => $resultados]);
-
 	}
 
 }

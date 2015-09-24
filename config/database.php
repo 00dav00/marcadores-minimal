@@ -26,7 +26,8 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	//'default' => 'mysql',
+	'default' => env('DB_CONNECTION', 'mysql'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -63,6 +64,18 @@ return [
 			'prefix'    => '',
 			'strict'    => false,
 		],
+
+		'mysql_testing' => [
+            'driver'    => 'mysql',
+            'host'      => env('TESTING_DB_HOST', 'localhost'),
+            'database'  => env('TESTING_DB_DATABASE', 'forge'),
+            'username'  => env('TESTING_DB_USERNAME', 'forge'),
+            'password'  => env('TESTING_DB_PASSWORD', ''),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
 
 		'pgsql' => [
 			'driver'   => 'pgsql',
