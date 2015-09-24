@@ -25,8 +25,8 @@ class InterfaceTest extends \PHPUnit_Extensions_Selenium2TestCase
     {
         $this->url('/lugares/create');
 
-        $this->byName('email')->value('juanelojga@gmail.com');
-        $this->byName('password')->value('jga2588332');
+        $this->byName('email')->value('user@example.com');
+        $this->byName('password')->value('password');
         $this->byName('login')->submit();
 
             $this->select($this->byId('parent_lug_id'))
