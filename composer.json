@@ -19,7 +19,8 @@
 		"laracasts/generators": "~1.1",
 		"fzaninotto/faker": "^1.4",
 		"mockery/mockery": "0.9.*",
-		"laracasts/integrated": "dev-master"
+		"laracasts/integrated": "dev-master",
+		"phpunit/phpunit-selenium": "^1.4"
 	},
 	"autoload": {
 		"classmap": [
@@ -31,7 +32,8 @@
 	},
 	"autoload-dev": {
 		"classmap": [
-			"tests/"
+			"tests/TestCase.php",
+			"tests/helpers/"
 		]
 	},
 	"scripts": {

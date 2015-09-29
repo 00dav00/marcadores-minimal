@@ -68,10 +68,10 @@ return [
 
 		'mysql_testing' => [
 			'driver'    => 'mysql',
-			'host'      => env('DB_HOST_TEST', 'localhost'),
-			'database'  => env('DB_DATABASE_TEST', 'forge'),
-			'username'  => env('DB_USERNAME_TEST', 'forge'),
-			'password'  => env('DB_PASSWORD_TEST', ''),
+			'host'      => env('TESTING_DB_HOST', 'localhost'),
+			'database'  => env('TESTING_DB_DATABASE', 'forge'),
+			'username'  => env('TESTING_DB_USERNAME', 'forge'),
+			'password'  => env('TESTING_DB_PASSWORD', ''),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
