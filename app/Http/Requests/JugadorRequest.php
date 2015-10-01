@@ -16,7 +16,7 @@ class JugadorRequest extends Request
             'jug_sitioweb' => 'url',
             'jug_twitter' => 'string',
             'jug_foto' => 'image|mimes:jpeg,jpg,bmp,png,gif',
-            'jug_nacionalidad' => 'integer',
+            'jug_nacionalidad' => 'integer|exists:lugares,lug_id',
     ];
 
 
@@ -36,6 +36,7 @@ class JugadorRequest extends Request
             'jug_foto.image' => 'El archivo debe ser una imagen.',
             'jug_foto.mimes' => 'El archivo debe ser jpeg, jpg, bmp, png o gif.',
             'jug_nacionalidad.integer' => 'La clave de la nacionalidad no es del tipo adecuado.',
+            'jug_nacionalidad.exists' => 'La clave de la nacionalidad no existe en la tabla de lugares.',
         ];
     /**
      * Determine if the user is authorized to make this request.
@@ -47,11 +48,6 @@ class JugadorRequest extends Request
         return false;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return $this->rules;
