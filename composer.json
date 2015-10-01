@@ -20,7 +20,8 @@
 		"fzaninotto/faker": "^1.4",
 		"mockery/mockery": "0.9.*",
 		"laracasts/integrated": "dev-master",
-		"phpunit/phpunit-selenium": "^1.4"
+		"phpunit/phpunit-selenium": "^1.4",
+		"way/laravel-test-helpers": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

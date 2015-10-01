@@ -7,9 +7,9 @@ use App\Libraries\MetaDataTrait;
 
 class Jugador extends Model
 {
-	public $timestamps = false;
     protected $table = 'jugadores';
 	protected $primaryKey = 'jug_id';
+	public $timestamps = false;
 
 	protected $fillable = [
 		'jug_apellido',
@@ -59,4 +59,10 @@ class Jugador extends Model
 	{
 		return $this->hasOne('App\Lugar', 'jug_nacionalidad', 'lug_id');
 	}
+
+
+	public function getTableAttribute()
+  	{
+   		return $this->table;
+  	}
 }
