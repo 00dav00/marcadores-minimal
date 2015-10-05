@@ -24,7 +24,7 @@ class JugadorRequestTest extends TestCase
 
     public function setUp()
     {
-    	parent::createApplication();   	    
+    	parent::createApplication();
         $this->rules = JugadorRequest::$rules;
     	$this->messages = JugadorRequest::$messages;
     }

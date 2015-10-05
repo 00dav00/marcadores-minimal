@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function()
 	
 	Route::resource('equipos_participantes', 'EquiposParticipantesController');
 
-	// Route::resource('jugadores', 'JugadoresController');
+	Route::resource('jugadores', 'JugadoresController');
 
 	Route::get('fechas/list', 'FechasController@listado');
 	Route::resource('fechas', 'FechasController');

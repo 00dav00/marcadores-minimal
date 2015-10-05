@@ -102,4 +102,9 @@ trait SearchTrait
 
 	}
 
+	// public function getSearchFields()
+	// {
+	// 	return $this->searchArray['columns'];		
+	// }
+
 }
