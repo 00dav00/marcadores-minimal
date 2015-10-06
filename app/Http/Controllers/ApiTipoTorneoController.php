@@ -41,7 +41,7 @@ class ApiTipoTorneoController extends Controller {
 		$keyword = $request->get('nombre');
 
 		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
+			return response()->json([], 200);
 		}
 
 
@@ -51,7 +51,7 @@ class ApiTipoTorneoController extends Controller {
 							->get(['ttr_id', 'ttr_nombre']);
 
 
-		return response()->json(['data' => $resultados]);
+		return response()->json([$resultados]);
 
 	}
 }

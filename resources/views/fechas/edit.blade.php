@@ -22,33 +22,10 @@
 	</div>
 </div>
 
+@include('partials.selectize', ['id' => '#fas_id', 'valueField' => 'fas_id', 'labelField' => 'fas_descripcion', 'url' => '/api/fases/consulta'])
+
 <script type="text/javascript">
 $(function() {
-
-	$('#fas_id').selectize({
-		valueField: 'fas_id',
-		labelField: 'fas_descripcion',
-		searchField: ['fas_descripcion'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.fas_descripcion) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/fases/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
 
 	$( "#fec_fecha_referencia" ).datepicker({
 		changeMonth: true,

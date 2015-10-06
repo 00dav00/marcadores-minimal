@@ -22,85 +22,10 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-$(function() {
+@include('partials.selectize', ['id' => '#tor_id', 'valueField' => 'tor_id', 'labelField' => 'tor_nombre', 'url' => '/api/torneos/consulta'])
 
-	$('#tor_id').selectize({
-		valueField: 'tor_id',
-		labelField: 'tor_nombre',
-		searchField: ['tor_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.tor_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/torneos/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
+@include('partials.selectize', ['id' => '#eqp_id', 'valueField' => 'eqp_id', 'labelField' => 'eqp_nombre', 'url' => '/api/equipos/consulta'])
 
-	$('#eqp_id').selectize({
-		valueField: 'eqp_id',
-		labelField: 'eqp_nombre',
-		searchField: ['eqp_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.eqp_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/equipos/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
-
-	$('#jug_id').selectize({
-		valueField: 'jug_id',
-		labelField: 'jug_apellido',
-		searchField: ['jug_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.jug_nombre) + ' <strong>Apellido:</strong> ' + escape(item.jug_apellido) + ' <strong>Apodo:</strong> ' + escape(item.jug_apodo) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/jugadores/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
-
-});
-</script>
+@include('partials.selectize', ['id' => '#jug_id', 'valueField' => 'jug_id', 'labelField' => 'jug_apellido', 'url' => '/api/jugadores/consulta'])
 
 @endsection

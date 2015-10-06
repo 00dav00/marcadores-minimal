@@ -57,7 +57,7 @@ class ApiTorneosController extends Controller {
 		$keyword = $request->get('nombre');
 
 		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
+			return response()->json([], 200);
 		}
 
 
@@ -67,7 +67,7 @@ class ApiTorneosController extends Controller {
 							->get(['tor_id', 'tor_nombre']);
 
 
-		return response()->json(['data' => $resultados]);
+		return response()->json([$resultados]);
 
 	}
 

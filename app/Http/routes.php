@@ -75,12 +75,14 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::get('tipo_fase', 'ApiTipoFaseController@index');
 	Route::post('tipo_fase', 'ApiTipoFaseController@store');
 
+	Route::get('fases/consulta', 'ApiFaseController@consulta');
 	Route::post('fases', 'ApiFaseController@store');
 	Route::delete('fases/{fases}', 'ApiFaseController@destroy');
 
 	Route::get('estadios/consulta', 'ApiEstadiosController@consulta');
 	Route::get('estadios', 'ApiEstadiosController@index');
 
+	Route::get('torneos/consulta', 'ApiTorneosController@consulta');
 	Route::get('torneos/{torneos}/equipos', 'ApiTorneosController@equiposParticipantes');
 	Route::post('equipos_participantes/', 'ApiEquiposParticipantesController@store');
 	Route::delete('torneos/{torneos}/equipos/{equipos}', 'ApiEquiposParticipantesController@destroy');
