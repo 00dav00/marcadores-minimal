@@ -25,8 +25,8 @@ class LugaresController extends Controller {
 
 		$joins = ['lugarPadre'];
 		
-		$lugares = $this->_lugares->search($keyword, $column, $joins);
-		$searchFields = $this->_lugares->searchFields;
+		$lugares = $this->_lugares->search($keyword, $column);
+		$searchFields = $this->_lugares->getSearchFields();
 
 		if (!empty($keyword)) 
 			flash()->info("Resultados de la búsqueda: $keyword");
