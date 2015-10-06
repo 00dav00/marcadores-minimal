@@ -7,6 +7,8 @@ use App\Libraries\MetaDataTrait;
 
 class Jugador extends Model
 {
+	use SearchTrait, MetaDataTrait;
+
     protected $table = 'jugadores';
 	protected $primaryKey = 'jug_id';
 	public $timestamps = false;
@@ -57,7 +59,7 @@ class Jugador extends Model
 	 */
 	public function nacionalidad()
 	{
-		return $this->hasOne('App\Lugar', 'jug_nacionalidad', 'lug_id');
+		return $this->hasOne('App\Lugar', 'lug_id', 'jug_nacionalidad');
 	}
 
 
