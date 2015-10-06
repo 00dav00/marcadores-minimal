@@ -9,13 +9,20 @@ use App\Http\Requests\LugarRequest;
 
 class LugaresController extends Controller {
 
+	protected $_lugares;
+
+	public function __construct(Lugar $lugares)
+	{
+		$this->_lugares = $lugares;
+	}
+
 	public function index(Request $request)
 	{
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
 		
-		$lugares = Lugar::search($keyword, $column);
-		$searchFields = Lugar::getSearchFields();
+		$lugares = $this->_lugares->search($keyword, $column);
+		$searchFields = $this->_lugares->getSearchFields();
 
 		if (!empty($keyword)) {
 			flash()->info("Resultados de la búsqueda: $keyword");
