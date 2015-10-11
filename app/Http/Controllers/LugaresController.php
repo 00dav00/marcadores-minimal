@@ -20,9 +20,11 @@ class LugaresController extends Controller {
 	{
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
+
+		$joins = ['lugarPadre'];
 		
-		$lugares = $this->_lugares->search($keyword, $column);
-		$searchFields = $this->_lugares->getSearchFields();
+		$lugares = $this->_lugares->search($keyword, $column, $joins);
+		$searchFields = ['lug_abreviatura' => 'Abreviatura', 'lug_nombre' => 'Nombre'];
 
 		if (!empty($keyword)) {
 			flash()->info("Resultados de la búsqueda: $keyword");
@@ -45,7 +47,7 @@ class LugaresController extends Controller {
 			$lugar['parent_lug_id'] = null;
 		}
 		
-		Lugar::create($lugar);
+		$this->_lugares->create($lugar);
 
 		flash()->success('Lugar creado exitosamente');
 		
@@ -60,13 +62,13 @@ class LugaresController extends Controller {
 
 	public function edit($id)
 	{
-		$lugar = Lugar::findOrFail($id);
+		$lugar = $this->_lugares->findOrFail($id);
 		return view('lugares.edit', compact('lugar'));
 	}
 
 	public function update($id, LugarRequest $request)
 	{
-		$lugar = Lugar::findOrFail($id);
+		$lugar = $this->_lugares->findOrFail($id);
 
 		$values = $request->all();
 		if ($values['parent_lug_id'] == '') {
@@ -85,32 +87,5 @@ class LugaresController extends Controller {
 	{
 		//
 	}
-
-	// /**
-	//  * Buscar un lugar, retorna JSON
-	//  * @param  string  $busqueda tipo de busqueda a realizar
-	//  * @param  Request $request  palabra que se va a Buscar
-	//  * @return json            	Los datos se devuelven en JSON
-	//  */
-	// public function consulta($busqueda, Request $request)
-	// {
-	// 	$keyword = $request->get('nombre');
-	// 	$tipos = $busqueda == 'all' ? ['pais','continente','ciudad'] : [$busqueda];
-
-	// 	if (trim(urldecode($keyword)) != '') {
-	// 		$resultados = Lugar::whereIn('lug_tipo', $tipos)
-	// 								->where('lug_nombre', 'LIKE', $keyword.'%')
-	// 								->orderBy('lug_nombre')
-	// 								->take(3)
-	// 								->get(['lug_id', 'lug_nombre', 'lug_tipo']);	
-	// 	}
-
-	// 	return response()->json(['data' => $resultados]);
-
-	// }
-
-
-
-
 
 }

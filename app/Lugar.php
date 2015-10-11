@@ -25,16 +25,6 @@ class Lugar extends Model {
 		'parent_lug_id'
 		];
 
-	protected $searchArray = [
-		'columns' => [
-				'lug_abreviatura' => 'Abreviatura',
-				'lug_nombre' => 'Nombre',
-			],
-		'joins' => [
-				'lugarPadre',
-			],
-	];
-
 	/**
 	 * Columna primary key
 	 * @var string

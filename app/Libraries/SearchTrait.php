@@ -7,22 +7,21 @@ use Illuminate\Http\Request;
 trait SearchTrait 
 {
 
+	protected $_pagination = NULL;
+
 	/**
 	 * Verifica si se desea dividir la busqueda en varias partes (paginar)
 	 * 
 	 * @return mixed devuelve el valor de paginacion
 	 */
-	protected function checkIfPaginationExists($query) {
+	public function checkIfPaginationExists($query) {
 
-		// Si se ha definido un valor para paginacion, se toma ese
-		// valor del array definido en el modelo
-		if (array_key_exists('pagination', $this->searchArray)){	
-			return $query->paginate($this->searchArray['pagination']);	
-		} else if(env('PAGINATION_NUMBER')) {
+		if ($this->_pagination) {
+			return $query->paginate($this->_pagination);
+		} else {
 			return $query->paginate(env('PAGINATION_NUMBER'));
-		} else {	
-			return $query->get();
-		}
+		} 
+
 	}
 
 	/**
@@ -30,15 +29,15 @@ trait SearchTrait
 	 * 
 	 * @return mixed devuelve el string con las relaciones
 	 */
-	protected function checkIfRelationsExists($query) {
+	public function checkIfRelationsExists($query, $joins = NULL) 
+	{
+		
+		if (count($joins) > 0 && is_array($joins)) {
+			return $query->with($joins);				
+		} else {
+			return false;
+		}
 
-		// Se chequea si se ha detallado la relacion con otros modelos
-		// para realizar "eagle-loading" en la búsqueda
-		if (array_key_exists('joins', $this->searchArray)) {
-			foreach ($this->searchArray['joins'] as $join) {
-				$query->with($join);				
-			}			
-		} 
 	}
 
 	/**
@@ -47,12 +46,28 @@ trait SearchTrait
 	 * @param  string $column Parámetro que se desea buscar
 	 * @return bool         
 	 */
-	protected function checkIfSearchExists($keyword, $column, $query) {
+	public function checkIfSearchExists($keyword = NULL, $column = NULL, $query) 
+	{
+
+		$arg1 = 'LIKE';
+		$arg2 = '%' . $keyword . '%';
 
 		// Si existe la columna se devuelve verdadero
-		if (array_key_exists($column, $this->searchArray['columns']) && !empty($keyword)) {
-			$query->where($column, 'LIKE', '%' . $keyword . '%');
+		if (!empty($keyword) && !empty($column)) {
+			return $query->where($column, $arg1, $arg2);
+		} else {
+			return false;
 		}
+	}
+
+	/**
+	 * Establecer el numero de elementos a consultar
+	 * 
+	 * @param int $value Valor a establecer de paginacion
+	 */
+	public function setPagination($value)
+	{
+		return $this->_pagination = $value;
 	}
 
 	/**
@@ -62,49 +77,25 @@ trait SearchTrait
 	 * @param  string $column  columna que se desea buscar
 	 * @return mixed          resultado de la busqueda
 	 */
-	public static function search($keyword = '', $column = '')
+	public function search($keyword = '', $column = '', $joins = NULL)
 	{
 
 		// Borrar los mensajes de la sesión anterior
 		\Session::forget('flash_notification.message');
 
-		$instance = new static;
-
-		// Eliminar espacios de la palabra que se desea buscar
 		$keyword = trim($keyword);
-
-		// Eliminar los espacios de la columna que se desea buscar
 		$column = trim($column);
 
 		// Iniciar el objeto que realizara las consultas
-		$query = $instance->query();
+		$query = $this->query();
 
 		// Identificar si se va a filtrar
-		$instance->checkIfSearchExists($keyword, $column, $query);
+		$this->checkIfSearchExists($keyword, $column, $query);
 			
 		// Verificar si existen relaciones con otros modelos
-		$instance->checkIfRelationsExists($query);
+		$this->checkIfRelationsExists($query, $joins);
 
 		// Realizar la consulta, se verificara si se va paginar
-		return $instance->checkIfPaginationExists($query);
+		return $this->checkIfPaginationExists($query);
 	}
-
-	/**
-	 * Devolver los parámetros de búsqueda
-	 * @return array Parámetros de búsqueda
-	 */
-	public static function getSearchFields() 
-	{
-
-		$instance = new static;
-
-		return $instance->searchArray['columns'];
-
-	}
-
-	// public function getSearchFields()
-	// {
-	// 	return $this->searchArray['columns'];		
-	// }
-
 }
