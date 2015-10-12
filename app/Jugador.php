@@ -4,10 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Libraries\SearchTrait;
 use App\Libraries\MetaDataTrait;
+use App\Libraries\ImageTrait;
 
 class Jugador extends Model
 {
-	use SearchTrait, MetaDataTrait;
+	use SearchTrait, MetaDataTrait, ImageTrait;
 
     protected $table = 'jugadores';
 	protected $primaryKey = 'jug_id';
@@ -22,7 +23,7 @@ class Jugador extends Model
 		'jug_sitioweb',
 		'jug_twitter',
 		'jug_foto',
-		'lug_id',
+		'jug_nacionalidad',
 	];
 
 	/**
@@ -54,6 +55,15 @@ class Jugador extends Model
 	];
 
 	/**
+	 * Define el tamaño de las imagenes
+	 */
+	public function __construct(array $attributes = array())
+	{
+	 	parent::__construct($attributes);
+		$this->_setImageSize(300, 200);
+	}
+
+	/**
 	 * Obtener la nacionalidad de un jugador
 	 * @return object relacion con la tabla lugares
 	 */
@@ -66,5 +76,17 @@ class Jugador extends Model
 	public function getTableAttribute()
   	{
    		return $this->table;
+  	}
+
+  	/**
+	 * Obtener el path publico del campo donde se guarda la imagen
+	 * @return string path publico de la iamgen
+	 */
+  	public function getPicturePath()
+  	{
+  		if (!isset($this->jug_foto) || $this->jug_foto = '')
+  			return null;
+  		
+  		return public_path( $this->jug_foto );
   	}
 }

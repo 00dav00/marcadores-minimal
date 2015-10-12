@@ -45,16 +45,16 @@ class JugadorRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function rules()
     {
-        return $this->rules;
+        return static::$rules;
     }
 
     public function messages()
     {
-        return $this->messages;
+        return static::$messages;
     }
 }
