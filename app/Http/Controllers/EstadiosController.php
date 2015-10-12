@@ -20,14 +20,22 @@ class EstadiosController extends Controller {
 
 	use ImageTrait;
 
+	protected $_estadios;
+
+	public function __construct(Estadio $estadios)
+	{
+		$this->_estadios = $estadios;
+	}
 
 	public function index(Request $request)
 	{
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
 
-		$estadios = Estadio::search($keyword, $column);
-		$searchFields = Estadio::getSearchFields();
+		$joins = ['ubicacion'];
+
+		$estadios = $this->_estadios->search($keyword, $column, $joins);
+		$searchFields = ['est_nombre' => 'Nombre', 'est_fecha_inauguracion' => 'Fecha de inauguración'];
 
 		if (!empty($keyword)) {
 			flash()->info("Resultados de la búsqueda: $keyword");
@@ -50,9 +58,9 @@ class EstadiosController extends Controller {
 		if ($request->file('est_foto_por_defecto')) 
 			$data['est_foto_por_defecto'] = $this->procesarImagen(
 												$request->file('est_foto_por_defecto'),
-												Estadio::getImagePath()
+												$this->_estadios->getImagePath()
 											);
-		Estadio::create($data);
+		$this->_estadios->create($data);
 		flash()->success('Estadio creado exitosamente');
 		return redirect('estadios');
 	}
@@ -60,14 +68,14 @@ class EstadiosController extends Controller {
 
 	public function show($id)
 	{
-		$estadio = Estadio::findOrFail($id);
+		$estadio = $this->_estadios->findOrFail($id);
 		return view('estadios.show',compact('estadio'));
 	}
 
 
 	public function edit($id)
 	{
-		$estadio = Estadio::findOrFail($id);
+		$estadio = $this->_estadios->findOrFail($id);
 		return view('estadios.edit',compact('estadio'));
 	}
 
@@ -75,13 +83,13 @@ class EstadiosController extends Controller {
 	public function update($id, EstadioRequest $request)
 	{
 		$data = $request->all();
-		$estadio = Estadio::findOrFail($id);
+		$estadio = $this->_estadios->findOrFail($id);
 
 		if ($request->file('est_foto_por_defecto')) {
 			File::delete(public_path($estadio->est_foto_por_defecto));
 			$data['est_foto_por_defecto'] = $this->procesarImagen(
 												$request->file('est_foto_por_defecto'),
-												Estadio::getImagePath()
+												$this->_estadios->getImagePath()
 											);
 		}
 
@@ -94,7 +102,7 @@ class EstadiosController extends Controller {
 	public function destroy($id)
 	{
 		$message = "Estadio no encontrado!";
-		$estadio = Estadio::findOrFail($id);
+		$estadio = $this->_estadios->findOrFail($id);
 
 		if ($estadio){
 			File::delete(public_path($estadio->est_foto_por_defecto));
@@ -106,30 +114,4 @@ class EstadiosController extends Controller {
 		return redirect('estadios');
 	}
 
-
-	// public function consulta(Request $request)
-	// {
-	// 	$keyword = $request->get('nombre');
-
-	// 	if (trim(urldecode($keyword)) == '') {
-	// 		return response()->json(['data' => []], 200);
-	// 	}
-
-
-	// 	$resultados = Estadio::where('est_nombre', 'LIKE', '%' . $keyword . '%')
-	// 						->orderBy('est_nombre')
-	// 						->take(3)
-	// 						->get(['est_id', 'est_nombre']);
-
-
-	// 	return response()->json(['data' => $resultados]);
-
-	// }
-
-	// public function apiIndex()
-	// {
-	// 	$estadios = Estadio::all();
-
-	// 	return $estadios->toJson();
-	// }	
 }

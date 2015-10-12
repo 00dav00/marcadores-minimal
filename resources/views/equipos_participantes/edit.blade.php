@@ -22,60 +22,8 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-$(function() {
+@include('partials.selectize', ['id' => '#tor_id', 'valueField' => 'tor_id', 'labelField' => 'tor_nombre', 'url' => '/api/torneos/consulta'])
 
-	$('#tor_id').selectize({
-		valueField: 'tor_id',
-		labelField: 'tor_nombre',
-		searchField: ['tor_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.tor_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/api/torneos/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
-
-	$('#eqp_id').selectize({
-		valueField: 'eqp_id',
-		labelField: 'eqp_nombre',
-		searchField: ['eqp_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.eqp_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/api/equipos/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
-
-});
-</script>
+@include('partials.selectize', ['id' => '#eqp_id', 'valueField' => 'eqp_id', 'labelField' => 'eqp_nombre', 'url' => '/api/equipos/consulta'])
 
 @endsection

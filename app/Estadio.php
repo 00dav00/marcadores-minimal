@@ -20,16 +20,6 @@ class Estadio extends Model {
 		'lug_id',
 	];
 
-	protected $searchArray = [
-		'columns' => [
-				'est_nombre' => 'Nombre',
-				'est_fecha_inauguracion' => 'Fecha de inauguración',
-			],
-		'joins' => [
-				'ubicacion',
-			],
-	];
-
 	protected $primaryKey = 'est_id';
 
 	/**

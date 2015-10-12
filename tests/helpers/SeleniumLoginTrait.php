@@ -16,6 +16,10 @@ trait SeleniumLoginTrait
 
 	public function login_interface()
 	{
+		$this->type($this->_user->email, 'email');
+		$this->type('password', 'password');
+		$this->press('Login');
+
 		$this->byName('email')->value($this->_user->email);
 		$this->byName('password')->value('password');
         $this->byId('Login')->submit();

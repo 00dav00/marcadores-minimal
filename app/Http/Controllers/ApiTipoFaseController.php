@@ -48,7 +48,7 @@ class ApiTipoFaseController extends Controller {
 		$keyword = $request->get('nombre');
 
 		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
+			return response()->json([], 200);
 		}
 
 
@@ -58,7 +58,7 @@ class ApiTipoFaseController extends Controller {
 							->get(['tfa_id', 'tfa_nombre']);
 
 
-		return response()->json(['data' => $resultados]);
+		return response()->json([$resultados]);
 
 	}
 

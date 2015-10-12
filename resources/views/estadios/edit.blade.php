@@ -39,6 +39,8 @@
 	</div>
 </div>
 
+@include('partials.selectize', ['id' => '#lug_id', 'valueField' => 'lug_id', 'labelField' => 'lug_nombre', 'url' => '/api/lugares/consulta/all'])
+
 <script type="text/javascript">
 	$(function() {
 		
@@ -47,31 +49,6 @@
 			changeYear: true,
 			dateFormat: "yy-mm-dd",
 			yearRange: "c-50:c"
-		});
-
-		$('#lug_id').selectize({
-			valueField: 'lug_id',
-			labelField: 'lug_nombre',
-			searchField: ['lug_nombre'],
-			render: {
-				option: function(item, escape) {
-					return '<div> <strong>Nombre:</strong> ' + escape(item.lug_nombre) + ', <strong>Tipo:</strong> ' + escape(item.lug_tipo) + '</div>';
-				}
-			},
-			load: function(query, callback) {
-				if (!query.length) return callback();
-				$.ajax({
-					url: '/api/lugares/consulta/pais',
-					type: 'GET',
-					dataType: 'json',
-					data: {
-						nombre: query
-					},
-					success: function(res) {
-						callback(res.data);
-					}
-				});
-			}
 		});
 
 	});

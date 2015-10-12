@@ -11,14 +11,29 @@ use App\Http\Requests\TorneoRequest;
 
 class TorneosController extends Controller {
 
+	protected $_torneos;
+
+	public function __construct(Torneo $torneos)
+	{
+		$this->_torneos = $torneos;
+	}
 
 	public function index(Request $request)
 	{
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
+
+		$joins = ['tipoTorneo', 'equiposParticipantes'];
 		
-		$torneos = Torneo::search($keyword, $column);
-		$searchFields = Torneo::getSearchFields();
+		$torneos = $this->_torneos->search($keyword, $column, $joins);
+		$searchFields = [
+			'tor_nombre' => 'Nombre',
+			'tor_anio_referencia' => 'Año de referencia',
+			'tor_fecha_inicio' => 'Fecha de inicio',
+			'tor_fecha_fin' => 'Fecha de fin',
+			'tor_tipo_equipos' => 'Tipo de equipos',
+			'tor_numero_equipos' => 'Número de equipos',
+		];
 
 		if (!empty($keyword)) {
 			flash()->info("Resultados de la búsqueda: $keyword");
@@ -34,20 +49,20 @@ class TorneosController extends Controller {
 
 	public function store(TorneoRequest $request)
 	{
-		Torneo::create($request->all());
+		$this->_torneos->create($request->all());
 		flash()->success('Torneo creado exitosamente');
 		return redirect('torneos');
 	}
 
 	public function show($id)
 	{
-		$torneo = Torneo::findOrFail($id);
+		$torneo = $this->_torneos->findOrFail($id);
 		return view('torneos.show', compact('torneo'));
 	}
 
 	public function edit($id)
 	{
-		$torneo = Torneo::findOrFail($id);
+		$torneo = $this->_torneos->findOrFail($id);
 		return view('torneos.edit', compact('torneo'));
 	}
 
@@ -55,7 +70,7 @@ class TorneosController extends Controller {
 	{
 		openlog('myapplication', LOG_NDELAY, LOG_USER);
  		syslog(LOG_NOTICE, "Something has happened");
-		$torneo = Torneo::findOrFail($id);
+		$torneo = $this->_torneos->findOrFail($id);
 		$torneo->update($request->all());
 		flash()->success('Torneo editado correctamente');
 		return redirect('torneos');
@@ -63,7 +78,7 @@ class TorneosController extends Controller {
 
 	public function destroy($id)
 	{
-		$torneo = Torneo::findOrFail($id);
+		$torneo = $this->_torneos->findOrFail($id);
 
 		if ($torneo) {
 			$torneo->delete();
@@ -73,48 +88,6 @@ class TorneosController extends Controller {
 
 		return redirect('torneos')->with('message', 'Torneo no encontrado');
 	}
-
-	// public function consulta(Request $request)
-	// {
-	// 	$keyword = $request->get('nombre');
-
-	// 	if (trim(urldecode($keyword)) == '') {
-	// 		return response()->json(['data' => []], 200);
-	// 	}
-
-
-	// 	$resultados = Torneo::where('tor_nombre', 'LIKE', '%' . $keyword . '%')
-	// 						->orderBy('tor_nombre')
-	// 						->take(3)
-	// 						->get(['tor_id', 'tor_nombre']);
-
-
-	// 	return response()->json(['data' => $resultados]);
-
-	// }
-
-	// public function equiposParticipantes($id)
-	// {
-	// 	$torneo = Torneo::findOrFail($id);
-	// 	return $torneo->equiposParticipantes->toJson();
-	// }
-
-	// public function jugadoresEquipoParticipante($id_torneo, $id_equipo)
-	// {
-	// 	$torneo = Torneo::findOrFail($id_torneo);
-	// 	return $torneo->plantillas
-	// 					->where('pivot.eqp_id', intval($id_equipo))
-	// 					->unique();
-	// }
-
-	// public function fasesRegistradas($id_torneo)
-	// {
-	// 	$torneo = Torneo::findOrFail($id_torneo);
-	// 	return $torneo->fases
-	// 					// ->with('tipoFase')
-	// 					// ->orderBy('fas_id')
-	// 					->toJson();
-	// }
 
 	public function wizard()
 	{
@@ -126,18 +99,4 @@ class TorneosController extends Controller {
 		return view('torneos.config');
 	}
 
-	// public function apiShow($id)
-	// {
-	// 	$torneo = Torneo::findOrFail($id)
-	// 						->with('tipoTorneo')
-	// 						->where('tor_id',$id)
-	// 						->first();
-	// 	return $torneo->toJson();
-	// }
-
-	// public function apiIndex()
-	// {
-	// 	$torneos = Torneo::all();
-	// 	return $torneos->toJson();
-	// }
 }

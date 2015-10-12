@@ -35,7 +35,9 @@
 
 	</table> 
 
-	<h5 class="text-center">{!! $lugares->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
+	@if (method_exists($lugares, 'render'))
+		<h5 class="text-center">{!! $lugares->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
+	@endif
 
 </div>
 

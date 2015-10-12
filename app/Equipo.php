@@ -32,17 +32,6 @@ class Equipo extends Model {
 		'eqp_abreviatura',
 	];
 
-	protected $searchArray = [
-		'columns' => [
-				'eqp_nombre' => 'Nombre',
-				'eqp_fecha_fundacion' => 'Fecha de fundación',
-				'eqp_tipo' => 'Tipo',
-			],
-		'joins' => [
-				'nacionalidad',
-			],
-	];
-
 	/**
 	 * Columna primary key
 	 * @var string
