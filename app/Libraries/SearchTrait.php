@@ -10,6 +10,16 @@ trait SearchTrait
 	protected $_pagination = NULL;
 
 	/**
+	 * Devuelve las columnas de busqueda del modelo
+	 * 
+	 * @return array 
+	 */
+	public function getSearchFieldsAttribute()
+  	{
+  		return $this->searchFields;	
+  	}
+	
+	/**
 	 * Verifica si se desea dividir la busqueda en varias partes (paginar)
 	 * 
 	 * @return mixed devuelve el valor de paginacion

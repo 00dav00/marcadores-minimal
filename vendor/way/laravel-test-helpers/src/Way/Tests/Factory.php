@@ -138,10 +138,12 @@ class Factory {
      */
     public function fire($class, array $overrides = array())
     {
-        $this->tableName = $this->parseTableName($class);
+	// $this->tableName = $this->parseTableName($class);
         $this->class = $this->createModel($class);
-
         // First, we dynamically fetch the fields for the table
+
+        $this->tableName = isset($this->class->table) ? $this->class->table : $this->parseTableName($class);
+	//var_dump($this->tableName);
         $columns = $this->getColumns($this->tableName);
 
         // Then, we set dummy value on the model.

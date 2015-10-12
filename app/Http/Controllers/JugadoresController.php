@@ -26,8 +26,8 @@ class JugadoresController extends Controller
         $keyword = $request->get('keyword');
         $column = $request->get('column');
         
-        $jugadores = $this->jugador->search($keyword, $column);
-        $searchFields = $this->jugador->getSearchFields();
+        $jugadores = $this->jugador->search($keyword, $column, ['nacionalidad']);
+        $searchFields = $this->jugador->searchFields;
 
         if (!empty($keyword)) 
             Flash::info("Resultados de la búsqueda: $keyword");

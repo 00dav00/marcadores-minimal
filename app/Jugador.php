@@ -40,19 +40,14 @@ class Jugador extends Model
 
 
 	/**
-	 * Array de columnas usadas por el trait de busqueda
+	 * Array de columnas usadas para busqueda
 	 * @var string
 	 */
-	protected $searchArray = [
-		'columns' => [
-				'jug_apellido' => 'Apellido',
-				'jug_nombre' => 'Nombre',
-				'jug_apodo' => 'Apodo',
-			],
-		'joins' => [
-				'nacionalidad',
-			],
-	];
+	protected $searchFields = [
+		'jug_apellido' => 'Apellido',
+		'jug_nombre' => 'Nombre',
+		'jug_apodo' => 'Apodo',
+	];	
 
 	/**
 	 * Define el tamaño de las imagenes
@@ -76,7 +71,7 @@ class Jugador extends Model
 	public function getTableAttribute()
   	{
    		return $this->table;
-  	}
+  	}  
 
   	/**
 	 * Obtener el path publico del campo donde se guarda la imagen
@@ -86,7 +81,7 @@ class Jugador extends Model
   	{
   		if (!isset($this->jug_foto) || $this->jug_foto = '')
   			return null;
-  		
+
   		return public_path( $this->jug_foto );
   	}
 }

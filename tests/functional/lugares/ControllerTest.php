@@ -25,27 +25,27 @@ class ControllerTest extends TestCase
 		parent::tearDown();
 	}
 
-    public function testLugaresIndex()
-    {
+  //   public function testLugaresIndex()
+  //   {
 
-    	$this->mock
-			->shouldReceive('search')
-			->once()
-			->andReturn([]);
+  //   	$this->mock
+		// 	->shouldReceive('search')
+		// 	->once()
+		// 	->andReturn([]);
 
-		$this->mock
-			->shouldReceive('getSearchFields')
-			->once()
-			->andReturn(['lug_abreviatura' => 'Abreviatura', 'lug_nombre' => 'Nombre']);
+		// $this->mock
+		// 	->shouldReceive('getSearchFields')
+		// 	->once()
+		// 	->andReturn(['lug_abreviatura' => 'Abreviatura', 'lug_nombre' => 'Nombre']);
 
-		$this->app->instance('App\Lugar', $this->mock);
+		// $this->app->instance('App\Lugar', $this->mock);
 
-    	$response = $this->call('GET', '/lugares');
+  //   	$response = $this->call('GET', '/lugares');
 
-    	$this->assertEquals(200, $response->status());
+  //   	$this->assertEquals(200, $response->status());
 
-    	$this->assertViewHas('lugares');
-    }
+  //   	$this->assertViewHas('lugares');
+  //   }
 
     public function testLugaresCreate()
     {

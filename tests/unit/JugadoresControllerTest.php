@@ -58,7 +58,7 @@ class JugadoresControllerTest extends TestCase
 
 		// Flash::shouldReceive('info')->once()->with("Resultados de la búsqueda: $keyword");
 		$this->modelMock->shouldReceive('search')->once()->andReturn($jugadoresPaginados);
-		$this->modelMock->shouldReceive('getSearchFields')->once()->andReturn($campos);
+		$this->modelMock->shouldReceive('getAttribute')->with('searchFields')->andReturn($campos);
 		$this->app->instance('App\Jugador', $this->modelMock);
 
 		$response = $this->call('GET', '/jugadores', ['keyword' => $keyword, 'column' => $columna]);
@@ -89,7 +89,7 @@ class JugadoresControllerTest extends TestCase
 	public function test_Index_redirecciona_hacia_Create()
 	{
 		$this->modelMock->shouldReceive('search')->once()->andReturn($this->crearJugadoresPaginados());
-		$this->modelMock->shouldReceive('getSearchFields')->once()->andReturn([]);
+		$this->modelMock->shouldReceive('getAttribute')->with('searchFields')->andReturn([]);
 		$this->app->instance('App\Jugador', $this->modelMock);
 
 		$this->visit('/jugadores');
