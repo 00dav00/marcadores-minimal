@@ -2,42 +2,22 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Libraries\MetaDataTrait;
+
 class PlantillaTorneo extends Model {
 
-	/**
-	 * Nombre de la tabla en donde se guardan los lugares
-	 * @var string
-	 */
-	protected $table = 'plantillas_torneo';
+	use MetaDataTrait;
 
-	/**
-	 * Campos que se deben llenar
-	 * @var array
-	 */
+	protected $table = 'plantillas_torneo';
+	protected $primaryKey = 'plt_id';
+	public $timestamps = false;
+
 	protected $fillable = [
 		'plt_numero_camiseta',
 		'eqp_id',
 		'jug_id',
 		'tor_id',
-		];
-
-	/**
-	 * Columna primary key
-	 * @var string
-	 */
-	protected $primaryKey = 'plt_id';
-
-	/**
-	 * Indica si el primary key auto incrementa
-	 * @var boolean
-	 */
-	public $incrementing = false;
-
-	/**
-	 * No se van a utilizar timestamps
-	 * @var boolean
-	 */
-	public $timestamps = false;
+	];
 
 	public function torneo()
 	{

@@ -68,10 +68,10 @@ class Jugador extends Model
 	}
 
 
-	public function getTableAttribute()
-  	{
-   		return $this->table;
-  	}  
+	// public function getTableAttribute()
+ //  	{
+ //   		return $this->table;
+ //  	}  
 
   	/**
 	 * Obtener el path publico del campo donde se guarda la imagen

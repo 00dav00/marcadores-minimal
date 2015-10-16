@@ -25,6 +25,11 @@ trait MetaDataTrait
 	{
 		$instance = new static;
 		return $instance->nameColumn;
-	}	
+	}
+
+	public function getTableAttribute()
+  	{
+   		return $this->table;
+  	}
 
 }

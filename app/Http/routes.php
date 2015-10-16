@@ -97,6 +97,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::delete('partidos/{partido}','ApiPartidosController@destroy');
 	Route::put('partidos/{partido}','ApiPartidosController@update');
 
+	Route::resource('plantillasTorneo', 'ApiPlantillasTorneoController');
 
 	Route::get('penalizaciones/{torneo}', 'ApiPenalizacionesTorneoController@show');
 	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');

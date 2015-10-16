@@ -56,7 +56,6 @@ class JugadorRequestTest extends TestCase
 			'jug_altura' => '','jug_sitioweb' => '','jug_twitter' => '','jug_foto' => '','jug_nacionalidad' => '',]
 		);  
 		$validator = Validator::make($jugador, JugadorRequest::$rules, JugadorRequest::$messages);
-		// var_dump($validator->errors());
 
 		$this->assertFalse($validator->passes(),'Se esperaba que falle la validadicon.');
 		$this->assertTrue($validator->errors()->has('jug_apellido'),'Se esperaba que exista la clave jug_apellido');
