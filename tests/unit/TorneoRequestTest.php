@@ -17,9 +17,6 @@ class TorneoRequestTest extends TestCase
     private $rules;
     private $messages;
 
-    private $lugar;
-    private $tipoTorneo;
-
     public static function setUpBeforeClass()
     {
         Artisan::call('migrate:refresh');
