@@ -7,15 +7,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 
-class ApiPlantillasTorneoController extends TestCase
+class ApiPlantillasTorneoControllerTest extends TestCase
 {	
-	// use DatabaseTransactions;
     use WithoutMiddleware;
-
-    // public static function setUpBeforeClass()
-    // {
-    //     Artisan::call('migrate:refresh');
-    // }
 
     public function setUp()
     {
@@ -23,7 +17,7 @@ class ApiPlantillasTorneoController extends TestCase
         Artisan::call('migrate:refresh');
     }
 
-    public function test_Index_devuelve_array()
+    public function test_Index_devuelve_json_array()
     {
 
     	$cantidad = 3;
