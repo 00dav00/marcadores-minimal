@@ -1,7 +1,7 @@
 <?php
 
-
 use Way\Tests\Factory;
+
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -263,7 +263,7 @@ class JugadorRequestTest extends TestCase
 		$this->assertCount(1, $validator->errors()->all(), 'Se esperaban 1 errores de validacion');
     }
 
-    public function test_validacion_exitosa_de_nacionalidad()
+    public function test_validacion_exitosa()
     {
     	Factory::create('App\Lugar');
 		$jugador = Factory::attributesFor(
