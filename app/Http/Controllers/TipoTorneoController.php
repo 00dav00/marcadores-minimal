@@ -11,10 +11,16 @@ use App\Http\Requests\TipoTorneoRequest;
 
 class TipoTorneoController extends Controller {
 
+	protected $_tipoTorneo;
+
+	public function __construct(TipoTorneo $tipoTorneo)
+	{
+		$this->_tipoTorneo = $tipoTorneo;
+	}
+
 	public function index()
 	{
-		$tipo_torneo = TipoTorneo::orderBy('ttr_nombre')
-							->paginate(20);
+		$tipo_torneo = $this->_tipoTorneo->paginate(20);
 
 		return view ('tipo_torneo.index', compact('tipo_torneo'));
 	}
@@ -28,7 +34,7 @@ class TipoTorneoController extends Controller {
 
 	public function store(TipoTorneoRequest $request)
 	{
-		TipoTorneo::create($request->all());
+		$this->_tipoTorneo->create($request->all());
 
 		flash()->success('Tipo de torneo creado exitosamente');
 		
@@ -38,23 +44,22 @@ class TipoTorneoController extends Controller {
 
 	public function show($id)
 	{
-		$tipo_torneo = TipoTorneo::findOrFail($id);
+		$tipo_torneo = $this->_tipoTorneo->findOrFail($id);
 		return view('tipo_torneo.show', compact('tipo_torneo'));
 	}
 
 
 	public function edit($id)
 	{
-		$tipo_torneo = TipoTorneo::findOrFail($id);
+		$tipo_torneo = $this->_tipoTorneo->findOrFail($id);
 		return view('tipo_torneo.edit', compact('tipo_torneo'));
 	}
 
 
 	public function update($id, TipoTorneoRequest $request)
 	{
-		// openlog('myapplication', LOG_NDELAY, LOG_USER);
- 	// 	syslog(LOG_NOTICE, "Something has happened");
-		$tipo_torneo = TipoTorneo::findOrFail($id);
+
+		$tipo_torneo = $this->_tipoTorneo->findOrFail($id);
 		$tipo_torneo->update($request->all());
 		flash()->success('Tipo de torneo actualizado correctamente');
 
@@ -64,7 +69,7 @@ class TipoTorneoController extends Controller {
 
 	public function destroy($id)
 	{
-		$tipo_torneo = TipoTorneo::findOrFail($id);
+		$tipo_torneo = $this->_tipoTorneo->findOrFail($id);
 
 		if ($tipo_torneo) {
 			$tipo_torneo->delete();

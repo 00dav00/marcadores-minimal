@@ -46,11 +46,7 @@
 	<script src="{!! asset('/js/services.js') !!}"></script>
 	<script src="{!! asset('/js/controllers.js') !!}"></script>
 
-	<script src="{!! asset('/js/torneos/wizard/wizard.js') !!}"></script>
-	<script src="{!! asset('/js/torneos/wizard/wizard.config.js') !!}"></script>
-	<script src="{!! asset('/js/torneos/wizard/wizard.controller.js') !!}"></script>
-	<script src="{!! asset('/js/torneos/wizard/wizard.factory.js') !!}"></script>
-	<script src="{!! asset('/js/torneos/wizard/wizard.filter.js') !!}"></script>
+	@yield('scripts')
 
 </body>
 </html>
