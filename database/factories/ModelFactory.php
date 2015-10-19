@@ -83,4 +83,25 @@ $factory->define(App\PlantillaTorneo::class, function ($faker) use ($factory){
     ];
 });
 
+$factory->define(App\EquipoParticipante::class, function ($faker) use ($factory){
+    return [
+        'eqp_id' => $factory->create('App\Equipo')->eqp_id,
+        'tor_id' => $factory->create('App\Torneo')->tor_id,
+    ];
+});
 
+$factory->define(App\TipoFase::class, function ($faker) use ($factory){
+    return [
+        'tfa_nombre' => $faker->sentence(3),
+        'tfa_descripcion' => $faker->sentence(10),
+    ];
+});
+
+$factory->define(App\Fase::class, function ($faker) use ($factory){
+    return [
+        'tfa_id' => $factory->create('App\TipoFase')->tfa_id,
+        'fas_descripcion'=> $faker->sentence(10),
+        'tor_id'=> $factory->create('App\Torneo')->tor_id,
+        'fas_acumulada'=> $faker->boolean(50),
+    ];
+});
