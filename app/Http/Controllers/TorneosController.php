@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Flash;
 
 use Illuminate\Http\Request;
 
@@ -11,11 +12,11 @@ use App\Http\Requests\TorneoRequest;
 
 class TorneosController extends Controller {
 
-	protected $_torneos;
+	protected $_torneo;
 
-	public function __construct(Torneo $torneos)
+	public function __construct(Torneo $torneo)
 	{
-		$this->_torneos = $torneos;
+		$this->_torneo = $torneo;
 	}
 
 	public function index(Request $request)
@@ -23,20 +24,11 @@ class TorneosController extends Controller {
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
 
-		$joins = ['tipoTorneo', 'equiposParticipantes'];
-		
-		$torneos = $this->_torneos->search($keyword, $column, $joins);
-		$searchFields = [
-			'tor_nombre' => 'Nombre',
-			'tor_anio_referencia' => 'Año de referencia',
-			'tor_fecha_inicio' => 'Fecha de inicio',
-			'tor_fecha_fin' => 'Fecha de fin',
-			'tor_tipo_equipos' => 'Tipo de equipos',
-			'tor_numero_equipos' => 'Número de equipos',
-		];
+		$torneos = $this->_torneo->search($keyword, $column, ['tipoTorneo', 'equiposParticipantes']);
+        $searchFields = $this->_torneo->searchFields;
 
 		if (!empty($keyword)) {
-			flash()->info("Resultados de la búsqueda: $keyword");
+			Flash::info("Resultados de la búsqueda: $keyword");
 		}
 
 		return view('torneos.index', compact('torneos', 'keyword', 'column', 'searchFields'));
@@ -49,40 +41,38 @@ class TorneosController extends Controller {
 
 	public function store(TorneoRequest $request)
 	{
-		$this->_torneos->create($request->all());
-		flash()->success('Torneo creado exitosamente');
+		$this->_torneo->create($request->all());
+		Flash::success('Torneo creado exitosamente');
 		return redirect('torneos');
 	}
 
 	public function show($id)
 	{
-		$torneo = $this->_torneos->findOrFail($id);
+		$torneo = $this->_torneo->with('tipoTorneo')->findOrFail($id);
 		return view('torneos.show', compact('torneo'));
 	}
 
 	public function edit($id)
 	{
-		$torneo = $this->_torneos->findOrFail($id);
+		$torneo = $this->_torneo->with('tipoTorneo')->findOrFail($id);
 		return view('torneos.edit', compact('torneo'));
 	}
 
 	public function update($id, TorneoRequest $request)
 	{
-		openlog('myapplication', LOG_NDELAY, LOG_USER);
- 		syslog(LOG_NOTICE, "Something has happened");
-		$torneo = $this->_torneos->findOrFail($id);
+		$torneo = $this->_torneo->findOrFail($id);
 		$torneo->update($request->all());
-		flash()->success('Torneo editado correctamente');
+		Flash::success('Torneo actualizado exitosamente');
 		return redirect('torneos');
 	}
 
 	public function destroy($id)
 	{
-		$torneo = $this->_torneos->findOrFail($id);
+		$torneo = $this->_torneo->findOrFail($id);
 
 		if ($torneo) {
 			$torneo->delete();
-			flash()->warning('Torneo borrado exitosamente');
+			Flash::warning('Torneo borrado exitosamente');
 			return redirect('torneos');
 		}
 

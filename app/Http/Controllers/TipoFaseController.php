@@ -4,9 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Flash;
 
 use App\TipoFase;
-
 use App\Http\Requests\TipoFaseRequest;
 
 class TipoFaseController extends Controller 
@@ -18,6 +18,13 @@ class TipoFaseController extends Controller
 	{
 		$this->_tipoFase = $tipoFase;
 	}
+
+	protected $tipoFase;
+
+	public function __construct(TipoFase $tipoFase)
+    {
+        $this->tipoFase = $tipoFase;
+    }
 
 	public function index()
 	{
@@ -40,7 +47,7 @@ class TipoFaseController extends Controller
 	{
 		$this->_tipoFase->create($request->all());
 
-		flash()->success('Tipo de fase creada exitosamente');
+		Flash::success('Tipo de fase creada exitosamente');
 		
 		return redirect('tipo_fase');
 	}
@@ -65,7 +72,7 @@ class TipoFaseController extends Controller
 
 		$tipo_fase->update($request->all());
 
-		flash()->success('Tipo de fase actualizada correctamente');
+		Flash::success('Tipo de fase actualizada correctamente');
 
 		return redirect('tipo_fase');
 	}
@@ -77,7 +84,7 @@ class TipoFaseController extends Controller
 		if ($tipo_fase) {
 			$tipo_fase->delete();
 
-			flash()->warning('Tipo de fase borrada correctamente');
+			Flash::warning('Tipo de fase borrada correctamente');
 
 			return redirect('tipo_fase');
 		}

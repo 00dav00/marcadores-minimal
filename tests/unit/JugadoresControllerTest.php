@@ -51,7 +51,6 @@ class JugadoresControllerTest extends TestCase
 	public function index_trae_arreglo_de_jugadores($keyword)
 	{
 		$campos = array('campo' => 'descripcion');
-		// $keyword = 'Nombre';	
 		$columna = 'Nombre';
 		$jugadoresPaginados = $this->crearJugadoresPaginados();
 
@@ -206,11 +205,10 @@ class JugadoresControllerTest extends TestCase
 
 		$this->app->instance('App\Jugador', $this->modelMock);
 		$this->modelMock->shouldReceive('findOrFail')->once()->andReturn($this->modelMock);
-		// $this->modelMock->shouldReceive('borrarImagen')->once()->andReturn('true');
 		$this->modelMock->shouldReceive('delete')->once()->andReturn('true');
-		
+ 		
 		$response = $this->call('DELETE', '/jugadores/1');
-		// $this->assertRedirectedTo('/jugadores');
+		$this->assertRedirectedTo('/jugadores');
 	}
 
 	public function test_Destroy_borra_registro_sin_imagen()
