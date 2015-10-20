@@ -4,41 +4,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class PenalizacionTorneo extends Model {
 
-	/**
-	 * Nombre de la tabla en donde se guardan los lugares
-	 * @var string
-	 */
 	protected $table = 'penalizaciones_torneo';
+	protected $primaryKey = 'tor_id';
+	public $incrementing = false;
+	public $timestamps = false;
 
-	/**
-	 * Campos que se deben llenar
-	 * @var array
-	 */
 	protected $fillable = [
 		'eqp_id',
 		'fas_id',
-		'tor_id',
 		'ptr_puntos',
 		'ptr_motivo'
-		];
+	];
 
-	/**
-	 * Columna primary key
-	 * @var string
-	 */
-	protected $primaryKey = 'tor_id';
-
-	/**
-	 * Indica si el primary key auto incrementa
-	 * @var boolean
-	 */
-	public $incrementing = false;
-
-	/**
-	 * No se van a utilizar timestamps
-	 * @var boolean
-	 */
-	public $timestamps = false;
 
 	public function fase()
 	{
