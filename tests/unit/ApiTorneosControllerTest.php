@@ -80,7 +80,7 @@ class ApiTorneosControllerTest extends TestCase
 
         $response = $this->call('GET', 'api/torneos/'.$fase->attributesToArray()['tor_id'].'/fases');
         $data = json_decode($response->getContent());
-        var_dump($data);
+        
         $this->assertJson($response->getContent(),'Se esperaba JSON');
         $this->assertEquals($fase->attributesToArray()['fas_id'], $data[0]->fas_id);
     }
