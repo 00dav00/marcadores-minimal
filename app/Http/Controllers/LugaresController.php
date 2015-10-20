@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LugarRequest;
 
+use Flash;
+
 class LugaresController extends Controller {
 
 	protected $_lugares;
@@ -24,7 +26,7 @@ class LugaresController extends Controller {
 		$joins = ['lugarPadre'];
 		
 		$lugares = $this->_lugares->search($keyword, $column, $joins);
-		$searchFields = ['lug_abreviatura' => 'Abreviatura', 'lug_nombre' => 'Nombre'];
+		$searchFields = $this->_lugares->searchFields;
 
 		if (!empty($keyword)) {
 			flash()->info("Resultados de la búsqueda: $keyword");
@@ -66,18 +68,18 @@ class LugaresController extends Controller {
 		return view('lugares.edit', compact('lugar'));
 	}
 
-	public function update($id, LugarRequest $request)
+	public function update(LugarRequest $request, $id)
 	{
 		$lugar = $this->_lugares->findOrFail($id);
 
 		$values = $request->all();
-		if ($values['parent_lug_id'] == '') {
+		if ($request['parent_lug_id'] == '') {
 			$values['parent_lug_id'] = null;
 		}
 
 		$lugar->update($values);
 
-		flash()->success('Lugar editado exitosamente');
+		Flash::success('Lugar actualizado exitosamente');
 
 		return redirect('lugares');
 

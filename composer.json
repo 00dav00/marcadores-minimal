@@ -35,7 +35,8 @@
 		"classmap": [
 			"tests/TestCase.php",
 			"tests/helpers/",
-			"tests/unit/"
+			"tests/unit/",
+			"tests/api/"
 		]
 	},
 	"scripts": {

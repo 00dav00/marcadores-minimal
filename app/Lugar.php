@@ -38,6 +38,15 @@ class Lugar extends Model {
 	public $timestamps = false;
 
 	/**
+	 * Array de columnas usadas para busqueda
+	 * @var string
+	 */
+	public $searchFields = [
+		'lug_abreviatura' => 'Abreviatura', 
+		'lug_nombre' => 'Nombre'
+	];
+
+	/**
 	 * Un lugar puede ser hijo de otro lugar
 	 * @return object relacion uno a uno
 	 */

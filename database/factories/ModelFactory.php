@@ -57,7 +57,7 @@ $factory->define(App\Equipo::class, function ($faker) use ($factory){
         'eqp_fecha_fundacion' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'eqp_sitioweb' => $faker->url,
         'eqp_tipo' => $faker->randomElement($array = ['seleccion', 'profesional', 'amateur']),
-        'lug_id' => $factory->create('App\Lugar')->lug_id,
+        'lug_id' => $factory(App\Lugar::class)->create()->lug_id,
     ];
 });
 
@@ -69,8 +69,18 @@ $factory->define(App\Torneo::class, function ($faker) use ($factory){
         'tor_fecha_fin' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'tor_tipo_equipos' => $faker->randomElement($array = ['seleccion', 'profesional', 'amateur']),
         'tor_numero_equipos' => $faker->randomElement($array = [2,4,8,12,24,32]),
-        'lug_id' => $factory->create('App\Lugar')->lug_id,
-        'ttr_id'=> $factory->create('App\TipoTorneo')->ttr_id,
+        'lug_id' => $factory(App\Lugar::class)->create()->lug_id,
+        'ttr_id'=> $factory(App\TipoTorneo::class)->create()->ttr_id
+    ];
+});
+
+$factory->define(App\Estadio::class, function ($faker) {
+    return [
+        'est_nombre' => $faker->company,
+        'est_fecha_inauguracion' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'est_foto_por_defecto' => $faker->imageUrl($width = 200, $height = 200),
+        'est_aforo' => $faker->numberBetween($min = 5000, $max = 80000),
+        'lug_id' => $factory(App\Lugar::class)->create()->lug_id,
     ];
 });
 
@@ -83,6 +93,14 @@ $factory->define(App\PlantillaTorneo::class, function ($faker) use ($factory){
     ];
 });
 
+
+$factory->define(App\TipoFase::class, function ($faker) {
+    return [
+        'tfa_nombre' => $faker->company,
+        'tfa_descripcion' => $faker->sentence(6),
+    ];
+});
+
 $factory->define(App\EquipoParticipante::class, function ($faker) use ($factory){
     return [
         'eqp_id' => $factory->create('App\Equipo')->eqp_id,
@@ -90,12 +108,6 @@ $factory->define(App\EquipoParticipante::class, function ($faker) use ($factory)
     ];
 });
 
-$factory->define(App\TipoFase::class, function ($faker) use ($factory){
-    return [
-        'tfa_nombre' => $faker->sentence(3),
-        'tfa_descripcion' => $faker->sentence(10),
-    ];
-});
 
 $factory->define(App\Fase::class, function ($faker) use ($factory){
     return [

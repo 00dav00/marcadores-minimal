@@ -9,16 +9,11 @@ use App\Estadio;
 
 use App\Http\Requests\EstadioRequest;
 
-// use Image;
-
 use File;
 
-use App\Libraries\ImageTrait;
-
+use Flash;
 
 class EstadiosController extends Controller {
-
-	use ImageTrait;
 
 	protected $_estadios;
 
@@ -32,10 +27,8 @@ class EstadiosController extends Controller {
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
 
-		$joins = ['ubicacion'];
-
-		$estadios = $this->_estadios->search($keyword, $column, $joins);
-		$searchFields = ['est_nombre' => 'Nombre', 'est_fecha_inauguracion' => 'Fecha de inauguración'];
+		$estadios = $this->_estadios->search($keyword, $column, ['ubicacion']);
+		$searchFields = $this->_estadios->searchFields;
 
 		if (!empty($keyword)) {
 			flash()->info("Resultados de la búsqueda: $keyword");
@@ -53,15 +46,16 @@ class EstadiosController extends Controller {
 
 	public function store(EstadioRequest $request)
 	{
+
 		$data = $request->all();
 
-		if ($request->file('est_foto_por_defecto')) 
-			$data['est_foto_por_defecto'] = $this->procesarImagen(
-												$request->file('est_foto_por_defecto'),
-												$this->_estadios->getImagePath()
-											);
-		$this->_estadios->create($data);
-		flash()->success('Estadio creado exitosamente');
+        if ($request->file('est_foto_por_defecto')) {
+			$data['est_foto_por_defecto'] = $this->_estadios
+            									->procesarImagen($request->file('est_foto_por_defecto'));
+        }
+
+        $this->_estadios->create($data);
+		Flash::success('Estadio creado exitosamente');
 		return redirect('estadios');
 	}
 
@@ -87,14 +81,11 @@ class EstadiosController extends Controller {
 
 		if ($request->file('est_foto_por_defecto')) {
 			File::delete(public_path($estadio->est_foto_por_defecto));
-			$data['est_foto_por_defecto'] = $this->procesarImagen(
-												$request->file('est_foto_por_defecto'),
-												$this->_estadios->getImagePath()
-											);
+			$data['est_foto_por_defecto'] = $estadio->reemplazarImagen($request->file('est_foto_por_defecto'));
 		}
 
 		$estadio->update($data);
-		flash()->success('Estadio actualizado exitosamente');
+		Flash::success('Estadio actualizado exitosamente');
 		return redirect('estadios');
 	}
 
@@ -110,7 +101,7 @@ class EstadiosController extends Controller {
 			$message = "Estadio borrado exitosamente!";
 		}
 
-		flash()->success($message);
+		Flash::success($message);
 		return redirect('estadios');
 	}
 

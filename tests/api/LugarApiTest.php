@@ -25,7 +25,7 @@ class ApiControllerTest extends TestCase
 
     public function testGetLugaresConsulta()
     {    
-        $lugares = factory(App\Lugar::class, 200)
+        $lugares = factory(App\Lugar::class, 10)
             ->create();
 
 
