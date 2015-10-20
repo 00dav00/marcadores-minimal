@@ -51,7 +51,7 @@ class JugadoresController extends Controller
         Flash::success('Jugador creado exitosamente');
 
         return redirect('jugadores');
-        // return view('jugadores.index');
+
     }
 
     public function show($id)

@@ -25,7 +25,7 @@ class JugadoresControllerTest extends TestCase
     public function setUp()
 	{
 		parent::createApplication();
-		$this->modelMock = Mockery::mock('App\Jugador');
+		$this->modelMock = Mockery::mock('App\Estadio');
 		$this->requestMock = Mockery::mock('App\Http\Requests\JugadorRequest');
 		$this->imageMock = new UploadedFile('tests/imagen1.jpg','imagen1.jpg','image/jpeg', null, null, true);
 	}
@@ -38,8 +38,8 @@ class JugadoresControllerTest extends TestCase
 	protected function crearJugadores()
 	{
 		return array(
-			Factory::make('App\Jugador'),
-			Factory::make('App\Jugador'),
+			Factory::make('App\Estadio'),
+			Factory::make('App\Estadio'),
 		);
 	}
 
@@ -59,7 +59,7 @@ class JugadoresControllerTest extends TestCase
 		// Flash::shouldReceive('info')->once()->with("Resultados de la búsqueda: $keyword");
 		$this->modelMock->shouldReceive('search')->once()->andReturn($jugadoresPaginados);
 		$this->modelMock->shouldReceive('getAttribute')->with('searchFields')->andReturn($campos);
-		$this->app->instance('App\Jugador', $this->modelMock);
+		$this->app->instance('App\Estadio', $this->modelMock);
 
 		$response = $this->call('GET', '/jugadores', ['keyword' => $keyword, 'column' => $columna]);
 
@@ -90,7 +90,7 @@ class JugadoresControllerTest extends TestCase
 	{
 		$this->modelMock->shouldReceive('search')->once()->andReturn($this->crearJugadoresPaginados());
 		$this->modelMock->shouldReceive('getAttribute')->with('searchFields')->andReturn([]);
-		$this->app->instance('App\Jugador', $this->modelMock);
+		$this->app->instance('App\Estadio', $this->modelMock);
 
 		$this->visit('/jugadores');
 		$this->click('Agregar un Jugador');
@@ -106,7 +106,7 @@ class JugadoresControllerTest extends TestCase
 		// $this->requestMock->shouldReceive('all')->withAnyArgs()->andReturn($jugador);
 		// $this->requestMock->shouldReceive('file')->withAnyArgs()->andReturn(false);
 
-		$this->app->instance('App\Jugador', $this->modelMock);
+		$this->app->instance('App\Estadio', $this->modelMock);
 		$this->modelMock->shouldReceive('create')->once()->andReturn('true');
 		
 		$response = $this->call('POST', '/jugadores', $jugador, [], $imagen);
@@ -116,7 +116,7 @@ class JugadoresControllerTest extends TestCase
 	public function test_Store_sin_imagenes()
 	{
 		$jugador = Factory::attributesFor(
-			'App\Jugador',
+			'App\Estadio',
 			['jug_id' => '','jug_apellido' => 'sas','jug_nombre' => 'sas','jug_apodo' => '','jug_fecha_nacimiento' => '',
 			'jug_altura' => '','jug_sitioweb' => '','jug_twitter' => '','jug_foto' => '','jug_nacionalidad' => '',]
 		);  
@@ -127,7 +127,7 @@ class JugadoresControllerTest extends TestCase
 	public function test_Store_con_imagenes()
 	{		
 		$jugador = Factory::attributesFor(
-			'App\Jugador',
+			'App\Estadio',
 			['jug_id' => '','jug_apellido' => 'sas','jug_nombre' => 'sas','jug_apodo' => '','jug_fecha_nacimiento' => '',
 			'jug_altura' => '','jug_sitioweb' => '','jug_twitter' => '','jug_foto' => $this->imageMock, 'jug_nacionalidad' => '',]
 		);  
@@ -139,10 +139,10 @@ class JugadoresControllerTest extends TestCase
 
 	public function test_Show_devuelve_jugador()
 	{
-		$jugador = Factory::make('App\Jugador',['jug_foto' => 'https://d1avok0lzls2w.cloudfront.net/img_uploads/changing-urls-0(2).jpg']);
+		$jugador = Factory::make('App\Estadio',['jug_foto' => 'https://d1avok0lzls2w.cloudfront.net/img_uploads/changing-urls-0(2).jpg']);
 
 		$this->modelMock->shouldReceive('findOrFail')->once()->andReturn($jugador);
-		$this->app->instance('App\Jugador', $this->modelMock);
+		$this->app->instance('App\Estadio', $this->modelMock);
 
 		$response = $this->call('GET', '/jugadores/1');
 		$this->assertViewHas('jugador', $jugador);
@@ -151,13 +151,13 @@ class JugadoresControllerTest extends TestCase
 	public function test_Show_redirecciona_hacia_Editar()
 	{
 		$lugar = Factory::make('App\Lugar', ['lug_id' => 1, 'lug_nombre' => 'foooooooooooo']);
-		$jugador = Factory::make('App\Jugador',
+		$jugador = Factory::make('App\Estadio',
 			['jug_id' => 1, 'jug_foto' => 'http://lanacion.com.ec/wp-content/uploads/2015/09/onu.jpg','jug_nacionalidad' => 1,  'nacionalidad' => $lugar]
 		);
 		
 		$this->modelMock->shouldReceive('findOrFail')->once()->andReturn($jugador);
 		$this->modelMock->shouldReceive('with->findOrFail')->once()->andReturn($jugador);
-		$this->app->instance('App\Jugador', $this->modelMock);
+		$this->app->instance('App\Estadio', $this->modelMock);
 
 		$response = $this->visit('/jugadores/1');
 		$this->press('Editar');
@@ -169,7 +169,7 @@ class JugadoresControllerTest extends TestCase
 	{
 		Flash::shouldReceive('success')->once()->with("Jugador actualizado exitosamente");
 
-		$this->app->instance('App\Jugador', $this->modelMock);
+		$this->app->instance('App\Estadio', $this->modelMock);
 		$this->modelMock->shouldReceive('findOrFail')->once()->andReturn($this->modelMock);
 		$this->modelMock->shouldReceive('update')->once()->andReturn('true');
 		
@@ -180,7 +180,7 @@ class JugadoresControllerTest extends TestCase
 	public function test_Update_sin_imagenes()
 	{
 		$jugador= Factory::attributesFor(
-			'App\Jugador',
+			'App\Estadio',
 			['jug_id' => '1','jug_apellido' => 'mic','jug_nombre' => 'mic','jug_apodo' => '','jug_fecha_nacimiento' => '',
 			'jug_altura' => '','jug_sitioweb' => '','jug_twitter' => '','jug_foto' => '','jug_nacionalidad' => '',]
 		);
@@ -191,7 +191,7 @@ class JugadoresControllerTest extends TestCase
 	public function test_Update_con_imagenes()
 	{
 		$jugador = Factory::attributesFor(
-			'App\Jugador',
+			'App\Estadio',
 			['jug_id' => '1','jug_apellido' => 'mic','jug_nombre' => 'mic','jug_apodo' => '','jug_fecha_nacimiento' => '',
 			'jug_altura' => '','jug_sitioweb' => '','jug_twitter' => '','jug_foto' => $this->imageMock,'jug_nacionalidad' => '',]
 		);
@@ -204,7 +204,7 @@ class JugadoresControllerTest extends TestCase
 	{
 		Flash::shouldReceive('warning')->once()->with("Jugador borrado exitosamente");
 
-		$this->app->instance('App\Jugador', $this->modelMock);
+		$this->app->instance('App\Estadio', $this->modelMock);
 		$this->modelMock->shouldReceive('findOrFail')->once()->andReturn($this->modelMock);
 		// $this->modelMock->shouldReceive('borrarImagen')->once()->andReturn('true');
 		$this->modelMock->shouldReceive('delete')->once()->andReturn('true');

@@ -27,7 +27,7 @@ class Torneo extends Model {
 		'tor_numero_equipos',
 		'lug_id',
 		'ttr_id'
-		];
+	];
 
 	/**
 	 * Columna primary key

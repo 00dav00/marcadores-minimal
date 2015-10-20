@@ -67,12 +67,6 @@ class Jugador extends Model
 		return $this->hasOne('App\Lugar', 'lug_id', 'jug_nacionalidad');
 	}
 
-
-	public function getTableAttribute()
-  	{
-   		return $this->table;
-  	}  
-
   	/**
 	 * Obtener el path publico del campo donde se guarda la imagen
 	 * @return string path publico de la iamgen

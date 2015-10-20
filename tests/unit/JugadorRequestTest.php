@@ -1,7 +1,7 @@
 <?php
 
-
 use Way\Tests\Factory;
+
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -56,7 +56,6 @@ class JugadorRequestTest extends TestCase
 			'jug_altura' => '','jug_sitioweb' => '','jug_twitter' => '','jug_foto' => '','jug_nacionalidad' => '',]
 		);  
 		$validator = Validator::make($jugador, JugadorRequest::$rules, JugadorRequest::$messages);
-		// var_dump($validator->errors());
 
 		$this->assertFalse($validator->passes(),'Se esperaba que falle la validadicon.');
 		$this->assertTrue($validator->errors()->has('jug_apellido'),'Se esperaba que exista la clave jug_apellido');
@@ -264,7 +263,7 @@ class JugadorRequestTest extends TestCase
 		$this->assertCount(1, $validator->errors()->all(), 'Se esperaban 1 errores de validacion');
     }
 
-    public function test_validacion_exitosa_de_nacionalidad()
+    public function test_validacion_exitosa()
     {
     	Factory::create('App\Lugar');
 		$jugador = Factory::attributesFor(

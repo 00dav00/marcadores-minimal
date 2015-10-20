@@ -11,6 +11,10 @@ class TipoTorneoControllerTest extends TestCase
 	use DatabaseTransactions;
     use WithoutMiddleware;
 
+    public static function setUpBeforeClass()
+    {
+        Artisan::call('migrate:refresh');
+    }
 
 	public function setUp()
 	{

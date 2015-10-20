@@ -23,7 +23,7 @@ class Lugar extends Model {
 		'lug_nombre',
 		'lug_tipo',
 		'parent_lug_id'
-		];
+	];
 
 	/**
 	 * Columna primary key

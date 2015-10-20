@@ -71,6 +71,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 	Route::get('tipo_torneo/consulta', 'ApiTipoTorneoController@consulta');
 
+	Route::get('jugadores/consulta', 'ApiJugadoresController@consulta');
+
 	Route::get('tipo_fase/consulta', 'ApiTipoFaseController@consulta');
 	Route::get('tipo_fase', 'ApiTipoFaseController@index');
 	Route::post('tipo_fase', 'ApiTipoFaseController@store');
@@ -97,6 +99,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::delete('partidos/{partido}','ApiPartidosController@destroy');
 	Route::put('partidos/{partido}','ApiPartidosController@update');
 
+	Route::resource('plantillasTorneo', 'ApiPlantillasTorneoController');
 
 	Route::get('penalizaciones/{torneo}', 'ApiPenalizacionesTorneoController@show');
 	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');

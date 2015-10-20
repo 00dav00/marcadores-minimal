@@ -16,7 +16,7 @@
 				</div>
 				<br/>
 
-				<div class="form-group" ng-show="torneoSeleccionado">
+				<div class="form-group" ng-show="torneoSeleccionado && fases.length > 2">
 					<div class="btn-group-justified">
 			        	<label ng-repeat="fase in fases" class="btn btn-default" ng-click="obtenerTabla(fase)" ng-model="faseSeleccionada" btn-radio="fase">
 			        		<% fase.fas_descripcion %>

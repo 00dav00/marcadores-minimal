@@ -17,7 +17,24 @@ $factory->define(App\User::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Jugador::class, function ($faker) {
+$factory->define(App\TipoTorneo::class, function ($faker) {
+    return [
+        'ttr_nombre' => $faker->sentence(3),
+        'ttr_descripcion' => $faker->sentence(10),
+    ];
+});
+
+$factory->define(App\Estadio::class, function ($faker) use ($factory){
+    return [
+        'est_nombre' => $faker->company,
+        'est_fecha_inauguracion' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'est_foto_por_defecto' => $faker->imageUrl($width = 200, $height = 200),
+        'est_aforo' => $faker->numberBetween($min = 5000, $max = 80000),
+        'lug_id' => $factory->create('App\Lugar')->lug_id,
+    ];
+});
+
+$factory->define(App\Jugador::class, function ($faker) use ($factory){
     return [
         'jug_apellido' => $faker->lastname,
         'jug_nombre' => $faker->firstNameMale,
@@ -27,11 +44,11 @@ $factory->define(App\Jugador::class, function ($faker) {
         'jug_sitioweb' => $faker->url,
         'jug_twitter' => $faker->userName,
         'jug_foto' => $faker->imageUrl($width = 200, $height = 200),
-        'lug_id' => $factory(App\Lugar::class)->create()->lug_id,
+        'jug_nacionalidad' => $factory->create('App\Lugar')->lug_id,
     ];
 });
 
-$factory->define(App\Equipo::class, function ($faker) {
+$factory->define(App\Equipo::class, function ($faker) use ($factory){
     return [
         'eqp_nombre' => $faker->streetName,
         'eqp_escudo' => $faker->imageUrl($width = 320, $height = 280),
@@ -51,7 +68,7 @@ $factory->define(App\TipoTorneo::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Torneo::class, function ($faker) {
+$factory->define(App\Torneo::class, function ($faker) use ($factory){
     return [
         'tor_nombre' => $faker->company,
         'tor_anio_referencia' => $faker->year($max = 'now'),
@@ -71,5 +88,21 @@ $factory->define(App\Estadio::class, function ($faker) {
         'est_foto_por_defecto' => $faker->imageUrl($width = 200, $height = 200),
         'est_aforo' => $faker->numberBetween($min = 5000, $max = 80000),
         'lug_id' => $factory(App\Lugar::class)->create()->lug_id,
+    ];
+});
+
+$factory->define(App\PlantillaTorneo::class, function ($faker) use ($factory){
+    return [
+        'plt_numero_camiseta' => $faker->numberBetween(1, 50),
+        'eqp_id' => $factory->create('App\Equipo')->eqp_id,
+        'jug_id' => $factory->create('App\Jugador')->jug_id,
+        'tor_id' => $factory->create('App\Torneo')->tor_id,
+    ];
+});
+
+$factory->define(App\TipoFase::class, function ($faker) {
+    return [
+        'tfa_nombre' => $faker->company,
+        'tfa_descripcion' => $faker->sentence(6),
     ];
 });

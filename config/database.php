@@ -68,6 +68,7 @@ return [
 
 		'mysql_testing' => [
 			'driver'    => 'mysql',
+			'engine' 	=> 'MEMORY',
 			'host'      => env('TESTING_DB_HOST', 'localhost'),
 			'database'  => env('TESTING_DB_DATABASE', 'forge'),
 			'username'  => env('TESTING_DB_USERNAME', 'forge'),
