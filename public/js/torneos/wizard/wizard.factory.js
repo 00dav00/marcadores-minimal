@@ -84,13 +84,13 @@ function wizardFactory($http) {
 
 	function penalizaciones(tor_id) {
 		if (tor_id) {
-			return $http.get("/api/penalizaciones/" + tor_id);
+			return $http.get("api/torneos/" + tor_id + "/penalizaciones");
 		}
 	}
 
-	function borrarPenalizacion(tor_id, fas_id, eqp_id) {
+	function borrarPenalizacion(ptr_id) {
 		if (tor_id && fas_id && eqp_id) {
-			return $http.delete("/api/penalizaciones/" + tor_id + "/" + fas_id + "/" + eqp_id);
+			return $http.delete("/api/penalizaciones/" + ptr_id);
 		}
 	}
 

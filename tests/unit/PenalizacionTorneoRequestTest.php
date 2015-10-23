@@ -115,6 +115,6 @@ class PenalizacionTorneoRequestTest extends TestCase
         $validator = Validator::make($penalizacion, $this->rules, $this->messages);
         
         $this->assertTrue($validator->passes(),'Se esperaba que la validadicon sea exitosa.');
-    }    
+    }
 
 }

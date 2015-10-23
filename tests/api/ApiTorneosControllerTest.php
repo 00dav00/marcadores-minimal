@@ -84,4 +84,16 @@ class ApiTorneosControllerTest extends TestCase
         $this->assertJson($response->getContent(),'Se esperaba JSON');
         $this->assertEquals($fase->attributesToArray()['fas_id'], $data[0]->fas_id);
     }
+
+    public function test_Penalizaciones_devuelve_json_array_con_penalizaciones()
+    {
+        $penalizacion = factory(App\PenalizacionTorneo::class)->create();
+
+        $response = $this->call('GET', 'api/torneos/1/penalizaciones');
+        $data = json_decode($response->getContent());
+        
+        $this->assertJson($response->getContent(),'Se esperaba JSON');
+        $this->assertEquals($penalizacion->attributesToArray()['fas_id'], $data[0]->fas_id);
+        $this->assertEquals($penalizacion->attributesToArray()['eqp_id'], $data[0]->eqp_id);
+    }
 }

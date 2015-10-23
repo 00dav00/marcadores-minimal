@@ -28,9 +28,8 @@ class LugaresController extends Controller {
 		$lugares = $this->_lugares->search($keyword, $column, $joins);
 		$searchFields = $this->_lugares->searchFields;
 
-		if (!empty($keyword)) {
+		if (!empty($keyword)) 
 			flash()->info("Resultados de la búsqueda: $keyword");
-		}
 
 		return view('lugares.index', compact('lugares', 'keyword', 'column', 'searchFields'));
 	}

@@ -43,10 +43,6 @@ class Torneo extends Model {
 		return $this->hasOne('App\Lugar', 'lug_id', 'lug_id');
 	}
 
-	/**
-	 * Obtener el tipo de torneo
-	 * @return object relacion con la tabla tipo de torneo
-	 */
 	public function tipoTorneo()
 	{
 		return $this->hasOne('App\TipoTorneo', 'ttr_id', 'ttr_id');
@@ -67,5 +63,10 @@ class Torneo extends Model {
 	{
 		return $this->hasMany('App\Fase','tor_id','tor_id')
 					->with('tipoFase','fechasConteo');
+	}
+
+	public function penalizaciones()
+	{
+		return $this->hasManyThrough('App\PenalizacionTorneo','App\Fase','tor_id','fas_id');
 	}
 }

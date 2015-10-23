@@ -19,13 +19,6 @@ class TipoFaseController extends Controller
 		$this->_tipoFase = $tipoFase;
 	}
 
-	protected $tipoFase;
-
-	public function __construct(TipoFase $tipoFase)
-    {
-        $this->tipoFase = $tipoFase;
-    }
-
 	public function index()
 	{
 		$tipo_fase = $this->_tipoFase->paginate(20);

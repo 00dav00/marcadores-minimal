@@ -11,17 +11,19 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LugaresControllerTest extends TestCase
 {	
-	use DatabaseTransactions;
     use WithoutMiddleware;
 
     protected $modelMock;
-    protected $requestMock;
 
+    public static function setUpBeforeClass()
+    {
+        Artisan::call('migrate:refresh');
+    }
+    
     public function setUp()
 	{
 		parent::createApplication();
 		$this->modelMock = Mockery::mock('App\Lugar');
-		$this->requestMock = Mockery::mock('App\Http\Requests\LugarRequest');
 	}
 
 	public function tearDown()
@@ -31,10 +33,7 @@ class LugaresControllerTest extends TestCase
 
 	protected function crearLugares()
 	{
-		return array(
-			Factory::make('App\Lugar'),
-			Factory::make('App\Lugar'),
-		);
+		return factory(App\Lugar::class, 10)->make();
 	}
 
 	protected function crearLugaresPaginados()
@@ -50,7 +49,6 @@ class LugaresControllerTest extends TestCase
 		$lugaresPaginados = $this->crearLugaresPaginados();
 
 
-		// Flash::shouldReceive('info')->once()->with("Resultados de la búsqueda: $keyword");
 		$this->modelMock->shouldReceive('search')->once()->andReturn($lugaresPaginados);
 		$this->modelMock->shouldReceive('getAttribute')->with('searchFields')->andReturn($campos);
 		$this->app->instance('App\Lugar', $this->modelMock);

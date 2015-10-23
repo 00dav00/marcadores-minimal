@@ -24,37 +24,11 @@ class ApiTorneosController extends Controller {
 		return $torneos->toJson();
 	}
 
-	// public function store(TorneoRequest $request)
-	// {
-	//    	$torneo = $this->torneo->create($request->all());
-	// 	return $torneo->toJson();
-	// }
-
 	public function show($id)
 	{
 		$torneo = $this->torneo->with('tipoTorneo')->findOrFail($id);
 		return $torneo->toJson();
 	}
-
-	// public function update($id, TorneoRequest $request)
-	// {
-	// 	$torneo = $this->torneo->findOrFail($id);
-	// 	$torneo->update($request->all());
-	// 	// return $torneo->toJson();
-	// 	return \Response::make(null, 200);
-	// }
-
-	// public function destroy($id)
-	// {
-	//  	$torneo = $this->torneo->findOrFail($id);
-
-	// 	if ($torneo){
-	// 		$torneo->delete();
-	// 		return \Response::make(null, 200);
-	// 	}
-
-	// 	return \Response::make(null, 500);
-	// }
 
 	public function consulta(Request $request)
 	{
@@ -85,5 +59,12 @@ class ApiTorneosController extends Controller {
 	{
 		$torneo = $this->torneo->findOrFail($id_torneo);
 		return $torneo->fases->toJson();
+	}
+
+	public function penalizaciones($id)
+	{
+		$torneo = $this->torneo->findOrFail($id);
+
+		return $torneo->penalizaciones->toJson();
 	}
 }

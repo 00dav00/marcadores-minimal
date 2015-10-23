@@ -55,4 +55,9 @@ class Fase extends Model {
 			    	->selectRaw('fas_id, count(*) as contador')
 			    	->groupBy('fas_id');
 	}
+
+	public function penalizaciones()
+	{
+		return $this->hasMany('App\PenalizacionTorneo','fas_id','fas_id');
+	}
 }

@@ -85,9 +85,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::get('estadios', 'ApiEstadiosController@index');
 
 	Route::get('torneos/consulta', 'ApiTorneosController@consulta');
+	Route::get('torneos/{torneos}/penalizaciones', 'ApiTorneosController@penalizaciones');
 	Route::get('torneos/{torneos}/equipos', 'ApiTorneosController@equiposParticipantes');
 	Route::post('equipos_participantes/', 'ApiEquiposParticipantesController@store');
 	Route::delete('torneos/{torneos}/equipos/{equipos}', 'ApiEquiposParticipantesController@destroy');
+
 
 	Route::get('fases/{fases}/fechas', 'ApiFaseController@fechasRegistradas');
 	Route::post('fechas', 'ApiFechasController@Store');
@@ -101,12 +103,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 	Route::resource('plantillasTorneo', 'ApiPlantillasTorneoController');
 
-	Route::get('penalizaciones/{torneo}', 'ApiPenalizacionesTorneoController@show');
 	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');
-	Route::put('penalizaciones/{torneo}/{fase}/{equipo}', 'ApiPenalizacionesTorneoController@update');
-	Route::delete('penalizaciones/{torneo}/{fase}/{equipo}', 'ApiPenalizacionesTorneoController@destroy');
+	Route::put('penalizaciones/{penalizacion}', 'ApiPenalizacionesTorneoController@update');
+	Route::delete('penalizaciones/{penalizacion}', 'ApiPenalizacionesTorneoController@destroy');
 	
-	// Route::get('jugadores/consulta', 'JugadoresController@consulta');
 	// Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'TorneosController@jugadoresEquipoParticipante');
 
 });

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 
-class LugaresControllerTest extends TestCase
+class TipoTorneoTest extends TestCase
 {	
 	use DatabaseTransactions;
     use WithoutMiddleware;
