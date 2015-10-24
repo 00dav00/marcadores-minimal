@@ -33,6 +33,12 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clientes <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="{{ url('clientes') }}">Lista de clientes</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Previews <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ url('clientes') }}">Lista de clientes</a></li>
 						<li><a href="{{ url('auspiciantes') }}">Lista de auspiciantes</a></li>
 						<li><a href="{{ url('clientes/wizard') }}">Wizard de Clientes</a></li>
 					</ul>

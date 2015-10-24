@@ -232,12 +232,19 @@ $factory->define(App\Producto::class, function ($faker) use ($factory){
     ];
 });
 
-
 $factory->define(App\PenalizacionTorneo::class, function ($faker) use ($factory){
     return [
         'fas_id' => $factory->create('App\Fase')->fas_id,
         'eqp_id' => $factory->create('App\Equipo')->eqp_id,
         'ptr_puntos' => $faker->numberBetween(1, 6),
         'ptr_motivo' => $faker->sentence(6),
+    ];
+});
+
+$factory->define(App\Cliente::class, function ($faker) {
+    return [
+        'clt_nombre' => $faker->company,
+        'clt_descripcion' => $faker->catchPhrase,
+        'clt_dominio' => $faker->url
     ];
 });
