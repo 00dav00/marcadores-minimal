@@ -117,3 +117,11 @@ $factory->define(App\Fase::class, function ($faker) use ($factory){
         'fas_acumulada'=> $faker->boolean(50),
     ];
 });
+
+$factory->define(App\Cliente::class, function ($faker) {
+    return [
+        'clt_nombre' => $faker->company,
+        'clt_descripcion' => $faker->catchPhrase,
+        'clt_dominio' => $faker->url
+    ];
+});
