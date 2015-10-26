@@ -19,7 +19,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('torneos/wizard', 'TorneosController@wizard');
 	Route::get('torneos/config', 'TorneosController@config');
 	Route::resource('torneos', 'TorneosController');
-	// Route::get('torneos/config/{config}', 'TorneosController@config');
 
 	Route::resource('equipos', 'EquiposController');
 	
@@ -38,16 +37,12 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('jugadores', 'JugadoresController');
 
+	Route::resource('clientes', 'ClientesController');
+
 	Route::get('fechas/list', 'FechasController@listado');
 	Route::resource('fechas', 'FechasController');
 
-
-	//Route::get('api/fechas/{fechas}/partidos', 'FechasController@apiFechaPartidos');
-
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
-
-	//Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
-
 
 	Route::get('auth/register', 'Auth\AuthController@getRegister');
 	Route::post('auth/register', 'Auth\AuthController@postRegister');
