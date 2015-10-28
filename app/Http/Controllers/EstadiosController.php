@@ -80,7 +80,6 @@ class EstadiosController extends Controller {
 		$estadio = $this->_estadios->findOrFail($id);
 
 		if ($request->file('est_foto_por_defecto')) {
-			File::delete(public_path($estadio->est_foto_por_defecto));
 			$data['est_foto_por_defecto'] = $estadio->reemplazarImagen($request->file('est_foto_por_defecto'));
 		}
 
@@ -96,7 +95,6 @@ class EstadiosController extends Controller {
 		$estadio = $this->_estadios->findOrFail($id);
 
 		if ($estadio){
-			File::delete(public_path($estadio->est_foto_por_defecto));
 			$estadio->delete();
 			$message = "Estadio borrado exitosamente!";
 		}
