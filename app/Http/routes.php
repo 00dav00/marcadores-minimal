@@ -40,7 +40,8 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::get('fechas/list', 'FechasController@listado');
 	Route::resource('fechas', 'FechasController');
-
+	
+	Route::get('plantillas/config', 'PlantillasTorneoController@config');
 
 	//Route::get('api/fechas/{fechas}/partidos', 'FechasController@apiFechaPartidos');
 
@@ -101,13 +102,13 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::delete('partidos/{partido}','ApiPartidosController@destroy');
 	Route::put('partidos/{partido}','ApiPartidosController@update');
 
-	Route::resource('plantillasTorneo', 'ApiPlantillasTorneoController');
+	Route::resource('plantillas', 'ApiPlantillasTorneoController');
 
 	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');
 	Route::put('penalizaciones/{penalizacion}', 'ApiPenalizacionesTorneoController@update');
 	Route::delete('penalizaciones/{penalizacion}', 'ApiPenalizacionesTorneoController@destroy');
 	
-	// Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'TorneosController@jugadoresEquipoParticipante');
+	Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'ApiTorneosController@jugadoresEquipoParticipante');
 
 });
 

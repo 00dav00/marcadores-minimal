@@ -96,4 +96,17 @@ class ApiTorneosControllerTest extends TestCase
         $this->assertEquals($penalizacion->attributesToArray()['fas_id'], $data[0]->fas_id);
         $this->assertEquals($penalizacion->attributesToArray()['eqp_id'], $data[0]->eqp_id);
     }
+
+    public function test_JugadoresPlantilla_devuelve_json_array_con_jugadores()
+    {
+        $plantilla = factory(App\PlantillaTorneo::class)->create();
+
+        $response = $this->call('GET', 'api/torneos/'. $plantilla->tor_id .'/equipos/'. $plantilla->eqp_id . '/jugadores');
+        $data = json_decode($response->getContent());
+        
+        $this->assertJson($response->getContent(),'Se esperaba JSON');
+        $this->assertEquals($plantilla->jug_id, $data[0]->jug_id);
+        $this->assertEquals($plantilla->tor_id, $data[0]->pivot->tor_id);
+        $this->assertEquals($plantilla->eqp_id, $data[0]->pivot->eqp_id);
+    }    
 }

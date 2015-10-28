@@ -143,7 +143,7 @@ torneoServices.factory('JugadoresInscritos',
 		'$resource',
 		function($resource)	{
 			return	$resource(
-				"/torneos/:torneo/equipos/:equipo/jugadores", 
+				"/api/torneos/:torneo/equipos/:equipo/jugadores", 
 				{torneo: '@torneo_id', equipo: '@equipo_id'},	
 				{
 					get:	{method:	'GET',	cache:	false,	isArray:	true},

@@ -8,24 +8,87 @@ var tablasControllers = angular.module('tablasControllers', []);
 var fechasControllers = angular.module('fechasControllers', []);
 
 
-plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipantes','JugadoresInscritos','Plantillas',
+plantillaControllers.controller('PlantillasCtrl', [
+	'$scope','EquiposParticipantes','JugadoresInscritos','Plantillas','Torneos','$timeout',
 
-	function($scope, EquiposParticipantes, JugadoresInscritos, Plantillas) {
+	function($scope, EquiposParticipantes, JugadoresInscritos, Plantillas, Torneos, $timeout) {
  
+ 		$scope.paso = 0;
+		$scope.torneos = [];
 		$scope.equipos = [];
 		$scope.jugadores = [];
 		$scope.torneoSeleccionado = false;
 		$scope.equipoSeleccionado = false;
-		$scope.equipoNombre = "";
-	 	
+		$scope.botonAnteriorActivado = false;
+		$scope.botonSiguienteActivado = false;
+		$scope.alerts = [];
 
-		//********Carga los jugadores del equipo y el torneo seleccionado***********
-		function obtenerJugadores() {
+		function errorHandler(error, code){
+			switch(code){
+				case 404:
+					console.log("ERROR:" + error);
+					createAlert('danger', 'Error: Operación no encontrada.');
+					break;
+				case 422:
+					angular.forEach(error, function(value, key) {
+				  		createAlert('danger', 'Error: ' + value);
+					});
+					break;
+				case 500:
+					console.log("ERROR:" + error);
+					createAlert('danger', 'Error: Operación no permitida.');
+					break;
+				default:
+					alert('Error!');
+					console.log("ERROR:" + error);
+					break;
+			}
+		}	 	
+
+		function createAlert(type, message){
+			$scope.alerts.push({ type: type, msg: message });
+			$timeout(function() { 
+		 		$scope.closeAlert(0);
+		 	}, 5000);
+		}
+
+		$scope.closeAlert = function(index) {
+			if ($scope.alerts.length >= (index + 1))
+				$scope.alerts.splice(index, 1);
+		}
+
+		/************************OBTENER INFORMACION Y CARGAR PASOS******************************/
+		function obtenerTodosLosTorneos(){
+			Torneos.query(
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.torneos = response;
+
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+	        );
+		}
+
+		function obtenerEquiposParticipantes(torneo_id) {
+			EquiposParticipantes.get(
+	            {torneo: torneo_id},
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.equipos = response;
+	            },
+	            function error(errorResponse){
+	            	alert('Ocurrió un error.');
+	                console.log("Error:" + JSON.stringify(errorResponse));
+	            }
+	        );
+		}
+
+		function obtenerJugadores(torneo_id, equipo_id) {
 			JugadoresInscritos.get(
-	            {
-            		torneo: $scope.torneoSeleccionado, 
-            		equipo: $scope.equipoSeleccionado.eqp_id
-            	},
+	            {torneo: torneo_id, equipo: equipo_id},
 	            function success(response){
 	                console.log("Success:" + JSON.stringify(response));
 	                $scope.jugadores = response;
@@ -37,6 +100,56 @@ plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipante
 	        );
 		}
 
+
+		/************************CaMBIAR PASO ACTUAL******************************/
+		// $scope.prepararPaso = function(paso){
+		function prepararPaso(paso){
+			switch(paso){
+				case 1:
+					obtenerTodosLosTorneos();
+					$scope.equipos = [];
+					$scope.jugadores = [];
+					$scope.torneoSeleccionado = false;
+					$scope.equipoSeleccionado = false;
+					$scope.botonAnteriorActivado = false;
+					$scope.botonSiguienteActivado = false;
+					break;
+				case 2:
+					obtenerEquiposParticipantes($scope.torneoSeleccionado.tor_id);
+					$scope.jugadores = [];
+					$scope.equipoSeleccionado = false;
+					$scope.botonAnteriorActivado = true;
+					$scope.botonSiguienteActivado = false;
+					break;
+				case 3:
+					obtenerJugadores($scope.torneoSeleccionado.tor_id, $scope.equipoSeleccionado.eqp_id);
+					$scope.botonAnteriorActivado = true;
+					$scope.botonSiguienteActivado = false;
+					break;
+			}
+
+			$scope.paso = paso;
+			console.log('paso ' + $scope.paso);
+		}		
+
+		$scope.seleccionarTorneo = function(){
+			prepararPaso(2);
+		}
+
+		$scope.seleccionarEquipo = function(equipo){
+			$scope.equipoSeleccionado = equipo;
+			prepararPaso(3);			
+		}
+
+		$scope.volverPaso = function(){
+			prepararPaso($scope.paso - 1);
+		}
+
+		$scope.avanzarPaso = function(){
+			prepararPaso($scope.paso + 1);
+		}
+
+		/************************MANEJO DE PLANTILLA******************************/
 		function obtenerSiguienteNumeroCamiseta() {
 			var numero = 0;
 
@@ -51,35 +164,9 @@ plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipante
 			return numero + 1;
 		}
 
-	 	//********Carga los equipos en base al id del Torneo seleccionado***********
-		$scope.obtenerEquipos = function(torneo_id) {
-			EquiposParticipantes.get(
-	            {torneo: torneo_id},
-	            function success(response){
-	                console.log("Success:" + JSON.stringify(response));
-	                $scope.equipos = response;
-	                $scope.torneoSeleccionado = torneo_id;
-	                $scope.jugadores = [];
-	                $scope.equipoSeleccionado = null;
-	            },
-	            function error(errorResponse){
-	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
-	            }
-	        );
-		}
-
-
-		$scope.seleccionarEquipo = function(index){
-			$scope.equipoSeleccionado = $scope.equipos[index];
-			obtenerJugadores();
-		}
-
-		//********Agrega un jugador a la plantilla del equipo y el torneo seleccionado***********
 		$scope.ingresarJugadorEnPlantilla = function (jugador_id){
-
 			var plantilla = {
-				'tor_id': $scope.torneoSeleccionado,
+				'tor_id': $scope.torneoSeleccionado.tor_id,
 				'eqp_id': $scope.equipoSeleccionado.eqp_id,
 				'jug_id': jugador_id,
 				'plt_numero_camiseta': obtenerSiguienteNumeroCamiseta(),
@@ -88,9 +175,9 @@ plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipante
 			Plantillas.save(
 				plantilla,
 	            function success(response){
-	                console.log("Success:" + JSON.stringify(response));
-	                alert(response.data);
-	                obtenerJugadores();
+	                // console.log("Success:" + JSON.stringify(response));
+	                createAlert('success','Jugador ingresado exitosamente en plantilla!');
+	                prepararPaso(3);
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
@@ -99,11 +186,10 @@ plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipante
 			);
 		}
 
-		//********Actualiza el numero de camiseta del jugador seleccionado***********
 		$scope.actualizarJugadorEnPlantilla = function (index){
 
 			var plantilla = {
-				'tor_id': $scope.torneoSeleccionado, 
+				'tor_id': $scope.torneoSeleccionado.tor_id, 
 				'eqp_id': $scope.equipoSeleccionado.eqp_id,
 				'jug_id': $scope.jugadores[index].jug_id,
 				'plt_numero_camiseta': $scope.jugadores[index].pivot.plt_numero_camiseta,
@@ -113,9 +199,8 @@ plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipante
 				{plantilla: $scope.jugadores[index].pivot.plt_id},
 				plantilla,
 	            function success(response){
-	                console.log("Success:" + JSON.stringify(response));	             
-	                alert(response.data);
-	                obtenerJugadores();
+	                // console.log("Success:" + JSON.stringify(response));	             
+	                prepararPaso(3);
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
@@ -124,22 +209,21 @@ plantillaControllers.controller('PlantillasCtrl', ['$scope','EquiposParticipante
 			);
 		}
 
-		//********Eliminar un jugador de la plantilla del equipo y el torneo seleccionado***********
 		$scope.eliminarJugadorEnPlantilla = function (index){
 
 			Plantillas.delete(
 				{plantilla: $scope.jugadores[index].pivot.plt_id},
 	            function success(response){
-	                console.log("Success:" + JSON.stringify(response));	             
-	                alert(response.data);
-	                obtenerJugadores();
+	                // console.log("Success:" + JSON.stringify(response));	             
+	                prepararPaso(3);
 	            },
 	            function error(errorResponse){
 	            	alert('Ocurrió un error.');
 	                console.log("Error:" + JSON.stringify(errorResponse));
 	            }
 			);
-		}
+		}			
+
 		
 	}
 ]);
