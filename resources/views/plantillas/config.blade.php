@@ -13,6 +13,24 @@
 
 			<div class="panel-body">
 
+				{{-- informacion de los equipos participantes --}}
+				<div class="row" ng-if="torneoSeleccionado">
+					
+					<div class="well text-center">
+						<h4><% torneoSeleccionado.tor_nombre %></h4>
+						<p>Inicio: <% torneoSeleccionado.tor_fecha_inicio %></p>
+						<p>Fin: <% torneoSeleccionado.tor_fecha_fin %></p>
+						<p>Equipos Participantes: <% torneoSeleccionado.tor_numero_equipos %></p>
+					</div>					
+				</div>
+
+				{{-- informacion del equipo seleccionado --}}
+				<div class="row" ng-if="equipoSeleccionado">
+					<div class="well text-center"> <h4><% equipoSeleccionado.eqp_nombre %></h4> </div>					
+				</div>
+
+				<alert ng-repeat="alert in alerts" type="<%alert.type%>" dismiss-on-timeout="4000" close="closeAlert($index)"><%alert.msg%></alert>
+
 				<div data-ng-switch="paso" ng-init="avanzarPaso()">
 
 					{{-- seleccionar el torneo a configurar --}}
@@ -25,27 +43,6 @@
 								<option value="" disabled>Torneo ...</option>
 							</select>
 						</div>
-
-					</div>
-
-					{{-- informacion de los equipos participantes --}}
-					<div class="row" ng-if="torneoSeleccionado">
-						
-						<div class="well text-center">
-							<h4><% torneoSeleccionado.tor_nombre %></h4>
-							<p>Inicio: <% torneoSeleccionado.tor_fecha_inicio %></p>
-							<p>Fin: <% torneoSeleccionado.tor_fecha_fin %></p>
-							<p>Equipos Participantes: <% torneoSeleccionado.tor_numero_equipos %></p>
-						</div>					
-					</div>
-
-					{{-- informacion del equipo seleccionado --}}
-					<div class="row" ng-if="equipoSeleccionado">
-						<div class="well text-center"> <h4><% equipoSeleccionado.eqp_nombre %></h4> </div>					
-					</div>
-
-					<div class="row" ng-if="alerts">
-						<alert ng-repeat="alert in alerts" type="<%alert.type%>" close="closeAlert($index)"><%alert.msg%></alert>
 					</div>
 
 					{{-- seleccion del equipo participante cuya plantilla va a ser modificada --}}

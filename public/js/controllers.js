@@ -26,30 +26,26 @@ plantillaControllers.controller('PlantillasCtrl', [
 		function errorHandler(error, code){
 			switch(code){
 				case 404:
-					console.log("ERROR:" + error);
 					createAlert('danger', 'Error: Operación no encontrada.');
 					break;
 				case 422:
 					angular.forEach(error, function(value, key) {
 				  		createAlert('danger', 'Error: ' + value);
 					});
+					error = JSON.stringify(error);
 					break;
 				case 500:
-					console.log("ERROR:" + error);
 					createAlert('danger', 'Error: Operación no permitida.');
 					break;
 				default:
 					alert('Error!');
-					console.log("ERROR:" + error);
 					break;
 			}
+			console.log("ERROR:" + error);	
 		}	 	
 
 		function createAlert(type, message){
 			$scope.alerts.push({ type: type, msg: message });
-			$timeout(function() { 
-		 		$scope.closeAlert(0);
-		 	}, 5000);
 		}
 
 		$scope.closeAlert = function(index) {
@@ -65,9 +61,8 @@ plantillaControllers.controller('PlantillasCtrl', [
 	                $scope.torneos = response;
 
 	            },
-	            function error(errorResponse){
-	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	            function error(error){
+	            	errorHandler(error.data, error.status);
 	            }
 	        );
 		}
@@ -79,9 +74,8 @@ plantillaControllers.controller('PlantillasCtrl', [
 	                // console.log("Success:" + JSON.stringify(response));
 	                $scope.equipos = response;
 	            },
-	            function error(errorResponse){
-	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	            function error(error){
+	            	errorHandler(error.data, error.status);
 	            }
 	        );
 		}
@@ -93,9 +87,8 @@ plantillaControllers.controller('PlantillasCtrl', [
 	                console.log("Success:" + JSON.stringify(response));
 	                $scope.jugadores = response;
 	            },
-	            function error(errorResponse){
-	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	            function error(error){
+	            	errorHandler(error.data, error.status);
 	            }
 	        );
 		}
@@ -179,9 +172,8 @@ plantillaControllers.controller('PlantillasCtrl', [
 	                createAlert('success','Jugador ingresado exitosamente en plantilla!');
 	                prepararPaso(3);
 	            },
-	            function error(errorResponse){
-	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	            function error(error){
+	            	errorHandler(error.data, error.status);
 	            }
 			);
 		}
@@ -201,10 +193,10 @@ plantillaControllers.controller('PlantillasCtrl', [
 	            function success(response){
 	                // console.log("Success:" + JSON.stringify(response));	             
 	                prepararPaso(3);
+	                createAlert('success','Jugador actualizado exitosamente en plantilla!');
 	            },
-	            function error(errorResponse){
-	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	            function error(error){
+	            	errorHandler(error.data, error.status);
 	            }
 			);
 		}
@@ -214,12 +206,12 @@ plantillaControllers.controller('PlantillasCtrl', [
 			Plantillas.delete(
 				{plantilla: $scope.jugadores[index].pivot.plt_id},
 	            function success(response){
-	                // console.log("Success:" + JSON.stringify(response));	             
+	                // console.log("Success:" + JSON.stringify(response));	     
 	                prepararPaso(3);
+	                createAlert('warning','Jugador eliminado exitosamente de plantilla!');
 	            },
-	            function error(errorResponse){
-	            	alert('Ocurrió un error.');
-	                console.log("Error:" + JSON.stringify(errorResponse));
+	            function error(error){
+	            	errorHandler(error.data, error.status);
 	            }
 			);
 		}			
