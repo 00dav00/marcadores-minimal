@@ -1,12 +1,26 @@
 <script type="text/javascript">
 $(function() {
+
+	if($('{!! $id !!}').hasClass('selectized')){
+		$('{!! $id !!}').next().remove();
+	}
+	
 	$('{!! $id !!}').selectize({
 		valueField: '{!! $valueField !!}',
 		labelField: '{!! $labelField !!}',
 		searchField: ['{!! $labelField !!}'],
 		render: {
 			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.{!! $labelField !!}) + '</div>';
+				var texto = '';
+				@if(isset($showFields))
+				 	@foreach ($showFields as $k => $v) 
+				        texto += '<strong>{!! $k !!}:</strong> '+ escape(item.{!! $v !!}) + ' ';
+				    @endforeach
+					texto = '<div>' + texto + '</div>'; 
+				@else
+					texto = '<div> <strong>Nombre:</strong> ' + escape(item.{!! $labelField !!}) + '</div>';
+				@endif
+				return texto;
 			}
 		},
 		load: function(query, callback) {
@@ -24,5 +38,6 @@ $(function() {
 			});
 		}
 	});
+	
 });
 </script>

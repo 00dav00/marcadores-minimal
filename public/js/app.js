@@ -1,6 +1,6 @@
 var app = angular.module(
 	'plantillaApp', 
-	['torneoServices','plantillaControllers'], 
+	['torneoServices','plantillaControllers','ui.bootstrap'], 
 	function($interpolateProvider) {
 		$interpolateProvider.startSymbol('<%');
 		$interpolateProvider.endSymbol('%>');
