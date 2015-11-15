@@ -25,6 +25,7 @@
 						<li><a href="{{ url('fases') }}">Fases</a></li>
 						<li><a href="{{ url('equipos_participantes') }}">Equipos Participantes</a></li>
 						<li><a href="{{ url('plantillas/config') }}">Configuración Plantillas</a></li>
+						<li><a href="{{ url('partidos/wizard') }}">Wizard Partidos</a></li>
 						<li><a href="{{ url('fechas') }}">Fechas</a></li>
 						<li><a href="{{ url('tablas') }}">Tablas de posición</a></li>
 					</ul>

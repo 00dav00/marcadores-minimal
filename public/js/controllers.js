@@ -6,6 +6,7 @@ var plantillaControllers = angular.module('plantillaControllers', []);
 var torneoControllers = angular.module('torneoControllers', []);
 var tablasControllers = angular.module('tablasControllers', []);
 var fechasControllers = angular.module('fechasControllers', []);
+var partidosControllers = angular.module('partidosControllers', []);
 
 
 plantillaControllers.controller('PlantillasCtrl', [
@@ -925,5 +926,202 @@ fechasControllers.controller('FechasCtrl', [
 		}
 
 		
+	}
+]);
+
+partidosControllers.controller('PartidosCtrl', [
+	'$scope','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos',
+
+	function($scope, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos) {
+ 
+ 		$scope.paso = 0;
+		$scope.torneos = [];
+		$scope.torneoSeleccionado = false;
+		$scope.fases = [];
+		$scope.faseSeleccionada = false;
+		$scope.fechas = [];
+		$scope.fechaSeleccionada = false;
+		$scope.partidos = [];
+		$scope.partidoSeleccionado = false;
+
+		$scope.botonAnteriorActivado = false;
+		$scope.botonSiguienteActivado = false;
+		$scope.alerts = [];
+
+		function errorHandler(error, code){
+			switch(code){
+				case 404:
+					createAlert('danger', 'Error: Operación no encontrada.');
+					break;
+				case 422:
+					angular.forEach(error, function(value, key) {
+				  		createAlert('danger', 'Error: ' + value);
+					});
+					error = JSON.stringify(error);
+					break;
+				case 500:
+					createAlert('danger', 'Error: Operación no permitida.');
+					break;
+				default:
+					alert('Error!');
+					break;
+			}
+			console.log("ERROR:" + error);	
+		}	 	
+
+		function createAlert(type, message){
+			$scope.alerts.push({ type: type, msg: message });
+		}
+
+		$scope.closeAlert = function(index) {
+			if ($scope.alerts.length >= (index + 1))
+				$scope.alerts.splice(index, 1);
+		}
+
+		/************************OBTENER INFORMACION Y CARGAR PASOS******************************/
+		function obtenerTodosLosTorneos(){
+			Torneos.query(
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.torneos = response;
+
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+		function obtenerFases(torneo_id){
+			Fases.query(
+				{torneo: torneo_id},
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.fases = response;
+
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+		function obtenerFechas(fase_id){
+			Fechas.query(
+				{fase: fase_id},
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.fechas = response;
+
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+		function obtenerPartidos(fecha_id){
+			Partidos.query(
+				{fecha: fecha_id},
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.partidos = response;
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+		/************************CaMBIAR PASO ACTUAL******************************/
+		function prepararPaso(paso){
+			if (paso <= 1){
+				$scope.torneos = [];
+				$scope.torneoSeleccionado = false;
+			}
+			if (paso <= 2){
+				$scope.fases = [];
+				$scope.faseSeleccionada = false;
+			}
+
+			if (paso <= 3){
+				$scope.fechas = [];
+				$scope.fechaSeleccionada = false;
+			}
+
+			if (paso <= 4){
+				$scope.partidos = [];
+				$scope.partidoSeleccionado = false;
+			}
+
+			if (paso <= 5){
+				$scope.plantilla_local = [];
+				$scope.plantilla_visitante = [];
+				$scope.jugadores_partido_local = [];
+				$scope.jugadores_partido_visitante = [];
+			}
+
+			switch(paso){
+				case 1:
+					obtenerTodosLosTorneos();
+
+					$scope.botonAnteriorActivado = false;
+					$scope.botonSiguienteActivado = false;
+					break;
+				case 2:
+					obtenerFases($scope.torneoSeleccionado.tor_id);
+
+					$scope.botonAnteriorActivado = true;
+					$scope.botonSiguienteActivado = false;
+					break;
+				case 3:
+					obtenerFechas($scope.faseSeleccionada.fas_id);
+
+					$scope.botonAnteriorActivado = true;
+					$scope.botonSiguienteActivado = false;
+					break;
+				case 4:
+					obtenerPartidos($scope.fechaSeleccionada.fec_id);
+
+					$scope.botonAnteriorActivado = true;
+					$scope.botonSiguienteActivado = false;
+					break;
+				case 5:
+					// obtenerPlantilla($scope.partidoSeleccionado.)
+
+					$scope.botonAnteriorActivado = true;
+					$scope.botonSiguienteActivado = false;
+			}
+
+			$scope.paso = paso;
+			console.log('paso ' + $scope.paso);
+		}		
+
+		$scope.seleccionarTorneo = function(){
+			prepararPaso(2);
+		}
+
+		$scope.seleccionarFase = function(fase){
+			$scope.faseSeleccionada = fase;
+			prepararPaso(3);
+		}
+
+		$scope.seleccionarFecha = function(fecha){
+			$scope.fechaSeleccionada = fecha;
+			prepararPaso(4);
+		}
+
+		$scope.seleccionarPartido = function(partido){
+			$scope.partidoSeleccionado = partido;
+			prepararPaso(5);
+		}
+
+		$scope.volverPaso = function(){
+			prepararPaso($scope.paso - 1);
+		}
+
+		$scope.avanzarPaso = function(){
+			prepararPaso($scope.paso + 1);
+		}
 	}
 ]);

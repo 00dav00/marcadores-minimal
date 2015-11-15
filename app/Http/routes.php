@@ -16,6 +16,8 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::get('/', 'TorneosController@index');
 
+	Route::get('partidos/wizard', 'PartidoController@wizard');
+
 	Route::get('torneos/wizard', 'TorneosController@wizard');
 	Route::get('torneos/config', 'TorneosController@config');
 	Route::resource('torneos', 'TorneosController');
@@ -107,6 +109,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	
 	Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'ApiTorneosController@jugadoresEquipoParticipante');
 
+	Route::delete('partidoJugadores/{partidoJugador}', 'ApiPartidoJugadoresController@destroy');
+	Route::post('partidoJugadores/titulares', 'ApiPartidoJugadoresController@ingresarJugadorTitular');
+	Route::post('partidoJugadores/cambio', 'ApiPartidoJugadoresController@ingresarJugadorCambio');
 });
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
