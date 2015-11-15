@@ -1130,7 +1130,6 @@ partidosControllers.controller('PartidosCtrl', [
 					$scope.botonSiguienteActivado = false;
 					break;
 				case 5:
-
 					obtenerPlantillasTitulares(
 						$scope.torneoSeleccionado.tor_id,
 						$scope.partidoSeleccionado.par_id,
