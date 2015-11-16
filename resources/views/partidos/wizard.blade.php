@@ -43,7 +43,7 @@
 
 					{{-- seleccion del titulares --}}
 					<div class="row" data-ng-switch-when="5">
-						<div>5</div>
+						@include('partidos.partials.titulares')
 					</div>
 				</div>
 

@@ -164,6 +164,11 @@ torneoServices.factory('Plantillas',
 				"/api/plantillas/:plantilla", 
 				{plantilla: '@plantilla_id'},	
 				{
+					query:{
+						url: 	"/api/torneos/:torneo/equipos/:equipo/jugadores",
+						params: {torneo: '@torneo_id', equipo: '@equipo_id'},
+						method:	'GET',	cache:	false,	isArray:	true
+					},
 					get:	{method:'GET',	cache:false,	isArray:false},
 					save:	{method:'POST',	cache:false,	isArray:false},
 					update:	{method:'PUT',	cache:false,	isArray:false},

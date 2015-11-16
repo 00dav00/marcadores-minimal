@@ -10,9 +10,9 @@ var partidosControllers = angular.module('partidosControllers', []);
 
 
 plantillaControllers.controller('PlantillasCtrl', [
-	'$scope','EquiposParticipantes','JugadoresInscritos','Plantillas','Torneos','$timeout',
+	'$scope','EquiposParticipantes','Plantillas','Torneos','$timeout',
 
-	function($scope, EquiposParticipantes, JugadoresInscritos, Plantillas, Torneos, $timeout) {
+	function($scope, EquiposParticipantes, Plantillas, Torneos, $timeout) {
  
  		$scope.paso = 0;
 		$scope.torneos = [];
@@ -82,7 +82,7 @@ plantillaControllers.controller('PlantillasCtrl', [
 		}
 
 		function obtenerJugadores(torneo_id, equipo_id) {
-			JugadoresInscritos.get(
+			Plantillas.query(
 	            {torneo: torneo_id, equipo: equipo_id},
 	            function success(response){
 	                console.log("Success:" + JSON.stringify(response));
@@ -930,9 +930,9 @@ fechasControllers.controller('FechasCtrl', [
 ]);
 
 partidosControllers.controller('PartidosCtrl', [
-	'$scope','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos',
+	'$scope','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos', 'Plantillas',
 
-	function($scope, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos) {
+	function($scope, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos, Plantillas) {
  
  		$scope.paso = 0;
 		$scope.torneos = [];
@@ -943,6 +943,20 @@ partidosControllers.controller('PartidosCtrl', [
 		$scope.fechaSeleccionada = false;
 		$scope.partidos = [];
 		$scope.partidoSeleccionado = false;
+		$scope.plantillaLocal = [];
+		$scope.optionsPlantillaLocal = {
+			accept: function(dragEl) {
+				if ($scope.plantillaLocal.length >= 11) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		};
+		$scope.plantilla_visitante = [];
+		$scope.jugadoresTitulares = {local: [], visitante: []}
+		$scope.jugadores_partido_local = [];
+		$scope.jugadores_partido_visitante = [];
 
 		$scope.botonAnteriorActivado = false;
 		$scope.botonSiguienteActivado = false;
@@ -1033,6 +1047,19 @@ partidosControllers.controller('PartidosCtrl', [
 	        );
 		}
 
+		function obtenerPlantilla(torneo_id, equipo_id, plantilla){
+			Plantillas.query(
+	            {torneo: torneo_id, equipo: equipo_id},
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.plantillaLocal = response;
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
 		/************************CaMBIAR PASO ACTUAL******************************/
 		function prepararPaso(paso){
 			if (paso <= 1){
@@ -1043,19 +1070,16 @@ partidosControllers.controller('PartidosCtrl', [
 				$scope.fases = [];
 				$scope.faseSeleccionada = false;
 			}
-
 			if (paso <= 3){
 				$scope.fechas = [];
 				$scope.fechaSeleccionada = false;
 			}
-
 			if (paso <= 4){
 				$scope.partidos = [];
 				$scope.partidoSeleccionado = false;
 			}
-
 			if (paso <= 5){
-				$scope.plantilla_local = [];
+				$scope.plantillaLocal = [];
 				$scope.plantilla_visitante = [];
 				$scope.jugadores_partido_local = [];
 				$scope.jugadores_partido_visitante = [];
@@ -1087,7 +1111,11 @@ partidosControllers.controller('PartidosCtrl', [
 					$scope.botonSiguienteActivado = false;
 					break;
 				case 5:
-					// obtenerPlantilla($scope.partidoSeleccionado.)
+					obtenerPlantilla(
+						$scope.torneoSeleccionado.tor_id,
+						$scope.partidoSeleccionado.equipo_local.eqp_id,
+						$scope.plantillaLocal
+					);
 
 					$scope.botonAnteriorActivado = true;
 					$scope.botonSiguienteActivado = false;
