@@ -15,7 +15,6 @@ class ClienteControllerTest extends TestCase
 
     protected $modelMock;
     protected $requestMock;
-    protected $imageMock;
 
     public function setUp()
 	{

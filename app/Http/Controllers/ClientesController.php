@@ -91,4 +91,9 @@ class ClientesController extends Controller
 
         return redirect('clientes');
     }
+
+    public function wizard()
+    {
+        return view('clientes.wizard');
+    }
 }

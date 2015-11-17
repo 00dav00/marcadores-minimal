@@ -21,6 +21,7 @@ class FakeDataTableSeeder extends Seeder
 
 		// TestDummy::times(1000)->create('App\Jugador');
 		TestDummy::times(400)->create('App\Equipo');
+
 		TestDummy::times(100)->create('App\Torneo');
 
 		TestDummy::times(20)->create('App\Estadio');

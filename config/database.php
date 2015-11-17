@@ -27,7 +27,7 @@ return [
 	*/
 
 	// 'default' => 'mysql',
-	// 'default' => 'mysql_testing',
+	//'default' => 'mysql_testing',
 	'default' => env('DB_DRIVER', 'mysql'),
 
 	/*
