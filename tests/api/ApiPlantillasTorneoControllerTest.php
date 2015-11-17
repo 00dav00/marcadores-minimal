@@ -21,19 +21,18 @@ class ApiPlantillasTorneoControllerTest extends TestCase
     	$cantidad = 3;
         $plantillas = factory(App\PlantillaTorneo::class, $cantidad)->create();
     	
-    	$response = $this->call('GET', 'api/plantillasTorneo');
+    	$response = $this->call('GET', 'api/plantillas');
     	$data = json_decode($response->getContent());
 
         $this->assertJson($response->getContent(),'Se esperaba JSON');
 		$this->assertEquals($cantidad, count($data),'Se esperaba '. $cantidad . ' plantillas');
     }
 
-
     public function test_Store_devuelve_objeto_insertado()
     {        
         $plantilla = factory(App\PlantillaTorneo::class)->make();
 
-        $response = $this->call('POST', 'api/plantillasTorneo', $plantilla->attributesToArray());
+        $response = $this->call('POST', 'api/plantillas', $plantilla->attributesToArray());
 
         $this->assertJson($response->getContent(),'Se esperaba JSON');
         $this->seeInDatabase('plantillas_torneo', ['plt_id' => json_decode($response->getContent())->plt_id]);
@@ -43,7 +42,7 @@ class ApiPlantillasTorneoControllerTest extends TestCase
     {
         $plantilla = factory(App\PlantillaTorneo::class)->create();
 
-        $response = $this->call('GET', 'api/plantillasTorneo/'.$plantilla->attributesToArray()['plt_id']);
+        $response = $this->call('GET', 'api/plantillas/'.$plantilla->attributesToArray()['plt_id']);
         $data = json_decode($response->getContent());
 
         $this->assertJson($response->getContent(),'Se esperaba JSON');
@@ -57,7 +56,7 @@ class ApiPlantillasTorneoControllerTest extends TestCase
 
         $plantilla->plt_numero_camiseta = 100;        
 
-        $response = $this->call('PATCH', 'api/plantillasTorneo/'.$plantilla->attributesToArray()['plt_id'], $plantilla->attributesToArray());
+        $response = $this->call('PATCH', 'api/plantillas/'.$plantilla->attributesToArray()['plt_id'], $plantilla->attributesToArray());
 
         $this->assertResponseOk();
         $this->assertEquals(null,$response->getContent());
@@ -71,7 +70,7 @@ class ApiPlantillasTorneoControllerTest extends TestCase
     {
         $plantilla = factory(App\PlantillaTorneo::class)->make();
 
-        $response = $this->call('PATCH', 'api/plantillasTorneo/1', $plantilla->attributesToArray());
+        $response = $this->call('PATCH', 'api/plantillas/1', $plantilla->attributesToArray());
         $this->assertResponseStatus(404);
     }
  
@@ -81,7 +80,7 @@ class ApiPlantillasTorneoControllerTest extends TestCase
 
         $this->seeInDatabase('plantillas_torneo', ['plt_id' =>  $plantilla->attributesToArray()['plt_id']]);
 
-        $response = $this->call('DELETE', 'api/plantillasTorneo/'.$plantilla->attributesToArray()['plt_id']);
+        $response = $this->call('DELETE', 'api/plantillas/'.$plantilla->attributesToArray()['plt_id']);
 
         $this->assertResponseOk();
         $this->assertEquals(null,$response->getContent());
@@ -91,7 +90,7 @@ class ApiPlantillasTorneoControllerTest extends TestCase
 
     public function test_Destroy_devuelve_404_cuendo_no_existe_registro()
     {
-        $response = $this->call('DELETE', 'api/plantillasTorneo/1');
+        $response = $this->call('DELETE', 'api/plantillas/1');
         $this->assertResponseStatus(404);
     }
 }

@@ -74,7 +74,7 @@ $factory->define(App\Torneo::class, function ($faker) use ($factory){
     ];
 });
 
-$factory->define(App\Estadio::class, function ($faker) {
+$factory->define(App\Estadio::class, function ($faker) use ($factory){
     return [
         'est_nombre' => $faker->company,
         'est_fecha_inauguracion' => $faker->date($format = 'Y-m-d', $max = 'now'),
@@ -93,7 +93,6 @@ $factory->define(App\PlantillaTorneo::class, function ($faker) use ($factory){
     ];
 });
 
-
 $factory->define(App\TipoFase::class, function ($faker) {
     return [
         'tfa_nombre' => $faker->company,
@@ -107,7 +106,6 @@ $factory->define(App\EquipoParticipante::class, function ($faker) use ($factory)
         'tor_id' => $factory->create('App\Torneo')->tor_id,
     ];
 });
-
 
 $factory->define(App\Fase::class, function ($faker) use ($factory){
     return [
@@ -132,5 +130,41 @@ $factory->define(App\Cliente::class, function ($faker) {
         'clt_nombre' => $faker->company,
         'clt_descripcion' => $faker->catchPhrase,
         'clt_dominio' => $faker->url
+    ];
+});
+
+$factory->define(App\Fecha::class, function ($faker) use ($factory){
+    return [
+        'fas_id' => $factory->create('App\Fase')->fas_id,
+        'fec_numero' => $faker->numberBetween(160, 200),
+        'fec_estado' => $faker->randomElement(['jugada', 'no_jugada', 'en_juego', 'suspendida'])
+    ];
+});
+
+$factory->define(App\Partido::class, function ($faker) use ($factory){
+    return [
+        'fec_id' => $factory->create('App\Fecha')->fec_id,
+        'par_eqp_local' => $factory->create('App\Equipo')->eqp_id,
+        'par_eqp_visitante' => $factory->create('App\Equipo')->eqp_id,
+        'est_id' => $factory->create('App\Estadio')->est_id,
+        'par_fecha' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'par_hora' => null,
+        'par_cronica' => $faker->url,
+        'par_goles_local' => $faker->numberBetween(0, 4),
+        'par_goles_visitante' => $faker->numberBetween(0, 4),
+    ];
+});
+
+$factory->define(App\PartidoJugador::class, function ($faker) use ($factory){
+    return [
+        'par_id'  => $factory->create('App\Partido')->par_id,
+        'jug_id' => $factory->create('App\Jugador')->jug_id,
+        'pju_minuto_ingreso' => 0,
+        'pju_reemplazo_de' => null,
+        'pju_amarilla' => $faker->boolean(50),
+        'pju_doble_amarilla' => $faker->boolean(50),
+        'pju_roja' => $faker->boolean(50),
+        'pju_numero_camiseta' => $faker->numberBetween(1, 30),
+        'pju_juvenil' => $faker->boolean(50),
     ];
 });

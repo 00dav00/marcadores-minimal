@@ -114,73 +114,8 @@ class PartidoController extends Controller {
 	}
 
 
-	// public function apiStore(PartidoRequest $request)
-	// {
-	// 	$partido = $request->all();
-
-	// 	$fecha = Carbon::parse($request->input('par_fecha'));
-	// 	$fecha->setTimezone('America/Bogota');
-	// 	$hora = Carbon::parse($request->input('par_hora'));
-	// 	$hora->setTimezone('America/Bogota');
-
-	// 	$partido['par_fecha'] = $fecha->toDateString();
-	// 	$partido['par_hora'] = $hora->toTimeString();
-
-	// 	Partido::create($partido);
-
-	// 	return response()->json(['data' => 'Partido creado exitosamente']);
-	// }
-
-	// public function apiShowPartidosFecha($fecha)
-	// {
-	// 	$partidos = Partido::with('equipoLocal',
-	// 							'equipoVisitante',
-	// 							'estadio')
-	// 						->where('fec_id',$fecha)
-	// 						->orderBy('par_goles_local','desc')
-	// 						->get();
-	// 	//return response()->json($partidos);
-	// 	return $partidos->toJson();
-	// }
-
-	// public function apiDestroy($partido_id)
-	// {
-	// 	$partido = Partido::findOrFail($partido_id);
-
-	// 	if ($partido) {
-	// 		$partido->delete();
-	// 	}
-
-	// 	return response()->json(['data' => 'Partido borrado exitosamente']);
-	// }
-
-	// public function apiUpdate($partido_id, PartidoRequest $request)
-	// {
-	// 	$partido = Partido::findOrFail($partido_id);
-
-	// 	$nuevosDatos = $request->all();
-
-	// 	if ($request->input('par_fecha') && $request->input('par_fecha')) {
-	// 		$fecha = Carbon::parse($request->input('par_fecha'));
-	// 		$fecha->setTimezone('America/Bogota');
-	// 		$hora = Carbon::parse($request->input('par_hora'));
-	// 		$hora->setTimezone('America/Bogota');
-
-	// 		$nuevosDatos['par_fecha'] = $fecha->toDateString();
-	// 		$nuevosDatos['par_hora'] = $hora->toTimeString();
-	// 	}
-		
-	// 	$partido->update($nuevosDatos);
-
-	// 	return response()->json($request->input('par_fecha'));
-	// }
-
-	// public function apiIndex($fecha_id)
-	// {
-	// 	$partidos = Partido::where('fec_id',$fecha_id)->with('equipoLocal','equipoVisitante','estadio')->get();
-
-	// 	return $partidos->toJson();
-	// 	// return \Response::json($partidos);
-	// }
-
+	public function wizard()
+	{
+		return view('partidos.wizard');
+	}
 }
