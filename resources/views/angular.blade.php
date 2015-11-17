@@ -11,6 +11,8 @@
 
 	@yield('stylesheet')
 
+	<link rel="stylesheet" href="{!! asset('/js/libs/toaster/toaster.min.css') !!}">
+
 </head>
 <body>
 

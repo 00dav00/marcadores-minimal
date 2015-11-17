@@ -284,3 +284,10 @@ $factory->define(App\PartidoJugador::class, function ($faker) use ($factory){
         'pju_juvenil' => $faker->boolean(50),
     ];
 });
+
+$factory->define(App\Producto::class, function ($faker) use ($factory){
+    return [
+        'prd_nombre' => $faker->company,
+        'prd_descripcion' => $faker->catchPhrase,
+    ];
+});

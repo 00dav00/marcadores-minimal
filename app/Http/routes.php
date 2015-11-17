@@ -42,6 +42,13 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('auspiciantes', 'AuspiciantesController');
 
+	Route::get('fechas/list', 'FechasController@listado');
+	Route::resource('fechas', 'FechasController');
+
+	Route::get('plantillas/config', 'PlantillasTorneoController@config');
+
+	Route::resource('auspiciantes', 'AuspiciantesController');
+
 	// Route::get('fechas/list', 'FechasController@listado');
 	// Route::resource('fechas', 'FechasController');
 
@@ -171,3 +178,6 @@ Route::get('api/fases/{fases}/fecha_actual', 'ApiFechasController@showFechaActua
 Route::get('api/fechas/{fechas}/partidos', 'ApiFechasController@fechaPartidosRegistrados');
 
 Route::get('api/partidos/{fecha}','ApiPartidosController@showPartidosFecha');
+
+Route::get('tablas/{torneo_id}', 'TablasController@show');
+Route::get('tablas/{torneo_id}/{fase_id}', 'TablasController@show');
