@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use database\seeds\FakeDataTableSeeder;
 use database\seeds\RealDataSeeder;
+use database\seeds\ClienteTableSeeder;
 
 class DatabaseSeeder extends Seeder {
 
@@ -19,7 +20,12 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('RealDataSeeder');
 
-		$this->call('FakeDataTableSeeder');
+		//$this->call('FakeDataTableSeeder');
+		//$this->call(ClienteTableSeeder::class);
+		$this->call(PersonalizacionCamposSeeder::class);
+		$this->call(ProductosSeeder::class);
+
+    	Model::reguard();
 	}
 
 }

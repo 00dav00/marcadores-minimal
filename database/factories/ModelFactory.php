@@ -114,7 +114,7 @@ $factory->define(App\Fase::class, function ($faker) use ($factory){
         'tfa_id' => $factory->create('App\TipoFase')->tfa_id,
         'fas_descripcion'=> $faker->sentence(10),
         'tor_id'=> $factory->create('App\Torneo')->tor_id,
-        'fas_acumulada'=> $faker->boolean(50),
+        'fas_acumulada'=> $faker->numberBetween(0, 1),
     ];
 });
 
@@ -132,5 +132,12 @@ $factory->define(App\Cliente::class, function ($faker) {
         'clt_nombre' => $faker->company,
         'clt_descripcion' => $faker->catchPhrase,
         'clt_dominio' => $faker->url
+    ];
+});
+
+$factory->define(App\Producto::class, function ($faker) use ($factory){
+    return [
+        'prd_nombre' => $faker->company,
+        'prd_descripcion' => $faker->catchPhrase,
     ];
 });

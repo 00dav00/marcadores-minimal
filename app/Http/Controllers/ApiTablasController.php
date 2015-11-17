@@ -10,51 +10,99 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Quotation;
 
+use App\Torneo;
+use App\Fase;
+
 class ApiTablasController extends Controller
 {
-    public function index()
+
+    protected $_torneo;
+    protected $_fase;
+
+    public function __construct(Torneo $torneo, Fase $fase)
     {
-        //
+        $this->_torneo = $torneo;
+        $this->_fase = $fase;
+    }
+
+    protected function _chainResults($torneo, $fases, $posiciones)
+    {
+        return [
+            'torneo' => $torneo,
+            'fases' => $fases,
+            'posiciones' => $posiciones
+        ];
     }
 
 
-    public function show($torneo_id, $fase_id = -1)
+    public function getTorneoInfo($torneo_id)
     {
-        $resultados = DB::select(
-            'SELECT
-                deq_equipo_nombre                                   nombre
-                ,deq_equipo_nombre_corto                            nombre_corto
-                ,deq_equipo_abreviatura                             abreviatura
-                ,deq_equipo_escudo                                  escudo
-                ,sum(puntos-penalizacion)                           puntos
-                ,count(*)                                           partidos_jugados
-                ,count(case when puntos = 3 then 1 else NULL end)   partidos_ganados
-                ,count(case when puntos = 1 then 1 else NULL end)   partidos_empatados
-                ,count(case when puntos = 0 then 1 else NULL end)   partidos_perdidos
-                ,sum(goles_favor)                                   goles_favor
-                ,sum(goles_contra)                                  goles_contra
-                ,sum(goles_favor)-sum(goles_contra)                 goles_diferencia
-            from fact_resultados
-                join dim_fechas on dfe_id = fecha_fk
-                join dim_equipos on deq_id = equipo_fk
-            where
+        return $this->_torneo->findOrFail($torneo_id);
+    }
+
+    public function getFaseInfo($torneo_id)
+    {
+        return $this->_fase->where('tor_id', '=', $torneo_id)->get();
+    }
+
+    public function getTablaPosiciones($torneo_id, $fase_id)
+    {
+        $sql = 
+            'SELECT 
+            deq_equipo_nombre                                   nombre
+            ,deq_equipo_nombre_corto                            nombre_corto
+            ,deq_equipo_abreviatura                             abreviatura
+            ,deq_equipo_escudo                                  escudo
+            ,sum(puntos-penalizacion)                           puntos
+            ,count(*)                                           partidos_jugados
+            ,count(case when puntos = 3 then 1 else NULL end)   partidos_ganados
+            ,count(case when puntos = 1 then 1 else NULL end)   partidos_empatados
+            ,count(case when puntos = 0 then 1 else NULL end)   partidos_perdidos
+            ,sum(goles_favor)                                   goles_favor
+            ,sum(goles_contra)                                  goles_contra
+            ,sum(goles_favor)-sum(goles_contra)                 goles_diferencia
+            FROM fact_resultados
+                join dim_fechas ON dfe_id = fecha_fk
+                join dim_equipos ON deq_id = equipo_fk
+            WHERE
                 dfe_torneo_id = ?
-                and (
-                    (? = -1 and dfe_fase_acumulada = 1)
-                    or (? = dfe_fase_id)
+                AND (
+                    (? = -1 AND dfe_fase_acumulada = 1)
+                    OR (? = dfe_fase_id)
                 )
-            group by deq_equipo_nombre, deq_equipo_nombre_corto, deq_equipo_abreviatura, deq_equipo_escudo
-            order by puntos desc, goles_diferencia desc', 
-            [$torneo_id, $fase_id, $fase_id]
-        );
+            GROUP BY deq_equipo_nombre, deq_equipo_nombre_corto, deq_equipo_abreviatura, deq_equipo_escudo
+            ORDER BY puntos DESC, goles_diferencia DESC';
 
-        return \Response::json($resultados);
+        return DB::select($sql, [$torneo_id, $fase_id, $fase_id]);
     }
 
-
-    public function update(Request $request, $id)
+    public function showTorneoTablas($torneo_id)
     {
-        //
+        // verificar que el torneo existe
+        $torneo = $this->getTorneoInfo($torneo_id);
+
+        // obtener las fases
+        $fases = $this->getFaseInfo($torneo_id);
+
+        $posiciones = [];
+        $acumulada = 0;
+        
+        foreach ($fases as $fase) {
+            $posiciones[$fase->fas_id] = $this->getTablaPosiciones($torneo_id, $fase->fas_id);
+            if ($fase->fas_acumulada) {
+                $acumulada++;
+            }
+        }
+
+        // tabla acumulada
+        if ($acumulada > 1) {
+            $posiciones['acumulada'] = $this->getTablaPosiciones($torneo_id, -1);
+        }
+
+        // unir los resultados
+        $response = $this->_chainResults($torneo, $fases, $posiciones);
+
+        return response()->json($response);
     }
 
 }

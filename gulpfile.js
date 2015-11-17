@@ -23,12 +23,12 @@ gulp.task("copyfiles", function() {
 elixir(function(mix) {
 	// Combine scripts
 	mix.scripts([
-		'js/jquery.js',
-		'js/bootstrap.js'
+		'js/jquery.min.js',
+		'js/bootstrap.min.js'
 	],
 		'public/assets/js/admin.js',
 		'resources/assets'
 	);
 	// Compile Less
-	mix.less('admin.less', 'public/assets/css/admin.css');
+	mix.less('app.less', 'public/assets/css/admin.css');
 })
