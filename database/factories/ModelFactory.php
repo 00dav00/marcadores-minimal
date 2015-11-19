@@ -112,7 +112,7 @@ $factory->define(App\Fase::class, function ($faker) use ($factory){
         'tfa_id' => $factory->create('App\TipoFase')->tfa_id,
         'fas_descripcion'=> $faker->sentence(10),
         'tor_id'=> $factory->create('App\Torneo')->tor_id,
-        'fas_acumulada'=> $faker->boolean(50),
+        'fas_acumulada'=> $faker->numberBetween(0, 1),
     ];
 });
 
@@ -166,5 +166,10 @@ $factory->define(App\PartidoJugador::class, function ($faker) use ($factory){
         'pju_roja' => $faker->boolean(50),
         'pju_numero_camiseta' => $faker->numberBetween(1, 30),
         'pju_juvenil' => $faker->boolean(50),
+
+$factory->define(App\Producto::class, function ($faker) use ($factory){
+    return [
+        'prd_nombre' => $faker->company,
+        'prd_descripcion' => $faker->catchPhrase,
     ];
 });

@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-
 use App\Torneo;
 use App\Http\Requests\TorneoRequest;
 

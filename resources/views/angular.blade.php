@@ -22,6 +22,8 @@
 	<script src="{!! asset('/js/vendor/selectize.min.js') !!}"></script>
 	<script src="{!! asset('/js/libs/underscore/underscore-min.js') !!}"></script>
 
+	<link rel="stylesheet" href="{!! asset('/js/libs/toaster/toaster.min.css') !!}">
+
 </head>
 <body>
 
@@ -41,6 +43,11 @@
 	<script src="{!! asset('/js/libs/angular-ui-router/release/angular-ui-router.min.js') !!}"></script>
 
 	<script src="{!! asset('/js/libs/angular-bootstrap/ui-bootstrap-tpls.min.js') !!}"></script>
+	
+	<script src="{!! asset('/js/libs/spin.js/spin.js') !!}"></script>
+	<script src="{!! asset('/js/libs/angular-spinner/angular-spinner.js') !!}"></script>
+
+	<script src="{!! asset('/js/libs/toaster/toaster.min.js') !!}"></script>
 
 	<script src="{!! asset('/js/app.js') !!}"></script>
 	<script src="{!! asset('/js/services.js') !!}"></script>
