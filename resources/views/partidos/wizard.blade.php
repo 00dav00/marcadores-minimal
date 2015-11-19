@@ -52,6 +52,7 @@
 			{{-- muestra los botones continuar o anterior --}}
 			@include('partidos.partials.wizard_pie')
 			
+			<br>
 			
 		</div>
 	</div>

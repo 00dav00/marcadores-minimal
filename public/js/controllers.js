@@ -943,20 +943,8 @@ partidosControllers.controller('PartidosCtrl', [
 		$scope.fechaSeleccionada = false;
 		$scope.partidos = [];
 		$scope.partidoSeleccionado = false;
-		$scope.plantillaLocal = [];
-		$scope.optionsPlantillaLocal = {
-			accept: function(dragEl) {
-				if ($scope.plantillaLocal.length >= 11) {
-					return false;
-				} else {
-					return true;
-				}
-			}
-		};
-		$scope.plantilla_visitante = [];
-		$scope.jugadoresTitulares = {local: [], visitante: []}
-		$scope.jugadores_partido_local = [];
-		$scope.jugadores_partido_visitante = [];
+		$scope.plantillas = {local: [], visitante: []};
+		$scope.titulares = {local: [], visitante: []};
 
 		$scope.botonAnteriorActivado = false;
 		$scope.botonSiguienteActivado = false;
@@ -990,6 +978,22 @@ partidosControllers.controller('PartidosCtrl', [
 		$scope.closeAlert = function(index) {
 			if ($scope.alerts.length >= (index + 1))
 				$scope.alerts.splice(index, 1);
+		}
+
+		/************************MANEJO DE CONTROLES DEL FORMULARIO******************************/
+
+		function marcarJugadorTitular(jugador){
+			if (jugador.pivot.eqp_id == $scope.partidoSeleccionado.par_eqp_local) 
+				$scope.titulares.local.push(jugador);
+			else 
+				$scope.titulares.visitante.push(jugador);
+		}
+
+		function desmarcarJugadorTitular(jugador){
+			if (jugador.pivot.eqp_id == $scope.partidoSeleccionado.par_eqp_local) 
+				$scope.titulares.local.splice($scope.titulares.local.indexOf(jugador),1);
+			else
+				$scope.titulares.visitante.splice($scope.titulares.visitante.indexOf(jugador),1);
 		}
 
 		/************************OBTENER INFORMACION Y CARGAR PASOS******************************/
@@ -1047,12 +1051,23 @@ partidosControllers.controller('PartidosCtrl', [
 	        );
 		}
 
-		function obtenerPlantilla(torneo_id, equipo_id, plantilla){
+		function obtenerPlantillas(torneo_id, local_id, visitante_id){
 			Plantillas.query(
-	            {torneo: torneo_id, equipo: equipo_id},
+	            {torneo: torneo_id, equipo: local_id},
 	            function success(response){
 	                // console.log("Success:" + JSON.stringify(response));
-	                $scope.plantillaLocal = response;
+	                $scope.plantillas.local = response;
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+
+	        Plantillas.query(
+	            {torneo: torneo_id, equipo: visitante_id},
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.plantillas.visitante = response;
 	            },
 	            function error(error){
 	            	errorHandler(error.data, error.status);
@@ -1079,10 +1094,10 @@ partidosControllers.controller('PartidosCtrl', [
 				$scope.partidoSeleccionado = false;
 			}
 			if (paso <= 5){
-				$scope.plantillaLocal = [];
-				$scope.plantilla_visitante = [];
-				$scope.jugadores_partido_local = [];
-				$scope.jugadores_partido_visitante = [];
+				$scope.plantillas.local = [];
+				$scope.plantillas.visitante = [];
+				$scope.titulares.local = [];
+				$scope.titulares.visitante = [];
 			}
 
 			switch(paso){
@@ -1111,10 +1126,10 @@ partidosControllers.controller('PartidosCtrl', [
 					$scope.botonSiguienteActivado = false;
 					break;
 				case 5:
-					obtenerPlantilla(
+					obtenerPlantillas(
 						$scope.torneoSeleccionado.tor_id,
 						$scope.partidoSeleccionado.equipo_local.eqp_id,
-						$scope.plantillaLocal
+						$scope.partidoSeleccionado.equipo_visitante.eqp_id
 					);
 
 					$scope.botonAnteriorActivado = true;
@@ -1143,6 +1158,20 @@ partidosControllers.controller('PartidosCtrl', [
 			$scope.partidoSeleccionado = partido;
 			prepararPaso(5);
 		}
+
+		$scope.seleccionarJugadorTitular = function(jugador){
+			jugador.seleccionado ? marcarJugadorTitular(jugador) : desmarcarJugadorTitular(jugador);
+
+			if ($scope.titulares.local == 11 && $scope.titulares.visitante == 11)
+				$scope.botonSiguienteActivado = true;
+			else
+				$scope.botonSiguienteActivado = false;
+
+			// console.log(JSON.stringify($scope.titulares.local));
+			// console.log(JSON.stringify($scope.titulares.visitante));		
+		}
+
+		
 
 		$scope.volverPaso = function(){
 			prepararPaso($scope.paso - 1);

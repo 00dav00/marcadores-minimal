@@ -1,39 +1,42 @@
 <style>
-.thumbnail { height: 60px !important; }
-.btn-droppable { width: 210px; height: 20px; padding: 4px; margin: 4px;}
-.btn-draggable { width: 200px; }
+	.even{ background-color: #f3f3f3 !important; }
+	.odd{ background-color: #ffffff !important; }
 </style>
 
 
 <div>
 	<div class="panel panel-default">
+		
 		<div class="panel-heading">
-			<h3 class="text-center">Equipo local</h3>
+			<h4 class="text-center">Jugadores Titulares</h4>
 		</div>
 		<div class="panel-body">
-
-			<h3 class="panel-title">Jugadores disponibles</h3>
-			<div class="btn btn-droppable" data-drop="true" data-jqyoui-options="{stack: true, accept:'.btn-draggable:not([ ng-model = plantillaLocal ])'}">
-				<div class="btn btn-info btn-draggable" ng-repeat='jugador in plantillaLocal' data-drag="true" 
-					data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: <%$index%>, animate:true}" >
-					<% jugador.jug_nombre %> &nbsp; <% jugador.jug_apellido %>
-				</div>
-			</div>
-
-			<h3 class="panel-title">Jugadores titulares</h3>
-			<div class="thumbnail" data-drop="true" ng-model='jugadoresTitulares.local' 
-				data-jqyoui-options="{accept:'.btn-draggable:not([ng-model = jugadoresTitulares.local])'}"  jqyoui-droppable="{multiple:true}">
-              	<div class="caption">
-                	<div class="btn btn-info btn-draggable" ng-repeat="jugador in jugadoresTitulares.local" data-drag="true" 
-                		data-jqyoui-options="{revert: 'invalid'}" ng-model="jugadoresTitulares.local" jqyoui-draggable="{index: <% $index %>,animate:true}">
-                		<% jugador.jug_nombre %> &nbsp; <% jugador.jug_apellido %>
-                	</div>
-              	</div>
-            </div>
-
-			
-
+			<table style="width:100%">
+				<thead>
+					<tr>
+						<td>Local</td>
+						<td>Visitante</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="caption" style="width: 50%; padding-right: 8px; vertical-align: text-top;">
+							<div ng-repeat="jugador in plantillas.local" ng-class="['even', 'odd'][$index %2]"> 
+								<input type="checkbox" value="<% jugador.jug_id %>" ng-model="jugador.seleccionado" ng-change="seleccionarJugadorTitular(jugador)"> 
+						  		<% jugador.jug_nombre %> &nbsp; <% jugador.jug_apellido %><br/>
+							</div>
+						</td>
+						<td class="caption" style="width: 50%; padding-left: 8px; vertical-align: text-top;">
+							<div ng-repeat="jugador in plantillas.visitante" ng-class="['odd', 'even'][$index %2]"> 
+								<input type="checkbox" value="<% jugador.jug_id %>" ng-model="jugador.seleccionado" ng-change="seleccionarJugadorTitular(jugador)"> 
+						  		<% jugador.jug_nombre %> &nbsp; <% jugador.jug_apellido %><br/>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
+
 	</div>
 </div>
 
