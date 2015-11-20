@@ -1,0 +1,93 @@
+/* insertar jugadores */
+
+insert into jugadores (jug_apellido, jug_nombre, jug_fecha_nacimiento, jug_nacionalidad)
+select
+apellido
+,nombre
+,STR_TO_DATE(CONCAT(SUBSTRING(fecha,4,8), SUBSTRING(fecha,25,4)),'%b %d %Y') as f
+,l.lug_id
+from excel_jugadores x
+left join lugares l on l.lug_abreviatura = x.nacionalidad
+where lug_tipo = 'pais'
+order by l.lug_id;
+
+
+
+
+/* insertar plantillas */
+
+insert into plantillas_torneo(plt_numero_camiseta,eqp_id,jug_id,tor_id)
+select
+1
+,eqp_id
+,jug_id
+,1
+from excel_jugadores x
+left join equipos e on e.eqp_nombre_corto = x.equipo
+left join jugadores j on x.apellido = j.jug_apellido and x.nombre = j.jug_nombre
+order by jug_id;
+
+
+
+
+
+/*************************************************************************************************/
+
+
+
+
+
+
+/* verificar que no existan jugadores repetidos */
+
+select apellido, nombre, count(*)
+from excel_jugadores
+group by apellido, nombre
+having count(*) > 1;
+
+
+
+
+
+/* limpiar equipos */
+
+
+select distinct equipo
+from excel_jugadores
+order by 1;
+
+select eqp_nombre_corto
+from equipos
+order by 1;
+
+select distinct x.equipo
+from excel_jugadores x
+left join equipos e on e.eqp_nombre_corto = x.equipo
+where eqp_id is null
+order by eqp_nombre_corto;
+
+update excel_jugadores
+set equipo = 'Católica'
+where equipo = 'Universidad Católica';
+
+
+
+
+
+
+/* limpiar nacionalidad */
+
+select *
+from excel_jugadores
+where nacionalidad = 'afr';
+
+select *
+from lugares
+where lug_tipo = 'pais'
+and lug_nombre like '%PER%'
+order by lug_abreviatura;
+
+
+update excel_jugadores
+set nacionalidad = 'EC'
+where nacionalidad = 'AFR';
