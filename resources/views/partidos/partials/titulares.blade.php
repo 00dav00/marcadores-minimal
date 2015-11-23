@@ -22,13 +22,15 @@
 					<tr>
 						<td class="caption" style="width: 50%; padding-right: 8px; vertical-align: text-top;">
 							<div ng-repeat="jugador in plantillas.local" ng-class="['even', 'odd'][$index %2]"> 
-								<input type="checkbox" value="<% jugador.jug_id %>" ng-model="jugador.seleccionado" ng-change="seleccionarJugadorTitular(jugador)"> 
+								<input type="checkbox" value="<% jugador.jug_id %>" ng-model="jugador.seleccionado" 
+									ng-change="evaluarEquiposCompletos()" ng-disabled="jugador.bloqueado">
 						  		<% jugador.jug_nombre %> &nbsp; <% jugador.jug_apellido %><br/>
 							</div>
 						</td>
 						<td class="caption" style="width: 50%; padding-left: 8px; vertical-align: text-top;">
 							<div ng-repeat="jugador in plantillas.visitante" ng-class="['odd', 'even'][$index %2]"> 
-								<input type="checkbox" value="<% jugador.jug_id %>" ng-model="jugador.seleccionado" ng-change="seleccionarJugadorTitular(jugador)"> 
+								<input type="checkbox" value="<% jugador.jug_id %>" ng-model="jugador.seleccionado" 
+									ng-change="evaluarEquiposCompletos()" ng-disabled="jugador.bloqueado"> 
 						  		<% jugador.jug_nombre %> &nbsp; <% jugador.jug_apellido %><br/>
 							</div>
 						</td>

@@ -982,25 +982,15 @@ partidosControllers.controller('PartidosCtrl', [
 
 		/************************MANEJO DE CONTROLES DEL FORMULARIO******************************/
 
-		function marcarJugadorTitular(jugador){
-			if (jugador.pivot.eqp_id == $scope.partidoSeleccionado.par_eqp_local) 
-				$scope.titulares.local.push(jugador);
-			else 
-				$scope.titulares.visitante.push(jugador);
-		}
-
-		function desmarcarJugadorTitular(jugador){
-			if (jugador.pivot.eqp_id == $scope.partidoSeleccionado.par_eqp_local) 
-				$scope.titulares.local.splice($scope.titulares.local.indexOf(jugador),1);
-			else
-				$scope.titulares.visitante.splice($scope.titulares.visitante.indexOf(jugador),1);
-		}
-
 		/************************OBTENER INFORMACION Y CARGAR PASOS******************************/
 		function obtenerTodosLosTorneos(){
 			Torneos.query(
 	            function success(response){
 	                // console.log("Success:" + JSON.stringify(response));
+	                /***********************************************************/
+	                // TODO  ->  Agregar numero de jugadores por equipo
+	                response.map( function(torneo){ torneo.tor_jugadores_por_equipo = 11; });
+	                /***********************************************************/
 	                $scope.torneos = response;
 
 	            },
@@ -1159,16 +1149,58 @@ partidosControllers.controller('PartidosCtrl', [
 			prepararPaso(5);
 		}
 
+
 		$scope.seleccionarJugadorTitular = function(jugador){
+			var equipos_completos = 0;
+			
 			jugador.seleccionado ? marcarJugadorTitular(jugador) : desmarcarJugadorTitular(jugador);
 
-			if ($scope.titulares.local == 11 && $scope.titulares.visitante == 11)
-				$scope.botonSiguienteActivado = true;
-			else
-				$scope.botonSiguienteActivado = false;
+			equipos_completos += $scope.titulares.local.length == 11 ? 1 : 0;
+			equipos_completos += $scope.titulares.visitante.length == 11 ? 1 : 0;
+
+
+			$scope.botonSiguienteActivado = equipos_completos == 2? true : false;
+
+
+			// var index = $scope.plantillas.local.indexOf(jugador);
+			// $scope.plantillas.local[index].bloqueado = true;
+			// console.log(index);
+
+
+			// if ($scope.titulares.local.length == 11 && $scope.titulares.visitante.length == 11){
+			// 	$scope.botonSiguienteActivado = true;
+			// }
+			// else{
+			// 	$scope.botonSiguienteActivado = false;
+			// }
 
 			// console.log(JSON.stringify($scope.titulares.local));
 			// console.log(JSON.stringify($scope.titulares.visitante));		
+		}
+
+		$scope.evaluarEquiposCompletos = function(){
+			var equipos_completos = 0;
+			
+			equipos_completos += evaluarEquipoCompleto($scope.plantillas.local);
+			equipos_completos += evaluarEquipoCompleto($scope.plantillas.visitante);
+
+			$scope.botonSiguienteActivado = equipos_completos == 2? true : false;
+		}
+
+		function evaluarEquipoCompleto(plantilla){
+			var titulares = plantilla.filter(function (jugador){ return jugador.seleccionado }).length;
+			var retorno = titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo ? 1 :0;
+			
+			if (titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo){
+				var suplentes = plantilla.filter(function (jugador){ return !jugador.seleccionado });				
+				suplentes.map( function(jugador) { 
+
+					var index = plantilla.indexOf(jugador);
+					plantilla[index].bloqueado = true;
+
+			 	});
+			}
+			return retorno;
 		}
 
 		
