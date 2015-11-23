@@ -27,4 +27,9 @@ class Cliente extends Model
 		'clt_dominio' => 'Dominio',
 	];
 
+	public function personalizacion()
+    {
+        return $this->hasMany('App\PersonalizacionValor', 'clt_id', 'clt_id');
+    }
+
 }

@@ -10,6 +10,45 @@ class PersonalizacionValor extends Model
 	
 	protected $primaryKey = 'pva_id';
 	
+	protected $campos = [
+		[
+			'id' => 1,
+			'nombre' => 'color_header',
+			'descripcion' => 'Color de header del panel',
+			'valor_default' => '#CCCCCC'
+		],	
+		[
+			'id' => 2,
+			'nombre' => 'color_texto_titulo',
+			'descripcion' => 'Color del texto del titulo',
+			'valor_default' => '#FFFFFF'
+		],
+		[
+			'id' => 3,
+			'nombre' => 'color_fondo',
+			'descripcion' => 'Color de fondo',
+			'valor_default' => '#000000'
+		],
+		[
+			'id' => 4,
+			'nombre' => 'color_texto_body',
+			'descripcion' => 'Color del texto',
+			'valor_default' => '#FFFFFF'
+		],
+		[
+			'id' => 5,
+			'nombre' => 'color_boton',
+			'descripcion' => 'Color de los botones',
+			'valor_default' => '#173B52'
+		],
+		[
+			'id' => 6,
+			'nombre' => 'color_texto_boton',
+			'descripcion' => 'Color de texto de los botones',
+			'valor_default' => '#FFFFFF'
+		],		
+	];
+
 	public $timestamps = false;
 
 	protected $fillable = [
@@ -17,4 +56,14 @@ class PersonalizacionValor extends Model
 		'clt_id',
 		'pva_valor'
 	];
+
+	public function getCampos()
+	{
+		return $this->campos;
+	}
+
+	public function cliente()
+    {
+        return $this->belongsTo('App\Cliente', 'clt_id', 'clt_id');
+    }
 }

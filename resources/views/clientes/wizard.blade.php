@@ -17,14 +17,22 @@
 
 			<div class="panel-body">
 
-				<select class="form-control" id="clienteSeleccionado" ng-model="main.clienteSeleccionado" ng-options="cliente.clt_nombre for cliente in main.clientes" ng-change="main.cargarProductos()">
+				<select class="form-control" id="clienteSeleccionado" ng-model="main.clienteSeleccionado" ng-options="cliente.clt_nombre for cliente in main.clientes" ng-change="main.cargarTorneos()">
 					<option value="" disabled>Seleccione un Cliente ...</option>
 				</select>
 
 				<br>
 
+				<div ng-show="main.mostrarTorneos">
+					<select class="form-control" id="torneoSeleccionado" ng-model="main.torneoSeleccionado" ng-options="torneo.tor_nombre for torneo in main.torneos" ng-change="main.cargarProductos()">
+						<option value="" disabled>Seleccione un Torneo ...</option>
+					</select>
+				</div>
+
+				<br>
+
 				<div ng-show="main.mostrarProductos">
-					<select class="form-control" id="productoSeleccionado" ng-model="main.productoSeleccionado" ng-options="producto.prd_nombre for producto in main.productos" ng-change="main.cargarCampos()">
+					<select class="form-control" id="productoSeleccionado" ng-model="main.productoSeleccionado" ng-options="producto.prd_descripcion for producto in main.productos" ng-change="main.cargarCampos()">
 						<option value="" disabled>Seleccione un Producto ...</option>
 					</select>
 				</div>
@@ -32,19 +40,14 @@
 				<br>
 
 				<div ng-show="main.mostrarCampos">
+					
+					@include('clientes.partials._campos')
 
-					<div class="col-xs-4">
-						<form ng-submit="per.submit()" name="personalizacionForm">
-							<div class="form-group">
-								<div ng-repeat="campo in main.campos">
-								    <label><%campo.pca_descripcion%></label>
-								    <input type="color" class="form-control" placeholder="Color">
-							    </div>
-							</div>
-						</form>
+					<div ng-switch on="main.productoSeleccionado.prd_nombre">
+						<div ng-switch-when="tabla_posiciones">
+						</div>
 					</div>
 
-					<div class="col-xs-8">bxcbvxcvxcvx</div>
 				</div>
 
 			</div>
@@ -62,9 +65,13 @@
 	<script src="{!! asset('/js/clientes/wizard/wizard.js') !!}"></script>
 	<script src="{!! asset('/js/clientes/wizard/config.js') !!}"></script>
 	<script src="{!! asset('/js/clientes/wizard/exceptionHandler.js') !!}"></script>
+
 	<script src="{!! asset('/js/clientes/wizard/controllers/mainController.js') !!}"></script>
+
 	<script src="{!! asset('/js/clientes/wizard/factories/clientesFactory.js') !!}"></script>
 	<script src="{!! asset('/js/clientes/wizard/factories/productosFactory.js') !!}"></script>
 	<script src="{!! asset('/js/clientes/wizard/factories/camposFactory.js') !!}"></script>
+	<script src="{!! asset('/js/clientes/wizard/factories/torneosFactory.js') !!}"></script>
+	<script src="{!! asset('/js/clientes/wizard/factories/tablasFactory.js') !!}"></script>
 
 @endsection

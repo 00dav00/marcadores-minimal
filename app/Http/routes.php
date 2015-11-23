@@ -119,14 +119,14 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 	Route::resource('productos', 'ApiProductosController');
 	
-	Route::resource('personalizacion_campos', 'ApiPersonalizacionCamposController');
+	Route::resource('personalizacion_campos', 'ApiPersonalizacionValoresController@getCampos');
 });
 
 // Rutas para consultar los datos REST sin autenticacion
 Route::group(['prefix' => 'api'], function () {
 
 	// tablas
-	Route::get('tablas/{torneo_id}', 'ApiTablasController@showTorneoTablas');
+	Route::get('tablas/{cliente_id}/{torneo_id}', 'ApiTablasController@showTorneoTablas');
 
 });
 

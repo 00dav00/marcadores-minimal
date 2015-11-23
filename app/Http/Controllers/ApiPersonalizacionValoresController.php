@@ -7,22 +7,25 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\PersonalizacionCampo;
+use App\PersonalizacionValor;
 
-class ApiPersonalizacionCamposController extends Controller
+class ApiPersonalizacionValoresController extends Controller
 {
-    protected $_campo;
+    protected $_valor;
 
-    public function __construct(PersonalizacionCampo $campo)
+    public function __construct(PersonalizacionValor $valor)
     {
-        $this->_campo = $campo;
+        $this->_valor = $valor;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $campos = $this->_campo->all();
-
-        return $campos->toJson();
+        //
     }
 
     /**
@@ -89,5 +92,10 @@ class ApiPersonalizacionCamposController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getCampos()
+    {
+        return $this->_valor->getCampos();
     }
 }

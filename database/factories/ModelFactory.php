@@ -166,6 +166,8 @@ $factory->define(App\PartidoJugador::class, function ($faker) use ($factory){
         'pju_roja' => $faker->boolean(50),
         'pju_numero_camiseta' => $faker->numberBetween(1, 30),
         'pju_juvenil' => $faker->boolean(50),
+    ];
+});
 
 $factory->define(App\Producto::class, function ($faker) use ($factory){
     return [
