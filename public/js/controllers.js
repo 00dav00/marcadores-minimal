@@ -1188,19 +1188,17 @@ partidosControllers.controller('PartidosCtrl', [
 		}
 
 		function evaluarEquipoCompleto(plantilla){
-			var titulares = plantilla.filter(function (jugador){ return jugador.seleccionado }).length;
-			var retorno = titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo ? 1 :0;
+			var num_titulares = plantilla.filter(function (jugador){ return jugador.seleccionado }).length;
 			
-			if (titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo){
-				var suplentes = plantilla.filter(function (jugador){ return !jugador.seleccionado });				
-				suplentes.map( function(jugador) { 
-
-					var index = plantilla.indexOf(jugador);
-					plantilla[index].bloqueado = true;
-
-			 	});
+			if (num_titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo){
+				plantilla
+					.filter(function (jugador){ return !jugador.seleccionado  })
+					.map( function (jugador) { plantilla[plantilla.indexOf(jugador)].bloqueado = true; });
+			} else if (num_titulares < $scope.torneoSeleccionado.tor_jugadores_por_equipo){
+				plantilla.map( function (jugador) { plantilla[plantilla.indexOf(jugador)].bloqueado = false; });
 			}
-			return retorno;
+
+			return num_titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo ? 1 :0;
 		}
 
 		
