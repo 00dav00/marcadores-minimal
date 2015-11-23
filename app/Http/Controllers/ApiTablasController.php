@@ -12,28 +12,32 @@ use App\Quotation;
 
 use App\Torneo;
 use App\Fase;
+use App\Cliente;
+use App\PersonalizacionValor;
 
 class ApiTablasController extends Controller
 {
 
     protected $_torneo;
     protected $_fase;
+    protected $_cliente;
 
-    public function __construct(Torneo $torneo, Fase $fase)
+    public function __construct(Torneo $torneo, Fase $fase, Cliente $cliente)
     {
         $this->_torneo = $torneo;
         $this->_fase = $fase;
+        $this->_cliente = $cliente;
     }
 
-    protected function _chainResults($torneo, $fases, $posiciones)
+    protected function _chainResults($torneo, $fases, $posiciones, $cliente)
     {
         return [
             'torneo' => $torneo,
             'fases' => $fases,
-            'posiciones' => $posiciones
+            'posiciones' => $posiciones,
+            'cliente' => $cliente
         ];
     }
-
 
     public function getTorneoInfo($torneo_id)
     {
@@ -76,7 +80,12 @@ class ApiTablasController extends Controller
         return DB::select($sql, [$torneo_id, $fase_id, $fase_id]);
     }
 
-    public function showTorneoTablas($torneo_id)
+    public function getClienteInfo($cliente_id)
+    {
+        return $this->_cliente->with('personalizacion')->find($cliente_id);
+    }
+
+    public function showTorneoTablas($cliente_id, $torneo_id)
     {
         // verificar que el torneo existe
         $torneo = $this->getTorneoInfo($torneo_id);
@@ -84,6 +93,9 @@ class ApiTablasController extends Controller
         // obtener las fases
         $fases = $this->getFaseInfo($torneo_id);
 
+        // obtener la informacion del cliente
+        $cliente = $this->getClienteInfo($cliente_id);
+        
         $posiciones = [];
         $acumulada = 0;
         
@@ -100,7 +112,7 @@ class ApiTablasController extends Controller
         }
 
         // unir los resultados
-        $response = $this->_chainResults($torneo, $fases, $posiciones);
+        $response = $this->_chainResults($torneo, $fases, $posiciones, $cliente);
 
         return response()->json($response);
     }

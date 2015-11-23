@@ -20,10 +20,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('RealDataSeeder');
 
-		//$this->call('FakeDataTableSeeder');
-		//$this->call(ClienteTableSeeder::class);
-		$this->call(PersonalizacionCamposSeeder::class);
-		$this->call(ProductosSeeder::class);
+		$this->call('FakeDataTableSeeder');
 
     	Model::reguard();
 	}

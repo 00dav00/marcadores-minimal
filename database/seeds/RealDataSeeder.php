@@ -16,6 +16,7 @@ class RealDataSeeder extends Seeder {
 		// $this->call('TipoEventoTableSeeder');
 		$this->call('TipoFaseTableSeeder');
 		$this->call('TipoTorneoTableSeeder');
+		$this->call('ProductosSeeder');
 	}
 
 }

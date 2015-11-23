@@ -14,8 +14,7 @@ class CreatePersonalizacionValoresTabla extends Migration
     {
         Schema::create('personalizacion_valores', function (Blueprint $table) {
             $table->increments('pva_id');
-            $table->integer('pca_id')->unsigned();
-            $table->foreign('pca_id')->references('pca_id')->on('personalizacion_campos')->onDelete('restrict');
+            $table->integer('pca_id');
             $table->integer('clt_id')->unsigned();
             $table->foreign('clt_id')->references('clt_id')->on('clientes')->onDelete('restrict');
             $table->string('pva_valor', 50);
