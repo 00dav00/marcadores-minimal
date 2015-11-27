@@ -930,9 +930,9 @@ fechasControllers.controller('FechasCtrl', [
 ]);
 
 partidosControllers.controller('PartidosCtrl', [
-	'$scope','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos', 'Plantillas',
+	'$scope','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos', 'Plantillas', 'Titulares',
 
-	function($scope, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos, Plantillas) {
+	function($scope, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos, Plantillas, Titulares) {
  
  		$scope.paso = 0;
 		$scope.torneos = [];
@@ -944,7 +944,7 @@ partidosControllers.controller('PartidosCtrl', [
 		$scope.partidos = [];
 		$scope.partidoSeleccionado = false;
 		$scope.plantillas = {local: [], visitante: []};
-		$scope.titulares = {local: [], visitante: []};
+		$scope.titulares = []];
 
 		$scope.botonAnteriorActivado = false;
 		$scope.botonSiguienteActivado = false;
@@ -989,7 +989,7 @@ partidosControllers.controller('PartidosCtrl', [
 	                // console.log("Success:" + JSON.stringify(response));
 	                /***********************************************************/
 	                // TODO  ->  Agregar numero de jugadores por equipo
-	                response.map( function(torneo){ torneo.tor_jugadores_por_equipo = 11; });
+	                response.map( function(torneo){ torneo.tor_jugadores_por_equipo = 2; });
 	                /***********************************************************/
 	                $scope.torneos = response;
 
@@ -1058,6 +1058,21 @@ partidosControllers.controller('PartidosCtrl', [
 	            function success(response){
 	                // console.log("Success:" + JSON.stringify(response));
 	                $scope.plantillas.visitante = response;
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+		/***********************ALMACENAR INFORMACION*****************************/
+		function ingresarJugadoresTitulares(partido_id, local_id, visitante_id, jugadores){
+			Titulares.bulk(
+				{partido: partido_id},
+				jugadores,
+	            function success(response){
+	                // console.log("Success:" + JSON.stringify(response));
+	                $scope.titulares = response;
 	            },
 	            function error(error){
 	            	errorHandler(error.data, error.status);
@@ -1184,7 +1199,18 @@ partidosControllers.controller('PartidosCtrl', [
 			equipos_completos += evaluarEquipoCompleto($scope.plantillas.local);
 			equipos_completos += evaluarEquipoCompleto($scope.plantillas.visitante);
 
-			$scope.botonSiguienteActivado = equipos_completos == 2? true : false;
+
+			if ( equipos_completos == 2 ){
+				ingresarJugadoresTitulares(
+					$scope.partidoSeleccionado.par_id,
+					$scope.plantillas.local.filter(function (jugador){ return jugador.seleccionado })
+				);
+				$scope.botonSiguienteActivado = true;
+			}
+			else{
+				$scope.botonSiguienteActivado = false;		
+			}
+			// $scope.botonSiguienteActivado = equipos_completos == 2? true : false;
 		}
 
 		function evaluarEquipoCompleto(plantilla){
