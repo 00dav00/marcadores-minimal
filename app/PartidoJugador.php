@@ -5,9 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class PartidoJugador extends Model {
 
 	protected $table = 'partido_jugadores';
-
 	protected $primaryKey = 'pju_id';
-
 	public $timestamps = false;
 
 	protected $fillable = [
@@ -26,6 +24,11 @@ class PartidoJugador extends Model {
 	public function partido()
 	{
 		return $this->belongsTo('App\Partido','par_id','par_id');
+	}
+
+	public function jugador()
+	{
+		return $this->belongsTo('App\Jugador','jug_id','jug_id');
 	}
 
 }
