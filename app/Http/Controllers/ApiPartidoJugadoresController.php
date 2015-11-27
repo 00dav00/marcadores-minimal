@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\PartidoJugador;
+use App\Partido;
 use App\Http\Requests\PartidoJugadorTitularRequest;
 use App\Http\Requests\PartidoJugadorCambioRequest;
 
@@ -25,6 +27,48 @@ class ApiPartidoJugadoresController extends Controller
         $partidoJugador['pju_minuto_ingreso'] = 0;
 
         return $this->store($partidoJugador);
+    }
+
+    public function ingresarJugadoresTitulares(Request $request, $partido_id)
+    {
+        $titulares = [];
+        $errors = [];
+
+        foreach($request->all() as $jugador)
+        {
+            $titular = array(
+                'par_id' => $partido_id,
+                'jug_id' => $jugador['jug_id'],
+                // 'pju_numero_camiseta' => ,
+                'pju_juvenil' => false,
+                'pju_minuto_ingreso' => 0,
+            );
+
+            $validator = Validator::make($titular, PartidoJugadorTitularRequest::$rules, PartidoJugadorTitularRequest::$messages);
+
+            if ($validator->passes()){
+                $titulares[] = $titular;
+            }
+            else{
+                foreach ($validator->errors() as $key => $value) {
+                    foreach ($value as $message) {
+                        $errors[] = $jugador->jug_nombre.''.$jugador->jug_apellido.': '.$value;
+                    }
+                }
+            }
+        }
+
+        if (count($errors) != 0)
+             return \Response::make($errors, 422);
+
+        if (! $this->partidoJugador->insert($titulares))
+             return \Response::make(null, 500);
+
+
+        // $temp = Partido::findOrfail($partido_id)->titulares();
+        // syslog(1, get_class($temp));
+
+        return Partido::findOrfail($partido_id)->titulares->toJson();
     }
 
     public function ingresarJugadorCambio(PartidoJugadorTitularRequest $request)
