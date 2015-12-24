@@ -944,7 +944,7 @@ partidosControllers.controller('PartidosCtrl', [
 		$scope.partidos = [];
 		$scope.partidoSeleccionado = false;
 		$scope.plantillas = {local: [], visitante: []};
-		$scope.titulares = []];
+		$scope.titulares = {local: [], visitante: []};
 
 		$scope.botonAnteriorActivado = false;
 		$scope.botonSiguienteActivado = false;
@@ -989,7 +989,7 @@ partidosControllers.controller('PartidosCtrl', [
 	                // console.log("Success:" + JSON.stringify(response));
 	                /***********************************************************/
 	                // TODO  ->  Agregar numero de jugadores por equipo
-	                response.map( function(torneo){ torneo.tor_jugadores_por_equipo = 2; });
+	                response.map( function(torneo){ torneo.tor_jugadores_por_equipo = 11; });
 	                /***********************************************************/
 	                $scope.torneos = response;
 
@@ -1041,32 +1041,31 @@ partidosControllers.controller('PartidosCtrl', [
 	        );
 		}
 
-		function obtenerPlantillas(torneo_id, local_id, visitante_id){
-			Plantillas.query(
-	            {torneo: torneo_id, equipo: local_id},
-	            function success(response){
-	                // console.log("Success:" + JSON.stringify(response));
-	                $scope.plantillas.local = response;
-	            },
-	            function error(error){
-	            	errorHandler(error.data, error.status);
-	            }
-	        );
-
-	        Plantillas.query(
-	            {torneo: torneo_id, equipo: visitante_id},
-	            function success(response){
-	                // console.log("Success:" + JSON.stringify(response));
-	                $scope.plantillas.visitante = response;
-	            },
-	            function error(error){
-	            	errorHandler(error.data, error.status);
-	            }
-	        );
+		function obtenerPlantillasTitulares(torneo_id, partido_id, equipo_id, plantilla, titulares){
+			Plantillas
+				.query({torneo: torneo_id, equipo: equipo_id}).$promise
+				.then(
+					function( response ) {
+                        angular.copy(response, plantilla);
+                        return Titulares.query({partido: partido_id}).$promise;
+                    },
+                    function error(error){errorHandler(error.data, error.status); }
+                )
+	            .then(
+                    function( response ) {
+                        response.forEach(function(jugadorTitular){
+                            plantilla
+                                .filter(function (jugador){ return jugadorTitular.jug_id ==  jugador.jug_id; })
+                                .map( function (jugador) { plantilla[plantilla.indexOf(jugador)].seleccionado = true; });
+                        });
+                        angular.copy(response, titulares);
+                    },
+                    function error(error){errorHandler(error.data, error.status); }
+                );
 		}
 
 		/***********************ALMACENAR INFORMACION*****************************/
-		function ingresarJugadoresTitulares(partido_id, local_id, visitante_id, jugadores){
+		function ingresarJugadoresTitulares(jugadores, partido_id){
 			Titulares.bulk(
 				{partido: partido_id},
 				jugadores,
@@ -1131,10 +1130,21 @@ partidosControllers.controller('PartidosCtrl', [
 					$scope.botonSiguienteActivado = false;
 					break;
 				case 5:
-					obtenerPlantillas(
+
+					obtenerPlantillasTitulares(
 						$scope.torneoSeleccionado.tor_id,
+						$scope.partidoSeleccionado.par_id,
 						$scope.partidoSeleccionado.equipo_local.eqp_id,
-						$scope.partidoSeleccionado.equipo_visitante.eqp_id
+						$scope.plantillas.local,
+						$scope.titulares.local
+					);
+
+					obtenerPlantillasTitulares(
+						$scope.torneoSeleccionado.tor_id,
+						$scope.partidoSeleccionado.par_id,
+						$scope.partidoSeleccionado.equipo_visitante.eqp_id,
+						$scope.plantillas.visitante,
+						$scope.titulares.visitante
 					);
 
 					$scope.botonAnteriorActivado = true;
@@ -1164,70 +1174,36 @@ partidosControllers.controller('PartidosCtrl', [
 			prepararPaso(5);
 		}
 
+		$scope.evaluarEquiposCompletos = function(platillaLocal, plantillaVisitante){
 
-		$scope.seleccionarJugadorTitular = function(jugador){
-			var equipos_completos = 0;
-			
-			jugador.seleccionado ? marcarJugadorTitular(jugador) : desmarcarJugadorTitular(jugador);
+			var equiposCompletos = evaluarEquipoCompleto(platillaLocal) && evaluarEquipoCompleto(plantillaVisitante);
+			var jugadoresElegidos = obtenerTitularesPlantilla(platillaLocal).concat(obtenerTitularesPlantilla(plantillaVisitante));
 
-			equipos_completos += $scope.titulares.local.length == 11 ? 1 : 0;
-			equipos_completos += $scope.titulares.visitante.length == 11 ? 1 : 0;
+			if ( equiposCompletos || jugadoresElegidos.length % 3 === 0 )
+				ingresarJugadoresTitulares(jugadoresElegidos, $scope.partidoSeleccionado.par_id);
 
+			$scope.botonSiguienteActivado = equiposCompletos? true : false;
 
-			$scope.botonSiguienteActivado = equipos_completos == 2? true : false;
-
-
-			// var index = $scope.plantillas.local.indexOf(jugador);
-			// $scope.plantillas.local[index].bloqueado = true;
-			// console.log(index);
-
-
-			// if ($scope.titulares.local.length == 11 && $scope.titulares.visitante.length == 11){
-			// 	$scope.botonSiguienteActivado = true;
-			// }
-			// else{
-			// 	$scope.botonSiguienteActivado = false;
-			// }
-
-			// console.log(JSON.stringify($scope.titulares.local));
-			// console.log(JSON.stringify($scope.titulares.visitante));		
-		}
-
-		$scope.evaluarEquiposCompletos = function(){
-			var equipos_completos = 0;
-			
-			equipos_completos += evaluarEquipoCompleto($scope.plantillas.local);
-			equipos_completos += evaluarEquipoCompleto($scope.plantillas.visitante);
-
-
-			if ( equipos_completos == 2 ){
-				ingresarJugadoresTitulares(
-					$scope.partidoSeleccionado.par_id,
-					$scope.plantillas.local.filter(function (jugador){ return jugador.seleccionado })
-				);
-				$scope.botonSiguienteActivado = true;
-			}
-			else{
-				$scope.botonSiguienteActivado = false;		
-			}
-			// $scope.botonSiguienteActivado = equipos_completos == 2? true : false;
 		}
 
 		function evaluarEquipoCompleto(plantilla){
-			var num_titulares = plantilla.filter(function (jugador){ return jugador.seleccionado }).length;
+			var num_titulares = obtenerTitularesPlantilla(plantilla).length;
 			
-			if (num_titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo){
+			if (num_titulares < $scope.torneoSeleccionado.tor_jugadores_por_equipo)
+				plantilla.map( function (jugador) { plantilla[plantilla.indexOf(jugador)].bloqueado = false; });
+
+			if (num_titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo)
 				plantilla
 					.filter(function (jugador){ return !jugador.seleccionado  })
 					.map( function (jugador) { plantilla[plantilla.indexOf(jugador)].bloqueado = true; });
-			} else if (num_titulares < $scope.torneoSeleccionado.tor_jugadores_por_equipo){
-				plantilla.map( function (jugador) { plantilla[plantilla.indexOf(jugador)].bloqueado = false; });
-			}
 
-			return num_titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo ? 1 :0;
+			return num_titulares == $scope.torneoSeleccionado.tor_jugadores_por_equipo;
 		}
 
-		
+		function obtenerTitularesPlantilla(plantilla){
+			return plantilla.filter(function (jugador){ return jugador.seleccionado });
+		}
+
 
 		$scope.volverPaso = function(){
 			prepararPaso($scope.paso - 1);

@@ -29,6 +29,11 @@ class ApiPartidoJugadoresController extends Controller
         return $this->store($partidoJugador);
     }
 
+    public function obtenerJugadoresTitulares($partido_id)
+    {
+        return Partido::findOrfail($partido_id)->titulares->toJson();
+    }
+
     public function ingresarJugadoresTitulares(Request $request, $partido_id)
     {
         $titulares = [];
@@ -58,7 +63,7 @@ class ApiPartidoJugadoresController extends Controller
             }
         }
 
-        if (count($errors) != 0)
+        if (count($errors) > 0)
              return \Response::make($errors, 422);
 
         if (! $this->partidoJugador->insert($titulares))
@@ -68,7 +73,7 @@ class ApiPartidoJugadoresController extends Controller
         // $temp = Partido::findOrfail($partido_id)->titulares();
         // syslog(1, get_class($temp));
 
-        return Partido::findOrfail($partido_id)->titulares->toJson();
+        return $this->obtenerJugadoresTitulares($partido_id);
     }
 
     public function ingresarJugadorCambio(PartidoJugadorTitularRequest $request)

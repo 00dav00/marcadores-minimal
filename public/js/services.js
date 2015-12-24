@@ -208,7 +208,7 @@ torneoServices.factory('Titulares',
 		'$resource',
 		function($resource)	{
 			return	$resource(
-				"/api/partido/:partido/titulares",
+				"/api/partidos/:partido/titulares",
 				{partido: '@partido_id'},
 				{
 					bulk: 	{method:	'POST',	cache:	false,	isArray:	true },

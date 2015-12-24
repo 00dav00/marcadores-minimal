@@ -114,7 +114,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::delete('partidoJugadores/{partidoJugador}', 'ApiPartidoJugadoresController@destroy');
 	Route::post('partidoJugadores/cambio', 'ApiPartidoJugadoresController@ingresarJugadorCambio');
 	Route::post('partidoJugadores/titular', 'ApiPartidoJugadoresController@ingresarJugadorTitular');
-	Route::post('partido/{partidos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
+	Route::get('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@obtenerJugadoresTitulares');
+	Route::post('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
 
 	Route::resource('clientes', 'ApiClientesController');
 
