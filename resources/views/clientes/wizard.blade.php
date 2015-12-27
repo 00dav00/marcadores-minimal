@@ -43,8 +43,9 @@
 					
 					@include('clientes.partials._campos')
 
-					<div ng-switch on="main.productoSeleccionado.prd_nombre">
+					<div class="col-xs-8" ng-switch on="main.productoSeleccionado.prd_nombre">
 						<div ng-switch-when="tabla_posiciones">
+							@include('clientes.partials._tablas')
 						</div>
 					</div>
 

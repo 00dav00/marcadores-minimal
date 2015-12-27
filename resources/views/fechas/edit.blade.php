@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('stylesheets')
+
+<link href="{!! asset('/assets/css/vendor/selectize.css') !!}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
 <div class="row centered-form">
@@ -21,6 +27,15 @@
 		</div>
 	</div>
 </div>
+
+@endsection
+
+@section('scripts')
+
+<script src="{!! asset('/assets/js/vendor/selectize.min.js') !!}"></script>
+
+<script src="{!! asset('/assets/js/vendor/jquery-ui.min.js') !!}"></script>
+<script src="{!! asset('/assets/js/vendor/jquery-ui-timepicker-addon.min.js') !!}"></script>
 
 @include('partials.selectize', ['id' => '#fas_id', 'valueField' => 'fas_id', 'labelField' => 'fas_descripcion', 'url' => '/api/fases/consulta'])
 

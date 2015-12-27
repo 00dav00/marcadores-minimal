@@ -20,10 +20,14 @@ function mainController(
 	main.mostrarCampos = false;
 	main.spinneractive = false;
 
+	main.iframeWidth = 300;
+	main.iframeHeight = 600;
+
 	main.cargarTorneos = cargarTorneos;
 	main.cargarProductos = cargarProductos;
 	main.cargarCampos = cargarCampos;
 	main.saveColores = saveColores;
+	main.cargarTabla = cargarTabla;
 
 	cargarClientes();
 
@@ -81,20 +85,25 @@ function mainController(
 
 		switch (main.productoSeleccionado.prd_nombre) {
 			case 'tabla_posiciones':
-				Tablas.getTablas()
-					.query({ cliente_id: main.clienteSeleccionado.clt_id, torneo_id: main.torneoSeleccionado.tor_id })
-					.$promise.then(
-						function(data) {
-							main.tablas = data;
-							compareColours();
-							main.mostrarCampos = true;
-							usSpinnerService.stop('spinner-1');
-						}, function (error) {
-							exception.catcher(error);
-						}
-					);
+				cargarTabla();
 				break;
 		}
+	}
+
+	function cargarTabla()
+	{
+		Tablas.getTablas()
+			.query({ cliente_id: main.clienteSeleccionado.clt_id, torneo_id: main.torneoSeleccionado.tor_id })
+			.$promise.then(
+				function(data) {
+					main.tablas = data;
+					compareColours();
+					main.mostrarCampos = true;
+					usSpinnerService.stop('spinner-1');
+				}, function (error) {
+					exception.catcher(error);
+				}
+			);
 	}
 
 	function compareColours()

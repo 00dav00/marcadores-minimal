@@ -75,6 +75,8 @@
 @endsection
 
 @section('scripts')
+	<script src="{!! asset('/assets/js/vendor/jquery-ui.min.js') !!}"></script>
+	<script src="{!! asset('/assets/js/vendor/angular-dragdrop.min.js') !!}"></script>
 
 	<script src="{!! asset('/js/torneos/wizard/wizard.js') !!}"></script>
 	<script src="{!! asset('/js/torneos/wizard/wizard.config.js') !!}"></script>

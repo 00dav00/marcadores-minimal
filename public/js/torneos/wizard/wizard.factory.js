@@ -84,7 +84,7 @@ function wizardFactory($http) {
 
 	function penalizaciones(tor_id) {
 		if (tor_id) {
-			return $http.get("api/torneos/" + tor_id + "/penalizaciones");
+			return $http.get("/api/torneos/" + tor_id + "/penalizaciones");
 		}
 	}
 

@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('stylesheets')
+
+<link href="{!! asset('/assets/css/vendor/selectize.css') !!}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
 <div class="row centered-form">
@@ -21,6 +27,12 @@
 		</div>
 	</div>
 </div>
+
+@endsection
+
+@section('scripts')
+
+<script src="{!! asset('/assets/js/vendor/selectize.min.js') !!}"></script>
 
 @include('partials.selectize', ['id' => '#tfa_id', 'valueField' => 'tfa_id', 'labelField' => 'tfa_nombre', 'url' => '/api/tipo_fase/consulta'])
 

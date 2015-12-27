@@ -35,8 +35,6 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('estadios', 'EstadiosController');
 	
-	Route::resource('equipos_participantes', 'EquiposParticipantesController');
-
 	Route::resource('jugadores', 'JugadoresController');
 
 	Route::get('clientes/wizard', 'ClientesController@wizard');
@@ -44,8 +42,8 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('auspiciantes', 'AuspiciantesController');
 
-	Route::get('fechas/list', 'FechasController@listado');
-	Route::resource('fechas', 'FechasController');
+	// Route::get('fechas/list', 'FechasController@listado');
+	// Route::resource('fechas', 'FechasController');
 
 	Route::get('plantillas/config', 'PlantillasTorneoController@config');
 
