@@ -25,9 +25,9 @@ class TablasController extends Controller {
 	{
 	}
 
-	public function show($id)
+	public function show($cliente, $torneo)
 	{
-		return view('tablas.show', compact('id'));
+		return view('tablas.show', ['cliente' => $cliente, 'torneo' => $torneo]);
 	}
 
 	public function edit($id)

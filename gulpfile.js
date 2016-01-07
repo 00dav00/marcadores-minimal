@@ -1,6 +1,10 @@
 var gulp = require('gulp');
+
 var rename = require('gulp-rename');
+
 var elixir = require('laravel-elixir');
+
+require('laravel-elixir-sass-compass');
 
 /**
  * Directorio por defecto en donde se instalan los paquetes de bowe
@@ -147,5 +151,23 @@ elixir(function(mix) {
  	 * **************** combinar sass ****************
  	 */
 	mix.sass('principal.scss', 'public/assets/css/principal.css');
+
+	/**
+ 	 * **************** combinar compass ****************
+ 	 */
+	mix.compass("*", "foo/bar/baz", {
+	    require: ['susy'],
+	    config_file: "path/to/config.rb",
+	    style: "nested"
+	    sass: "resources/assets/scss",
+	    font: "public/fonts",
+	    image: "public/images",
+	    javascript: "public/js",
+	    sourcemap: true,
+	    comments: true,
+	    relative: true,
+	    http_path: false,
+	    generated_images_path: false
+	});
 
 })

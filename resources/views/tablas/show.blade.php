@@ -2,53 +2,59 @@
 
 @section('content')
 
-<div class="row">
-	<div class="col-xs-12 col-sm-8 col-md-8">
-		
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Torneo</h3>
-			</div>
-			<div class="panel-body row">
-				<table class="table text-center">
-					<thead >
-						<tr class="row">
-							<td class="col-xs-1 col-sm-1">&nbsp;</td>
-							<td class="col-xs-1 col-sm-1">&nbsp;</td>
-							<td class="col-xs-2 col-sm-2 hidden-sm hidden-xs">Equipo</td>
-							<td class="col-xs-4 col-sm-4 hidden-xs hidden-md hidden-lg">Equipo</td>
-							<td class="col-xs-2 col-sm-2 hidden-sm hidden-md hidden-lg">EQP</td>
-							<td class="col-xs-1 col-sm-1">PJ</td>
-							<td class="col-xs-1 col-sm-1 hidden-xs hidden-sm">PG</td>
-							<td class="col-xs-1 col-sm-1 hidden-xs hidden-sm">PE</td>
-							<td class="col-xs-1 col-sm-1 hidden-xs hidden-sm">PP</td>
-							<td class="col-xs-1 col-sm-1 hidden-xs hidden-sm">GF</td>
-							<td class="col-xs-1 col-sm-1 hidden-xs hidden-sm">GC</td>
-							<td class="col-xs-1 col-sm-1">GD</td>
-							<td class="col-xs-1 col-sm-1">Pts</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="row">
-							<td>1</td>
-							<td>&nbsp;</td>
-							<td class="hidden-xs">Liga Deportiva Universitaria</td>
-							<td class="hidden-sm hidden-md hidden-lg">LDU</td>
-							<td>PJ</td>
-							<td class="hidden-xs hidden-sm">PG</td>
-							<td class="hidden-xs hidden-sm">PE</td>
-							<td class="hidden-xs hidden-sm">PP</td>
-							<td class="hidden-xs hidden-sm">GF</td>
-							<td class="hidden-xs hidden-sm">GC</td>
-							<td>GD</td>
-							<td>Pts</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+<div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})">
 
-	</div>
-</div>
+	<span us-spinner="{lines:15, radius:15, width:5, length: 10, position:absolute, top:'50%', left:'50%'}" spinner-key="spinner-1"></span>
 
-@endsection
+	<header>
+		<h1>@{{ tbl.torneo.tor_nombre }}</h1>
+	</header>
+	<main>
+		<section>
+			<select ng-model="tbl.faseActual" ng-options="fase.fas_id as fase.fas_descripcion for fase in tbl.fases" ng-change="tbl.mostrarFasePosiciones()"></select>
+		</section>
+		<section>
+			<table>
+				<tr>
+					<th>Posición</th>
+					<th>Escudo</th>
+					<th>Equipo</th>
+					<th>PJ</th>
+					<th>PG</th>
+					<th>PE</th>
+					<th>PP</th>
+					<th>GF</th>
+					<th>GC</th>
+					<th>GD</th>
+					<th>Pts</th>
+				</tr>
+				<tr ng-repeat="equipo in tbl.equipos">
+					<td>@{{ $index + 1 }}</td>
+					<td><img ng-src="/@{{ equipo.escudo }}" alt="@{{ equipo.abreviatura }}" style="max-width:15px;max-height:15px;"/></td>
+					<td>@{{ equipo.nombre }}</td>
+					<td>@{{ equipo.partidos_jugados }}</td>
+					<td>@{{ equipo.partidos_ganados }}</td>
+					<td>@{{ equipo.partidos_empatados }}</td>
+					<td>@{{ equipo.partidos_perdidos }}</td>
+					<td>@{{ equipo.goles_favor }}</td>
+					<td>@{{ equipo.goles_contra }}</td>
+					<td>@{{ equipo.goles_diferencia }}</td>
+					<td>@{{ equipo.puntos }}</td>
+				</tr>
+			</table>
+		</section>
+		<footer>
+			<p>&copy; 2016 Dataprensa</p>
+		</footer>
+	</main>
+
+	@endsection
+
+	@section('scripts')
+
+	<script src="{!! asset('/assets/js/tablas/mostrar/app.js') !!}"></script>
+	<script src="{!! asset('/assets/js/tablas/mostrar/exception.js') !!}"></script>
+	<script src="{!! asset('/assets/js/tablas/mostrar/factory.js') !!}"></script>
+	<script src="{!! asset('/assets/js/tablas/mostrar/controller.js') !!}"></script>
+
+	@endsection

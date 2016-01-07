@@ -44,7 +44,7 @@ class ApiTablasController extends Controller
         return $this->_torneo->findOrFail($torneo_id);
     }
 
-    public function getFaseInfo($torneo_id)
+    public function getFasesInfo($torneo_id)
     {
         return $this->_fase->where('tor_id', '=', $torneo_id)->get();
     }
@@ -91,24 +91,33 @@ class ApiTablasController extends Controller
         $torneo = $this->getTorneoInfo($torneo_id);
 
         // obtener las fases
-        $fases = $this->getFaseInfo($torneo_id);
+        $fasesObj = $this->getFasesInfo($torneo_id);
 
         // obtener la informacion del cliente
         $cliente = $this->getClienteInfo($cliente_id);
         
+        $fases = [];
         $posiciones = [];
         $acumulada = 0;
         
-        foreach ($fases as $fase) {
+        foreach ($fasesObj as $fase) {
             $posiciones[$fase->fas_id] = $this->getTablaPosiciones($torneo_id, $fase->fas_id);
             if ($fase->fas_acumulada) {
                 $acumulada++;
             }
+            $fases[$fase->fas_id] = [
+                'fas_id' => $fase->fas_id,
+                'fas_descripcion' => $fase->fas_descripcion
+                ];
         }
 
         // tabla acumulada
         if ($acumulada > 1) {
             $posiciones['acumulada'] = $this->getTablaPosiciones($torneo_id, -1);
+            $fases['acumulada'] = [
+                'fas_id' => 'acumulada',
+                'fas_descripcion' => 'Acumulada'
+                ];
         }
 
         // unir los resultados

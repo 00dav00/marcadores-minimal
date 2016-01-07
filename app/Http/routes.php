@@ -151,5 +151,5 @@ Route::get('api/fechas/{fechas}/partidos', 'ApiFechasController@fechaPartidosReg
 
 Route::get('api/partidos/{fecha}','ApiPartidosController@showPartidosFecha');
 
-Route::get('tablas/{torneo_id}', 'TablasController@show');
-Route::get('tablas/{torneo_id}/{fase_id}', 'TablasController@show');
+Route::get('tablas/{cliente}/{torneo}', 'TablasController@show');
+//Route::get('tablas/{torneo_id}/{fase_id}', 'TablasController@show');
