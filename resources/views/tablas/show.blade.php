@@ -68,7 +68,7 @@
 
 		<div class="row container-fluid">
 			<div class="col-xs-1 col-sm-1"></div>
-			<div class="text-center col-xs-4 col-sm-4" ng-repeat="fase in tbl.fases"><a href="#" ng-click="tbl.cambiarFasePosiciones(fase.fas_id)">@{{ fase.fas_descripcion }}</a></div>
+			<div class="text-center col-xs-4 col-sm-4" ng-repeat="fase in tbl.fases"><a href="#" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</a></div>
 		</div>
 		<br>
 

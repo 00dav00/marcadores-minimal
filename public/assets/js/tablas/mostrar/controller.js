@@ -65,10 +65,10 @@ function tablasController(
 		tbl.equipos = tbl.posiciones[tbl.faseActual.fas_id];
 	}
 
-	function cambiarFasePosiciones(fas_id)
+	function cambiarFasePosiciones(fase)
 	{
-		console.log('asdasdasds');
-		tbl.equipos = tbl.posiciones[fas_id];
+		tbl.faseActual = fase;
+		tbl.equipos = tbl.posiciones[fase.fas_id];
 	}
 	
 }
