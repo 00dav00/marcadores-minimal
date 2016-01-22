@@ -4,6 +4,7 @@
     angular
         .module('tablasTorneo', [
         	'ngResource',
+        	'toaster'
         	])
         
 })();

@@ -1,0 +1,17 @@
+/* bootstrap */
+@import "bootstrap/bootstrap";
+
+/* compass */
+@import "compass";
+
+@import "utilities/settings";
+
+.container {
+	max-width: 480px;
+	background-color: $color-fondo;
+	padding: 5px;
+}
+
+th, td {
+	max-height: 20px;
+}

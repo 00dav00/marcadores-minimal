@@ -15,8 +15,7 @@
 
 	@yield('content')
 
-	<script src="{!! asset('/assets/js/principal.js') !!}"></script>
-	<script src="{!! asset('/assets/js/angular-scripts.js') !!}"></script>
+	<script src="{!! asset('/assets/js/tablas.js') !!}"></script>
 
 	@yield('scripts')
 

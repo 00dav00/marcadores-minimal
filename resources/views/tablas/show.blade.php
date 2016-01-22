@@ -1,51 +1,81 @@
 @extends('tablas')
 
+@section('stylesheets')
+
+<link href="{!! asset('/assets/css/tablas/style.css') !!}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
-<div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})">
+<div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container">
 
-	<span us-spinner="{lines:15, radius:15, width:5, length: 10, position:absolute, top:'50%', left:'50%'}" spinner-key="spinner-1"></span>
-
-	<header>
-		<h1>@{{ tbl.torneo.tor_nombre }}</h1>
+	<br>
+	<header class="row header">
+		<h4 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre }}</h4>
+		<p class="text-center col-xs-14 col-xs-offset-2 btn btn-default">@{{ tbl.faseActual.fas_descripcion }}</p>
 	</header>
+	
+	<br>
+
 	<main>
-		<section>
-			<select ng-model="tbl.faseActual" ng-options="fase.fas_id as fase.fas_descripcion for fase in tbl.fases" ng-change="tbl.mostrarFasePosiciones()"></select>
-		</section>
-		<section>
-			<table>
+		<section class="row posiciones">
+
+			<table class="table table-hover">
 				<tr>
-					<th>Posición</th>
-					<th>Escudo</th>
-					<th>Equipo</th>
-					<th>PJ</th>
-					<th>PG</th>
-					<th>PE</th>
-					<th>PP</th>
-					<th>GF</th>
-					<th>GC</th>
-					<th>GD</th>
-					<th>Pts</th>
+					<th class="col-sm-1"></th>
+					
+					<th class="col-sm-2"></th>
+					
+					<th class="col-sm-4">Equipo</th>
+					
+					<th class="col-sm-1">PJ</th>
+
+					<!--no se muestran cuando es sm-->
+					<th class="col-sm-1 hidden-xs">PG</th>
+					<th class="col-sm-1 hidden-xs">PE</th>
+					<th class="col-sm-1 hidden-xs">PP</th>
+					<th class="col-sm-1 hidden-xs">GF</th>
+					<th class="col-sm-1 hidden-xs">GC</th>
+
+					<th class="col-sm-1">GD</th>
+					
+					<th class="col-sm-1">Pts</th>
 				</tr>
 				<tr ng-repeat="equipo in tbl.equipos">
-					<td>@{{ $index + 1 }}</td>
-					<td><img ng-src="/@{{ equipo.escudo }}" alt="@{{ equipo.abreviatura }}" style="max-width:15px;max-height:15px;"/></td>
-					<td>@{{ equipo.nombre }}</td>
-					<td>@{{ equipo.partidos_jugados }}</td>
-					<td>@{{ equipo.partidos_ganados }}</td>
-					<td>@{{ equipo.partidos_empatados }}</td>
-					<td>@{{ equipo.partidos_perdidos }}</td>
-					<td>@{{ equipo.goles_favor }}</td>
-					<td>@{{ equipo.goles_contra }}</td>
-					<td>@{{ equipo.goles_diferencia }}</td>
-					<td>@{{ equipo.puntos }}</td>
+					<td class="col-sm-1">@{{ $index + 1 }}</td>
+					
+					<td class="col-sm-2 text-center"><img ng-src="/@{{ equipo.escudo }}" alt="@{{ equipo.abreviatura }}" style="max-width:20px;max-height:20px;"/></td>
+
+					<td class="col-sm-4">@{{ equipo.nombre_corto }}</td>
+					
+					<td class="col-sm-1">@{{ equipo.partidos_jugados }}</td>
+
+					<td class="col-sm-1 hidden-xs">@{{ equipo.partidos_ganados }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.partidos_empatados }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.partidos_perdidos }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.goles_favor }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.goles_contra }}</td>
+
+					<td class="col-sm-1">@{{ equipo.goles_diferencia }}</td>
+
+					<td class="col-sm-1">@{{ equipo.puntos }}</td>
+
 				</tr>
 			</table>
+			
 		</section>
-		<footer>
-			<p>&copy; 2016 Dataprensa</p>
+
+		<div class="row container-fluid">
+			<div class="col-xs-1 col-sm-1"></div>
+			<div class="text-center col-xs-4 col-sm-4" ng-repeat="fase in tbl.fases"><a href="#" ng-click="tbl.cambiarFasePosiciones(fase.fas_id)">@{{ fase.fas_descripcion }}</a></div>
+		</div>
+		<br>
+
+		<footer class="row">
+			<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
 		</footer>
+
 	</main>
 
 	@endsection

@@ -6,7 +6,6 @@
 		.controller('tablasController', tablasController);
 
 function tablasController(
-	usSpinnerService, 
 	toaster, 
 	exception,
 	Posiciones
@@ -20,13 +19,13 @@ function tablasController(
 	 */
 	tbl.init = init;
 	tbl.mostrarFasePosiciones = mostrarFasePosiciones;
+	tbl.cambiarFasePosiciones = cambiarFasePosiciones;
 
 	/**
 	 * Obtener los valores para mostrar
 	 */
 	function init(idTorneo, idCliente) 
 	{
-		usSpinnerService.spin('spinner-1');
 		Posiciones.getPosiciones()
 			.get({cliente: idCliente, torneo: idTorneo})
 				.$promise.then(
@@ -36,7 +35,6 @@ function tablasController(
 						obtenerInfoFases(data.fases);
 						tbl.posiciones = data.posiciones;
 						mostrarFasePosiciones();
-						usSpinnerService.stop('spinner-1');
 					}, function (error) {
 						exception.catcher(error);
 					}
@@ -56,7 +54,7 @@ function tablasController(
 			len++;
 		});
 		
-		tbl.faseActual = fases[len - 1].fas_id;
+		tbl.faseActual = fases[len - 1];
 	}
 
 	/**
@@ -64,7 +62,13 @@ function tablasController(
 	 */
 	function mostrarFasePosiciones()
 	{
-		tbl.equipos = tbl.posiciones[tbl.faseActual];
+		tbl.equipos = tbl.posiciones[tbl.faseActual.fas_id];
+	}
+
+	function cambiarFasePosiciones(fas_id)
+	{
+		console.log('asdasdasds');
+		tbl.equipos = tbl.posiciones[fas_id];
 	}
 	
 }

@@ -115,6 +115,15 @@ gulp.task("copyfiles", function() {
  	gulp.src(path + "angular-dragdrop/src/angular-dragdrop.min.js")
  		.pipe(gulp.dest("public/assets/js/vendor"));
 
+ 	/**
+ 	 * **************** bootstrap para tablas ****************
+ 	 */
+ 	gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 		.pipe(gulp.dest("resources/assets/sass/bootstrap"));
+
+ 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 		.pipe(gulp.dest("public/assets/fonts/bootstrap"));
+
 });
 
 // funciones principales de elixir
@@ -147,6 +156,16 @@ elixir(function(mix) {
 		'resources/assets'
 	);
 
+	mix.scripts([
+		'js/vendor/jquery.min.js',
+		'js/vendor/angular/angular.js',
+		'js/vendor/angular/angular-resource.min.js',
+		'js/vendor/angular/toaster.min.js'
+	],
+		'public/assets/js/tablas.js',
+		'resources/assets'
+	);
+
 	/**
  	 * **************** combinar sass ****************
  	 */
@@ -155,19 +174,25 @@ elixir(function(mix) {
 	/**
  	 * **************** combinar compass ****************
  	 */
-	mix.compass("*", "foo/bar/baz", {
-	    require: ['susy'],
-	    config_file: "path/to/config.rb",
-	    style: "nested"
-	    sass: "resources/assets/scss",
-	    font: "public/fonts",
-	    image: "public/images",
-	    javascript: "public/js",
-	    sourcemap: true,
-	    comments: true,
-	    relative: true,
-	    http_path: false,
-	    generated_images_path: false
+	// mix.compass("*", "foo/bar/baz", {
+	//     require: ['susy'],
+	//     config_file: "path/to/config.rb",
+	//     style: "nested"
+	//     sass: "resources/assets/scss",
+	//     font: "public/fonts",
+	//     image: "public/images",
+	//     javascript: "public/js",
+	//     sourcemap: true,
+	//     comments: true,
+	//     relative: true,
+	//     http_path: false,
+	//     generated_images_path: false
+	// });
+	// 
+	mix.compass('tablas/style.scss', 'public/assets/css/', {
+		require: ['susy'],
+	    style: "nested",
+	    sass: "resources/assets/sass"
 	});
 
 })
