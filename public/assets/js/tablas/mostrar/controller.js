@@ -68,6 +68,7 @@ function tablasController(
 	function cambiarFasePosiciones(fase)
 	{
 		tbl.faseActual = fase;
+		
 		tbl.equipos = tbl.posiciones[fase.fas_id];
 	}
 	
