@@ -13,7 +13,7 @@
 	<br>
 	<header class="row header">
 		<h4 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre }}</h4>
-		<p class="text-center col-xs-14 col-xs-offset-2 btn btn-default">@{{ tbl.faseActual.fas_descripcion }}</p>
+		<p class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.faseActual.fas_descripcion }}</p>
 	</header>
 	
 	<br>
@@ -67,7 +67,6 @@
 		</section>
 
 		<div class="row container-fluid">
-			<div class="col-xs-1 col-sm-1"></div>
 			<div class="text-center col-xs-4 col-sm-4" ng-repeat="fase in tbl.fases"><a href="#" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</a></div>
 		</div>
 		<br>

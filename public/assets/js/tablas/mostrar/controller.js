@@ -49,12 +49,14 @@ function tablasController(
 	{
 		tbl.fases = fases;
 
-		var len = 0;
+		var idFaseActual;
 		angular.forEach(fases, function(valor, campo) {
-			len++;
+			if (campo != 'acumulada') {
+				idFaseActual = campo;
+			}
 		});
-		
-		tbl.faseActual = fases[len - 1];
+
+		tbl.faseActual = fases[idFaseActual];
 	}
 
 	/**

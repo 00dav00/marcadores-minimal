@@ -119,10 +119,10 @@ gulp.task("copyfiles", function() {
  	 * **************** bootstrap para tablas ****************
  	 */
  	gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
- 		.pipe(gulp.dest("resources/assets/sass/bootstrap"));
+ 		.pipe(gulp.dest("resources/assets/sass/tablas/bootstrap"));
 
  	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
- 		.pipe(gulp.dest("public/assets/fonts/bootstrap"));
+ 		.pipe(gulp.dest("public/assets/fonts/tablas/bootstrap"));
 
 });
 
