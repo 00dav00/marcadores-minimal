@@ -119,7 +119,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 	Route::resource('productos', 'ApiProductosController');
 	
-	Route::resource('personalizacion_campos', 'ApiPersonalizacionValoresController@getCampos');
+	Route::get('personalizacion_campos', 'ApiPersonalizacionValoresController@getCampos');
+	Route::post('personalizacion_campos', 'ApiPersonalizacionValoresController@savePersonalizacionValores');
+
 });
 
 // Rutas para consultar los datos REST sin autenticacion

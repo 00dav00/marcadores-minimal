@@ -30,7 +30,7 @@ function tablasController(
 			.get({cliente: idCliente, torneo: idTorneo})
 				.$promise.then(
 					function(data) {
-						tbl.cliente = data.cliente;
+						obtenerInfoCliente(data.cliente);
 						tbl.torneo = data.torneo;
 						obtenerInfoFases(data.fases);
 						tbl.posiciones = data.posiciones;
@@ -39,6 +39,16 @@ function tablasController(
 						exception.catcher(error);
 					}
 			);
+	}
+
+	function obtenerInfoCliente(cliente)
+	{
+		tbl.cliente = cliente;
+		
+		tbl.containerStyle = {
+			"background-color": cliente.personalizacion[0].pva_valor,
+			"color": cliente.personalizacion[4].pva_valor
+		};
 	}
 
 	/**

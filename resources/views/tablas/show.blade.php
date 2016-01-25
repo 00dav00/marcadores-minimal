@@ -8,10 +8,10 @@
 
 @section('content')
 
-<div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container">
+<div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container" ng-style="tbl.containerStyle">
 
 	<br>
-	<header class="row header">
+	<header class="row titulo">
 		<h4 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre }}</h4>
 		<p class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.faseActual.fas_descripcion }}</p>
 	</header>
@@ -22,7 +22,7 @@
 		<section class="row posiciones">
 
 			<table class="table table-hover">
-				<tr>
+				<tr class="header-tabla">
 					<th class="col-sm-1"></th>
 					
 					<th class="col-sm-2"></th>
@@ -63,12 +63,14 @@
 
 				</tr>
 			</table>
-			
+
+		<div class="row text-center">
+			<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
+				<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</button>
+			</div>
+		</div>
 		</section>
 
-		<div class="row container-fluid">
-			<div class="text-center col-xs-4 col-sm-4" ng-repeat="fase in tbl.fases"><a href="#" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</a></div>
-		</div>
 		<br>
 
 		<footer class="row">

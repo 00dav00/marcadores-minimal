@@ -20,8 +20,8 @@ function mainController(
 	main.mostrarCampos = false;
 	main.spinneractive = false;
 
-	main.iframeWidth = 300;
-	main.iframeHeight = 600;
+	main.iframeWidth = 500;
+	main.iframeHeight = 700;
 
 	main.cargarTorneos = cargarTorneos;
 	main.cargarProductos = cargarProductos;
@@ -119,7 +119,18 @@ function mainController(
 
 	function saveColores()
 	{
-		console.log(main.campos);
+		var parameters;
+		var cliente = angular.copy(main.clienteSeleccionado);
+
+		delete cliente.$resolved;
+		delete cliente.$promise;
+
+		parameters = {
+			cliente: cliente,
+			campos: main.campos
+		};
+
+		Campos.getCampos().save(parameters);
 	}
 
 }

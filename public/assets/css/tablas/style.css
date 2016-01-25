@@ -7654,9 +7654,24 @@ button.close {
 /* line 9, ../../../../resources/assets/sass/tablas/style.scss */
 .container {
   max-width: 480px;
+  padding: 5px;
   background-color: #FFFFFF;
-  padding: 5px; }
+  color: #000000; }
 
-/* line 15, ../../../../resources/assets/sass/tablas/style.scss */
+/* line 18, ../../../../resources/assets/sass/tablas/style.scss */
 th, td {
   max-height: 20px; }
+
+/* line 22, ../../../../resources/assets/sass/tablas/style.scss */
+.titulo {
+  color: #000000; }
+
+/* line 27, ../../../../resources/assets/sass/tablas/style.scss */
+.header-tabla {
+  background-color: #FFFFFF;
+  color: #000000; }
+
+/* line 32, ../../../../resources/assets/sass/tablas/style.scss */
+.botones {
+  background-color: #FFFFFF;
+  color: #000000; }
