@@ -78,6 +78,7 @@ function mainController(
 		Campos.getCampos().query().$promise.then(
 			function(data) {
 				main.campos = data;
+				main.url = "/tablas/" + main.clienteSeleccionado.clt_id + "/" + main.torneoSeleccionado.tor_id;
 			}, function (error) {
 				exception.catcher(error);
 			}
@@ -99,6 +100,7 @@ function mainController(
 					main.tablas = data;
 					compareColours();
 					main.mostrarCampos = true;
+					main.url = "/tablas/" + main.clienteSeleccionado.clt_id + "/" + main.torneoSeleccionado.tor_id;
 					usSpinnerService.stop('spinner-1');
 				}, function (error) {
 					exception.catcher(error);

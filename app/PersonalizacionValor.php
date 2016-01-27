@@ -36,19 +36,19 @@ class PersonalizacionValor extends Model
 			'valor_default' => '#000000'
 		],
 		[
-			'id' => 4,
+			'id' => 5,
 			'nombre' => 'color_texto_body',
 			'descripcion' => 'Color del texto',
 			'valor_default' => '#000000'
 		],	
 		[
-			'id' => 5,
+			'id' => 6,
 			'nombre' => 'color_boton',
 			'descripcion' => 'Color de los botones',
 			'valor_default' => '#FFFFFF'
 		],
 		[
-			'id' => 6,
+			'id' => 7,
 			'nombre' => 'color_texto_boton',
 			'descripcion' => 'Color de texto de los botones',
 			'valor_default' => '#000000'

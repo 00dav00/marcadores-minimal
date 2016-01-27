@@ -11,7 +11,7 @@
 <div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container" ng-style="tbl.containerStyle">
 
 	<br>
-	<header class="row titulo">
+	<header class="row titulo" ng-style="tbl.headerStyle">
 		<h4 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre }}</h4>
 		<p class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.faseActual.fas_descripcion }}</p>
 	</header>
@@ -22,7 +22,7 @@
 		<section class="row posiciones">
 
 			<table class="table table-hover">
-				<tr class="header-tabla">
+				<tr class="header-tabla" ng-style="tbl.headerTablaStyle">
 					<th class="col-sm-1"></th>
 					
 					<th class="col-sm-2"></th>
@@ -66,7 +66,7 @@
 
 		<div class="row text-center">
 			<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
-				<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</button>
+				<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)" ng-style="tbl.botonesStyle">@{{ fase.fas_descripcion }}</button>
 			</div>
 		</div>
 		</section>

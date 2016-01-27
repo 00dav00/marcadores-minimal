@@ -63,6 +63,6 @@ class ApiPersonalizacionValoresController extends Controller
         // insertar los valores de personalizacion
         DB::table('personalizacion_valores')->insert($valores);
 
-        return response()->json($valores);
+        return response()->json(['result' => TRUE]);
     }
 }

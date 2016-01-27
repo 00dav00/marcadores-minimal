@@ -63,16 +63,16 @@
 
 @section('scripts')
 
-	<script src="{!! asset('/js/clientes/wizard/wizard.js') !!}"></script>
-	<script src="{!! asset('/js/clientes/wizard/config.js') !!}"></script>
-	<script src="{!! asset('/js/clientes/wizard/exceptionHandler.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/wizard.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/config.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/exceptionHandler.js') !!}"></script>
 
-	<script src="{!! asset('/js/clientes/wizard/controllers/mainController.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/controllers/mainController.js') !!}"></script>
 
-	<script src="{!! asset('/js/clientes/wizard/factories/clientesFactory.js') !!}"></script>
-	<script src="{!! asset('/js/clientes/wizard/factories/productosFactory.js') !!}"></script>
-	<script src="{!! asset('/js/clientes/wizard/factories/camposFactory.js') !!}"></script>
-	<script src="{!! asset('/js/clientes/wizard/factories/torneosFactory.js') !!}"></script>
-	<script src="{!! asset('/js/clientes/wizard/factories/tablasFactory.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/factories/clientesFactory.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/factories/productosFactory.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/factories/camposFactory.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/factories/torneosFactory.js') !!}"></script>
+<script src="{!! asset('/js/clientes/wizard/factories/tablasFactory.js') !!}"></script>
 
 @endsection

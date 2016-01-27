@@ -13,9 +13,25 @@
 	</div>
 
 	<br>
+
+	<div class="row">
+		<div class="form-group">
+			<input type="text" class="form-control" value="https://marcadores.dataprensa.com<%main.url%>" style="width:450px;">
+			<button class="btn btn-default" onclick="refrescar()">Refrescar</button>
+		</div>
+	</div>
+
+	<br>
 	
 	<div class="row">
-		<iframe id="iframe" ng-src="/tablas/1/1" sandbox="allow-same-origin allow-scripts" width="<%main.iframeWidth%>px" height="<%main.iframeHeight%>px"></iframe>
+		<iframe id="iframeTablas" src="<%main.url%>" sandbox="allow-same-origin allow-scripts" width="<%main.iframeWidth%>px" height="<%main.iframeHeight%>px"></iframe>
 	</div>
+
+	<script>
+		function refrescar()
+		{
+			$('#iframeTablas')[0].contentWindow.location.reload(true);
+		}
+	</script>
 
 </div>
