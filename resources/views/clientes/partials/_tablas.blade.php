@@ -16,7 +16,7 @@
 
 	<div class="row">
 		<div class="form-group">
-			<input type="text" class="form-control" value="https://marcadores.dataprensa.com<%main.url%>" style="width:450px;">
+			<input type="text" class="form-control" style="width:450px;" value="<iframe src='https://marcadores.dataprensa.com<%main.url%>' sandbox='allow-same-origin allow-scripts' width='<%main.iframeWidth%>px' height='<%main.iframeHeight%>px'></iframe>">
 			<button class="btn btn-default" onclick="refrescar()">Refrescar</button>
 		</div>
 	</div>
