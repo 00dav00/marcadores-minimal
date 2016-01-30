@@ -19,18 +19,20 @@ class Partido extends Model {
 		'par_fecha',
 		'par_hora',
 		'par_cronica',
+		'par_goles_local',
+		'par_goles_visitante',
 		// par_arbitro_central
 		// par_linea1
 		// par_linea2
 		// par_cuarto_arbitro
 	];
 
-	public function getParHoraAttribute($value)
-    {
-    	// return date("H:i p", strtotime("10:20:00"));
-    	return Carbon::createFromFormat('h:i:s', $value)->format('h:i');
-        // return Carbon::createFromFormat('HH:mm', $value);
-    }
+	// public function getParHoraAttribute($value)
+ //    {
+ //    	// return date("H:i p", strtotime("10:20:00"));
+ //    	return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
+ //        // return Carbon::createFromFormat('HH:mm', $value);
+ //    }
 
 	public function fecha()
 	{
@@ -50,5 +52,12 @@ class Partido extends Model {
 	public function estadio()
 	{
 		return $this->belongsTo('App\Estadio','est_id','est_id');
+	}
+
+	public function titulares()
+	{
+		return $this->belongsToMany('App\Jugador','partido_jugadores','par_id','jug_id')
+					->withPivot('pju_id','pju_amarilla','pju_doble_amarilla','pju_roja','pju_minuto_ingreso')
+					->where('pju_minuto_ingreso',0);
 	}
 }

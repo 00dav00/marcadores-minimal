@@ -13,7 +13,12 @@
 				@include('partials.validation_errors')
 
 				{!! Form::model($jugador, ['method' => 'PATCH', 'route' => ['jugadores.update', $jugador->jug_id], 'files' => true]) !!}
-					@include('jugadores.partials._form', ['lug_id' => $jugador->nacionalidad->lug_id, 'lug_nombre' => $jugador->nacionalidad->lug_nombre])
+					@include('jugadores.partials._form', 
+						[
+							'lug_id' => isset($jugador->nacionalidad->lug_id) ? $jugador->nacionalidad->lug_id : null, 
+							'lug_nombre' => isset($jugador->nacionalidad->lug_nombre) ? $jugador->nacionalidad->lug_nombre : null,
+						]
+					)
 					{!! Form::submit('Editar', array('class'=>'btn btn-info btn-block')) !!}
 				{!! Form::close() !!}
 				
@@ -44,7 +49,7 @@ $(function() {
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: '/lugares/consulta/pais',
+				url: '/api/lugares/consulta/pais',
 				type: 'GET',
 				dataType: 'json',
 				data: {

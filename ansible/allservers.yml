@@ -1,0 +1,9 @@
+[allservers]
+192.168.1.134
+marcadores.juanelojga.com
+
+[production]
+marcadores.juanelojga.com
+
+[staging]
+192.168.1.134

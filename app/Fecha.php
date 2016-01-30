@@ -17,8 +17,8 @@ class Fecha extends Model {
 	protected $fillable = [
 		'fas_id',
 		'fec_numero',
-		'fec_fecha_referencia',
-		];
+		'fec_estado'
+	];
 
 	/**
 	 * Columna primary key
@@ -45,7 +45,17 @@ class Fecha extends Model {
 	public function partidosConteo()
 	{
 	  	return $this->partidos()//->count();
-			    	->selectRaw('par_id, count(*) as contador')
-			    	->groupBy('par_id');
+			    	->selectRaw('fec_id, count(*) as contador')
+			    	->groupBy('fec_id');
+	}
+
+	public function equipoLocal()
+	{
+		return $this->belongsTo('App\Equipo','par_eqp_local','eqp_id');
+	}
+
+	public function equipoVisitante()
+	{
+		return $this->belongsTo('App\Equipo','par_eqp_visitante','eqp_id');
 	}
 }

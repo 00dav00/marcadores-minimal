@@ -13,11 +13,17 @@
 					{!! HTML::image(
 						$equipo->eqp_escudo, 
 						$equipo->eqp_nombre, 
-						array('class'=>'feature', 'width'=>'200', 'height'=>'300')
+						array('class'=>'feature', 'width'=>'200', 'height'=>'200')
 					) !!}
 				</div>
 				<div class="form-group">
 					<p><mark>Nombre:</mark> {!! $equipo->eqp_nombre !!}</p>
+				</div>
+				<div class="form-group">
+					<p><mark>Nombre corto:</mark> {!! $equipo->eqp_nombre_corto !!}</p>
+				</div>
+				<div class="form-group">
+					<p><mark>Abreviatura:</mark> {!! $equipo->eqp_abreviatura !!}</p>
 				</div>
 				<div class="form-group">
 					<p><mark>Fecha de fundación:</mark> {!! $equipo->eqp_fecha_fundacion !!}</p>

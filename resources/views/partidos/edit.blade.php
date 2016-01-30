@@ -54,33 +54,10 @@
 	</div>
 </div>
 
+@include('partials.selectize', ['id' => '#est_id', 'valueField' => 'est_id', 'labelField' => 'est_nombre', 'url' => '/api/estadios/consulta'])
+
 <script type="text/javascript">
 $(function() {
-
-	$('#est_id').selectize({
-		valueField: 'est_id',
-		labelField: 'est_nombre',
-		searchField: ['est_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.est_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/estadios/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
 
 	$( "#par_fecha" ).datepicker({
 		changeMonth: true,

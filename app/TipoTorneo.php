@@ -17,7 +17,7 @@ class TipoTorneo extends Model {
 	protected $fillable = [
 		'ttr_nombre',
 		'ttr_descripcion',
-		];
+	];
 
 	/**
 	 * Columna primary key

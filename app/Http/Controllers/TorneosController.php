@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Flash;
 
 use Illuminate\Http\Request;
 
@@ -11,156 +12,71 @@ use App\Http\Requests\TorneoRequest;
 
 class TorneosController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	protected $_torneo;
+
+	public function __construct(Torneo $torneo)
+	{
+		$this->_torneo = $torneo;
+	}
+
 	public function index(Request $request)
 	{
 		$keyword = $request->get('keyword');
-
 		$column = $request->get('column');
-		
-		$torneos = Torneo::search($keyword, $column);
 
-		$searchFields = Torneo::getSearchFields();
+		$torneos = $this->_torneo->search($keyword, $column, ['tipoTorneo', 'equiposParticipantes']);
+        $searchFields = $this->_torneo->searchFields;
 
 		if (!empty($keyword)) {
-			flash()->info("Resultados de la búsqueda: $keyword");
+			Flash::info("Resultados de la búsqueda: $keyword");
 		}
 
 		return view('torneos.index', compact('torneos', 'keyword', 'column', 'searchFields'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		return view('torneos.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
 	public function store(TorneoRequest $request)
 	{
-		Torneo::create($request->all());
-
-		flash()->success('Torneo creado exitosamente');
-		
+		$this->_torneo->create($request->all());
+		Flash::success('Torneo creado exitosamente');
 		return redirect('torneos');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function show($id)
 	{
-		$torneo = Torneo::findOrFail($id);
-
+		$torneo = $this->_torneo->with('tipoTorneo')->findOrFail($id);
 		return view('torneos.show', compact('torneo'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id)
 	{
-		$torneo = Torneo::findOrFail($id);
-
+		$torneo = $this->_torneo->with('tipoTorneo')->findOrFail($id);
 		return view('torneos.edit', compact('torneo'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($id, TorneoRequest $request)
 	{
-		$torneo = Torneo::findOrFail($id);
-
+		$torneo = $this->_torneo->findOrFail($id);
 		$torneo->update($request->all());
-
-		flash()->success('Torneo editado correctamente');
-
+		Flash::success('Torneo actualizado exitosamente');
 		return redirect('torneos');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($id)
 	{
-		$torneo = Torneo::findOrFail($id);
+		$torneo = $this->_torneo->findOrFail($id);
 
 		if ($torneo) {
 			$torneo->delete();
-
-			flash()->warning('Torneo borrado exitosamente');
-
+			Flash::warning('Torneo borrado exitosamente');
 			return redirect('torneos');
 		}
 
 		return redirect('torneos')->with('message', 'Torneo no encontrado');
-	}
-
-	public function consulta(Request $request)
-	{
-		$keyword = $request->get('nombre');
-
-		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
-		}
-
-
-		$resultados = Torneo::where('tor_nombre', 'LIKE', '%' . $keyword . '%')
-							->orderBy('tor_nombre')
-							->take(3)
-							->get(['tor_id', 'tor_nombre']);
-
-
-		return response()->json(['data' => $resultados]);
-
-	}
-
-	public function equiposParticipantes($id)
-	{
-		$torneo = Torneo::findOrFail($id);
-		return $torneo->equiposParticipantes->toJson();
-	}
-
-	// public function jugadoresEquipoParticipante($id_torneo, $id_equipo)
-	// {
-	// 	$torneo = Torneo::findOrFail($id_torneo);
-	// 	return $torneo->plantillas
-	// 					->where('pivot.eqp_id', intval($id_equipo))
-	// 					->unique();
-	// }
-
-	public function fasesRegistradas($id_torneo)
-	{
-		$torneo = Torneo::findOrFail($id_torneo);
-		return $torneo->fases
-						// ->with('tipoFase')
-						// ->orderBy('fas_id')
-						->toJson();
 	}
 
 	public function wizard()
@@ -168,12 +84,9 @@ class TorneosController extends Controller {
 		return view('torneos.wizard');
 	}
 
-	public function apiShow($id)
+	public function config()
 	{
-		$torneo = Torneo::findOrFail($id)
-							->with('tipoTorneo')
-							->where('tor_id',$id)
-							->first();
-		return $torneo->toJson();
+		return view('torneos.config');
 	}
+
 }

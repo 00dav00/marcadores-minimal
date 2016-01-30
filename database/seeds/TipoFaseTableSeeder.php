@@ -13,23 +13,8 @@ class TipoFaseTableSeeder extends Seeder {
 		if (!count(TipoFase::all())){
 
 			TipoFase::create([
-				'tfa_nombre' => 'Primera Etapa',
-				'tfa_descripcion' => 'Primera etapa de un torneo',
-			]);
-
-			TipoFase::create([
-				'tfa_nombre' => 'Segunda Etapa',
-				'tfa_descripcion' => 'Segunda etapa de un torneo',
-			]);
-
-			TipoFase::create([
-				'tfa_nombre' => 'Tercera Etapa',
-				'tfa_descripcion' => 'Tercera Etapa de un Torneo',
-			]);
-
-			TipoFase::create([
-				'tfa_nombre' => 'Cuarta Etapa',
-				'tfa_descripcion' => 'Cuarta Etapa de un torneo',
+				'tfa_nombre' => 'Todos contra todos',
+				'tfa_descripcion' => 'Todos contra todos',
 			]);
 
 			TipoFase::create([

@@ -36,6 +36,9 @@ class CreatePartidosTable extends Migration {
 
 			$table->date('par_fecha')->nullable();
 			$table->time('par_hora')->nullable();
+			$table->integer('par_goles_local')->nullable();
+			$table->integer('par_goles_visitante')->nullable();
+
 			$table->string('par_cronica', 200)->nullable();
 
 		});

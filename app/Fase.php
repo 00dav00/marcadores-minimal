@@ -18,6 +18,7 @@ class Fase extends Model {
 		'tfa_id',
 		'fas_descripcion',
 		'tor_id',
+		'fas_acumulada',
 		];
 
 	/**
@@ -53,5 +54,10 @@ class Fase extends Model {
 	  	return $this->fechas()//->count();
 			    	->selectRaw('fas_id, count(*) as contador')
 			    	->groupBy('fas_id');
+	}
+
+	public function penalizaciones()
+	{
+		return $this->hasMany('App\PenalizacionTorneo','fas_id','fas_id');
 	}
 }

@@ -4,11 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Libraries\SearchTrait;
 use App\Libraries\MetaDataTrait;
-
+use App\Libraries\ImageTrait;
 
 class Estadio extends Model {
 
-	use SearchTrait, MetaDataTrait;
+	use SearchTrait, MetaDataTrait, ImageTrait;
 
 	protected $table = 'estadios';
 
@@ -20,17 +20,12 @@ class Estadio extends Model {
 		'lug_id',
 	];
 
-	protected $searchArray = [
-		'columns' => [
-				'est_nombre' => 'Nombre',
-				'est_fecha_inauguracion' => 'Fecha de inauguración',
-			],
-		'joins' => [
-				'ubicacion',
-			],
-	];
-
 	protected $primaryKey = 'est_id';
+
+	protected $searchFields = [
+		'est_nombre' => 'Nombre', 
+		'est_fecha_inauguracion' => 'Fecha de inauguración'
+	];
 
 	/**
 	 * path donde se guardan las imagenes
@@ -45,6 +40,15 @@ class Estadio extends Model {
 	protected $nameColumn = 'est_nombre';
 
 	public $timestamps = false;
+
+	/**
+	 * Define el tamaño de las imagenes
+	 */
+	public function __construct(array $attributes = array())
+	{
+	 	parent::__construct($attributes);
+		$this->_setImageSize(300, 200);
+	}
 
 	public function ubicacion()
 	{

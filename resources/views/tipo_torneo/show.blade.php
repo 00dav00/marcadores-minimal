@@ -10,22 +10,22 @@
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
-					<p><mark>Nombre:</mark> {!! $torneo->ttr_nombre !!}</p>
+					<p><mark>Nombre:</mark> {!! $tipo_torneo->ttr_nombre !!}</p>
 				</div>
 				<div class="form-group">
-					<p><mark>Descripción:</mark> {!! $torneo->ttr_descripcion !!}</p>
+					<p><mark>Descripción:</mark> {!! $tipo_torneo->ttr_descripcion !!}</p>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group text-center">
-							{!! Form::open(array('route' => array('tipo_torneo.edit', $torneo->ttr_id), 'method' => 'GET')) !!}
+							{!! Form::open(array('route' => array('tipo_torneo.edit', $tipo_torneo->ttr_id), 'method' => 'GET')) !!}
 							{!! Form::submit('Editar', array('class' => 'btn btn-primary')) !!}
 							{!! Form::close() !!}
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group text-center">
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmation" >Delete</button>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmation" >Borrar</button>
 						</div>
 					</div>
 				</div>
@@ -43,7 +43,7 @@
 
 			</div>
 			<div class="modal-body">
-				{!! Form::open(array('route' => array('tipo_torneo.destroy', $torneo->ttr_id), 'method' => 'delete', 'class' => 'destroy')) !!}
+				{!! Form::open(array('route' => array('tipo_torneo.destroy', $tipo_torneo->ttr_id), 'method' => 'delete', 'class' => 'destroy')) !!}
 				{!! Form::submit('Si', array('class' => 'btn btn-success btn-sm')) !!}
 				<button type="submit" class="btn btn-danger btn-sm" data-dismiss="modal">No</button>
 				{!! Form::close() !!}

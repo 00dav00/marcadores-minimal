@@ -16,7 +16,7 @@
 					<p><mark>Número:</mark> {!! $fecha->fec_numero !!}</p>
 				</div>
 				<div class="form-group">
-					<p><mark>Fecha:</mark> {!! $fecha->fec_fecha_referencia !!}</p>
+					<p><mark>Estado:</mark> {!! $fecha->fec_estado !!}</p>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">

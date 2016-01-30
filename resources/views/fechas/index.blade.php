@@ -14,7 +14,7 @@
 			<tr>
 				<th class="text-center tb-titulo">Fase</th>
 				<th class="text-center tb-titulo">Número</th>
-				<th class="text-center tb-titulo">Fecha de referencia</th>
+				<th class="text-center tb-titulo">Estado</th>
 				<th class="text-center tb-titulo"></th>
 				<th class="text-center tb-titulo"></th>
 			</tr>
@@ -24,7 +24,7 @@
 			<tr>
 				<td class="text-center">{!! $fecha->fase->fas_descripcion !!}</td>
 				<td class="text-center">{!! $fecha->fec_numero !!}</td>
-				<td class="text-center">{!! $fecha->fec_fecha_referencia !!}</td>
+				<td class="text-center">{!! $fecha->fec_estado !!}</td>
 				<td class="text-center">{!! link_to_route('fechas.show', 'Detalles', [$fecha->fec_id]) !!}</td>
 				<td class="text-center">
 					{!! link_to_action('PartidoController@index','Partidos',[$fecha->fec_id, ]) !!}

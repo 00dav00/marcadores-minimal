@@ -7,26 +7,36 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Marcadores en Vivo</a>
+			<a class="navbar-brand" href="#">Dataprensa</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="{{ url('lugares') }}">Lugares</a></li>
+				<li><a href="{{ url('estadios') }}">Estadios</a></li>
 				<li><a href="{{ url('equipos') }}">Equipos</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Torneos <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="{{ url('tipo_torneo') }}">Tipo de torneo</a></li>
 						<li><a href="{{ url('torneos') }}">Torneos</a></li>
-						<li><a href="{{ url('torneos/wizard') }}">Wizard Torneos</a></li>
+						<li><a href="{{ url('torneos/config') }}">Wizard Torneos</a></li>
 						<li><a href="{{ url('tipo_fase') }}">Tipo de fase</a></li>
 						<li><a href="{{ url('fases') }}">Fases</a></li>
-						<li><a href="{{ url('equipos_participantes') }}">Equipos Participantes</a></li>
+						<li><a href="{{ url('plantillas/config') }}">Configuración Plantillas</a></li>
+						<li><a href="{{ url('partidos/wizard') }}">Wizard Partidos</a></li>
 						<li><a href="{{ url('fechas') }}">Fechas</a></li>
+						<li><a href="{{ url('tablas') }}">Tablas de posición</a></li>
 					</ul>
 				</li>
-				<li><a href="{{ url('estadios') }}">Estadios</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clientes <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ url('clientes') }}">Lista de clientes</a></li>
+						<li><a href="{{ url('auspiciantes') }}">Lista de auspiciantes</a></li>
+						<li><a href="{{ url('clientes/wizard') }}">Wizard de Clientes</a></li>
+					</ul>
+				</li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">

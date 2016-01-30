@@ -26,7 +26,9 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	// 'default' => 'mysql',
+	//'default' => 'mysql_testing',
+	'default' => env('DB_DRIVER', 'mysql'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -58,6 +60,19 @@ return [
 			'database'  => env('DB_DATABASE', 'forge'),
 			'username'  => env('DB_USERNAME', 'forge'),
 			'password'  => env('DB_PASSWORD', ''),
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+			'strict'    => false,
+		],
+
+		'mysql_testing' => [
+			'driver'    => 'mysql',
+			'engine' 	=> 'MEMORY',
+			'host'      => env('TESTING_DB_HOST', 'localhost'),
+			'database'  => env('TESTING_DB_DATABASE', 'forge'),
+			'username'  => env('TESTING_DB_USERNAME', 'forge'),
+			'password'  => env('TESTING_DB_PASSWORD', ''),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

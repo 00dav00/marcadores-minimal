@@ -1,5 +1,13 @@
 @extends('app')
 
+@section('stylesheets')
+
+<link href="{!! asset('/assets/css/vendor/selectize.css') !!}" rel="stylesheet">
+<link href="{!! asset('/assets/css/vendor/jquery-ui/all.css') !!}" rel="stylesheet">
+<link href="{!! asset('/assets/css/vendor/jquery-ui-timepicker-addon.min.css') !!}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
 <div class="row centered-form">
@@ -22,6 +30,19 @@
 	</div>
 </div>
 
+@endsection
+
+@section('scripts')
+
+<script src="{!! asset('/assets/js/vendor/selectize.min.js') !!}"></script>
+
+<script src="{!! asset('/assets/js/vendor/jquery-ui.min.js') !!}"></script>
+<script src="{!! asset('/assets/js/vendor/jquery-ui-timepicker-addon.min.js') !!}"></script>
+
+@include('partials.selectize', ['id' => '#ttr_id', 'valueField' => 'ttr_id', 'labelField' => 'ttr_nombre', 'url' => '/api/tipo_torneo/consulta'])
+
+@include('partials.selectize', ['id' => '#lug_id', 'valueField' => 'lug_id', 'labelField' => 'lug_nombre', 'url' => '/api/lugares/consulta/all'])
+
 <script type="text/javascript">
 $(function() {
 	
@@ -35,56 +56,6 @@ $(function() {
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: "yy-mm-dd"
-	});
-
-	$('#ttr_id').selectize({
-		valueField: 'ttr_id',
-		labelField: 'ttr_nombre',
-		searchField: ['ttr_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.ttr_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/tipo_torneo/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
-
-	$('#lug_id').selectize({
-		valueField: 'lug_id',
-		labelField: 'lug_nombre',
-		searchField: ['lug_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.lug_nombre) + ', <strong>Tipo:</strong> ' + escape(item.lug_tipo) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/lugares/consulta/all',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
 	});
 
 });

@@ -1,3 +1,4 @@
+@if(count($searchFields) > 0 && count($searchFields))
 <div class="text-center">
 
 	{!! Form::open(['route' => "$route.index", 'method' => 'GET', 'class' => 'form-inline']) !!}
@@ -18,3 +19,4 @@
 </div>
 
 <br>
+@endif
