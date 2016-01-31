@@ -124,6 +124,15 @@ gulp.task("copyfiles", function() {
  	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
  		.pipe(gulp.dest("public/assets/fonts/tablas/bootstrap"));
 
+ 	/**
+ 	 * **************** bootstrap para resultados ****************
+ 	 */
+ 	gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 		.pipe(gulp.dest("resources/assets/sass/resultados/bootstrap"));
+
+ 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 		.pipe(gulp.dest("public/assets/fonts/resultados/bootstrap"));
+
 });
 
 // funciones principales de elixir
@@ -163,6 +172,20 @@ elixir(function(mix) {
 		'js/vendor/angular/toaster.min.js'
 	],
 		'public/assets/js/tablas.js',
+		'resources/assets'
+	);
+
+	mix.scripts([
+		'js/vendor/jquery.min.js',
+		'js/vendor/angular/angular.js',
+		'js/vendor/angular/angular-resource.min.js',
+		'js/vendor/angular/toaster.min.js',
+		'js/resultados/app.js',
+		'js/resultados/controller.js',
+		'js/resultados/exception.js',
+		'js/resultados/factory.js'
+	],
+		'public/assets/js/resultados.js',
 		'resources/assets'
 	);
 

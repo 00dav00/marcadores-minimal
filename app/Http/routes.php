@@ -130,6 +130,19 @@ Route::group(['prefix' => 'api'], function () {
 	// tablas
 	Route::get('tablas/{cliente_id}/{torneo_id}', 'ApiTablasController@showTorneoTablas');
 
+	Route::get('resultados/{cliente_id}/{torneo_id}', 'ApiTablaResultadosController@mostrarUltimaFecha');
+	Route::get('resultados/{cliente_id}/{torneo_id}/{fase_id}/{fecha_id}', 'ApiTablaResultadosController@mostrarInformacionFecha');
+
+});
+
+// Rutas para consultar los datos REST sin autenticacion
+Route::group(['prefix' => 'visual'], function () {
+
+	// tablas
+	Route::get('tablas/{cliente}/{torneo}', 'TablasController@show');
+
+	Route::get('resultados/tabla/{cliente}/{torneo}', 'ResultadosController@show');
+
 });
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -152,6 +165,3 @@ Route::get('api/fases/{fases}/fecha_actual', 'ApiFechasController@showFechaActua
 Route::get('api/fechas/{fechas}/partidos', 'ApiFechasController@fechaPartidosRegistrados');
 
 Route::get('api/partidos/{fecha}','ApiPartidosController@showPartidosFecha');
-
-Route::get('tablas/{cliente}/{torneo}', 'TablasController@show');
-//Route::get('tablas/{torneo_id}/{fase_id}', 'TablasController@show');
