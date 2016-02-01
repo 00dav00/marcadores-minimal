@@ -18,6 +18,6 @@ class ResultadosController extends Controller
 	 */
     public function tablaShow($cliente, $torneo)
 	{
-		return view('tablas.show', ['cliente' => $cliente, 'torneo' => $torneo]);
+		return view('resultados.tablaShow', ['cliente' => $cliente, 'torneo' => $torneo]);
 	}
 }

@@ -1,0 +1,48 @@
+/* bootstrap */
+@import "resultados/bootstrap/bootstrap";
+
+/* compass */
+@import "compass";
+
+@import "utilities/settings";
+
+.container {
+	max-width: 480px;
+	padding: 5px;
+
+	// valores personalizables
+	background-color: $color-fondo;
+	color: $color-texto-body;
+}
+
+.titulo {
+	// valores personalizables
+	color: $color-texto-titulo;
+}
+
+.header-tabla {
+	background-color: $color-header-tabla;
+	color: $color-texto-header-tabla;
+}
+
+.botones {
+	background-color: $color-botones;
+	color: $color-texto-botones;
+}
+
+.informacion {
+	@include background-image(linear-gradient(to bottom right, white, #dddddd));
+	height: 120px;
+}
+
+.partido {
+	height: 50px;
+}
+
+.estadio {
+	height: 30px;
+}
+
+.goles {
+	background: #dddddd;
+}

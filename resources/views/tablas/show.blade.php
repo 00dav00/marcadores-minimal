@@ -78,6 +78,7 @@
 		</footer>
 
 	</main>
+</div>
 
 	@endsection
 

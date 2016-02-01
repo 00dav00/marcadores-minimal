@@ -100,7 +100,7 @@ function mainController(
 					main.tablas = data;
 					compareColours();
 					main.mostrarCampos = true;
-					main.url = "/tablas/" + main.clienteSeleccionado.clt_id + "/" + main.torneoSeleccionado.tor_id;
+					main.url = "/visual/tablas/" + main.clienteSeleccionado.clt_id + "/" + main.torneoSeleccionado.tor_id;
 					usSpinnerService.stop('spinner-1');
 				}, function (error) {
 					exception.catcher(error);

@@ -31,6 +31,9 @@ gulp.task("copyfiles", function() {
  	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
  		.pipe(gulp.dest("public/assets/fonts/bootstrap"));
 
+ 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 		.pipe(gulp.dest("public/assets/css/fonts/bootstrap"));
+
  	/**
  	 * **************** font-awesome ****************
  	 */
@@ -118,20 +121,20 @@ gulp.task("copyfiles", function() {
  	/**
  	 * **************** bootstrap para tablas ****************
  	 */
- 	gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
- 		.pipe(gulp.dest("resources/assets/sass/tablas/bootstrap"));
+ 	// gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 	// 	.pipe(gulp.dest("resources/assets/sass/tablas/bootstrap"));
 
- 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
- 		.pipe(gulp.dest("public/assets/fonts/tablas/bootstrap"));
+ 	// gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 	// 	.pipe(gulp.dest("public/assets/fonts/tablas/bootstrap"));
 
  	/**
  	 * **************** bootstrap para resultados ****************
  	 */
- 	gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
- 		.pipe(gulp.dest("resources/assets/sass/resultados/bootstrap"));
+ 	// gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 	// 	.pipe(gulp.dest("resources/assets/sass/resultados/bootstrap"));
 
- 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
- 		.pipe(gulp.dest("public/assets/fonts/resultados/bootstrap"));
+ 	// gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 	// 	.pipe(gulp.dest("public/assets/fonts/resultados/bootstrap"));
 
 });
 
@@ -214,7 +217,13 @@ elixir(function(mix) {
 	// 
 	mix.compass('tablas/style.scss', 'public/assets/css/', {
 		require: ['susy'],
-	    style: "nested",
+	    style: "compact",
+	    sass: "resources/assets/sass"
+	});
+
+	mix.compass('resultados/resultados.scss', 'public/assets/css/', {
+		require: ['susy'],
+	    style: "compact",
 	    sass: "resources/assets/sass"
 	});
 

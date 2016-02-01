@@ -189,7 +189,18 @@ class ApiTablaResultadosController extends Controller
 
 			$result = DB::select($sql, [$fas_id, 'jugada']);
 
-			return $result[0]->fecha;
+			if ($result[0]->fecha) {
+				return $result[0]->fecha;
+			} else {
+				$sql = "
+					SELECT MAX(fec_id) AS fecha
+					FROM fechas
+					WHERE fas_id = ?";
+
+				$result = DB::select($sql, [$fas_id]);
+
+				return $result[0]->fecha;
+			}
 		}
 	}
 
