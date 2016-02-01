@@ -1,0 +1,35 @@
+/* bootstrap */
+@import "tablas/bootstrap/bootstrap";
+
+/* compass */
+@import "compass";
+
+@import "utilities/settings";
+
+.container {
+	max-width: 480px;
+	padding: 5px;
+
+	// valores personalizables
+	background-color: $color-fondo;
+	color: $color-texto-body;
+}
+
+th, td {
+	max-height: 20px;
+}
+
+.titulo {
+	// valores personalizables
+	color: $color-texto-titulo;
+}
+
+.header-tabla {
+	background-color: $color-header-tabla;
+	color: $color-texto-header-tabla;
+}
+
+.botones {
+	background-color: $color-botones;
+	color: $color-texto-botones;
+}

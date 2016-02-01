@@ -7,19 +7,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LugarRequest;
 
+use Flash;
+
 class LugaresController extends Controller {
+
+	protected $_lugares;
+
+	public function __construct(Lugar $lugares)
+	{
+		$this->_lugares = $lugares;
+	}
 
 	public function index(Request $request)
 	{
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
-		
-		$lugares = Lugar::search($keyword, $column);
-		$searchFields = Lugar::getSearchFields();
 
-		if (!empty($keyword)) {
+		$joins = ['lugarPadre'];
+		
+		$lugares = $this->_lugares->search($keyword, $column, $joins);
+		$searchFields = $this->_lugares->searchFields;
+
+		if (!empty($keyword)) 
 			flash()->info("Resultados de la búsqueda: $keyword");
-		}
 
 		return view('lugares.index', compact('lugares', 'keyword', 'column', 'searchFields'));
 	}
@@ -38,7 +48,7 @@ class LugaresController extends Controller {
 			$lugar['parent_lug_id'] = null;
 		}
 		
-		Lugar::create($lugar);
+		$this->_lugares->create($lugar);
 
 		flash()->success('Lugar creado exitosamente');
 		
@@ -53,22 +63,22 @@ class LugaresController extends Controller {
 
 	public function edit($id)
 	{
-		$lugar = Lugar::findOrFail($id);
+		$lugar = $this->_lugares->findOrFail($id);
 		return view('lugares.edit', compact('lugar'));
 	}
 
-	public function update($id, LugarRequest $request)
+	public function update(LugarRequest $request, $id)
 	{
-		$lugar = Lugar::findOrFail($id);
+		$lugar = $this->_lugares->findOrFail($id);
 
 		$values = $request->all();
-		if ($values['parent_lug_id'] == '') {
+		if ($request['parent_lug_id'] == '') {
 			$values['parent_lug_id'] = null;
 		}
 
 		$lugar->update($values);
 
-		flash()->success('Lugar editado exitosamente');
+		Flash::success('Lugar actualizado exitosamente');
 
 		return redirect('lugares');
 
@@ -78,32 +88,5 @@ class LugaresController extends Controller {
 	{
 		//
 	}
-
-	// /**
-	//  * Buscar un lugar, retorna JSON
-	//  * @param  string  $busqueda tipo de busqueda a realizar
-	//  * @param  Request $request  palabra que se va a Buscar
-	//  * @return json            	Los datos se devuelven en JSON
-	//  */
-	// public function consulta($busqueda, Request $request)
-	// {
-	// 	$keyword = $request->get('nombre');
-	// 	$tipos = $busqueda == 'all' ? ['pais','continente','ciudad'] : [$busqueda];
-
-	// 	if (trim(urldecode($keyword)) != '') {
-	// 		$resultados = Lugar::whereIn('lug_tipo', $tipos)
-	// 								->where('lug_nombre', 'LIKE', $keyword.'%')
-	// 								->orderBy('lug_nombre')
-	// 								->take(3)
-	// 								->get(['lug_id', 'lug_nombre', 'lug_tipo']);	
-	// 	}
-
-	// 	return response()->json(['data' => $resultados]);
-
-	// }
-
-
-
-
 
 }

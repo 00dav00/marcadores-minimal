@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dataprensa: Resultados de la fecha</title>
+
+	<link href="{!! asset('/assets/css/vendor/toaster.min.css') !!}" rel="stylesheet">
+
+	@yield('stylesheets')
+
+</head>
+<body>
+
+	@yield('content')
+
+	<script src="{!! asset('/assets/js/resultados.js') !!}"></script>
+
+	@yield('scripts')
+
+</body>
+</html>

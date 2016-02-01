@@ -41,7 +41,7 @@ class ApiFechasController extends Controller {
 	}
 
 
-	public function update($id)
+	public function update($id, Request $request)
 	{
 		$fecha = Fecha::findOrFail($id);
 		$fecha->update($request->all());

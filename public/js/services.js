@@ -143,7 +143,7 @@ torneoServices.factory('JugadoresInscritos',
 		'$resource',
 		function($resource)	{
 			return	$resource(
-				"/torneos/:torneo/equipos/:equipo/jugadores", 
+				"/api/torneos/:torneo/equipos/:equipo/jugadores", 
 				{torneo: '@torneo_id', equipo: '@equipo_id'},	
 				{
 					get:	{method:	'GET',	cache:	false,	isArray:	true},
@@ -164,6 +164,11 @@ torneoServices.factory('Plantillas',
 				"/api/plantillas/:plantilla", 
 				{plantilla: '@plantilla_id'},	
 				{
+					query:{
+						url: 	"/api/torneos/:torneo/equipos/:equipo/jugadores",
+						params: {torneo: '@torneo_id', equipo: '@equipo_id'},
+						method:	'GET',	cache:	false,	isArray:	true
+					},
 					get:	{method:'GET',	cache:false,	isArray:false},
 					save:	{method:'POST',	cache:false,	isArray:false},
 					update:	{method:'PUT',	cache:false,	isArray:false},
@@ -192,6 +197,26 @@ torneoServices.factory('Tablas',
 						// params: {torneo: '@torneo_id',fase: '@fase_id'},	
 						method:	'GET',	cache:	false,	isArray:	true
 					},
+				}
+			);
+		}
+	]
+);
+
+torneoServices.factory('Titulares',
+	[
+		'$resource',
+		function($resource)	{
+			return	$resource(
+				"/api/partidos/:partido/titulares",
+				{partido: '@partido_id'},
+				{
+					bulk: 	{method:	'POST',	cache:	false,	isArray:	true },
+					query: 	{method:	'GET',	cache:	false,	isArray:	true },
+					// get:	{method:'GET',	cache:false,	isArray:false},
+					// save:	{method:'POST',	cache:false,	isArray:false},
+					// update:	{method:'PUT',	cache:false,	isArray:false},
+					// delete:	{method:'DELETE',	cache:false,	isArray:false},
 				}
 			);
 		}

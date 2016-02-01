@@ -43,7 +43,7 @@ class ApiEquiposController extends Controller {
 		$keyword = $request->get('nombre');
 
 		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
+			return response()->json([], 200);
 		}
 
 
@@ -53,7 +53,7 @@ class ApiEquiposController extends Controller {
 							->get(['eqp_id', 'eqp_nombre']);
 
 
-		return response()->json(['data' => $resultados]);
+		return response()->json([$resultados]);
 
 	}
 	

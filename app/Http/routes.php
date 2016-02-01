@@ -16,10 +16,11 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::get('/', 'TorneosController@index');
 
+	Route::get('partidos/wizard', 'PartidoController@wizard');
+
 	Route::get('torneos/wizard', 'TorneosController@wizard');
 	Route::get('torneos/config', 'TorneosController@config');
 	Route::resource('torneos', 'TorneosController');
-	// Route::get('torneos/config/{config}', 'TorneosController@config');
 
 	Route::resource('equipos', 'EquiposController');
 	
@@ -34,20 +35,19 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('estadios', 'EstadiosController');
 	
-	Route::resource('equipos_participantes', 'EquiposParticipantesController');
+	Route::resource('jugadores', 'JugadoresController');
 
-	// Route::resource('jugadores', 'JugadoresController');
+	Route::get('clientes/wizard', 'ClientesController@wizard');
+	Route::resource('clientes', 'ClientesController');
 
-	Route::get('fechas/list', 'FechasController@listado');
-	Route::resource('fechas', 'FechasController');
+	Route::resource('auspiciantes', 'AuspiciantesController');
 
+	// Route::get('fechas/list', 'FechasController@listado');
+	// Route::resource('fechas', 'FechasController');
 
-	//Route::get('api/fechas/{fechas}/partidos', 'FechasController@apiFechaPartidos');
+	Route::get('plantillas/config', 'PlantillasTorneoController@config');
 
 	Route::resource('fechas/{fechas}/partidos','PartidoController');
-
-	//Route::get('api/partidos/{fecha}','PartidoController@apiShowPartidosFecha');
-
 
 	Route::get('auth/register', 'Auth\AuthController@getRegister');
 	Route::post('auth/register', 'Auth\AuthController@postRegister');
@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth'], function()
 
 });
 
-// Rutas para consultar datos REST
+// Rutas para consultar datos REST con autenticacion
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 	Route::get('lugares/consulta/{busqueda}', 'ApiLugaresController@consulta');
@@ -71,19 +71,25 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
 	Route::get('tipo_torneo/consulta', 'ApiTipoTorneoController@consulta');
 
+	Route::get('jugadores/consulta', 'ApiJugadoresController@consulta');
+
 	Route::get('tipo_fase/consulta', 'ApiTipoFaseController@consulta');
 	Route::get('tipo_fase', 'ApiTipoFaseController@index');
 	Route::post('tipo_fase', 'ApiTipoFaseController@store');
 
+	Route::get('fases/consulta', 'ApiFaseController@consulta');
 	Route::post('fases', 'ApiFaseController@store');
 	Route::delete('fases/{fases}', 'ApiFaseController@destroy');
 
 	Route::get('estadios/consulta', 'ApiEstadiosController@consulta');
 	Route::get('estadios', 'ApiEstadiosController@index');
 
+	Route::get('torneos/consulta', 'ApiTorneosController@consulta');
+	Route::get('torneos/{torneos}/penalizaciones', 'ApiTorneosController@penalizaciones');
 	Route::get('torneos/{torneos}/equipos', 'ApiTorneosController@equiposParticipantes');
 	Route::post('equipos_participantes/', 'ApiEquiposParticipantesController@store');
 	Route::delete('torneos/{torneos}/equipos/{equipos}', 'ApiEquiposParticipantesController@destroy');
+
 
 	Route::get('fases/{fases}/fechas', 'ApiFaseController@fechasRegistradas');
 	Route::post('fechas', 'ApiFechasController@Store');
@@ -95,30 +101,63 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::delete('partidos/{partido}','ApiPartidosController@destroy');
 	Route::put('partidos/{partido}','ApiPartidosController@update');
 
+	Route::resource('plantillas', 'ApiPlantillasTorneoController');
 
-	Route::get('penalizaciones/{torneo}', 'ApiPenalizacionesTorneoController@show');
 	Route::post('penalizaciones', 'ApiPenalizacionesTorneoController@store');
-	Route::put('penalizaciones/{torneo}/{fase}/{equipo}', 'ApiPenalizacionesTorneoController@update');
-	Route::delete('penalizaciones/{torneo}/{fase}/{equipo}', 'ApiPenalizacionesTorneoController@destroy');
+	Route::put('penalizaciones/{penalizacion}', 'ApiPenalizacionesTorneoController@update');
+	Route::delete('penalizaciones/{penalizacion}', 'ApiPenalizacionesTorneoController@destroy');
 	
-	// Route::get('jugadores/consulta', 'JugadoresController@consulta');
-	// Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'TorneosController@jugadoresEquipoParticipante');
+	Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'ApiTorneosController@jugadoresEquipoParticipante');
+
+	Route::delete('partidoJugadores/{partidoJugador}', 'ApiPartidoJugadoresController@destroy');
+	Route::post('partidoJugadores/cambio', 'ApiPartidoJugadoresController@ingresarJugadorCambio');
+	Route::post('partidoJugadores/titular', 'ApiPartidoJugadoresController@ingresarJugadorTitular');
+	Route::get('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@obtenerJugadoresTitulares');
+	Route::post('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
+
+	Route::resource('clientes', 'ApiClientesController');
+
+	Route::resource('productos', 'ApiProductosController');
+	
+	Route::get('personalizacion_campos', 'ApiPersonalizacionValoresController@getCampos');
+	Route::post('personalizacion_campos', 'ApiPersonalizacionValoresController@savePersonalizacionValores');
+
+});
+
+// Rutas para consultar los datos REST sin autenticacion
+Route::group(['prefix' => 'api'], function () {
+
+	// tablas
+	Route::get('tablas/{cliente_id}/{torneo_id}', 'ApiTablasController@showTorneoTablas');
+
+	Route::get('resultados/{cliente_id}/{torneo_id}', 'ApiTablaResultadosController@mostrarUltimaFecha');
+	Route::get('resultados/{cliente_id}/{torneo_id}/{fase_id}/{fecha_id}', 'ApiTablaResultadosController@mostrarInformacionFecha');
+
+});
+
+// Rutas para consultar los datos REST sin autenticacion
+Route::group(['prefix' => 'visual'], function () {
+
+	// tablas
+	Route::get('tablas/{cliente}/{torneo}', 'TablasController@show');
+
+	Route::get('resultados/tabla/{cliente}/{torneo}', 'ResultadosController@tablaShow');
 
 });
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 
-Route::get('/visual/torneo/{torneo}/tablas', 'TablasController@preview');
-Route::get('/visual/fechas/{fechas}/partidos', 'FechasController@preview');
-Route::get('/visual/fases/{fases}/fecha_actual/partidos', 'FechasController@previewFechaActual');
-Route::get('/visual/widget/fechas/{fechas}/partidos', 'FechasController@widget');
-Route::get('/visual/widget/fases/{fases}/fecha_actual/partidos', 'FechasController@widgetFechaActual');
+// Route::get('/visual/torneo/{torneo}/tablas', 'TablasController@preview');
+// Route::get('/visual/fechas/{fechas}/partidos', 'FechasController@preview');
+// Route::get('/visual/fases/{fases}/fecha_actual/partidos', 'FechasController@previewFechaActual');
+// Route::get('/visual/widget/fechas/{fechas}/partidos', 'FechasController@widget');
+// Route::get('/visual/widget/fases/{fases}/fecha_actual/partidos', 'FechasController@widgetFechaActual');
 
 Route::get('api/torneos/{torneos}', 'ApiTorneosController@show');
 Route::get('api/torneos/{torneos}/fases', 'ApiTorneosController@fasesRegistradas');
-Route::get('api/torneos/{torneos}/tablas', 'ApiTablasController@show');
-Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'ApiTablasController@show');
+// Route::get('api/torneos/{torneos}/tablas', 'ApiTablasController@show');
+// Route::get('api/torneos/{torneos}/tablas/fases/{fases}', 'ApiTablasController@show');
 
 Route::get('api/fechas/{fechas}', 'ApiFechasController@show');
 Route::get('api/fases/{fases}', 'ApiFaseController@show');

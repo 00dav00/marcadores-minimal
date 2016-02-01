@@ -14,16 +14,14 @@ class FakeDataTableSeeder extends Seeder
 
 	public function run()
 	{
-
 		// Jugador::truncate();
 		// Equipo::truncate();
 		// Torneo::truncate();
-
-		// TestDummy::times(1000)->create('App\Jugador');
-		TestDummy::times(400)->create('App\Equipo');
-		TestDummy::times(100)->create('App\Torneo');
-
-		TestDummy::times(20)->create('App\Estadio');
+		
+		$this->call(UsersTableSeeder::class);
+		//$this->call(JugadoresTableSeeder::class);
+		$this->call(EquiposTableSeeder::class);
+		$this->call(ClienteTableSeeder::class);
 
 	}
 }

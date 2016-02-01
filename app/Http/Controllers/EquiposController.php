@@ -19,14 +19,27 @@ class EquiposController extends Controller {
 
 	use ImageTrait;
 
+	protected $_equipos;
+
+	public function __construct(Equipo $equipos)
+	{
+		$this->_equipos = $equipos;
+	}
+
 	public function index(Request $request)
 	{
 
 		$keyword = $request->get('keyword');
 		$column = $request->get('column');
+
+		$joins = ['nacionalidad'];
 		
-		$equipos = Equipo::search($keyword, $column);
-		$searchFields = Equipo::getSearchFields();
+		$equipos = $this->_equipos->search($keyword, $column, $joins);
+		$searchFields = [
+			'eqp_nombre' => 'Nombre', 
+			'eqp_fecha_fundacion' => 'Fecha de fundación', 
+			'eqp_tipo' => 'Tipo'
+		];
 
 		if (!empty($keyword)) {
 			flash()->info("Resultados de la búsqueda: $keyword");
@@ -48,10 +61,10 @@ class EquiposController extends Controller {
 
 		$data['eqp_escudo'] = $this->procesarImagen(
 										$request->file('eqp_escudo'),
-										Equipo::getImagePath()
+										$this->_equipos->getImagePath()
 									);
 
-		Equipo::create($data);
+		$this->_equipos->create($data);
 		flash()->success('Equipo creado exitosamente');
 		return redirect('equipos');
 	}
@@ -59,20 +72,20 @@ class EquiposController extends Controller {
 
 	public function show($id)
 	{
-		$equipo = Equipo::findOrFail($id);
+		$equipo = $this->_equipos->findOrFail($id);
 		return view('equipos.show', compact('equipo'));
 	}
 
 
 	public function edit($id)
 	{
-		$equipo = Equipo::findOrFail($id);
+		$equipo = $this->_equipos->findOrFail($id);
 		return view('equipos.edit', compact('equipo'));
 	}
 
 	public function update($id, Request $request)
 	{
-		$equipo = Equipo::findOrFail($id);
+		$equipo = $this->_equipos->findOrFail($id);
 		$data = $request->all();
 		$this->_setImageSize(200, 200);
 
@@ -80,7 +93,7 @@ class EquiposController extends Controller {
 			File::delete(public_path($equipo->eqp_escudo));
 			$data['eqp_escudo'] = $this->procesarImagen(
 											$request->file('eqp_escudo'),
-											Equipo::getImagePath()
+											$this->_equipos->getImagePath()
 										);
 		}
 
@@ -91,7 +104,7 @@ class EquiposController extends Controller {
 
 	public function destroy($id)
 	{
-		$equipo = Equipo::findOrFail($id);
+		$equipo = $this->_equipos->findOrFail($id);
 
 		if ($equipo) {
 			$equipo->delete();
@@ -101,30 +114,5 @@ class EquiposController extends Controller {
 
 		return redirect('equipos')->with('message', 'Equipo no encontrado');
 	}
-
-	// public function consulta(Request $request)
-	// {
-	// 	$keyword = $request->get('nombre');
-
-	// 	if (trim(urldecode($keyword)) == '') {
-	// 		return response()->json(['data' => []], 200);
-	// 	}
-
-
-	// 	$resultados = Equipo::where('eqp_nombre', 'LIKE', '%' . $keyword . '%')
-	// 						->orderBy('eqp_nombre')
-	// 						->take(3)
-	// 						->get(['eqp_id', 'eqp_nombre']);
-
-
-	// 	return response()->json(['data' => $resultados]);
-
-	// }
-
-	// public function apiAll()
-	// {
-	// 	$equipos = Equipo::all();
-	// 	return $equipos->toJson();
-	// }
 
 }

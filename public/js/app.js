@@ -1,6 +1,6 @@
 var app = angular.module(
 	'plantillaApp', 
-	['torneoServices','plantillaControllers'], 
+	['torneoServices','plantillaControllers','ui.bootstrap'], 
 	function($interpolateProvider) {
 		$interpolateProvider.startSymbol('<%');
 		$interpolateProvider.endSymbol('%>');
@@ -26,9 +26,19 @@ var app3 = angular.module(
 );
 
 
-var app3 = angular.module(
+var app4 = angular.module(
 	'fechasApp', 
 	['torneoServices','fechasControllers','ui.bootstrap'], 
+	function($interpolateProvider) {
+		$interpolateProvider.startSymbol('<%');
+		$interpolateProvider.endSymbol('%>');
+	}
+);
+
+
+var app5 = angular.module(
+	'partidosApp', 
+	['torneoServices','partidosControllers','ui.bootstrap','ngDragDrop'], 
 	function($interpolateProvider) {
 		$interpolateProvider.startSymbol('<%');
 		$interpolateProvider.endSymbol('%>');

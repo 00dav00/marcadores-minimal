@@ -72,7 +72,7 @@ class ApiFaseController extends Controller {
 		$keyword = $request->get('nombre');
 
 		if (trim(urldecode($keyword)) == '') {
-			return response()->json(['data' => []], 200);
+			return response()->json([], 200);
 		}
 
 
@@ -82,7 +82,7 @@ class ApiFaseController extends Controller {
 							->get(['fas_id', 'fas_descripcion']);
 
 
-		return response()->json(['data' => $resultados]);
+		return response()->json([$resultados]);
 
 	}
 

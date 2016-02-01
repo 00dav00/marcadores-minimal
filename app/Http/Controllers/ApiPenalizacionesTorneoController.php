@@ -11,52 +11,40 @@ use App\Http\Requests\PenalizacionTorneoRequest;
 
 class ApiPenalizacionesTorneoController extends Controller {
 
+	protected $_penalizacion;
+
+    public function __construct(PenalizacionTorneo $penalizacion)
+    {
+        $this->_penalizacion = $penalizacion;
+    }
+
 	public function store(PenalizacionTorneoRequest $request)
 	{
-		PenalizacionTorneo::create($request->all());
+		$penalizacion = $this->_penalizacion->create($request->all());
 
-		return response()->json([
-			'data' => 'Penalizacion ingresada exitosamente'
-			]);
+		return $penalizacion->toJson();
 	}
 
-	public function show($torneo)
+	public function update($id, PenalizacionTorneoRequest $request)
 	{
-		$penalizaciones = PenalizacionTorneo::with('torneo', 'equipo', 'fase')
-			->where('tor_id', '=', $torneo)
-			->get();
-
-		return response()->json([
-			'data' => $penalizaciones
-			]);
-	}
-
-	public function update($torneo, $fase, $equipo, PenalizacionTorneoRequest $request)
-	{
-		$penalizacion = PenalizacionTorneo::where('tor_id', $torneo)
-                    						->where('eqp_id', $equipo)
-                    						->where('fas_id', $fase)
-                    						->firstOrFail();
+		$penalizacion = $this->_penalizacion->find($id);
+		
+		if(!isset($penalizacion))
+            return \Response::make(null, 404);
 
         $penalizacion->update($request->all());
-
-        return response()->json([
-			'data' => 'Penalizacion actualizada exitosamente'
-			]);
+    	return \Response::make(null, 200);
 	}
 
-	public function destroy($torneo, $fase, $equipo) 
+	public function destroy($id) 
 	{
-		$penalizacion = PenalizacionTorneo::where('tor_id', $torneo)
-                    						->where('eqp_id', $equipo)
-                    						->where('fas_id', $fase)
-                    						->firstOrFail();
-
+		$penalizacion = $this->_penalizacion->find($id);
+		
+		if(!isset($penalizacion))
+            return \Response::make(null, 404);
+        
         $penalizacion->delete();
-
-        return response()->json([
-			'data' => 'Penalizacion borrada exitosamente'
-			]);
+		return \Response::make(null, 200);
 	}
 
 }

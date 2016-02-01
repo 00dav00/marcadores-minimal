@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('stylesheets')
+
+<link href="{!! asset('/assets/css/vendor/selectize.css') !!}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
 <div class="row centered-form">
@@ -22,35 +28,12 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-$(function() {
+@endsection
 
-	$('#fas_id').selectize({
-		valueField: 'fas_id',
-		labelField: 'fas_descripcion',
-		searchField: ['fas_descripcion'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.fas_descripcion) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/fases/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
+@section('scripts')
 
-});
-</script>
+<script src="{!! asset('/assets/js/vendor/selectize.min.js') !!}"></script>
+
+@include('partials.selectize', ['id' => '#fas_id', 'valueField' => 'fas_id', 'labelField' => 'fas_descripcion', 'url' => '/api/fases/consulta'])
 
 @endsection

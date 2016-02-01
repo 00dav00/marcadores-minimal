@@ -10,7 +10,7 @@
 	<h5 class="text-center"><a href="{!! url('jugadores/create') !!}">Agregar un Jugador</a></h5>
 
 	@include('partials.searchForm', ['route' => 'jugadores'])
-
+	
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
@@ -27,7 +27,7 @@
 				<td class="text-center">{!! $jugador->jug_apellido !!}</td>
 				<td class="text-center">{!! $jugador->jug_nombre !!}</td>
 				<td class="text-center">{!! $jugador->jug_apodo !!}</td>
-				<td class="text-center">{!! $jugador->nacionalidad->lug_nombre !!}</td>
+				<td class="text-center">{!! isset($jugador->nacionalidad) ? $jugador->nacionalidad->lug_nombre : '' !!}</td>
 				<td class="text-center">{!! link_to_route('jugadores.show', 'Detalles', [$jugador->jug_id]) !!}</td>
 			</tr>
 			@endforeach
@@ -35,8 +35,7 @@
 
 	</table> 
 
-	<h5 class="text-center">{!! $jugadores->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>
-
+	<h5 class="text-center">{!! $jugadores->appends(['keyword' => $keyword, 'column' => $column])->render() !!}</h5>	
 </div>
 
 @endsection

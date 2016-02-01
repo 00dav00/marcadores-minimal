@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('stylesheets')
+
+<link href="{!! asset('/assets/css/vendor/selectize.css') !!}" rel="stylesheet">
+
+@endsection
+
 @section('content')
 
 <div class="row centered-form">
@@ -22,60 +28,14 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-$(function() {
+@endsection
 
-	$('#tfa_id').selectize({
-		valueField: 'tfa_id',
-		labelField: 'tfa_nombre',
-		searchField: ['tfa_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.tfa_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/api/tipo_fase/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
+@section('scripts')
 
-	$('#tor_id').selectize({
-		valueField: 'tor_id',
-		labelField: 'tor_nombre',
-		searchField: ['tor_nombre'],
-		render: {
-			option: function(item, escape) {
-				return '<div> <strong>Nombre:</strong> ' + escape(item.tor_nombre) + '</div>';
-			}
-		},
-		load: function(query, callback) {
-			if (!query.length) return callback();
-			$.ajax({
-				url: '/api/torneos/consulta',
-				type: 'GET',
-				dataType: 'json',
-				data: {
-					nombre: query
-				},
-				success: function(res) {
-					callback(res.data);
-				}
-			});
-		}
-	});
+<script src="{!! asset('/assets/js/vendor/selectize.min.js') !!}"></script>
 
-});
-</script>
+@include('partials.selectize', ['id' => '#tfa_id', 'valueField' => 'tfa_id', 'labelField' => 'tfa_nombre', 'url' => '/api/tipo_fase/consulta'])
+
+@include('partials.selectize', ['id' => '#tor_id', 'valueField' => 'tor_id', 'labelField' => 'tor_nombre', 'url' => '/api/torneos/consulta'])
 
 @endsection
