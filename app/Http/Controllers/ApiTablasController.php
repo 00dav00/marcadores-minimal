@@ -77,7 +77,57 @@ class ApiTablasController extends Controller
             GROUP BY deq_equipo_nombre, deq_equipo_nombre_corto, deq_equipo_abreviatura, deq_equipo_escudo
             ORDER BY puntos DESC, goles_diferencia DESC';
 
-        return DB::select($sql, [$torneo_id, $fase_id, $fase_id]);
+        $result = DB::select($sql, [$torneo_id, $fase_id, $fase_id]);
+
+        if (is_array($result) && count($result)) {
+            return $result;
+        } else {
+            
+            // obtener la lista de equipos de la primera fecha
+            // que actuan como local
+            $sql = "
+                SELECT
+                e.eqp_nombre                AS nombre
+                ,e.eqp_nombre_corto         AS nombre_corto 
+                ,e.eqp_abreviatura          AS abreviatura
+                ,e.eqp_escudo               AS escudo
+                FROM partidos AS p
+                INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_local
+                WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
+            ";
+
+            $equiposLocales = DB::select($sql, [$fase_id]);
+
+            // obtener la lista de equipos de la primera fecha
+            // que actuan como visitante
+            $sql = "
+                SELECT
+                e.eqp_nombre                AS nombre
+                ,e.eqp_nombre_corto         AS nombre_corto 
+                ,e.eqp_abreviatura          AS abreviatura
+                ,e.eqp_escudo               AS escudo
+                FROM partidos AS p
+                INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_visitante
+                WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
+            ";
+
+            $equiposVisitantes = DB::select($sql, [$fase_id]);
+
+            $equipos = array_merge($equiposLocales, $equiposVisitantes);
+
+            foreach ($equipos as $equipo) {
+                $equipo->puntos = 0;
+                $equipo->partidos_jugados = 0;
+                $equipo->partidos_ganados = 0;
+                $equipo->partidos_empatados = 0;
+                $equipo->partidos_perdidos = 0;
+                $equipo->goles_favor = 0;
+                $equipo->goles_contra = 0;
+                $equipo->goles_diferencia = 0;
+            }
+
+            return $equipos;
+        }
     }
 
     public function getClienteInfo($cliente_id)
