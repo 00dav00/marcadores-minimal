@@ -24,14 +24,16 @@
 					<div class="row partido">
 
 						<div class="row partido">
-							<div class="text-center col-xs-5"><h4>@{{ res.equipos[partido.par_eqp_local].eqp_nombre_corto }}</h4></div>
+							<div class="text-center col-xs-5 equipo"><h4>@{{ res.equipos[partido.par_eqp_local].eqp_nombre_corto }}</h4></div>
 
 							<div class="text-center col-xs-2">
-								<img ng-src="/@{{ res.equipos[partido.par_eqp_local].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_local].eqp_abreviatura }}" style="max-width:30px;max-height:30px;"/>
+								<img ng-src="/@{{ res.equipos[partido.par_eqp_local].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_local].eqp_abreviatura }}" style="max-width:25px;max-height:25px;"/>
 							</div>
 
-							<div ng-if="partido.par_goles_local == null" class="text-center col-xs-4 goles">
-								<h4>vs</h4>
+							<div ng-if="partido.par_goles_local == null" class="text-center">
+								<div class="col-xs-1"></div>
+								<h4 class="col-xs-2 goles">vs</h4>
+								<div class="col-xs-1"></div>
 							</div>
 
 							<div ng-if="partido.par_goles_local != null" class="text-center">
@@ -47,10 +49,10 @@
 							</div>
 
 							<div class="col-xs-2 text-center">
-								<img ng-src="/@{{ res.equipos[partido.par_eqp_visitante].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_visitante].eqp_abreviatura }}" style="max-width:30px;max-height:30px;"/>
+								<img ng-src="/@{{ res.equipos[partido.par_eqp_visitante].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_visitante].eqp_abreviatura }}" style="max-width:25px;max-height:25px;"/>
 							</div>
 
-							<div class="text-center col-xs-5"><h4>@{{ res.equipos[partido.par_eqp_visitante].eqp_nombre_corto }}</h4></div>
+							<div class="text-center col-xs-5 equipo"><h4>@{{ res.equipos[partido.par_eqp_visitante].eqp_nombre_corto }}</h4></div>
 						</div>
 
 						<div class="row estadio">
