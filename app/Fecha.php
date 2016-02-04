@@ -39,7 +39,7 @@ class Fecha extends Model {
 
 	public function partidos()
 	{
-		return $this->hasMany('App\Partido','fec_id','fec_id');
+		return $this->hasMany('App\Partido','fec_id','fec_id')->orderBy('par_fecha', 'asc')->orderBy('par_fecha', 'asc');
 	}
 
 	public function partidosConteo()

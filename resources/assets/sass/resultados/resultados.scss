@@ -32,17 +32,26 @@
 
 .informacion {
 	@include background-image(linear-gradient(to bottom right, white, #dddddd));
-	height: 120px;
+	height: 90px;
 }
 
 .partido {
-	height: 50px;
+	height: 30px;
 }
 
 .estadio {
-	height: 30px;
+	height: 15px;
+	h4 {
+		font-size: 12px;
+	}
 }
 
 .goles {
 	background: #dddddd;
+}
+
+.equipo {
+	h4 {
+		font-size: 12px;
+	}
 }

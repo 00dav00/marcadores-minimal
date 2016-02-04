@@ -15,8 +15,6 @@
 		<h3 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre }}</h3>
 		<h4 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.faseActual.fas_descripcion }}</h4>
 	</header>
-	
-	<br>
 
 	<main>
 		<section class="row posiciones">
