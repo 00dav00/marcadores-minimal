@@ -3876,20 +3876,23 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 /* configuracion general */
 /* colores */
 /* line 9, ../../../../resources/assets/sass/tablas/style.scss */
+body { overflow-x: hidden; }
+
+/* line 13, ../../../../resources/assets/sass/tablas/style.scss */
 .container { max-width: 480px; padding: 5px; background-color: #FFFFFF; color: #000000; }
 
-/* line 18, ../../../../resources/assets/sass/tablas/style.scss */
+/* line 22, ../../../../resources/assets/sass/tablas/style.scss */
 th, td { max-height: 20px; }
 
-/* line 22, ../../../../resources/assets/sass/tablas/style.scss */
+/* line 26, ../../../../resources/assets/sass/tablas/style.scss */
 .titulo { color: #000000; }
-/* line 25, ../../../../resources/assets/sass/tablas/style.scss */
-.titulo h3 { font-size: 16px; }
 /* line 29, ../../../../resources/assets/sass/tablas/style.scss */
+.titulo h3 { font-size: 16px; }
+/* line 33, ../../../../resources/assets/sass/tablas/style.scss */
 .titulo h4 { font-size: 14px; }
 
-/* line 34, ../../../../resources/assets/sass/tablas/style.scss */
+/* line 38, ../../../../resources/assets/sass/tablas/style.scss */
 .header-tabla { background-color: #FFFFFF; color: #000000; }
 
-/* line 39, ../../../../resources/assets/sass/tablas/style.scss */
+/* line 43, ../../../../resources/assets/sass/tablas/style.scss */
 .botones { background-color: #FFFFFF; color: #000000; }

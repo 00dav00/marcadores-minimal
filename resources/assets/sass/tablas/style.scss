@@ -6,6 +6,10 @@
 
 @import "utilities/settings";
 
+body {
+    overflow-x: hidden;
+}
+
 .container {
 	max-width: 480px;
 	padding: 5px;
