@@ -52,8 +52,9 @@ class ApiTablasController extends Controller
     public function getTablaPosiciones($torneo_id, $fase_id)
     {
         $sql = 
-            'SELECT 
-            deq_equipo_nombre                                   nombre
+            'SELECT
+            deq_id                                              id 
+            ,deq_equipo_nombre                                  nombre
             ,deq_equipo_nombre_corto                            nombre_corto
             ,deq_equipo_abreviatura                             abreviatura
             ,deq_equipo_escudo                                  escudo
@@ -77,10 +78,67 @@ class ApiTablasController extends Controller
             GROUP BY deq_equipo_nombre, deq_equipo_nombre_corto, deq_equipo_abreviatura, deq_equipo_escudo
             ORDER BY puntos DESC, goles_diferencia DESC';
 
-        $result = DB::select($sql, [$torneo_id, $fase_id, $fase_id]);
+        $posiciones = DB::select($sql, [$torneo_id, $fase_id, $fase_id]);
 
-        if (is_array($result) && count($result)) {
-            return $result;
+        $sql = "
+            SELECT COUNT(*) AS total
+            FROM equipos_participantes
+            WHERE tor_id = ?";
+
+        $result = DB::select($sql, [$torneo_id]);
+
+        $numeroEquipos = $result[0]->total;
+
+        if (is_array($posiciones) && count($posiciones) == $numeroEquipos) {
+            
+            return $posiciones;
+        
+        } else if (count($posiciones) < $numeroEquipos) { 
+            
+            // si la primera fecha no esta completa, se completa
+            // con 0 el resto de equipos participantes
+            $sql = "
+                SELECT
+                e.eqp_id                    AS id
+                ,e.eqp_nombre               AS nombre
+                ,e.eqp_nombre_corto         AS nombre_corto 
+                ,e.eqp_abreviatura          AS abreviatura
+                ,e.eqp_escudo               AS escudo
+                FROM equipos_participantes AS p
+                INNER JOIN equipos AS e ON e.eqp_id = p.eqp_id
+                WHERE tor_id = ?
+                ORDER BY e.eqp_nombre_corto ASC
+            ";
+
+            $equipos = DB::select($sql, [$torneo_id]);
+
+            // determinar cuales equipos ya tienen resultado
+            foreach ($posiciones as $posicion) {
+                $i = 0; 
+                foreach ($equipos as $equipo) {
+                    if ($posicion->id == $equipo->id) {
+                        array_splice($equipos, $i, 1);
+                        break;
+                    }
+                    $i++;
+                }
+            }
+
+            // agregar 0 a los diferentes valores
+            foreach ($equipos as $equipo) {
+                $equipo->puntos = 0;
+                $equipo->partidos_jugados = 0;
+                $equipo->partidos_ganados = 0;
+                $equipo->partidos_empatados = 0;
+                $equipo->partidos_perdidos = 0;
+                $equipo->goles_favor = 0;
+                $equipo->goles_contra = 0;
+                $equipo->goles_diferencia = 0;
+            }
+
+            // unir con las posiciones
+            return array_merge($posiciones, $equipos);
+
         } else {
             
             // obtener la lista de equipos de la primera fecha
@@ -94,6 +152,7 @@ class ApiTablasController extends Controller
                 FROM partidos AS p
                 INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_local
                 WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
+                ORDER BY e.eqp_nombre_corto ASC
             ";
 
             $equiposLocales = DB::select($sql, [$fase_id]);
@@ -109,6 +168,7 @@ class ApiTablasController extends Controller
                 FROM partidos AS p
                 INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_visitante
                 WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
+                ORDER BY e.eqp_nombre_corto ASC
             ";
 
             $equiposVisitantes = DB::select($sql, [$fase_id]);
