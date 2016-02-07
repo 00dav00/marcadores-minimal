@@ -95,22 +95,7 @@ class ApiTablasController extends Controller
         
         } else if (count($posiciones) < $numeroEquipos) { 
             
-            // si la primera fecha no esta completa, se completa
-            // con 0 el resto de equipos participantes
-            $sql = "
-                SELECT
-                e.eqp_id                    AS id
-                ,e.eqp_nombre               AS nombre
-                ,e.eqp_nombre_corto         AS nombre_corto 
-                ,e.eqp_abreviatura          AS abreviatura
-                ,e.eqp_escudo               AS escudo
-                FROM equipos_participantes AS p
-                INNER JOIN equipos AS e ON e.eqp_id = p.eqp_id
-                WHERE tor_id = ?
-                ORDER BY e.eqp_nombre_corto ASC
-            ";
-
-            $equipos = DB::select($sql, [$torneo_id]);
+            $equipos = $this->_obtenerEquiposParticipantes($fase_id);
 
             // determinar cuales equipos ya tienen resultado
             foreach ($posiciones as $posicion) {
@@ -140,40 +125,8 @@ class ApiTablasController extends Controller
             return array_merge($posiciones, $equipos);
 
         } else {
-            
-            // obtener la lista de equipos de la primera fecha
-            // que actuan como local
-            $sql = "
-                SELECT
-                e.eqp_nombre                AS nombre
-                ,e.eqp_nombre_corto         AS nombre_corto 
-                ,e.eqp_abreviatura          AS abreviatura
-                ,e.eqp_escudo               AS escudo
-                FROM partidos AS p
-                INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_local
-                WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
-                ORDER BY e.eqp_nombre_corto ASC
-            ";
 
-            $equiposLocales = DB::select($sql, [$fase_id]);
-
-            // obtener la lista de equipos de la primera fecha
-            // que actuan como visitante
-            $sql = "
-                SELECT
-                e.eqp_nombre                AS nombre
-                ,e.eqp_nombre_corto         AS nombre_corto 
-                ,e.eqp_abreviatura          AS abreviatura
-                ,e.eqp_escudo               AS escudo
-                FROM partidos AS p
-                INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_visitante
-                WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
-                ORDER BY e.eqp_nombre_corto ASC
-            ";
-
-            $equiposVisitantes = DB::select($sql, [$fase_id]);
-
-            $equipos = array_merge($equiposLocales, $equiposVisitantes);
+            $equipos = $this->_obtenerEquiposParticipantes($fase_id);
 
             foreach ($equipos as $equipo) {
                 $equipo->puntos = 0;
@@ -188,6 +141,45 @@ class ApiTablasController extends Controller
 
             return $equipos;
         }
+    }
+
+    protected function _obtenerEquiposParticipantes($fase_id)
+    {
+        // obtener la lista de equipos de la primera fecha
+            // que actuan como local
+    	$sql = "
+	    	SELECT
+	    	e.eqp_id                	AS id
+	    	,e.eqp_nombre               AS nombre
+	    	,e.eqp_nombre_corto         AS nombre_corto
+	    	,e.eqp_abreviatura          AS abreviatura
+	    	,e.eqp_escudo               AS escudo
+	    	FROM partidos AS p
+	    	INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_local
+	    	WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
+	    	ORDER BY e.eqp_nombre_corto ASC
+	    	";
+
+    	$equiposLocales = DB::select($sql, [$fase_id]);
+
+            // obtener la lista de equipos de la primera fecha
+            // que actuan como visitante
+    	$sql = "
+	    	SELECT
+	    	e.eqp_id                	AS id
+	    	,e.eqp_nombre               AS nombre
+	    	,e.eqp_nombre_corto         AS nombre_corto 
+	    	,e.eqp_abreviatura          AS abreviatura
+	    	,e.eqp_escudo               AS escudo
+	    	FROM partidos AS p
+	    	INNER JOIN equipos AS e ON e.eqp_id = p.par_eqp_visitante
+	    	WHERE fec_id = (SELECT fec_id FROM fechas WHERE fas_id = ? LIMIT 1)
+	    	ORDER BY e.eqp_nombre_corto ASC
+	    	";
+
+    	$equiposVisitantes = DB::select($sql, [$fase_id]);
+
+    	return array_merge($equiposLocales, $equiposVisitantes);
     }
 
     public function getClienteInfo($cliente_id)

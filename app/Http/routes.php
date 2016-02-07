@@ -143,6 +143,10 @@ Route::group(['prefix' => 'visual'], function () {
 
 	Route::get('resultados/tabla/{cliente}/{torneo}', 'ResultadosController@tablaShow');
 
+	// personalizado
+	// cancheros
+	Route::get('/personalizado/tablas/cancheros/{torneo}', 'TablasController@cancherosShow');
+
 });
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
