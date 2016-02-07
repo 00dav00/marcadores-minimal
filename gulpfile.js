@@ -136,6 +136,21 @@ gulp.task("copyfiles", function() {
  	// gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
  	// 	.pipe(gulp.dest("public/assets/fonts/resultados/bootstrap"));
 
+ 	/**
+ 	 * **************** bootstrap para resultados ****************
+ 	 */
+ 	gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 		.pipe(gulp.dest("resources/assets/sass/cancheros/tablas/bootstrap"));
+
+ 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 		.pipe(gulp.dest("public/assets/fonts/cancheros/tablas/bootstrap"));
+
+ 	gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 		.pipe(gulp.dest("resources/assets/sass/cancheros/resultados/bootstrap"));
+
+ 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 		.pipe(gulp.dest("public/assets/fonts/cancheros/resultados/bootstrap"));
+
 });
 
 // funciones principales de elixir
