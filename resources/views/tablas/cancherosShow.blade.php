@@ -43,7 +43,7 @@
 
 		<div class="row text-center">
 			<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
-				<button class="btn btn-default botones-fases" ng-click="tbl.cambiarFasePosiciones(fase)" ng-style="tbl.botonesStyle">@{{ fase.fas_descripcion }}</button>
+				<button class="btn btn-default botones-fases" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</button>
 			</div>
 		</div>
 		</section>

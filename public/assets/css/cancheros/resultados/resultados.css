@@ -2257,7 +2257,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > te
 /* line 26, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/_buttons.scss */
 .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus { outline: thin dotted; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px; }
 /* line 32, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/_buttons.scss */
-.btn:hover, .btn:focus, .btn.focus { color: #3db39e; text-decoration: none; }
+.btn:hover, .btn:focus, .btn.focus { color: #fff; text-decoration: none; }
 /* line 39, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/_buttons.scss */
 .btn:active, .btn.active { outline: 0; background-image: none; -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
 /* line 46, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/_buttons.scss */
@@ -2267,21 +2267,21 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > te
 a.btn.disabled, fieldset[disabled] a.btn { pointer-events: none; }
 
 /* line 68, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/_buttons.scss */
-.btn-default { color: #3db39e; background-color: #fff; border-color: #3db39e; }
+.btn-default { color: #fff; background-color: #fff; border-color: #3db39e; }
 /* line 11, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/mixins/_buttons.scss */
-.btn-default:focus, .btn-default.focus { color: #3db39e; background-color: #e6e6e6; border-color: #1d544a; }
+.btn-default:focus, .btn-default.focus { color: #fff; background-color: #e6e6e6; border-color: #1d544a; }
 /* line 17, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/mixins/_buttons.scss */
-.btn-default:hover { color: #3db39e; background-color: #e6e6e6; border-color: #2d8576; }
+.btn-default:hover { color: #fff; background-color: #e6e6e6; border-color: #2d8576; }
 /* line 22, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/mixins/_buttons.scss */
-.btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle { color: #3db39e; background-color: #e6e6e6; border-color: #2d8576; }
+.btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle { color: #fff; background-color: #e6e6e6; border-color: #2d8576; }
 /* line 29, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/mixins/_buttons.scss */
-.btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus { color: #3db39e; background-color: #d4d4d4; border-color: #1d544a; }
+.btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus { color: #fff; background-color: #d4d4d4; border-color: #1d544a; }
 /* line 37, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/mixins/_buttons.scss */
 .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle { background-image: none; }
 /* line 45, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/mixins/_buttons.scss */
 .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled.focus, .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default.focus { background-color: #fff; border-color: #3db39e; }
 /* line 53, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/mixins/_buttons.scss */
-.btn-default .badge { color: #fff; background-color: #3db39e; }
+.btn-default .badge { color: #fff; background-color: #fff; }
 
 /* line 71, ../../../../../resources/assets/sass/cancheros/resultados/bootstrap/bootstrap/_buttons.scss */
 .btn-primary { color: #fff; background-color: #337ab7; border-color: #2e6da4; }
