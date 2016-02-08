@@ -148,8 +148,8 @@ gulp.task("copyfiles", function() {
  	// gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
  	// 	.pipe(gulp.dest("resources/assets/sass/cancheros/resultados/bootstrap"));
 
- 	// gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
- 	// 	.pipe(gulp.dest("public/assets/fonts/cancheros/resultados/bootstrap"));
+ 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 		.pipe(gulp.dest("public/assets/css/cancheros/fonts/bootstrap"));
 
 });
 
@@ -243,6 +243,12 @@ elixir(function(mix) {
 	});
 
 	mix.compass('cancheros/tablas/style.scss', 'public/assets/css/', {
+		require: ['susy'],
+	    style: "compact",
+	    sass: "resources/assets/sass"
+	});
+
+	mix.compass('cancheros/resultados/resultados.scss', 'public/assets/css/', {
 		require: ['susy'],
 	    style: "compact",
 	    sass: "resources/assets/sass"

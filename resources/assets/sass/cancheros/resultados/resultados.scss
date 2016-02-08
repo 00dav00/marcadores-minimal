@@ -1,0 +1,57 @@
+/* bootstrap */
+@import "cancheros/resultados/bootstrap/bootstrap";
+
+/* compass */
+@import "compass";
+
+@import "utilities/settings";
+
+.container {
+	max-width: 600px;
+	padding: 5px;
+
+	// valores personalizables
+	background-color: $color-fondo;
+	color: $color-texto-body;
+}
+
+.titulo {
+	// valores personalizables
+	color: $color-texto-titulo;
+}
+
+.header-tabla {
+	background-color: $color-header-tabla;
+	color: $color-texto-header-tabla;
+}
+
+.botones {
+	background-color: $color-botones;
+	color: $color-texto-botones;
+}
+
+.informacion {
+	@include background-image(linear-gradient(to bottom right, $color-fondo-secundario, $color-fondo));
+	height: 120px;
+}
+
+.partido {
+	height: 50px;
+}
+
+.estadio {
+	height: 40px;
+	h4 {
+		font-size: 13px;
+	}
+}
+
+.goles {
+	background: #2E6C8E;
+}
+
+.equipo {
+	h4 {
+		font-size: 12px;
+	}
+}

@@ -147,6 +147,8 @@ Route::group(['prefix' => 'visual'], function () {
 	// cancheros
 	Route::get('/personalizado/tablas/cancheros/{torneo}', 'TablasController@cancherosShow');
 
+	Route::get('/personalizado/resultados/tabla/cancheros/{torneo}', 'ResultadosController@cancherosTablaShow');
+
 });
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
