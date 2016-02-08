@@ -119,11 +119,16 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::delete('partidoJugadores/{partidoJugador}', 'ApiPartidoJugadoresController@destroy');
 	Route::post('partidoJugadores/cambio', 'ApiPartidoJugadoresController@ingresarJugadorCambio');
 	Route::post('partidoJugadores/titular', 'ApiPartidoJugadoresController@ingresarJugadorTitular');
-	Route::get('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@obtenerJugadoresTitulares');
-	Route::post('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
+	Route::get('partidos/{partidos}/equipos/{equipos}/titulares', 'ApiPartidoJugadoresController@obtenerJugadoresTitulares');
+	Route::post('partidos/{partidos}/equipos/{equipos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
+
+	Route::get('partidos/{partidos}/goles', 'ApiPartidoGolesController@obtenerGolesPartido');
+	Route::get('goles/{goles}', 'ApiPartidoGolesController@show');
+	Route::post('goles/', 'ApiPartidoGolesController@store');
+	Route::put('goles/{goles}', 'ApiPartidoGolesController@update');
+	Route::delete('goles/{goles}', 'ApiPartidoGolesController@delete');
 
 	Route::resource('clientes', 'ApiClientesController');
-
 	Route::resource('productos', 'ApiProductosController');
 	
 	Route::get('personalizacion_campos', 'ApiPersonalizacionValoresController@getCampos');

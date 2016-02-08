@@ -19,6 +19,7 @@ class PartidoJugador extends Model {
 		'pju_roja',
 		'pju_numero_camiseta',
 		'pju_juvenil',
+		'eqp_id',
 	];
 
 	public function partido()

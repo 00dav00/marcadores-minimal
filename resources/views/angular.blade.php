@@ -25,6 +25,7 @@
 	<script src="{!! asset('/assets/js/principal.js') !!}"></script>
 	<script src="{!! asset('/assets/js/angular-scripts.js') !!}"></script>
 
+	<script src="{!! asset('/js/app.js') !!}"></script>
 	<script src="{!! asset('/js/services.js') !!}"></script>
 	<script src="{!! asset('/js/controllers.js') !!}"></script>
 

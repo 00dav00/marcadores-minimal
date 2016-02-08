@@ -791,7 +791,6 @@ fechasControllers.controller('FechasCtrl', [
 	 			$scope.obtenerFechaActual(fase_id);
 
  			// else
-
 	 	}
 
 	 	$scope.irFechaAnterior = function(anteriorFecha){
@@ -930,9 +929,9 @@ fechasControllers.controller('FechasCtrl', [
 ]);
 
 partidosControllers.controller('PartidosCtrl', [
-	'$scope','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos', 'Plantillas', 'Titulares',
+	'$scope','$uibModal','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos', 'Plantillas', 'Titulares', 'Goles',
 
-	function($scope, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos, Plantillas, Titulares) {
+	function($scope, $uibModal, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos, Plantillas, Titulares, Goles) {
  
  		$scope.paso = 0;
 		$scope.torneos = [];
@@ -943,12 +942,17 @@ partidosControllers.controller('PartidosCtrl', [
 		$scope.fechaSeleccionada = false;
 		$scope.partidos = [];
 		$scope.partidoSeleccionado = false;
+		$scope.equipos = [];
 		$scope.plantillas = {local: [], visitante: []};
 		$scope.titulares = {local: [], visitante: []};
+		$scope.goles = {local: [], visitante: []};
 
+		$scope.modalShown = false;
 		$scope.botonAnteriorActivado = false;
 		$scope.botonSiguienteActivado = false;
 		$scope.alerts = [];
+
+		obtenerGoles(18);
 
 		function errorHandler(error, code){
 			switch(code){
@@ -981,7 +985,36 @@ partidosControllers.controller('PartidosCtrl', [
 		}
 
 		/************************MANEJO DE CONTROLES DEL FORMULARIO******************************/
+		$scope.openModal = function (template) {
 
+			
+
+		    var modalInstance = $uibModal.open({
+      			animation: true,
+      			templateUrl: template,
+      			controller: 'ModalInstanceCtrl',
+      			size: 'lg',
+      			resolve: {
+	        		equipos: function () { return $scope.equipos; },
+	        		partido: function () { return $scope.partidoSeleccionado; },
+	        		jugadores: function () { return $scope.titulares.local.concat($scope.titulares.visitante); },
+	        		gol: function () {return null;},
+	        		Goles: function () {return Goles;}
+		      	}
+		    });
+
+		    modalInstance.result.then(function (type, result) {
+		    	console.log(JSON.stringify(result));
+		    	console.log(type);
+		    	if (type == 'gol') {
+		    		golIngresado(result);
+		    	}
+	      		
+	      		console.log('Successful - '+ template +': ' + JSON.stringify(result));
+		    }, function () {
+		      	console.log('Error '+ template +': ' + new Date());
+		    });
+	  	}
 		/************************OBTENER INFORMACION Y CARGAR PASOS******************************/
 		function obtenerTodosLosTorneos(){
 			Torneos.query(
@@ -1042,6 +1075,7 @@ partidosControllers.controller('PartidosCtrl', [
 		}
 
 		function obtenerPlantillasTitulares(torneo_id, partido_id, equipo_id, plantilla, titulares){
+			// TODO mejorar filter porq ya se puede separar jugadores por equipo
 			Plantillas
 				.query({torneo: torneo_id, equipo: equipo_id}).$promise
 				.then(
@@ -1061,13 +1095,42 @@ partidosControllers.controller('PartidosCtrl', [
                         angular.copy(response, titulares);
                     },
                     function error(error){errorHandler(error.data, error.status); }
-                );
+                )
+                .then(
+                	function(){
+                		$scope.evaluarEquiposCompletos($scope.plantillas.local, $scope.plantillas.visitante);
+                	}
+            	);
 		}
 
-		/***********************ALMACENAR INFORMACION*****************************/
-		function ingresarJugadoresTitulares(jugadores, partido_id){
-			Titulares.bulk(
+		function obtenerGoles(partido_id) {
+			// $scope.titulares = {
+			// 	local: [{jug_id:14 , jug_nombre: "A"},{jug_id: 46, jug_nombre: "B"}], 
+			// 	visitante: [{jug_id: 20, jug_nombre: "C"},{jug_id: 33, jug_nombre: "D"}]
+			// };
+			// $scope.partidoSeleccionado = {par_id:18};
+			// $scope.equipos = [{eqp_id: 12, eqp_nombre: "Mushuc Runa"},{eqp_id: 7, eqp_nombre: "Cuenca"}];
+			Goles.query(
 				{partido: partido_id},
+	            function success(response){
+	                $scope.goles.local = response.filter(function (gol){ return gol.eqp_id ==  $scope.equipos[0].eqp_id; })
+	                $scope.goles.visitante = response.filter(function (gol){ return gol.eqp_id ==  $scope.equipos[1].eqp_id; })
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            	obtenerGoles();
+	            }
+	        );
+		}
+
+		function golIngresado(){
+			createAlert('success', "Gol ingresado");
+			obtenerGoles($scope.partidoSeleccionado.par_id);
+		}
+		/***********************ALMACENAR INFORMACION*****************************/
+		function ingresarJugadoresTitulares(jugadores, partido_id, equipo_id){
+			Titulares.bulk(
+				{partido: partido_id, equipo: equipo_id},
 				jugadores,
 	            function success(response){
 	                // console.log("Success:" + JSON.stringify(response));
@@ -1078,12 +1141,12 @@ partidosControllers.controller('PartidosCtrl', [
 	            }
 	        );
 		}
-
 		/************************CaMBIAR PASO ACTUAL******************************/
 		function prepararPaso(paso){
 			if (paso <= 1){
 				$scope.torneos = [];
 				$scope.torneoSeleccionado = false;
+				$scope.botonAnteriorActivado = false;
 			}
 			if (paso <= 2){
 				$scope.fases = [];
@@ -1103,31 +1166,25 @@ partidosControllers.controller('PartidosCtrl', [
 				$scope.titulares.local = [];
 				$scope.titulares.visitante = [];
 			}
+			if (paso <= 6){
+				$scope.equipos = [];
+				$scope.goles = {local: [], visitante: []};
+			}
+
+			$scope.botonSiguienteActivado = false;
 
 			switch(paso){
 				case 1:
 					obtenerTodosLosTorneos();
-
-					$scope.botonAnteriorActivado = false;
-					$scope.botonSiguienteActivado = false;
 					break;
 				case 2:
 					obtenerFases($scope.torneoSeleccionado.tor_id);
-
-					$scope.botonAnteriorActivado = true;
-					$scope.botonSiguienteActivado = false;
 					break;
 				case 3:
 					obtenerFechas($scope.faseSeleccionada.fas_id);
-
-					$scope.botonAnteriorActivado = true;
-					$scope.botonSiguienteActivado = false;
 					break;
 				case 4:
 					obtenerPartidos($scope.fechaSeleccionada.fec_id);
-
-					$scope.botonAnteriorActivado = true;
-					$scope.botonSiguienteActivado = false;
 					break;
 				case 5:
 					obtenerPlantillasTitulares(
@@ -1145,9 +1202,13 @@ partidosControllers.controller('PartidosCtrl', [
 						$scope.plantillas.visitante,
 						$scope.titulares.visitante
 					);
+					break;
+				case 6:
+					$scope.equipos.push($scope.partidoSeleccionado.equipo_local);
+					$scope.equipos.push($scope.partidoSeleccionado.equipo_visitante);
+					obtenerGoles($scope.partidoSeleccionado.par_id);
+					break;
 
-					$scope.botonAnteriorActivado = true;
-					$scope.botonSiguienteActivado = false;
 			}
 
 			$scope.paso = paso;
@@ -1176,13 +1237,16 @@ partidosControllers.controller('PartidosCtrl', [
 		$scope.evaluarEquiposCompletos = function(platillaLocal, plantillaVisitante){
 
 			var equiposCompletos = evaluarEquipoCompleto(platillaLocal) && evaluarEquipoCompleto(plantillaVisitante);
-			var jugadoresElegidos = obtenerTitularesPlantilla(platillaLocal).concat(obtenerTitularesPlantilla(plantillaVisitante));
+			var titularesLocal = obtenerTitularesPlantilla(platillaLocal);
+			var titularesVisita = obtenerTitularesPlantilla(plantillaVisitante);
 
-			if ( equiposCompletos || jugadoresElegidos.length % 3 === 0 )
-				ingresarJugadoresTitulares(jugadoresElegidos, $scope.partidoSeleccionado.par_id);
+			if ( equiposCompletos || (titularesLocal.length + titularesVisita.length) % 3 === 0 ) {
+				ingresarJugadoresTitulares(titularesLocal, $scope.partidoSeleccionado.par_id, $scope.equipos[0].eqp_id);
+				ingresarJugadoresTitulares(titularesVisita, $scope.partidoSeleccionado.par_id, $scope.equipos[1].eqp_id);
+				
+			}
 
 			$scope.botonSiguienteActivado = equiposCompletos? true : false;
-
 		}
 
 		function evaluarEquipoCompleto(plantilla){
@@ -1213,3 +1277,90 @@ partidosControllers.controller('PartidosCtrl', [
 		}
 	}
 ]);
+
+
+partidosControllers.controller('ModalInstanceCtrl',
+	function ($scope, $uibModalInstance, partido, equipos, jugadores, gol, Goles) {
+		$scope.alerts = [];
+		$scope.equipos = equipos;
+		$scope.partido = partido;
+		$scope.jugadores = jugadores;
+		$scope.jugadas = ['jugada','esquina','contra','libre','penal','otro'];
+		$scope.ejecuciones = ['disparo','cabeza','muslo','pecho','chilena','tijera','rebote','otro'];
+		$scope.nuevoGol = gol || nuevoGolDefaults();
+
+		function errorHandler(error, code){
+			switch(code){
+				case 404:
+					createAlert('danger', 'Error: Operación no encontrada.');
+					break;
+				case 422:
+					angular.forEach(error, function(value, key) {
+				  		createAlert('danger', 'Error: ' + value);
+					});
+					error = JSON.stringify(error);
+					break;
+				case 500:
+					createAlert('danger', 'Error: Operación no permitida.');
+					break;
+				default:
+					alert('Error!');
+					break;
+			}
+			console.log("ERROR:" + error);	
+		}
+
+		function createAlert(type, message){
+			$scope.alerts.push({ type: type, msg: message });
+		}
+
+		$scope.closeAlert = function(index) {
+			if ($scope.alerts.length >= (index + 1))
+				$scope.alerts.splice(index, 1);
+		}
+
+		function nuevoGolDefaults(){
+			return {
+				minuto: 0,
+				equipo: $scope.equipos[0],
+				jugador: null,
+				asistente: null,
+				jugada: null,
+				ejecucion: null
+			};
+		}
+
+		function prepararGol(gol){
+			return {
+				gol_minuto: gol.minuto,
+				gol_jugada: gol.jugada,
+				gol_ejecucion: gol.ejecucion,
+				gol_autor: gol.autor ? gol.autor.jug_id : null,
+				gol_asistencia: gol.asistente ? gol.asistente.jug_id : null,
+				eqp_id: gol.equipo.eqp_id,
+				par_id: $scope.partido.par_id,
+			};
+		}
+
+		$scope.ingresarNuevoGol = function(nuevoGol){
+			Goles.save(
+				prepararGol(nuevoGol),
+	            function success(response){
+	                console.log(JSON.stringify(response));
+	                $uibModalInstance.close('gol',response);
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+	  	$scope.ok = function () {
+	    	$uibModalInstance.close();
+	  	};
+
+	  	$scope.cancel = function () {
+	    	$uibModalInstance.dismiss('cancel');
+	  	};
+	}
+);

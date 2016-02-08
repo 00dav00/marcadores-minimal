@@ -34,7 +34,7 @@ class ApiPartidoJugadoresController extends Controller
         return Partido::findOrfail($partido_id)->titulares->toJson();
     }
 
-    public function ingresarJugadoresTitulares(Request $request, $partido_id)
+    public function ingresarJugadoresTitulares(Request $request, $partido_id, $equipo_id)
     {
         $titulares = [];
         $errors = [];
@@ -44,17 +44,17 @@ class ApiPartidoJugadoresController extends Controller
             $titular = array(
                 'par_id' => $partido_id,
                 'jug_id' => $jugador['jug_id'],
-                // 'pju_numero_camiseta' => ,
                 'pju_juvenil' => false,
                 'pju_minuto_ingreso' => 0,
+                'eqp_id' => $equipo_id,
             );
 
             $validator = Validator::make($titular, PartidoJugadorTitularRequest::$rules, PartidoJugadorTitularRequest::$messages);
 
-            if ($validator->passes()){
+            if ($validator->passes()) {
                 $titulares[] = $titular;
             }
-            else{
+            else {
                 foreach ($validator->errors() as $key => $value) {
                     foreach ($value as $message) {
                         $errors[] = $jugador->jug_nombre.''.$jugador->jug_apellido.': '.$value;
@@ -68,10 +68,6 @@ class ApiPartidoJugadoresController extends Controller
 
         if (! $this->partidoJugador->insert($titulares))
              return \Response::make(null, 500);
-
-
-        // $temp = Partido::findOrfail($partido_id)->titulares();
-        // syslog(1, get_class($temp));
 
         return $this->obtenerJugadoresTitulares($partido_id);
     }
