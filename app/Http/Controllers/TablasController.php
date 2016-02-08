@@ -52,4 +52,11 @@ class TablasController extends Controller {
 		return view('tablas.preview', compact('torneo_id'));
 	}
 
+	// personalizado
+	// cancheros
+	public function cancherosShow($torneo)
+	{
+		return view('tablas.cancherosShow', ['cliente' => 1, 'torneo' => $torneo]);
+	}
+
 }

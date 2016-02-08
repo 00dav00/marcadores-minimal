@@ -20,4 +20,16 @@ class ResultadosController extends Controller
 	{
 		return view('resultados.tablaShow', ['cliente' => $cliente, 'torneo' => $torneo]);
 	}
+
+	/**
+	 * Muestra la informacion de la siguiente fecha de un torneo
+	 * CANCHEROS
+	 *  
+	 * @param  integer $torneo  id del torneo
+	 * @return mixed          
+	 */
+    public function cancherosTablaShow($torneo)
+	{
+		return view('resultados.cancherosTablaShow', ['cliente' => 1, 'torneo' => $torneo]);
+	}
 }

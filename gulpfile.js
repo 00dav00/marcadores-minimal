@@ -136,6 +136,21 @@ gulp.task("copyfiles", function() {
  	// gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
  	// 	.pipe(gulp.dest("public/assets/fonts/resultados/bootstrap"));
 
+ 	/**
+ 	 * **************** bootstrap para resultados ****************
+ 	 */
+ 	// gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 	// 	.pipe(gulp.dest("resources/assets/sass/cancheros/tablas/bootstrap"));
+
+ 	// gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 	// 	.pipe(gulp.dest("public/assets/fonts/cancheros/tablas/bootstrap"));
+
+ 	// gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
+ 	// 	.pipe(gulp.dest("resources/assets/sass/cancheros/resultados/bootstrap"));
+
+ 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 		.pipe(gulp.dest("public/assets/css/cancheros/fonts/bootstrap"));
+
 });
 
 // funciones principales de elixir
@@ -222,6 +237,18 @@ elixir(function(mix) {
 	});
 
 	mix.compass('resultados/resultados.scss', 'public/assets/css/', {
+		require: ['susy'],
+	    style: "compact",
+	    sass: "resources/assets/sass"
+	});
+
+	mix.compass('cancheros/tablas/style.scss', 'public/assets/css/', {
+		require: ['susy'],
+	    style: "compact",
+	    sass: "resources/assets/sass"
+	});
+
+	mix.compass('cancheros/resultados/resultados.scss', 'public/assets/css/', {
 		require: ['susy'],
 	    style: "compact",
 	    sass: "resources/assets/sass"
