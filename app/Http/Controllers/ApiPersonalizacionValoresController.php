@@ -8,94 +8,61 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\PersonalizacionValor;
+use App\Http\Requests\PersonalizacionValorRequest;
+
+use DB;
 
 class ApiPersonalizacionValoresController extends Controller
 {
+    /**
+     * Objeto con el modelo a consultar
+     * @var object
+     */
     protected $_valor;
 
+    /**
+     * Constructor de la clase
+     * @param valor $valor
+     */
     public function __construct(PersonalizacionValor $valor)
     {
         $this->_valor = $valor;
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Obtener los campos a personalizar y sus valores
+     * @return json 
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function getCampos()
     {
         return $this->_valor->getCampos();
+    }
+
+    public function savePersonalizacionValores(Request $request)
+    {
+        $arrRequest = $request->all();
+
+        $cliente = $arrRequest['cliente'];
+
+        $campos = $arrRequest['campos'];
+
+        $valores = [];
+        foreach ($campos as $campo) {
+            $valores[] = [
+                'pca_id' => $campo['id'], 
+                'clt_id' => $cliente['clt_id'], 
+                'pva_valor' => $campo['valor_default']
+                ];
+        }
+
+        // borrar los datos asociados a un cliente
+        DB::table('personalizacion_valores')
+            ->where('clt_id', $cliente['clt_id'])
+            ->delete();
+
+        // insertar los valores de personalizacion
+        DB::table('personalizacion_valores')->insert($valores);
+
+        return response()->json(['result' => TRUE]);
     }
 }
