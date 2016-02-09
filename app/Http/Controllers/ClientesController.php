@@ -96,9 +96,4 @@ class ClientesController extends Controller
     {
         return view('clientes.wizard');
     }
-
-    public function wizard()
-    {
-        return view('clientes.wizard');
-    }
 }
