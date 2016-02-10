@@ -20,20 +20,14 @@ function mainController(
 	main.mostrarCampos = false;
 	main.spinneractive = false;
 
-<<<<<<< HEAD
 	main.iframeWidth = 500;
 	main.iframeHeight = 700;
 
-=======
->>>>>>> Personalizaciones, wizard clientes, campos tipo color
 	main.cargarTorneos = cargarTorneos;
 	main.cargarProductos = cargarProductos;
 	main.cargarCampos = cargarCampos;
 	main.saveColores = saveColores;
-<<<<<<< HEAD
 	main.cargarTabla = cargarTabla;
-=======
->>>>>>> Personalizaciones, wizard clientes, campos tipo color
 
 	cargarClientes();
 
@@ -84,10 +78,7 @@ function mainController(
 		Campos.getCampos().query().$promise.then(
 			function(data) {
 				main.campos = data;
-<<<<<<< HEAD
 				main.url = "/tablas/" + main.clienteSeleccionado.clt_id + "/" + main.torneoSeleccionado.tor_id;
-=======
->>>>>>> Personalizaciones, wizard clientes, campos tipo color
 			}, function (error) {
 				exception.catcher(error);
 			}
@@ -95,22 +86,7 @@ function mainController(
 
 		switch (main.productoSeleccionado.prd_nombre) {
 			case 'tabla_posiciones':
-<<<<<<< HEAD
 				cargarTabla();
-=======
-				Tablas.getTablas()
-					.query({ cliente_id: main.clienteSeleccionado.clt_id, torneo_id: main.torneoSeleccionado.tor_id })
-					.$promise.then(
-						function(data) {
-							main.tablas = data;
-							compareColours();
-							main.mostrarCampos = true;
-							usSpinnerService.stop('spinner-1');
-						}, function (error) {
-							exception.catcher(error);
-						}
-					);
->>>>>>> Personalizaciones, wizard clientes, campos tipo color
 				break;
 		}
 	}
