@@ -126,7 +126,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::get('goles/{goles}', 'ApiPartidoGolesController@show');
 	Route::post('goles/', 'ApiPartidoGolesController@store');
 	Route::put('goles/{goles}', 'ApiPartidoGolesController@update');
-	Route::delete('goles/{goles}', 'ApiPartidoGolesController@delete');
+	Route::delete('goles/{goles}', 'ApiPartidoGolesController@destroy');
 
 	Route::resource('clientes', 'ApiClientesController');
 	Route::resource('productos', 'ApiProductosController');
