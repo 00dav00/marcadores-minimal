@@ -3,6 +3,7 @@
 @section('stylesheets')
 
 <link href="{!! asset('/assets/css/cancheros/resultados/resultados.css') !!}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
 
 @endsection
 
