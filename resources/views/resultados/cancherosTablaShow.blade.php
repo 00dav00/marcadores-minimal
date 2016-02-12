@@ -10,12 +10,6 @@
 
 <div ng-app="resultadosTorneo" ng-controller="resultadosController as res" ng-init="res.init({{$torneo}}, {{$cliente}})" class="container">
 
-	<br>
-	<header class="row titulo">
-		<h4 class="col-xs-9"><b>@{{ res.fase.fas_descripcion | uppercase }}</b></h4>
-		<h4 class="text-right col-xs-9"><b>FECHA @{{ res.fecha.fec_numero }}</b></h4>
-	</header>
-
 	<main>
 		<section class="row posiciones">
 
@@ -27,7 +21,7 @@
 							<div class="text-center col-xs-5 equipo text-uppercase"><h4><b>@{{ res.equipos[partido.par_eqp_local].eqp_nombre_corto }}</b></h4></div>
 
 							<div class="text-center col-xs-2">
-								<img ng-src="/@{{ res.equipos[partido.par_eqp_local].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_local].eqp_abreviatura }}" style="max-width:35px;max-height:35px;"/>
+								<img ng-src="/@{{ res.equipos[partido.par_eqp_local].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_local].eqp_abreviatura }}" style="max-width:25px;max-height:25px;"/>
 							</div>
 
 							<div ng-if="partido.par_goles_local == null" class="text-center">
@@ -49,7 +43,7 @@
 							</div>
 
 							<div class="col-xs-2 text-center">
-								<img ng-src="/@{{ res.equipos[partido.par_eqp_visitante].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_visitante].eqp_abreviatura }}" style="max-width:35px;max-height:35px;"/>
+								<img ng-src="/@{{ res.equipos[partido.par_eqp_visitante].eqp_escudo }}" alt="@{{ res.equipos[partido.par_eqp_visitante].eqp_abreviatura }}" style="max-width:25px;max-height:25px;"/>
 							</div>
 
 							<div class="text-center col-xs-5 equipo text-uppercase"><h4><b>@{{ res.equipos[partido.par_eqp_visitante].eqp_nombre_corto }}</b></h4></div>
@@ -58,7 +52,12 @@
 						<div class="row estadio">
 							<div class="text-center">
 								<h4>@{{ partido.estadio.est_nombre }}</h4>
-								<h5>@{{ partido.par_fecha }} | @{{ partido.par_hora | limitTo:5 }}</h5>
+								<div ng-if="partido.par_fecha != null">
+									<h5>@{{ partido.par_fecha }} | @{{ partido.par_hora | limitTo:5 }}</h5>
+								</div>
+								<div ng-if="partido.par_fecha == null">
+									<h5>SUSPENDIDO</h5>
+								</div>
 							</div>
 						</div>
 
@@ -76,12 +75,6 @@
 			</div>
 
 		</section>
-
-		<br>
-
-		<footer class="row">
-			<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
-		</footer>
 
 	</main>
 	

@@ -58,7 +58,12 @@
 						<div class="row estadio">
 							<div class="text-center">
 								<h4>@{{ partido.estadio.est_nombre }}</h4>
-								<h5>@{{ partido.par_fecha }} | @{{ partido.par_hora | limitTo:5 }}</h5>
+								<div ng-if="partido.par_fecha != null">
+									<h5>@{{ partido.par_fecha }} | @{{ partido.par_hora | limitTo:5 }}</h5>
+								</div>
+								<div ng-if="partido.par_fecha == null">
+									<h5>SUSPENDIDO</h5>
+								</div>
 							</div>
 						</div>
 
