@@ -1,14 +1,47 @@
 /* bootstrap */
-@import "cancheros/resultados/bootstrap/bootstrap";
+@import "resultados/bootstrap/bootstrap";
 
 /* compass */
 @import "compass";
 
 @import "utilities/settings";
 
+@mixin gwf($fonts...) {
+  $url: "http://fonts.googleapis.com/css?family=";
+  $nb: 0;
+  
+  @each $font-name in $fonts {
+    $nb: $nb + 1;
+    $nb-word: 0;
+    
+    @each $word in $font-name {
+      $nb-word: $nb-word + 1;
+      $url: $url + $word;
+      
+      @if $nb-word < length($font-name) {
+        $url: $url + "+"; 
+      } 
+    }
+    
+    @if $nb < length($fonts) {
+       $url: $url + "|"; 
+    }
+  }
+  
+  @import url(#{$url});
+}
+
+$font-p: Roboto;
+
+@include gwf($font-p);
+
+body {
+    font-family: $font-p;
+}
+
 .container {
 	max-width: 480px;
-	padding: 5px;
+	padding: 0px;
 
 	// valores personalizables
 	background-color: $color-fondo;
@@ -31,27 +64,27 @@
 }
 
 .informacion {
-	@include background-image(linear-gradient(to bottom right, $color-fondo-secundario, $color-fondo));
-	height: 120px;
+	height: 90px;
 }
 
 .partido {
-	height: 50px;
+	height: 30px;
 }
 
 .estadio {
-	height: 40px;
+	height: 15px;
 	h4 {
-		font-size: 13px;
+		font-size: 11px;
 	}
 }
 
 .goles {
-	background: #2E6C8E;
+	background-color: $color-header-tabla;
+	color: $color-texto-header-tabla;
 }
 
 .equipo {
 	h4 {
-		font-size: 12px;
+		font-size: 11px;
 	}
 }

@@ -6,8 +6,43 @@
 
 @import "utilities/settings";
 
+@mixin gwf($fonts...) {
+  $url: "http://fonts.googleapis.com/css?family=";
+  $nb: 0;
+  
+  @each $font-name in $fonts {
+    $nb: $nb + 1;
+    $nb-word: 0;
+    
+    @each $word in $font-name {
+      $nb-word: $nb-word + 1;
+      $url: $url + $word;
+      
+      @if $nb-word < length($font-name) {
+        $url: $url + "+"; 
+      } 
+    }
+    
+    @if $nb < length($fonts) {
+       $url: $url + "|"; 
+    }
+  }
+  
+  @import url(#{$url});
+}
+
+$font-p: Roboto;
+
+@include gwf($font-p);
+
+body {
+    overflow-x: hidden;
+    font-family: $font-p;
+}
+
 .container {
-	width: 300px;
+	max-width: 480px;
+	padding: 0px;
 
 	// valores personalizables
 	background-color: $color-fondo;
@@ -16,10 +51,6 @@
 
 th, td {
 	max-height: 20px;
-}
-
-tr:nth-child(even) {
-	background: $color-tr-impar;
 }
 
 .titulo {
@@ -40,37 +71,6 @@ tr:nth-child(even) {
 }
 
 .botones {
-	background-color: $color-botones;
-	color: $color-texto-botones;
-
-	width: 100px;
-}
-
-.fases {
-
-	font-size: 10px;
-
-	a:link {
-		color: $color-texto-fases;
-		text-decoration: underline;
-	}
-	/* visited link */
-	a:visited {
-		color: $color-texto-fases;
-	}
-
-	/* mouse over link */
-	a:hover {
-		color: $color-texto-fases;
-	}
-
-	/* selected link */
-	a:active {
-		color: $color-texto-fases;
-	}
-}
-
-.botones-fases {
 	background-color: $color-botones;
 	color: $color-texto-botones;
 }

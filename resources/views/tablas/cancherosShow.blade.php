@@ -9,49 +9,58 @@
 @section('content')
 
 <div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container">
-	<br>
-	<header class="row titulo">
-		<h3 class="text-center col-xs-6"><b>Primera A</b></h3>
-		<h4 class="text-center col-xs-5"><button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)"><b>@{{ tbl.faseActual.fas_descripcion }}</b></button></h4>
-	</header>
-	<br>
-
 	<main>
 		<section class="row posiciones">
 
-			<table class="table">
+			<table class="table table-hover">
 				<tr class="header-tabla">
-					<th class="col-xs-2 text-center">Pos</th>
+					<th class="col-sm-1"></th>
 					
-					<th class="col-xs-6">Club</th>
+					<th class="col-sm-2"></th>
 					
-					<th class="col-xs-2 text-center">PJ</th>
+					<th class="col-sm-4">Equipo</th>
 					
-					<th class="col-xs-2 text-center">Pts</th>
+					<th class="col-sm-1">PJ</th>
+
+					<!--no se muestran cuando es sm-->
+					<th class="col-sm-1 hidden-xs">PG</th>
+					<th class="col-sm-1 hidden-xs">PE</th>
+					<th class="col-sm-1 hidden-xs">PP</th>
+					<th class="col-sm-1 hidden-xs">GF</th>
+					<th class="col-sm-1 hidden-xs">GC</th>
+
+					<th class="col-sm-1">GD</th>
+					
+					<th class="col-sm-1">Pts</th>
 				</tr>
 				<tr ng-repeat="equipo in tbl.equipos">
-					<td class="col-xs-2 text-center">@{{ $index + 1 }}</td>
-
-					<td class="col-xs-6"><b>@{{ equipo.nombre_corto }}</b></td>
+					<td class="col-sm-1">@{{ $index + 1 }}</td>
 					
-					<td class="col-xs-2 text-center">@{{ equipo.partidos_jugados }}</td>
+					<td class="col-sm-2 text-center"><img ng-src="/@{{ equipo.escudo }}" alt="@{{ equipo.abreviatura }}" style="max-width:20px;max-height:20px;"/></td>
 
-					<td class="col-xs-2 text-center">@{{ equipo.puntos }}</td>
+					<td class="col-sm-4">@{{ equipo.nombre_corto }}</td>
+					
+					<td class="col-sm-1">@{{ equipo.partidos_jugados }}</td>
+
+					<td class="col-sm-1 hidden-xs">@{{ equipo.partidos_ganados }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.partidos_empatados }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.partidos_perdidos }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.goles_favor }}</td>
+					<td class="col-sm-1 hidden-xs">@{{ equipo.goles_contra }}</td>
+
+					<td class="col-sm-1">@{{ equipo.goles_diferencia }}</td>
+
+					<td class="col-sm-1">@{{ equipo.puntos }}</td>
 
 				</tr>
 			</table>
 
 		<div class="row text-center">
 			<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
-				<button class="btn btn-default botones-fases" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</button>
+				<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</button>
 			</div>
 		</div>
 		</section>
-		<br>
-
-		<footer class="row">
-			<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
-		</footer>
 
 	</main>
 </div>
