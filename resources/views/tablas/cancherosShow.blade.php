@@ -13,7 +13,7 @@
 		<section class="row posiciones">
 
 			<table class="table">
-				<tr class="header-tabla">
+				<tr class="header-tabla-cancheros">
 					<th class="col-sm-1"></th>
 					
 					<th class="col-sm-2"></th>
