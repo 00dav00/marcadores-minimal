@@ -3886,10 +3886,10 @@ body { font-family: Roboto; }
 .titulo { color: #000000; }
 
 /* line 56, ../../../../../resources/assets/sass/cancheros/resultados/resultados.scss */
-.header-tabla { background-color: #eb0254; color: #FFFFFF; }
+.header-tabla { background-color: #e5192c; color: #FFFFFF; }
 
 /* line 61, ../../../../../resources/assets/sass/cancheros/resultados/resultados.scss */
-.botones { background-color: #eb0254; color: #FFFFFF; }
+.botones { background-color: #e5192c; color: #FFFFFF; }
 
 /* line 66, ../../../../../resources/assets/sass/cancheros/resultados/resultados.scss */
 .informacion { height: 90px; }
@@ -3903,7 +3903,7 @@ body { font-family: Roboto; }
 .estadio h4 { font-size: 11px; }
 
 /* line 81, ../../../../../resources/assets/sass/cancheros/resultados/resultados.scss */
-.goles { background-color: #eb0254; color: #FFFFFF; }
+.goles { background-color: #e5192c; color: #FFFFFF; }
 
 /* line 87, ../../../../../resources/assets/sass/cancheros/resultados/resultados.scss */
 .equipo h4 { font-size: 11px; }

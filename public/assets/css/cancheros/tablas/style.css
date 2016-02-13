@@ -1972,7 +1972,7 @@ th { text-align: left; }
 .table-striped > tbody > tr:nth-of-type(odd) { background-color: #f9f9f9; }
 
 /* line 125, ../../../../../resources/assets/sass/cancheros/tablas/bootstrap/bootstrap/_tables.scss */
-.table-hover > tbody > tr:hover { background-color: #f5f5f5; }
+.table-hover > tbody > tr:hover { background-color: #F86F7C; }
 
 /* line 135, ../../../../../resources/assets/sass/cancheros/tablas/bootstrap/bootstrap/_tables.scss */
 table col[class*="col-"] { position: static; float: none; display: table-column; }
@@ -3893,7 +3893,7 @@ th, td { max-height: 20px; }
 .titulo h4 { font-size: 14px; }
 
 /* line 68, ../../../../../resources/assets/sass/cancheros/tablas/style.scss */
-.header-tabla { background-color: #eb0254; color: #FFFFFF; }
+.header-tabla { background-color: #e5192c; color: #FFFFFF; }
 
 /* line 73, ../../../../../resources/assets/sass/cancheros/tablas/style.scss */
-.botones { background-color: #eb0254; color: #FFFFFF; }
+.botones { background-color: #e5192c; color: #FFFFFF; }
