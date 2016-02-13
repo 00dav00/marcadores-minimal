@@ -12,7 +12,7 @@
 	<main>
 		<section class="row posiciones">
 
-			<table class="table table-hover">
+			<table class="table">
 				<tr class="header-tabla">
 					<th class="col-sm-1"></th>
 					
