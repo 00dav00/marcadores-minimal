@@ -213,10 +213,11 @@ torneoServices.factory('Titulares',
 				{
 					bulk: 	{method:	'POST',	cache:	false,	isArray:	true },
 					query: 	{method:	'GET',	cache:	false,	isArray:	true },
-					// get:	{method:'GET',	cache:false,	isArray:false},
-					// save:	{method:'POST',	cache:false,	isArray:false},
-					// update:	{method:'PUT',	cache:false,	isArray:false},
-					// delete:	{method:'DELETE',	cache:false,	isArray:false},
+					state:{
+						url: "/api/partidos/:partido/jugadores/estado",
+						params: {partido: '@partido_id'},
+						method:	'GET',	cache:	false,	isArray:	false
+					},
 				}
 			);
 		}

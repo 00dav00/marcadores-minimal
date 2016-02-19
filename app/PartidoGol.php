@@ -20,24 +20,6 @@ class PartidoGol extends Model {
 		'eqp_id',
 	];
 
-	private function esAutogol($nuevoGol) {
-		$this->attributes['par_id'] = $nuevoGol['par_id'];
-
-		$equipoBeneficiado = $nuevoGol['eqp_id'];
-		$equipoAutor = $this->partido()->first()
-						->jugadoresParticipantes()->get()
-						->filter(function ($item) use ($nuevoGol) { return $item["jug_id"] == $nuevoGol["gol_autor"]; })
-						->first()->pivot->eqp_id;
-
-		return $equipoBeneficiado != $equipoAutor;
-	}
-
-	public function ingresarGol($nuevoGol) {
-		$nuevoGol['gol_auto'] = $this->esAutogol($nuevoGol);
-
-		return parent::create($nuevoGol);
-	}
-
 	public function autor() {
 		return $this->belongsTo('App\Jugador','gol_autor','jug_id');
 	}

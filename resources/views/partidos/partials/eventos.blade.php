@@ -49,7 +49,7 @@
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-default" ng-hide="goles.local.length + goles.visitante.length == 0">
     <div class="panel-heading">
         <h4 class="text-center"><b>Goles</b></h4>
     </div>

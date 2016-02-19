@@ -8,17 +8,28 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\PartidoGolRequest;
 use App\PartidoGol;
+use App\Domain\DomGol;
 
 class ApiPartidoGolesController extends Controller
 {
     protected $_partidoGol;
+    protected $_gol;
 
     public function __construct(PartidoGol $partidoGol) {
         $this->_partidoGol = $partidoGol;
     }
 
+    private function domainInstance() {
+        if (!$this->_gol) {
+            $this->_gol = new DomGol;
+        }
+        return $this->_gol;
+    }
+
     public function store(PartidoGolRequest $request) {
-        return $this->_partidoGol->ingresarGol($request->all())->toJson();
+        return $this->domainInstance()
+                    ->ingresarGol($request->all())
+                    ->toJson();
     }
 
     public function show($id) {
@@ -26,10 +37,8 @@ class ApiPartidoGolesController extends Controller
     }
 
     public function obtenerGolesPartido($partido_id) {
-        return $this->_partidoGol
-                    ->with('autor','asistente')
-                    ->where('par_id',$partido_id)
-                    ->get()
+        return $this->domainInstance()
+                    ->obtenerGolesPartido($partido_id)
                     ->toJson();   
     }
 

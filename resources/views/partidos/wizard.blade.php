@@ -19,10 +19,11 @@
 
 				<alert ng-repeat="alert in alerts" type="<%alert.type%>" dismiss-on-timeout="4000" close="closeAlert($index)"><%alert.msg%></alert>
 
-				<div data-ng-switch="paso" ng-init="avanzarPaso()">
+				<!-- <div data-ng-switch="paso" ng-init="avanzarPaso()"> -->
+				<div data-ng-switch="paso" ng-init="fake()">
 
 					{{-- seleccionar el torneo a configurar --}}
-					<div class="row" ng-switch-when="6">
+					<div class="row" ng-switch-when="1">
 						@include('partidos.partials.torneos')
 					</div>
 
@@ -47,7 +48,7 @@
 					</div>
 
 					{{-- eventos del partido --}}
-					<div class="row" data-ng-switch-when="1">
+					<div class="row" data-ng-switch-when="6">
 						@include('partidos.partials.eventos')
 					</div>
 				</div>

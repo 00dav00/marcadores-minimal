@@ -18,13 +18,13 @@
 	</div>
 	<div class="form-group" >
 		<label for="gol_jugador" class="control-label">Seleccionar Jugador</label>
-		<select name="gol_jugador" class="form-control" ng-model="nuevoGol.autor" ng-options="autor.jug_nombre for autor in jugadores">
+		<select name="gol_jugador" class="form-control" ng-model="nuevoGol.autor" ng-options="autor.jug_nombre + ' ' + autor.jug_apellido for autor in jugadores">
 			<option value="" disabled>Jugador ...</option>
 		</select>
 	</div>
 	<div class="form-group" >
 		<label for="gol_asistente" class="control-label">Seleccionar Asistente</label>
-		<select name="gol_asistente" class="form-control" ng-model="nuevoGol.asistente" ng-options="asistente.jug_nombre for asistente in jugadores">
+		<select name="gol_asistente" class="form-control" ng-model="nuevoGol.asistente" ng-options="asistente.jug_nombre + ' ' + asistente.jug_apellido for asistente in jugadores">
 			<option value="" disabled>Jugador ...</option>
 		</select>
 	</div>

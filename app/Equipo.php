@@ -65,6 +65,10 @@ class Equipo extends Model {
 		return $this->hasOne('App\Lugar', 'lug_id', 'lug_id');
 	}
 
-
+	public function plantillas()
+	{
+		return $this->belongsToMany('App\Jugador','plantillas_torneo','eqp_id','jug_id')
+						->withPivot('tor_id','plt_id','plt_numero_camiseta');
+	}
 	
 }
