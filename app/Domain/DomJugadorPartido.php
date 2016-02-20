@@ -47,7 +47,7 @@ class DomJugadorPartido {
 
     public function obtenerJugadoresCambio($partido_id, $equipo_id) {
     	return  $this->partidoJugadorInstance()
-						->with('jugador')
+						->with('jugador','sustituido')
                     	->where('par_id', $partido_id)
                     	->where('eqp_id', $equipo_id)
                     	->where('pju_minuto_ingreso', '!=', 0)
@@ -57,13 +57,13 @@ class DomJugadorPartido {
     }
 
     public function obtenerJugadoresSustituidos($partido_id, $equipo_id) {
-    	return  $this->partidoJugadorInstance()
-						->with('jugador')
-                    	->where('par_id', $partido_id)
-                    	->where('eqp_id', $equipo_id)
-                    	->whereNotNull('pju_minuto_ingreso')
-                    	->whereNotNull('pju_minuto_salida')
-                    	->get();                        	
+    	$partidoJugador =  $this->partidoJugadorInstance()
+                                ->with('jugador')
+                                ->where('par_id', $partido_id)
+                                ->where('eqp_id', $equipo_id)
+                                ->whereNotNull('pju_minuto_ingreso')
+                                ->whereNotNull('pju_minuto_salida')                                
+                                ->get();
     }
 
     public function obtenerJugadoresEnCancha($partido_id, $equipo_id) {
@@ -98,8 +98,9 @@ class DomJugadorPartido {
 
         $jugadoresEnCancha = $this->obtenerJugadoresEnCancha($partido_id, $equipo_id);
 
-        $jugadoresSustituidos = $this->obtenerJugadoresSustituidos($partido_id, $equipo_id)
-                                        ->map(function ($item) { return $item->jugador; });
+        $jugadoresCambio = $this->obtenerJugadoresCambio($partido_id, $equipo_id);
+
+        $jugadoresSustituidos = $jugadoresCambio->map(function ($item) { return $item->sustituido; });
 
         $jugadoresNoDisponibles = $jugadoresEnCancha->merge($jugadoresSustituidos);
 
@@ -116,7 +117,7 @@ class DomJugadorPartido {
             'plantilla' => $plantilla,
             'titulares' => $titulares,
             'en_cancha' => $jugadoresEnCancha, 
-            'sustituciones' => $jugadoresSustituidos, 
+            'sustituciones' => $jugadoresCambio, 
             'disponibles' => $jugadoresDisponibles
         ]);
     }

@@ -68,8 +68,8 @@
 	@include('partidos.partials.goles')
 </script>
 
-<script type="text/ng-template" id="cambios.tpl">
-	@include('partidos.partials.cambios')
+<script type="text/ng-template" id="sustituciones.tpl">
+	@include('partidos.partials.sustituciones')
 </script>
 
 <script type="text/ng-template" id="amonestaciones.tpl">

@@ -22,14 +22,15 @@ class PartidoJugador extends Model {
 		'eqp_id',
 	];
 
-	public function partido()
-	{
+	public function partido() {
 		return $this->belongsTo('App\Partido','par_id','par_id');
 	}
 
-	public function jugador()
-	{
+	public function jugador() {
 		return $this->belongsTo('App\Jugador','jug_id','jug_id');
 	}
 
+	public function sustituido() {
+		return $this->belongsTo('App\Jugador','pju_reemplazo_de','jug_id');
+	}
 }
