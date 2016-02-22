@@ -247,3 +247,24 @@ torneoServices.factory('Goles',
 	]
 );
 
+torneoServices.factory('Sustituciones',
+	[
+		'$resource',
+		function($resource)	{
+			return	$resource(
+				"/api/sustituciones/:sustitucion",
+				{sustitucion: '@sustitucion_id'},
+				{
+					// query:	{
+					// 	url: '/api/partidos/:partido/sustituciones',
+					// 	params: {partido: '@partido_id'},
+					// 	method:	'GET',	cache:	false,	isArray:	true
+					// },
+					save:	{method:'POST',	cache:false,	isArray:false},
+					update:	{method:'PUT',	cache:false,	isArray:false},
+					delete:	{method:'DELETE',	cache:false,	isArray:false},
+				}
+			);
+		}
+	]
+);

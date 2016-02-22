@@ -90,4 +90,18 @@ class PartidoJugadorCambioTest extends TestCase
 		);
     }
 
+    public function test_falla_por_minuto_menor_a_1() {
+    	$partidoJugador = factory(App\PartidoJugador::class)->create();
+    	$jugador = factory(App\Jugador::class)->create();
+    	$partido = factory(App\Partido::class)->create();
+		$this->evalTestRequest(
+			PartidoJugadorCambioRequest::$rules,
+			[
+				'par_id' => $partido->par_id, 'jug_id' => $jugador->jug_id, 'pju_minuto_ingreso' => 0,
+				'pju_reemplazo_de' => $partidoJugador->pju_id, 'pju_amarilla' => null, 'pju_doble_amarilla' => null, 'pju_roja' => null,
+				'pju_numero_camiseta' => 1, 'pju_juvenil' => true, 'eqp_id' => 1
+			],
+			['pju_minuto_ingreso']
+		);
+    }
 }

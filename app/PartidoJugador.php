@@ -31,6 +31,7 @@ class PartidoJugador extends Model {
 	}
 
 	public function sustituido() {
-		return $this->belongsTo('App\Jugador','pju_reemplazo_de','jug_id');
+		return $this->belongsTo('App\PartidoJugador','pju_reemplazo_de','pju_id')
+						->with('jugador');
 	}
 }

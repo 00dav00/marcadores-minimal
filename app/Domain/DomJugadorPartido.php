@@ -35,6 +35,67 @@ class DomJugadorPartido {
     }
     /****************** WRAPPERS PARA CLASES **************************/
     
+    public function ingresarJugadoresTitulares($jugadores, $partido_id, $equipo_id) {
+        $jugadoresNuevos = collect($jugadores);
+        $titulares = $this->obtenerJugadoresTitulares($partido_id, $equipo_id);
+
+        if ($titulares) {
+            $titulares = $titulares
+                            ->map(function ($titular) use ($jugadoresNuevos) { 
+                                if ( !$jugadoresNuevos->contains('jug_id', $titular->jug_id) ) {
+                                    $titular->delete();
+                                    $titular = null;
+                                }
+                                return $titular; 
+                            });
+
+            $jugadoresNuevos = $jugadoresNuevos
+                                    ->filter(function ($j) use ($titulares) { return !$titulares->contains('jug_id', $j->jug_id); })
+                                    ->values();
+        }
+
+
+        return $this->partidoJugadorInstance()
+                    ->insert($jugadoresNuevos->toArray());
+    }
+
+    public function ingresarSustitucion($sustitucion) {
+        $sustituido = $this->partidoJugadorInstance()
+                            ->where('par_id', $sustitucion['par_id'])
+                            ->where('jug_id', $sustitucion['pju_reemplazo_de'])
+                            ->get()->first();
+
+        $sustituido->pju_minuto_salida = $sustitucion['pju_minuto_ingreso'];
+        $sustitucion['pju_reemplazo_de'] = $sustituido->pju_id;
+
+        $sustituido->save();
+
+        return $this->_partidoJugador->create($sustitucion);
+    }
+
+    public function editarSustitucion($sustitucion_id, $sustitucion) {
+        $sustituido = $this->partidoJugadorInstance()
+                            ->where('par_id', $sustitucion['par_id'])
+                            ->where('jug_id', $sustitucion['pju_reemplazo_de'])
+                            ->get()->first();
+
+        $sustituido->pju_minuto_salida = $sustitucion['pju_minuto_ingreso'];
+        $sustitucion['pju_reemplazo_de'] = $sustituido->pju_id;
+
+        $sustituido->save();
+
+        return $this->_partidoJugador->create($sustitucion);
+    }
+
+    public function eliminarSustitucion($sustitucion_id) {
+        $sustitucion = $this->partidoJugadorInstance()
+                            ->find($sustitucion_id);
+
+        $sustitucion->find($sustitucion['pju_reemplazo_de'])
+                    ->update(['pju_minuto_salida' => null]);
+
+        return $sustitucion->delete();
+    }
 
     public function obtenerJugadoresTitulares($partido_id, $equipo_id) {
     	return $this->partidoJugadorInstance()
@@ -122,35 +183,8 @@ class DomJugadorPartido {
         ]);
     }
 
-    public function ingresarJugadoresTitulares($jugadores, $partido_id, $equipo_id) {
-        $jugadoresNuevos = collect($jugadores);
-        $titulares = $this->obtenerJugadoresTitulares($partido_id, $equipo_id);
-
-        if ($titulares) {
-            $titulares = $titulares
-                            ->map(function ($titular) use ($jugadoresNuevos) { 
-                                if ( !$jugadoresNuevos->contains('jug_id', $titular->jug_id) ) {
-                                    $titular->delete();
-                                    $titular = null;
-                                }
-                                return $titular; 
-                            });
-
-            $jugadoresNuevos = $jugadoresNuevos
-                                    ->filter(function ($j) use ($titulares) { return !$titulares->contains('jug_id', $j->jug_id); })
-                                    ->values();
-        }
+    
 
 
-        return $this->partidoJugadorInstance()
-                    ->insert($jugadoresNuevos->toArray());
-    }
-
-    public function ingresarCambio($jugadorCambio) {
-        $this->partidoJugadorInstance()
-                ->find($jugadorCambio['pju_reemplazo_de'])
-                ->update(['pju_minuto_salida' => $jugadorCambio['pju_minuto_ingreso']]);
-
-        return $this->_partidoJugador->store($data);
-    }
+    
 }

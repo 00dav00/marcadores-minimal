@@ -49,130 +49,133 @@
     </div>
 </div>
 
-<div class="panel panel-default" ng-hide="goles.local.length + goles.visitante.length == 0">
-    <div class="panel-heading">
-        <h4 class="text-center"><b>Goles</b></h4>
+<div class="panel-group">
+    <div class="panel panel-default" ng-hide="goles.local.length + goles.visitante.length == 0">
+        <div class="panel-heading">
+            <h4 class="text-center"><b>Goles</b></h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-md-6 col-lg-6">
+                <div class="text-center"><b><% partidoSeleccionado.equipo_local.eqp_nombre %></b></div>
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Autor</th>
+                            <th class="text-center">Asistente</th>
+                            <th class="text-center">Min.</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="gol in goles.local">
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% gol.autor.jug_nombre %> <% gol.autor.jug_apellido %></td>
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% gol.asistente.jug_nombre %> <% gol.asistente.jug_apellido %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1"><% gol.gol_minuto %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-info btn-xs" ng-click="golEditar(gol)">
+                                    <span class="glyphicon glyphicon-edit" ></span>
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-click="golEliminar(gol)">
+                                    <span class="glyphicon glyphicon-trash" ></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-10 col-md-6 col-lg-6">
+                <div class="text-center"><b><% partidoSeleccionado.equipo_visitante.eqp_nombre %></b></div>
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Autor</th>
+                            <th class="text-center">Asistente</th>
+                            <th class="text-center">Min.</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="gol in goles.visitante">
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% gol.autor.jug_nombre %> <% gol.autor.jug_apellido %></td>
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% gol.asistente.jug_nombre %> <% gol.asistente.jug_apelresources/views/partidos/partials/eventos.blade.phplido %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1"><% gol.gol_minuto %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-info btn-xs" ng-click="golEditar(gol)">
+                                    <span class="glyphicon glyphicon-edit" ></span>
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-click="golEliminar(gol)">
+                                    <span class="glyphicon glyphicon-trash" ></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="row panel-body">
-        <div class="col-xs-12 col-md-6 col-lg-6">
-            <div class="text-center"><b><% partidoSeleccionado.equipo_local.eqp_nombre %></b></div>
-            <table class="table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center">Autor</th>
-                        <th class="text-center">Asistente</th>
-                        <th class="text-center">Min.</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="gol in goles.local">
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% gol.autor.jug_nombre %> <% gol.autor.jug_apellido %></td>
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% gol.asistente.jug_nombre %> <% gol.asistente.jug_apellido %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1"><% gol.gol_minuto %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1">
-                            <button class="btn btn-info btn-xs" ng-click="golEditar(gol)">  
-                                <span class="glyphicon glyphicon-edit" ></span>
-                            </button>
-                            <button class="btn btn-danger btn-xs" ng-click="golEliminar(gol)">  
-                                <span class="glyphicon glyphicon-trash" ></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-xs-10 col-md-6 col-lg-6">
-            <div class="text-center"><b><% partidoSeleccionado.equipo_visitante.eqp_nombre %></b></div>
-            <table class="table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center">Autor</th>
-                        <th class="text-center">Asistente</th>
-                        <th class="text-center">Min.</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="gol in goles.visitante">
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% gol.autor.jug_nombre %> <% gol.autor.jug_apellido %></td>
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% gol.asistente.jug_nombre %> <% gol.asistente.jug_apellido %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1"><% gol.gol_minuto %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1">
-                            <button class="btn btn-info btn-xs" ng-click="golEditar(gol)">  
-                                <span class="glyphicon glyphicon-edit" ></span>
-                            </button>
-                            <button class="btn btn-danger btn-xs" ng-click="golEliminar(gol)">  
-                                <span class="glyphicon glyphicon-trash" ></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    <div>
-</div>
 
-<div class="panel panel-default" ng-hide="sustituciones.local.length + sustituciones.visitante.length == 0">
-    <div class="panel-heading">
-        <h4 class="text-center"><b>Sustituciones</b></h4>
+    <div class="panel panel-default" ng-hide="sustituciones.local.length + sustituciones.visitante.length == 0">
+        <div class="panel-heading">
+            <h4 class="text-center"><b>Sustituciones</b></h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-md-6 col-lg-6">
+                <div class="text-center"><b><% partidoSeleccionado.equipo_local.eqp_nombre %></b></div>
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Ingresa</th>
+                            <th class="text-center">Sale</th>
+                            <th class="text-center">Minuto</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="sustitucion in sustituciones.local">
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.jugador.jug_nombre %> <% sustitucion.jugador.jug_apellido %></td>
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.sustituido.jugador.jug_nombre %> <% sustitucion.sustituido.jugador.jug_apellido %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1"><% sustitucion.pju_minuto_ingreso %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-info btn-xs" ng-click="sustitucionEditar(sustitucion)">
+                                    <span class="glyphicon glyphicon-edit" ></span>
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)">
+                                    <span class="glyphicon glyphicon-trash" ></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-10 col-md-6 col-lg-6">
+                <div class="text-center"><b><% partidoSeleccionado.equipo_visitante.eqp_nombre %></b></div>
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Ingresa</th>
+                            <th class="text-center">Sale</th>
+                            <th class="text-center">Minuto</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="sustitucion in sustituciones.visitante">
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.jugador.jug_nombre %> <% sustitucion.jugador.jug_apellido %></td>
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.sustituido.jugador.jug_nombre %> <% sustitucion.sustituido.jugador.jug_apellido %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1"><% sustitucion.pju_minuto_ingreso %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-info btn-xs" ng-click="sustitucionEditar(sustitucion)">
+                                    <span class="glyphicon glyphicon-edit" ></span>
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)">
+                                    <span class="glyphicon glyphicon-trash" ></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="row panel-body">
-        <div class="col-xs-12 col-md-6 col-lg-6">
-            <div class="text-center"><b><% partidoSeleccionado.equipo_local.eqp_nombre %></b></div>
-            <table class="table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center">Ingresa</th>
-                        <th class="text-center">Sale</th>
-                        <th class="text-center">Minuto</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="sustitucion in sustituciones.local">
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.jugador.jug_nombre %> <% sustitucion.jugador.jug_apellido %></td>
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.sustitucion.jug_nombre %> <% sustitucion.sustitucion.jug_apellido %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1"><% sustitucion.pju_minuto_ingreso %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1">
-                            <button class="btn btn-info btn-xs" ng-click="sustitucionEditar(sustitucion)">  
-                                <span class="glyphicon glyphicon-edit" ></span>
-                            </button>
-                            <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)">  
-                                <span class="glyphicon glyphicon-trash" ></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-xs-10 col-md-6 col-lg-6">
-            <div class="text-center"><b><% partidoSeleccionado.equipo_visitante.eqp_nombre %></b></div>
-            <table class="table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center">Ingresa</th>
-                        <th class="text-center">Sale</th>
-                        <th class="text-center">Minuto</th>
-                        <th class="text-center"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="sustitucion in sustituciones.visitante">
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.jugador.jug_nombre %> <% sustitucion.jugador.jug_apellido %></td>
-                        <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.sustitucion.jug_nombre %> <% sustitucion.sustitucion.jug_apellido %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1"><% sustitucion.pju_minuto_ingreso %></td>
-                        <td class="col-xs-2 col-md-1 col-lg-1">
-                            <button class="btn btn-info btn-xs" ng-click="sustitucionEditar(sustitucion)">  
-                                <span class="glyphicon glyphicon-edit" ></span>
-                            </button>
-                            <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)">  
-                                <span class="glyphicon glyphicon-trash" ></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    <div>
-</div>
+    
+  </div>

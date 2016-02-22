@@ -929,9 +929,10 @@ fechasControllers.controller('FechasCtrl', [
 ]);
 
 partidosControllers.controller('PartidosCtrl', [
-	'$scope','$uibModal','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 'Partidos', 'Plantillas', 'Titulares', 'Goles',
+	'$scope','$uibModal','EquiposParticipantes','JugadoresInscritos','Torneos', 'Fases', 'Fechas', 
+	'Partidos', 'Plantillas', 'Titulares', 'Sustituciones', 'Goles',
 
-	function($scope, $uibModal, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos, Plantillas, Titulares, Goles) {
+	function($scope, $uibModal, EquiposParticipantes, JugadoresInscritos, Torneos, Fases, Fechas, Partidos, Plantillas, Titulares, Sustituciones, Goles) {
  
  		$scope.templates = {gol: 'goles.tpl', sustitucion:'sustituciones.tpl', amonestacion: 'amonestaciones.tpl'};
  		$scope.controladores = {gol: 'ModalInstanceCtrl', sustitucion:'SustitucionesCtrl', amonestacion: 'AmonestacionesCtrl'};
@@ -1275,6 +1276,28 @@ partidosControllers.controller('PartidosCtrl', [
 			abrirModal($scope.templates.sustitucion, $scope.controladores.sustitucion, null);
 		}
 
+		$scope.sustitucionEditar = function (sustitucion) {
+			abrirModal($scope.templates.sustitucion, $scope.controladores.sustitucion, sustitucion);
+		}
+
+		$scope.sustitucionEliminar = function (sustitucion) {
+			Sustituciones.delete(
+				{sustitucion: sustitucion.pju_id},
+	            function success(response){
+	                createAlert('success', "Gol eliminado");
+	                obtenerEstadoJugadores($scope.partidoSeleccionado.par_id);
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+		function sustitucionIngresada() {
+			createAlert('success', "Sustitucion ingresada");
+			obtenerEstadoJugadores($scope.partidoSeleccionado.par_id);
+		}
+
 		/**********************MANEJO DE CONTROLES DEL FORMULARIO************************/
 		function prepararPaso(paso) {
 			if (paso <= 1){
@@ -1346,7 +1369,7 @@ partidosControllers.controller('PartidosCtrl', [
 	        		jugadores: function () { return $scope.jugadores; },
 
 	        		Goles: function () {return Goles;},
-	        		Titulares: function () {return Titulares;},
+	        		Sustituciones: function () {return Sustituciones; },
 
 	        		gol: function () {return instancia;},
 	        		sustitucion: function () {return instancia;},
@@ -1358,6 +1381,9 @@ partidosControllers.controller('PartidosCtrl', [
 		    	console.log(type);
 		    	if (type == 'gol') {
 		    		golIngresado(result);
+		    	}
+		    	if (type == 'sustitucion') {
+		    		sustitucionIngresada();
 		    	}
 	      		
 	      		console.log('Successful - '+ template +': ' + JSON.stringify(result));
@@ -1503,12 +1529,14 @@ partidosControllers.controller('ModalInstanceCtrl',
 );
 
 partidosControllers.controller('SustitucionesCtrl',
-	function ($scope, $uibModalInstance, partido, equipos, jugadores, sustitucion, Titulares) {
+	function ($scope, $uibModalInstance, partido, equipos, jugadores, sustitucion, Sustituciones) {
 		$scope.alerts = [];
 		$scope.equipos = equipos;
 		$scope.partido = partido;
 		$scope.jugadores = jugadores;
-		$scope.nuevaSustitucion = nuevaSustitucionDefaults();
+		$scope.en_cancha = [];
+		$scope.disponibles = [];		
+		$scope.nuevaSustitucion = definirValoresInicialesNuevaSustitucion(sustitucion);
 
 		function errorHandler(error, code){
 			switch(code){
@@ -1540,86 +1568,101 @@ partidosControllers.controller('SustitucionesCtrl',
 				$scope.alerts.splice(index, 1);
 		}
 
+		$scope.seleccionarEquipo = function(index) {
+			var local = index ? false : true;
+
+			$scope.en_cancha = obtenerJugadoresEnCancha(local);
+			$scope.disponibles = obtenerJugadoresDisponibles(local);			
+		}
+
 		function nuevaSustitucionDefaults(){
 			return {
-				minuto: 0,
-				equipo: $scope.equipos[0],
+				minuto: 1,
+				equipo: null,
 				sale: null,
 				ingresa: null,
 			};
 		}
 
-	// 	function prepararGol(gol){
-	// 		return {
-	// 			gol_minuto: gol.minuto,
-	// 			gol_jugada: gol.jugada,
-	// 			gol_ejecucion: gol.ejecucion,
-	// 			gol_autor: gol.autor ? gol.autor.jug_id : null,
-	// 			gol_asistencia: gol.asistente ? gol.asistente.jug_id : null,
-	// 			eqp_id: gol.equipo.eqp_id,
-	// 			par_id: $scope.partido.par_id,
-	// 		};
-	// 	}
+		function obtenerJugadoresEnCancha(local) {
+			return local ? $scope.jugadores.local.en_cancha : $scope.jugadores.visitante.en_cancha;
+		}
 
-	// 	function definirValoresInicialesNuevoGol(gol) {
-	// 		if(gol) {
-	// 			var equipo = $scope.equipos.filter(function (equipo){ return equipo.eqp_id == gol.eqp_id; });
-	// 			var autor = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_autor; });
-	// 			var asistente = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_asistencia; });
+		function obtenerJugadoresDisponibles(local) {
+			return local ? $scope.jugadores.local.disponibles : $scope.jugadores.visitante.disponibles;
+		}
 
-	// 			return {
-	// 				id: gol.gol_id,
-	// 				minuto: gol.gol_minuto,
-	// 				equipo: $scope.equipos[$scope.equipos.indexOf(equipo[0])],
-	// 				autor: $scope.jugadores[$scope.jugadores.indexOf(autor[0])],
-	// 				asistente: $scope.jugadores[$scope.jugadores.indexOf(asistente[0])],
-	// 				jugada: gol.gol_jugada,
-	// 				ejecucion: gol.gol_ejecucion
-	// 			};
-	// 		}
-	// 		else {
-	// 			return nuevoGolDefaults();
-	// 		}
-	// 	}
+		function prepararSustitucion(sustitucion){
+			return {
+				par_id: $scope.partido.par_id,
+				jug_id: sustitucion.ingresa.jug_id,
+				eqp_id: sustitucion.equipo.eqp_id,
+				pju_minuto_ingreso: sustitucion.minuto,
+				pju_reemplazo_de: sustitucion.sale.jug_id,
+				// pju_numero_camiseta: 0,
+				// pju_juvenil: false
+			};
+		}
 
-	// 	function ingresarNuevoGol(nuevoGol) {
-	// 		Goles.save(
-	// 			prepararGol(nuevoGol),
-	//             function success(response){
-	//                 console.log(JSON.stringify(response));
-	//                 $uibModalInstance.close('gol',response);
-	//             },
-	//             function error(error){
-	//             	errorHandler(error.data, error.status);
-	//             }
-	//         );
-	// 	}
+		function definirValoresInicialesNuevaSustitucion(sustitucion) {
+			if(sustitucion) {
+				var equipo = $scope.equipos.filter(function (equipo){ return equipo.eqp_id == gol.eqp_id; });
+				// var autor = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_autor; });
+				// var asistente = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_asistencia; });
 
-	// 	function editarGol(gol_id, nuevoGol) {
-	// 		Goles.update(
-	// 			{gol: gol_id},
-	// 			prepararGol(nuevoGol),
-	//             function success(response){
-	//                 console.log(JSON.stringify(response));
-	//                 $uibModalInstance.close('gol',response);
-	//             },
-	//             function error(error){
-	//             	errorHandler(error.data, error.status);
-	//             }
-	//         );
-	// 	}
+				return {
+					id: gol.gol_id,
+					minuto: gol.gol_minuto,
+					// equipo: $scope.equipos[$scope.equipos.indexOf(equipo[0])],
+					// autor: $scope.jugadores[$scope.jugadores.indexOf(autor[0])],
+					// asistente: $scope.jugadores[$scope.jugadores.indexOf(asistente[0])],
+					jugada: gol.gol_jugada,
+					ejecucion: gol.gol_ejecucion
+				};
+			}
+			else {
+				return nuevaSustitucionDefaults();
+			}
+		}
 
-	//   	$scope.ok = function (nuevoGol) {
-	//     	if (nuevoGol.id) {
-	//     		editarGol(nuevoGol.id, nuevoGol);
-	//     	}
-	//     	else {
-	//     		ingresarNuevoGol(nuevoGol);
-	//     	}
-	//   	};
+		function ingresarNuevaSustitucion(sustitucion) {
+			Sustituciones.save(
+				prepararSustitucion(sustitucion),
+	            function success(response){
+	                console.log(JSON.stringify(response));
+	                $uibModalInstance.close('sustitucion',response);
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
 
-	//   	$scope.cancel = function () {
-	//     	$uibModalInstance.dismiss('cancel');
-	//   	};
+		function editarSustitucion(sustitucion_id, sustitucion) {
+			Sustituciones.update(
+				{sustitucion: sustitucion_id},
+				prepararSustitucion(sustitucion),
+	            function success(response){
+	                console.log(JSON.stringify(response));
+	                $uibModalInstance.close('sustitucion',response);
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
+		}
+
+	  	$scope.ok = function (nuevaSustitucion) {
+	    	if (nuevaSustitucion.id) {
+	    		// editarGol(nuevaSustitucion.id, nuevaSustitucion);
+	    	}
+	    	else {
+	    		ingresarNuevaSustitucion(nuevaSustitucion);
+	    	}
+	  	};
+
+	  	$scope.cancel = function () {
+	    	$uibModalInstance.dismiss('cancel');
+	  	};
 	}
 );

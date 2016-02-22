@@ -116,12 +116,14 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	
 	Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'ApiTorneosController@jugadoresEquipoParticipante');
 
-	Route::delete('partidoJugadores/{partidoJugador}', 'ApiPartidoJugadoresController@destroy');
-	Route::post('partidoJugadores/cambio', 'ApiPartidoJugadoresController@ingresarJugadorCambio');
-	Route::post('partidoJugadores/titular', 'ApiPartidoJugadoresController@ingresarJugadorTitular');
 	Route::get('partidos/{partidos}/equipos/{equipos}/titulares', 'ApiPartidoJugadoresController@obtenerJugadoresTitulares');
 	Route::post('partidos/{partidos}/equipos/{equipos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
 	Route::get('partidos/{partidos}/jugadores/estado', 'ApiPartidoJugadoresController@obtenerJugadoresDisponibilidad');
+
+	// Route::get('partidos/{partidos}/sustituciones', 'ApiPartidoJugadoresController@obtenerSustituciones');
+	Route::post('sustituciones/', 'ApiPartidoJugadoresController@ingresarSustitucion');
+	Route::put('sustituciones/{sustitucion}', 'ApiPartidoJugadoresController@actualizarSustitucion');
+	Route::delete('sustituciones/{sustitucion}', 'ApiPartidoJugadoresController@eliminarSustitucion');
 
 	Route::get('partidos/{partidos}/goles', 'ApiPartidoGolesController@obtenerGolesPartido');
 	Route::get('goles/{goles}', 'ApiPartidoGolesController@show');

@@ -46,19 +46,6 @@ class ApiPartidoJugadoresController extends Controller
 
     /****************** WRAPPERS PARA CLASES **************************/
 
-    public function ingresarJugadorTitular(PartidoJugadorTitularRequest $request) {
-        $partidoJugador = $request->all();
-        $partidoJugador['pju_minuto_ingreso'] = 0;
-
-        return $this->store($partidoJugador);
-    }
-
-    public function obtenerJugadoresTitulares($partido_id, $equipo_id) {
-        return  $this->domainInstance()
-                        ->obtenerJugadoresTitulares($partido_id, $equipo_id)
-                        ->toJson();
-    }
-
     public function obtenerJugadoresDisponibilidad($partido_id) {
         $partido = $this->partidoInstance()->find($partido_id);
 
@@ -70,6 +57,7 @@ class ApiPartidoJugadoresController extends Controller
         return collect(['local' => $jugadoresLocal, 'visitante' => $jugadoresVisitante])->toJson();
     }
 
+    /****************** TITUTLARES **************************/    
     public function ingresarJugadoresTitulares(Request $request, $partido_id, $equipo_id) {
         $titulares = [];
         $errors = [];
@@ -110,43 +98,27 @@ class ApiPartidoJugadoresController extends Controller
                     ->toJson();
     }
 
-    public function ingresarJugadorCambio(PartidoJugadorCambioRequest $request) {
-        $data = $request->all();
-        $partidoJugadorActual = $this->_partidoJugador
-                                        ->find($data['pju_reemplazo_de'])
-                                        ->update(['pju_minuto_salida' => $data['pju_minuto_ingreso']]);
-
-        return $this->store($data);
+    public function obtenerJugadoresTitulares($partido_id, $equipo_id) {
+        return  $this->domainInstance()
+                        ->obtenerJugadoresTitulares($partido_id, $equipo_id)
+                        ->toJson();
     }
 
-    private function store($atributos) {
-        $contador = $this->_partidoJugador
-                            ->where('par_id', $atributos['par_id'])
-                            ->where('jug_id', $atributos['jug_id'])
-                            ->count();
-        if($contador > 0)
-            return \Response::make(null, 400);
-
-        $partidoJugador = $this->_partidoJugador->create($atributos);
-
-        return $partidoJugador->toJson();
+    /****************** SUSTITUCIONES **************************/
+    public function ingresarSustitucion(PartidoJugadorCambioRequest $request) {
+        return $this->domainInstance()
+                    ->ingresarSustitucion( $request->all() );
     }
 
-    public function show($id) {
-        //
+    public function actualizarSustitucion(PartidoJugadorCambioRequest $request, $sustitucion_id) {
+
     }
 
-    public function update(Request $request, $id) {
-        //
-    }
+    public function eliminarSustitucion($sustitucion_id) {
+        if ( !$this->domainInstance()->eliminarSustitucion($sustitucion_id) ) {
+            return \Response::make(null, 500);
+        }
 
-    public function destroy($id) {
-        $partidoJugador = $this->_partidoJugador->find($id);
-        
-        if(!isset($partidoJugador))
-            return \Response::make(null, 404);
-
-        $partidoJugador->delete();
         return \Response::make(null, 200);
     }
 }

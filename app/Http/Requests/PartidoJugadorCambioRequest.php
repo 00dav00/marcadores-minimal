@@ -10,7 +10,7 @@ class PartidoJugadorCambioRequest extends Request
         'par_id'                => 'required|integer|exists:partidos,par_id',
         'jug_id'                => 'required|integer|exists:jugadores,jug_id',
         'eqp_id'                => 'required|integer|exists:equipos,eqp_id',
-        'pju_minuto_ingreso'    => 'required|integer',
+        'pju_minuto_ingreso'    => 'required|integer|min:1',
         'pju_reemplazo_de'      => 'required|integer|exists:partido_jugadores,pju_id',
         'pju_numero_camiseta'   => 'integer',
         'pju_juvenil'           => 'boolean'
@@ -28,6 +28,9 @@ class PartidoJugadorCambioRequest extends Request
         'eqp_id.required'               => 'Es obligatorio indicar el equipo.',
         'eqp_id.integer'                => 'La clave del equipo no es del tipo adecuado.',
         'eqp_id.exists'                 => 'La clave del equipo no existe en la tabla de equipos.',
+
+        'pju_minuto_ingreso.integer'    => 'El minuto de ingreso no es del tipo correcto.',
+        'pju_minuto_ingreso.min'        => 'El minuto de ingreso debe ser al menos 1.',
 
         'pju_numero_camiseta.integer'   => 'El numero de camiseta no es del tipo correcto.',
 
