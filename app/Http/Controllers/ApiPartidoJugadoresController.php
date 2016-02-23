@@ -8,34 +8,57 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\PartidoJugador;
+use App\Domain\DomJugadorPartido;
 use App\Partido;
 use App\Http\Requests\PartidoJugadorTitularRequest;
 use App\Http\Requests\PartidoJugadorCambioRequest;
 
 class ApiPartidoJugadoresController extends Controller
 {
-    protected $partidoJugador;
+    protected $_partido;
+    protected $_partidoJugador;
+    protected $_domainPartidoJugador;
 
-    public function __construct(PartidoJugador $partidoJugador)
-    {
-        $this->partidoJugador = $partidoJugador;
+    public function __construct(PartidoJugador $partidoJugador) {
+        $this->_partidoJugador = $partidoJugador;
     }
 
-    public function ingresarJugadorTitular(PartidoJugadorTitularRequest $request)
-    {
-        $partidoJugador = $request->all();
-        $partidoJugador['pju_minuto_ingreso'] = 0;
-
-        return $this->store($partidoJugador);
+    /****************** WRAPPERS PARA CLASES **************************/
+    private function domainInstance() {
+        if (!$this->_domainPartidoJugador) {
+            $this->_domainPartidoJugador = new DomJugadorPartido;
+        }
+        return $this->_domainPartidoJugador;
     }
 
-    public function obtenerJugadoresTitulares($partido_id)
-    {
-        return Partido::findOrfail($partido_id)->titulares->toJson();
+    private function partidoInstance() {
+        if (!$this->_partido) {
+            $this->_partido = new Partido;
+        }
+        return $this->_partido;
+    }
+    private function partidoJugadorInstance($force) {
+        if ( !$this->_partidoJugador || $force) {
+            $this->_partidoJugador = new PartidoJugador;
+        }
+        return $this->_partidoJugador;
     }
 
-    public function ingresarJugadoresTitulares(Request $request, $partido_id)
-    {
+    /****************** WRAPPERS PARA CLASES **************************/
+
+    public function obtenerJugadoresDisponibilidad($partido_id) {
+        $partido = $this->partidoInstance()->find($partido_id);
+
+        $jugadoresLocal = $this->domainInstance()
+                                ->obtenerJugadoresDisponibilidad($partido_id, $partido->par_eqp_local);
+        $jugadoresVisitante = $this->domainInstance()
+                                    ->obtenerJugadoresDisponibilidad($partido_id, $partido->par_eqp_visitante);
+
+        return collect(['local' => $jugadoresLocal, 'visitante' => $jugadoresVisitante])->toJson();
+    }
+
+    /****************** TITUTLARES **************************/    
+    public function ingresarJugadoresTitulares(Request $request, $partido_id, $equipo_id) {
         $titulares = [];
         $errors = [];
 
@@ -44,17 +67,17 @@ class ApiPartidoJugadoresController extends Controller
             $titular = array(
                 'par_id' => $partido_id,
                 'jug_id' => $jugador['jug_id'],
-                // 'pju_numero_camiseta' => ,
                 'pju_juvenil' => false,
                 'pju_minuto_ingreso' => 0,
+                'eqp_id' => $equipo_id,
             );
 
             $validator = Validator::make($titular, PartidoJugadorTitularRequest::$rules, PartidoJugadorTitularRequest::$messages);
 
-            if ($validator->passes()){
-                $titulares[] = $titular;
+            if ($validator->passes()) {
+                $titulares[] = $this->partidoJugadorInstance(true)->fill($titular); // true forza a crear un nuevo objecto
             }
-            else{
+            else {
                 foreach ($validator->errors() as $key => $value) {
                     foreach ($value as $message) {
                         $errors[] = $jugador->jug_nombre.''.$jugador->jug_apellido.': '.$value;
@@ -66,58 +89,40 @@ class ApiPartidoJugadoresController extends Controller
         if (count($errors) > 0)
              return \Response::make($errors, 422);
 
-        if (! $this->partidoJugador->insert($titulares))
+        if (! $this->domainInstance()->ingresarJugadoresTitulares($titulares, $partido_id, $equipo_id) )
              return \Response::make(null, 500);
 
-
-        // $temp = Partido::findOrfail($partido_id)->titulares();
-        // syslog(1, get_class($temp));
-
-        return $this->obtenerJugadoresTitulares($partido_id);
+        return $this->domainInstance()
+                    ->obtenerJugadoresTitulares($partido_id, $equipo_id)
+                    ->map(function ($item) { return $item->jugador; })
+                    ->toJson();
     }
 
-    public function ingresarJugadorCambio(PartidoJugadorTitularRequest $request)
-    {
-        $data = $request->all();
-        $partidoJugadorActual = $this->partidoJugador
-                                        ->find($data['pju_reemplazo_de'])
-                                        ->update(['pju_minuto_salida' => $data['pju_minuto_ingreso']]);
-
-        return $this->store($data);
+    public function obtenerJugadoresTitulares($partido_id, $equipo_id) {
+        return  $this->domainInstance()
+                        ->obtenerJugadoresTitulares($partido_id, $equipo_id)
+                        ->toJson();
     }
 
-    private function store($atributos)
-    {
-        $contador = $this->partidoJugador
-                            ->where('par_id', $atributos['par_id'])
-                            ->where('jug_id', $atributos['jug_id'])
-                            ->count();
-        if($contador > 0)
-            return \Response::make(null, 400);
-
-        $partidoJugador = $this->partidoJugador->create($atributos);
-
-        return $partidoJugador->toJson();
+    /****************** SUSTITUCIONES **************************/
+    public function ingresarSustitucion(PartidoJugadorCambioRequest $request) {
+        return $this->domainInstance()
+                    ->ingresarSustitucion( $request->all() );
     }
 
-    public function show($id)
-    {
-        //
+    public function actualizarSustitucion(PartidoJugadorCambioRequest $request, $sustitucion_id) {
+        if ( !$this->domainInstance()->editarSustitucion($sustitucion_id, $request->all()) ) {
+            return \Response::make(null, 500);
+        }
+
+        return \Response::make(null, 200);
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function eliminarSustitucion($sustitucion_id) {
+        if ( !$this->domainInstance()->eliminarSustitucion($sustitucion_id) ) {
+            return \Response::make(null, 500);
+        }
 
-    public function destroy($id)
-    {
-        $partidoJugador = $this->partidoJugador->find($id);
-        
-        if(!isset($partidoJugador))
-            return \Response::make(null, 404);
-
-        $partidoJugador->delete();
         return \Response::make(null, 200);
     }
 }

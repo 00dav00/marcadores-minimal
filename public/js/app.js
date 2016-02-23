@@ -38,7 +38,7 @@ var app4 = angular.module(
 
 var app5 = angular.module(
 	'partidosApp', 
-	['torneoServices','partidosControllers','ui.bootstrap','ngDragDrop'], 
+	['torneoServices','partidosControllers','ui.bootstrap'], 
 	function($interpolateProvider) {
 		$interpolateProvider.startSymbol('<%');
 		$interpolateProvider.endSymbol('%>');

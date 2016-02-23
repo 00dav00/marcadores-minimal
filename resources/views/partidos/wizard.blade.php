@@ -19,7 +19,8 @@
 
 				<alert ng-repeat="alert in alerts" type="<%alert.type%>" dismiss-on-timeout="4000" close="closeAlert($index)"><%alert.msg%></alert>
 
-				<div data-ng-switch="paso" ng-init="avanzarPaso()">
+				<!-- <div data-ng-switch="paso" ng-init="avanzarPaso()"> -->
+				<div data-ng-switch="paso" ng-init="fake()">
 
 					{{-- seleccionar el torneo a configurar --}}
 					<div class="row" ng-switch-when="1">
@@ -45,6 +46,11 @@
 					<div class="row" data-ng-switch-when="5">
 						@include('partidos.partials.titulares')
 					</div>
+
+					{{-- eventos del partido --}}
+					<div class="row" data-ng-switch-when="6">
+						@include('partidos.partials.eventos')
+					</div>
 				</div>
 
 			</div>
@@ -58,5 +64,16 @@
 	</div>
 </duv>
 
+<script type="text/ng-template" id="goles.tpl">
+	@include('partidos.partials.goles')
+</script>
+
+<script type="text/ng-template" id="sustituciones.tpl">
+	@include('partidos.partials.sustituciones')
+</script>
+
+<script type="text/ng-template" id="amonestaciones.tpl">
+	@include('partidos.partials.amonestaciones')
+</script>
 
 @endsection

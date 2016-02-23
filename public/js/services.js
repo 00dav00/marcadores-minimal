@@ -208,15 +208,61 @@ torneoServices.factory('Titulares',
 		'$resource',
 		function($resource)	{
 			return	$resource(
-				"/api/partidos/:partido/titulares",
-				{partido: '@partido_id'},
+				"/api/partidos/:partido/equipos/:equipo/titulares",
+				{partido: '@partido_id', equipo: '@equipo_id'},
 				{
 					bulk: 	{method:	'POST',	cache:	false,	isArray:	true },
 					query: 	{method:	'GET',	cache:	false,	isArray:	true },
-					// get:	{method:'GET',	cache:false,	isArray:false},
-					// save:	{method:'POST',	cache:false,	isArray:false},
-					// update:	{method:'PUT',	cache:false,	isArray:false},
-					// delete:	{method:'DELETE',	cache:false,	isArray:false},
+					state:{
+						url: "/api/partidos/:partido/jugadores/estado",
+						params: {partido: '@partido_id'},
+						method:	'GET',	cache:	false,	isArray:	false
+					},
+				}
+			);
+		}
+	]
+);
+
+torneoServices.factory('Goles',
+	[
+		'$resource',
+		function($resource)	{
+			return	$resource(
+				"/api/goles/:gol",
+				{gol: '@gol_id'},
+				{
+					query:	{
+						url: '/api/partidos/:partido/goles',
+						params: {partido: '@partido_id'},	
+						method:	'GET',	cache:	false,	isArray:	true
+					},
+					get:	{method:'GET',	cache:false,	isArray:false},
+					save:	{method:'POST',	cache:false,	isArray:false},
+					update:	{method:'PUT',	cache:false,	isArray:false},
+					delete:	{method:'DELETE',	cache:false,	isArray:false},
+				}
+			);
+		}
+	]
+);
+
+torneoServices.factory('Sustituciones',
+	[
+		'$resource',
+		function($resource)	{
+			return	$resource(
+				"/api/sustituciones/:sustitucion",
+				{sustitucion: '@sustitucion_id'},
+				{
+					// query:	{
+					// 	url: '/api/partidos/:partido/sustituciones',
+					// 	params: {partido: '@partido_id'},
+					// 	method:	'GET',	cache:	false,	isArray:	true
+					// },
+					save:	{method:'POST',	cache:false,	isArray:false},
+					update:	{method:'PUT',	cache:false,	isArray:false},
+					delete:	{method:'DELETE',	cache:false,	isArray:false},
 				}
 			);
 		}

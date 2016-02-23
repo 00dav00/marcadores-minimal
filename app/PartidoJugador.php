@@ -19,16 +19,19 @@ class PartidoJugador extends Model {
 		'pju_roja',
 		'pju_numero_camiseta',
 		'pju_juvenil',
+		'eqp_id',
 	];
 
-	public function partido()
-	{
+	public function partido() {
 		return $this->belongsTo('App\Partido','par_id','par_id');
 	}
 
-	public function jugador()
-	{
+	public function jugador() {
 		return $this->belongsTo('App\Jugador','jug_id','jug_id');
 	}
 
+	public function sustituido() {
+		return $this->belongsTo('App\PartidoJugador','pju_reemplazo_de','pju_id')
+						->with('jugador');
+	}
 }

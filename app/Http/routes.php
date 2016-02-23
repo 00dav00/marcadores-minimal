@@ -42,6 +42,13 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::resource('auspiciantes', 'AuspiciantesController');
 
+	Route::get('fechas/list', 'FechasController@listado');
+	Route::resource('fechas', 'FechasController');
+
+	Route::get('plantillas/config', 'PlantillasTorneoController@config');
+
+	Route::resource('auspiciantes', 'AuspiciantesController');
+
 	// Route::get('fechas/list', 'FechasController@listado');
 	// Route::resource('fechas', 'FechasController');
 
@@ -109,14 +116,22 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	
 	Route::get('torneos/{torneos}/equipos/{equipos}/jugadores', 'ApiTorneosController@jugadoresEquipoParticipante');
 
-	Route::delete('partidoJugadores/{partidoJugador}', 'ApiPartidoJugadoresController@destroy');
-	Route::post('partidoJugadores/cambio', 'ApiPartidoJugadoresController@ingresarJugadorCambio');
-	Route::post('partidoJugadores/titular', 'ApiPartidoJugadoresController@ingresarJugadorTitular');
-	Route::get('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@obtenerJugadoresTitulares');
-	Route::post('partidos/{partidos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
+	Route::get('partidos/{partidos}/equipos/{equipos}/titulares', 'ApiPartidoJugadoresController@obtenerJugadoresTitulares');
+	Route::post('partidos/{partidos}/equipos/{equipos}/titulares', 'ApiPartidoJugadoresController@ingresarJugadoresTitulares');
+	Route::get('partidos/{partidos}/jugadores/estado', 'ApiPartidoJugadoresController@obtenerJugadoresDisponibilidad');
+
+	// Route::get('partidos/{partidos}/sustituciones', 'ApiPartidoJugadoresController@obtenerSustituciones');
+	Route::post('sustituciones/', 'ApiPartidoJugadoresController@ingresarSustitucion');
+	Route::put('sustituciones/{sustitucion}', 'ApiPartidoJugadoresController@actualizarSustitucion');
+	Route::delete('sustituciones/{sustitucion}', 'ApiPartidoJugadoresController@eliminarSustitucion');
+
+	Route::get('partidos/{partidos}/goles', 'ApiPartidoGolesController@obtenerGolesPartido');
+	Route::get('goles/{goles}', 'ApiPartidoGolesController@show');
+	Route::post('goles/', 'ApiPartidoGolesController@store');
+	Route::put('goles/{goles}', 'ApiPartidoGolesController@update');
+	Route::delete('goles/{goles}', 'ApiPartidoGolesController@destroy');
 
 	Route::resource('clientes', 'ApiClientesController');
-
 	Route::resource('productos', 'ApiProductosController');
 	
 	Route::get('personalizacion_campos', 'ApiPersonalizacionValoresController@getCampos');
@@ -171,3 +186,8 @@ Route::get('api/fases/{fases}/fecha_actual', 'ApiFechasController@showFechaActua
 Route::get('api/fechas/{fechas}/partidos', 'ApiFechasController@fechaPartidosRegistrados');
 
 Route::get('api/partidos/{fecha}','ApiPartidosController@showPartidosFecha');
+
+Route::get('tablas/{torneo_id}', 'TablasController@show');
+Route::get('tablas/{torneo_id}/{fase_id}', 'TablasController@show');
+
+

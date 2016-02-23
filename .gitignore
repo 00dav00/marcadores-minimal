@@ -2,4 +2,7 @@
 /node_modules
 /public/images/
 .env
+cargaCuboResultados_0.1.zip
+cargaCuboResultados2016_0.1.zip
 composer.lock
+ansible/external-roles/

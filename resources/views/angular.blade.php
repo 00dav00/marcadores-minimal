@@ -11,6 +11,8 @@
 
 	@yield('stylesheet')
 
+	<link rel="stylesheet" href="{!! asset('/js/libs/toaster/toaster.min.css') !!}">
+
 </head>
 <body>
 
@@ -23,6 +25,7 @@
 	<script src="{!! asset('/assets/js/principal.js') !!}"></script>
 	<script src="{!! asset('/assets/js/angular-scripts.js') !!}"></script>
 
+	<script src="{!! asset('/js/app.js') !!}"></script>
 	<script src="{!! asset('/js/services.js') !!}"></script>
 	<script src="{!! asset('/js/controllers.js') !!}"></script>
 
