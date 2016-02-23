@@ -60,4 +60,9 @@ class Partido extends Model {
 		return $this->belongsToMany('App\Jugador','partido_jugadores','par_id','jug_id')
 					->withPivot('pju_id','pju_amarilla','pju_doble_amarilla','pju_roja','pju_minuto_ingreso','eqp_id');
 	}
+
+	public function goles() {
+		return $this->hasMany('App\PartidoGol','par_id','par_id')
+					->with('autor');
+	}
 }

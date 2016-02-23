@@ -74,17 +74,28 @@ class DomJugadorPartido {
     }
 
     public function editarSustitucion($sustitucion_id, $sustitucion) {
-        $sustituido = $this->partidoJugadorInstance()
-                            ->where('par_id', $sustitucion['par_id'])
-                            ->where('jug_id', $sustitucion['pju_reemplazo_de'])
-                            ->get()->first();
+        $ingresoOriginal = $this->partidoJugadorInstance()
+                                ->find($sustitucion_id);
+        $sustituidoOriginal = $this->partidoJugadorInstance()
+                                    ->find( $ingresoOriginal->pju_minuto_ingreso );
 
-        $sustituido->pju_minuto_salida = $sustitucion['pju_minuto_ingreso'];
-        $sustitucion['pju_reemplazo_de'] = $sustituido->pju_id;
+        $sustituidoNuevo = $this->partidoJugadorInstance()
+                                ->where('par_id', $sustitucion['par_id'])
+                                ->where('jug_id', $sustitucion['pju_reemplazo_de'])
+                                ->get()->first();
 
-        $sustituido->save();
+        $ingresoOriginal->par_id = $sustitucion['par_id'];
+        $ingresoOriginal->jug_id = $sustitucion['jug_id'];
+        $ingresoOriginal->eqp_id = $sustitucion['eqp_id'];
+        $ingresoOriginal->pju_minuto_ingreso = $sustitucion['pju_minuto_ingreso'];
 
-        return $this->_partidoJugador->create($sustitucion);
+        if ( $sustituidoOriginal->pju_id != $sustituidoNuevo->pju_id ) {
+            $ingresoOriginal->pju_reemplazo_de = $sustituidoNuevo->pju_id;
+            $sustituidoOriginal->pju_minuto_salida = null;
+            $sustituidoOriginal->dave();
+        }
+
+        return $ingresoOriginal->save();
     }
 
     public function eliminarSustitucion($sustitucion_id) {
@@ -182,9 +193,4 @@ class DomJugadorPartido {
             'disponibles' => $jugadoresDisponibles
         ]);
     }
-
-    
-
-
-    
 }

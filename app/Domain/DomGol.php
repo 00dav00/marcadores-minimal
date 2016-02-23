@@ -66,8 +66,10 @@ class DomGol {
 			$nuevoGol['gol_asistencia'] = null;
 		}
 
-		return $this->golInstance()
-						->create($nuevoGol);
+		$gol = $this->golInstance()->create($nuevoGol);
+        $this->actualizarGolesPartido($nuevoGol['par_id']);
+
+        return $gol;
 	}
 
 	public function obtenerGolesPartido($partido_id) {
@@ -76,4 +78,22 @@ class DomGol {
                     ->where('par_id',$partido_id)
                     ->get();
 	}
+
+    public function actualizarGolesPartido($partido_id) {
+        $partido = $partido = $this->partidoInstance()->find($partido_id);
+        $goles = $partido->goles()->get();
+
+        $local = $goles->filter(
+            function ($item) use ($partido) {
+                return $item->eqp_id == $partido->par_eqp_local;
+        })->values()->count();
+        $visitante = $goles->filter(
+            function ($item) use ($partido) {
+                return $item->eqp_id == $partido->par_eqp_visitante;
+        })->values()->count();
+
+        $partido->par_goles_local = $local;
+        $partido->par_goles_visitante = $visitante;
+        $partido->save();
+    }
 }

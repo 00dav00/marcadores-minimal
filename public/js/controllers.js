@@ -961,10 +961,6 @@ partidosControllers.controller('PartidosCtrl', [
 
 		
 		$scope.fake = function() {
-			// $scope.titulares = {
-			// 	local: [{jug_id:14 , jug_nombre: "A"},{jug_id: 46, jug_nombre: "B"}], 
-			// 	visitante: [{jug_id: 20, jug_nombre: "C"},{jug_id: 33, jug_nombre: "D"}]
-			// };
 			$scope.torneoSeleccionado = { tor_jugadores_por_equipo: 11};
 			$scope.partidoSeleccionado = {
 				par_id:33, 
@@ -1606,7 +1602,12 @@ partidosControllers.controller('SustitucionesCtrl',
 
 		function definirValoresInicialesNuevaSustitucion(sustitucion) {
 			if(sustitucion) {
-				var equipo = $scope.equipos.filter(function (equipo){ return equipo.eqp_id == gol.eqp_id; });
+				var index = -1;
+				var equipo = $scope.equipos.filter(function (equipo){ 
+					index++;
+					return equipo.eqp_id == sustitucion.eqp_id; 
+				});
+				$scope.seleccionarEquipo(index);
 				// var autor = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_autor; });
 				// var asistente = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_asistencia; });
 

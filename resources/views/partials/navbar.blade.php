@@ -23,6 +23,7 @@
 						<li><a href="{{ url('torneos/config') }}">Wizard Torneos</a></li>
 						<li><a href="{{ url('tipo_fase') }}">Tipo de fase</a></li>
 						<li><a href="{{ url('fases') }}">Fases</a></li>
+						<li><a href="{{ url('jugadores') }}">Jugadores</a></li>
 						<li><a href="{{ url('plantillas/config') }}">Configuración Plantillas</a></li>
 						<li><a href="{{ url('partidos/wizard') }}">Wizard Partidos</a></li>
 						<li><a href="{{ url('fechas') }}">Fechas</a></li>

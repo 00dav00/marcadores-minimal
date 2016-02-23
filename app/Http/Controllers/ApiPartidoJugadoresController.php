@@ -111,7 +111,11 @@ class ApiPartidoJugadoresController extends Controller
     }
 
     public function actualizarSustitucion(PartidoJugadorCambioRequest $request, $sustitucion_id) {
+        if ( !$this->domainInstance()->editarSustitucion($sustitucion_id, $request->all()) ) {
+            return \Response::make(null, 500);
+        }
 
+        return \Response::make(null, 200);
     }
 
     public function eliminarSustitucion($sustitucion_id) {

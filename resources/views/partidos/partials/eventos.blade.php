@@ -136,10 +136,8 @@
                             <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.sustituido.jugador.jug_nombre %> <% sustitucion.sustituido.jugador.jug_apellido %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1"><% sustitucion.pju_minuto_ingreso %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1">
-                                <button class="btn btn-info btn-xs" ng-click="sustitucionEditar(sustitucion)">
-                                    <span class="glyphicon glyphicon-edit" ></span>
-                                </button>
-                                <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)">
+                                <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)"
+                                    ng-disabled="$index + 1 < sustituciones.local.length">
                                     <span class="glyphicon glyphicon-trash" ></span>
                                 </button>
                             </td>
@@ -164,10 +162,8 @@
                             <td class="col-xs-4 col-md-2 col-lg-2"><% sustitucion.sustituido.jugador.jug_nombre %> <% sustitucion.sustituido.jugador.jug_apellido %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1"><% sustitucion.pju_minuto_ingreso %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1">
-                                <button class="btn btn-info btn-xs" ng-click="sustitucionEditar(sustitucion)">
-                                    <span class="glyphicon glyphicon-edit" ></span>
-                                </button>
-                                <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)">
+                                <button class="btn btn-danger btn-xs" ng-click="sustitucionEliminar(sustitucion)"
+                                    ng-disabled="$index + 1 < sustituciones.visitante.length">
                                     <span class="glyphicon glyphicon-trash" ></span>
                                 </button>
                             </td>
