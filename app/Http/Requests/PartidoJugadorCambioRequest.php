@@ -11,7 +11,7 @@ class PartidoJugadorCambioRequest extends Request
         'jug_id'                => 'required|integer|exists:jugadores,jug_id',
         'eqp_id'                => 'required|integer|exists:equipos,eqp_id',
         'pju_minuto_ingreso'    => 'required|integer|min:1',
-        'pju_reemplazo_de'      => 'required|integer|exists:partido_jugadores,pju_id',
+        'pju_reemplazo_de'      => 'required|integer|exists:jugadores,jug_id',
         'pju_numero_camiseta'   => 'integer',
         'pju_juvenil'           => 'boolean'
     ];

@@ -114,7 +114,8 @@ class DomJugadorPartido {
                         ->where('par_id', $partido_id)
                         ->where('eqp_id', $equipo_id)
                         ->where('pju_minuto_ingreso', 0)
-                        ->get();                        	
+                        ->get()
+                        ->map(function ($item) { return $item->jugador; });
     }
 
     public function obtenerJugadoresCambio($partido_id, $equipo_id) {
@@ -165,8 +166,7 @@ class DomJugadorPartido {
                             ->wherePivot('tor_id',$torneo->tor_id)
                             ->get();
 
-        $titulares = $this->obtenerJugadoresTitulares($partido_id, $equipo_id)
-                                ->map(function ($item) { return $item->jugador; });
+        $titulares = $this->obtenerJugadoresTitulares($partido_id, $equipo_id);
 
         $jugadoresEnCancha = $this->obtenerJugadoresEnCancha($partido_id, $equipo_id);
 
@@ -176,7 +176,7 @@ class DomJugadorPartido {
 
         $jugadoresNoDisponibles = $jugadoresEnCancha->merge($jugadoresSustituidos);
 
-        $jugadoresDisponibles = $plantilla->filter(
+        $jugadoresDisponibles = $jugadoresSustituidos->count() > 2 ? collect([]) : $plantilla->filter(
             function ($item) use ($jugadoresNoDisponibles) {
                 $disponible = true;
                 foreach ($jugadoresNoDisponibles as $jugador) {
