@@ -44,7 +44,7 @@ function wizardFactory($http) {
 
 	function agregarEquipoParticipante(equipo) {
 		if (equipo) {
-			return $http.post("/api/equipos_participantes/", equipo);
+			return $http.post("/api/equipos_participantes", equipo);
 		}
 	}
 
