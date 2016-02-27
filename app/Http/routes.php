@@ -94,7 +94,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::get('torneos/consulta', 'ApiTorneosController@consulta');
 	Route::get('torneos/{torneos}/penalizaciones', 'ApiTorneosController@penalizaciones');
 	Route::get('torneos/{torneos}/equipos', 'ApiTorneosController@equiposParticipantes');
-	Route::post('equipos_participantes/', 'ApiEquiposParticipantesController@store');
+	Route::post('equipos_participantes', 'ApiEquiposParticipantesController@store');
 	Route::delete('torneos/{torneos}/equipos/{equipos}', 'ApiEquiposParticipantesController@destroy');
 
 
