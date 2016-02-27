@@ -34,10 +34,11 @@ class Torneo extends Model {
 	];
 
 
-	/**
-	 * Obtener la nacionalidad de un jugador
-	 * @return object relacion con la tabla lugares
-	 */
+	public function contieneFaseAcumulada () {
+		return $this->fases
+					->reduce( function ($carry, $item) { return $carry || $item->fas_acumulada; }, false);
+	}
+
 	public function lugar()
 	{
 		return $this->hasOne('App\Lugar', 'lug_id', 'lug_id');
