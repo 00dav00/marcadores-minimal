@@ -19,8 +19,8 @@
 
 				<alert ng-repeat="alert in alerts" type="<%alert.type%>" dismiss-on-timeout="4000" close="closeAlert($index)"><%alert.msg%></alert>
 
-				<!-- <div data-ng-switch="paso" ng-init="avanzarPaso()"> -->
-				<div data-ng-switch="paso" ng-init="fake()">
+				<div data-ng-switch="paso" ng-init="avanzarPaso()">
+				<!-- <div data-ng-switch="paso" ng-init="fake()"> -->
 
 					{{-- seleccionar el torneo a configurar --}}
 					<div class="row" ng-switch-when="1">

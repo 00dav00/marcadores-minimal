@@ -94,7 +94,6 @@ class ApiPartidoJugadoresController extends Controller
 
         return $this->domainInstance()
                     ->obtenerJugadoresTitulares($partido_id, $equipo_id)
-                    ->map(function ($item) { return $item->jugador; })
                     ->toJson();
     }
 
