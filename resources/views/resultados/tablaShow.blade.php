@@ -10,10 +10,10 @@
 
 <div ng-app="resultadosTorneo" ng-controller="resultadosController as res" ng-init="res.init({{$torneo}}, {{$cliente}})" class="container">
 
-	<br>
 	<header class="row titulo" ng-style="res.headerStyle">
-		<h4 class="col-xs-9">@{{ res.fase.fas_descripcion | uppercase }}</h4>
-		<h4 class="text-right col-xs-9">FECHA @{{ res.fecha.fec_numero }}</h4>
+		<strong><div class="text-center col-xs-14 col-xs-offset-2">@{{ res.torneo.tor_nombre | uppercase}}</div></strong>
+		<strong><div class="col-xs-9">@{{ res.fase.fas_descripcion | uppercase }}</div></strong>
+		<strong><div class="text-right col-xs-9">FECHA @{{ res.fecha.fec_numero }}</div></strong>
 	</header>
 
 	<main>
@@ -32,18 +32,18 @@
 
 							<div ng-if="partido.par_goles_local == null" class="text-center">
 								<div class="col-xs-1"></div>
-								<h4 class="col-xs-2 goles">vs</h4>
+								<h4 class="col-xs-2 goles" ng-style="res.headerTablaStyle">vs</h4>
 								<div class="col-xs-1"></div>
 							</div>
 
 							<div ng-if="partido.par_goles_local != null" class="text-center">
-								<div class="col-xs-1 text-center goles">
+								<div class="col-xs-1 text-center goles" ng-style="res.headerTablaStyle">
 									<h4>@{{ partido.par_goles_local }}</h4>
 								</div>
 								<div class="col-xs-2 text-center">
 									<h4>-</h4>
 								</div>
-								<div class="col-xs-1 text-center goles">
+								<div class="col-xs-1 text-center goles" ng-style="res.headerTablaStyle">
 									<h4>@{{ partido.par_goles_visitante }}</h4>
 								</div>
 							</div>
@@ -71,22 +71,21 @@
 				</li>
 			</ul>
 
-			<div class="row text-center">
+			<div class="row">
+				<div class="col-xs-12 text-center">
 					<div ng-if="res.proximas.anterior != null" class="btn-group btn-group-sm" role="group">
 						<button class="btn btn-default botones" ng-click="res.cambiarFecha(res.proximas.anterior)" ng-style="res.botonesStyle"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Anterior</button>
 					</div>
 					<div ng-if="res.proximas.siguiente != null" class="btn-group btn-group-sm" role="group">
 						<button class="btn btn-default botones" ng-click="res.cambiarFecha(res.proximas.siguiente)" ng-style="res.botonesStyle">Siguiente <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
 					</div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
+				</div>
 			</div>
 
 		</section>
-
-		<br>
-
-		<footer class="row">
-			<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
-		</footer>
 
 	</main>
 	
