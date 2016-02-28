@@ -3896,4 +3896,7 @@ th, td { max-height: 20px; }
 .header-tabla-cancheros { background-color: #e5192c; color: #FFFFFF; }
 
 /* line 73, ../../../../../resources/assets/sass/cancheros/tablas/style.scss */
-.botones { background-color: #e5192c; color: #FFFFFF; }
+.botones { background-color: #e5192c; color: #FFFFFF; opacity: 0.7; }
+
+/* line 79, ../../../../../resources/assets/sass/cancheros/tablas/style.scss */
+.etapaSeleccionada { opacity: 1; }

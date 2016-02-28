@@ -55,9 +55,14 @@
 				</tr>
 			</table>
 
-		<div class="row text-center">
-			<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
-				<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)">@{{ fase.fas_descripcion }}</button>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
+					<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)" ng-class="{etapaSeleccionada: tbl.faseActual.fas_id == fase.fas_id}">@{{ fase.fas_descripcion }}</button>
+				</div>
+			</div>
+			<div class="col-xs-6 text-right">
+				<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
 			</div>
 		</div>
 		</section>

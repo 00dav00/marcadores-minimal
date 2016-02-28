@@ -73,4 +73,9 @@ th, td {
 .botones {
 	background-color: $color-botones;
 	color: $color-texto-botones;
+  opacity: 0.7;
+}
+
+.etapaSeleccionada {
+  opacity: 1;
 }

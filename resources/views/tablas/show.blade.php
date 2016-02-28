@@ -10,10 +10,8 @@
 
 <div ng-app="tablasTorneo" ng-controller="tablasController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container" ng-style="tbl.containerStyle">
 
-	<br>
 	<header class="row titulo" ng-style="tbl.headerStyle">
-		<h3 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre }}</h3>
-		<h4 class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.faseActual.fas_descripcion }}</h4>
+		<strong><div class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre | uppercase}}</div></strong>
 	</header>
 
 	<main>
@@ -62,18 +60,17 @@
 				</tr>
 			</table>
 
-		<div class="row text-center">
-			<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
-				<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)" ng-style="tbl.botonesStyle">@{{ fase.fas_descripcion }}</button>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<div class="btn-group btn-group-sm" role="group" ng-repeat="fase in tbl.fases">
+					<button class="btn btn-default botones" ng-click="tbl.cambiarFasePosiciones(fase)" ng-style="tbl.botonesStyle" ng-class="{etapaSeleccionada: tbl.faseActual.fas_id == fase.fas_id}">@{{ fase.fas_descripcion }}</button>
+				</div>
+			</div>
+			<div class="col-xs-6 text-right">
+				<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
 			</div>
 		</div>
 		</section>
-
-		<br>
-
-		<footer class="row">
-			<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
-		</footer>
 
 	</main>
 </div>
