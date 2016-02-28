@@ -3885,14 +3885,13 @@ body { overflow-x: hidden; }
 th, td { max-height: 20px; }
 
 /* line 26, ../../../../resources/assets/sass/tablas/style.scss */
-.titulo { color: #000000; }
-/* line 29, ../../../../resources/assets/sass/tablas/style.scss */
-.titulo h3 { font-size: 16px; }
-/* line 33, ../../../../resources/assets/sass/tablas/style.scss */
-.titulo h4 { font-size: 14px; }
+.titulo { color: #000000; font-size: 13px; }
 
-/* line 38, ../../../../resources/assets/sass/tablas/style.scss */
+/* line 32, ../../../../resources/assets/sass/tablas/style.scss */
 .header-tabla { background-color: #FFFFFF; color: #000000; }
 
+/* line 37, ../../../../resources/assets/sass/tablas/style.scss */
+.botones { background-color: #FFFFFF; color: #000000; opacity: 0.7; }
+
 /* line 43, ../../../../resources/assets/sass/tablas/style.scss */
-.botones { background-color: #FFFFFF; color: #000000; }
+.etapaSeleccionada { opacity: 1; }

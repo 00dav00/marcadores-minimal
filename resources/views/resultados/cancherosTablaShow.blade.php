@@ -65,13 +65,18 @@
 				</li>
 			</ul>
 
-			<div class="row text-center">
+			<div class="row">
+				<div class="col-xs-12 text-center">
 					<div ng-if="res.proximas.anterior != null" class="btn-group btn-group-sm" role="group">
 						<button class="btn btn-default botones" ng-click="res.cambiarFecha(res.proximas.anterior)"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Anterior</button>
 					</div>
 					<div ng-if="res.proximas.siguiente != null" class="btn-group btn-group-sm" role="group">
 						<button class="btn btn-default botones" ng-click="res.cambiarFecha(res.proximas.siguiente)">Siguiente <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
 					</div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
+				</div>
 			</div>
 
 		</section>

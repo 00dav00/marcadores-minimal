@@ -148,8 +148,8 @@ gulp.task("copyfiles", function() {
  	// gulp.src(path + "bootstrap-sass/assets/stylesheets/**")
  	// 	.pipe(gulp.dest("resources/assets/sass/cancheros/resultados/bootstrap"));
 
- 	gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
- 		.pipe(gulp.dest("public/assets/css/cancheros/fonts/bootstrap"));
+ 	// gulp.src(path + "bootstrap-sass/assets/fonts/bootstrap/**")
+ 	// 	.pipe(gulp.dest("public/assets/css/cancheros/fonts/bootstrap"));
 
 });
 

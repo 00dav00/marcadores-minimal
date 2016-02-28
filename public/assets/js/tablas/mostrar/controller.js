@@ -62,7 +62,7 @@ function tablasController(
 
 			tbl.botonesStyle = {
 				"background-color": cliente.personalizacion[5].pva_valor,
-				"color": cliente.personalizacion[6].pva_valor
+				"color": cliente.personalizacion[6].pva_valor,
 			};
 		}
 	}
