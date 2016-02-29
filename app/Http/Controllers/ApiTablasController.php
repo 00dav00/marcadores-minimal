@@ -47,10 +47,10 @@ class ApiTablasController extends Controller
     }
 
     private function clientInstance() {
-        if (!$this->_client) {
-            $this->_client = new Cliente;
+        if (!$this->_cliente) {
+            $this->_cliente = new Cliente;
         }
-        return $this->_client;
+        return $this->_cliente;
     }
 
 
