@@ -92,7 +92,7 @@ class DomJugadorPartido {
         if ( $sustituidoOriginal->pju_id != $sustituidoNuevo->pju_id ) {
             $ingresoOriginal->pju_reemplazo_de = $sustituidoNuevo->pju_id;
             $sustituidoOriginal->pju_minuto_salida = null;
-            $sustituidoOriginal->dave();
+            $sustituidoOriginal->save();
         }
 
         return $ingresoOriginal->save();
