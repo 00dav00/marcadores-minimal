@@ -5,6 +5,7 @@ namespace App\Domain;
 use DB;
 use App\Quotation;
 use App\Torneo;
+use App\Fase;
 
 
 class DomTablas {
@@ -22,9 +23,30 @@ class DomTablas {
         return $this->_torneo;
     }
 
+    private function faseInstance() {
+        if (!$this->_fase) {
+            $this->_fase = new Fase;
+        }
+        return $this->_fase;
+    }
+
 /****************** WRAPPERS PARA CLASES **************************/
 
     public function obtenerTablaPosicionesPorFase($torneo_id, $fase_id) {
+        $parametros = [$torneo_id, $fase_id, $fase_id, $torneo_id];
+        $equiposBuscados = "SELECT eqp_id FROM equipos_participantes WHERE tor_id = ?";
+
+        if ($fase_id != -1) {
+            $fase = $this->faseInstance()->find($fase_id);
+
+            if ( !$fase->fas_acumulada ) {
+                $parametros = [$torneo_id, $fase_id, $fase_id, $fase_id, $fase_id];
+                $equiposBuscados = 'SELECT par_eqp_local FROM  partidos p JOIN fechas f ON p.fec_id = f.fec_id where fas_id = ?
+                                    union
+                                    SELECT par_eqp_visitante FROM partidos p JOIN fechas f ON p.fec_id = f.fec_id where fas_id = ?';
+            }
+        }
+
         $sql = 
             'SELECT
                 deq_id                                              id 
@@ -62,10 +84,10 @@ class DomTablas {
                         )
                     GROUP BY equipo_fk
                 ) tabla on deq_id = equipo_fk
-                WHERE deq_id IN (SELECT eqp_id FROM equipos_participantes WHERE tor_id = ?)
+                WHERE deq_id IN ('. $equiposBuscados .')
                 ORDER BY puntos DESC, goles_diferencia DESC';
 
-        $tabla = DB::select($sql, [$torneo_id, $fase_id, $fase_id, $torneo_id]);
+        $tabla = DB::select($sql, $parametros);
 
         return $tabla;
     }
@@ -73,17 +95,22 @@ class DomTablas {
     public function obtenerTablasTorneo($torneo_id) {
         $torneo = $this->torneoInstance()->find($torneo_id);
 
-        $tablas = $torneo
-                    ->fases()->get()
-                    ->map( function ($fase) { 
-                        return ["$fase->fas_id " => $this->obtenerTablaPosicionesPorFase($fase->tor_id, $fase->fas_id) ]; 
-                    });
+        $tablas = [];
+        // $tablas = $torneo
+        $torneo->fases()->get()
+                // ->map( function ($fase) use ($tablas){
+                ->map( function ($fase) use (&$tablas){
+                    // return ["$fase->fas_id " => $this->obtenerTablaPosicionesPorFase($fase->tor_id, $fase->fas_id) ];
+                    $tablas[$fase->fas_id] = $this->obtenerTablaPosicionesPorFase($fase->tor_id, $fase->fas_id);
+                });
 
         if ( $torneo->contieneFaseAcumulada() ) {
-            $tablas = $tablas->push(["acumulada" => $this->obtenerTablaPosicionesPorFase($torneo_id, -1) ]);
+            // $tablas = $tablas->push(["acumulada" => $this->obtenerTablaPosicionesPorFase($torneo_id, -1) ]);
+            $tablas["acumulada"] = $this->obtenerTablaPosicionesPorFase($torneo_id, -1);
         }
 
-        return $tablas->collapse();
+        // return $tablas->collapse();
+        return $tablas;
     }
 
     public function obtenerTablaGoleadores($torneo_id) {

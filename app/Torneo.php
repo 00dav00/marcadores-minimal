@@ -39,6 +39,26 @@ class Torneo extends Model {
 					->reduce( function ($carry, $item) { return $carry || $item->fas_acumulada; }, false);
 	}
 
+	public function obtenerArraySimplificadoFases() {
+		$fases = [];
+
+		foreach ($this->fases as $fase) {
+            $fases[$fase->fas_id] = [
+                'fas_id' => $fase->fas_id,
+                'fas_descripcion' => $fase->fas_descripcion
+                ];
+        }
+
+        if ( $this->contieneFaseAcumulada() ) {
+            $fases['acumulada'] = [
+                'fas_id' => 'acumulada',
+                'fas_descripcion' => 'Acumulada'
+                ];
+        }
+
+        return $fases;
+	}
+
 	public function lugar()
 	{
 		return $this->hasOne('App\Lugar', 'lug_id', 'lug_id');

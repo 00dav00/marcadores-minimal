@@ -11,51 +11,29 @@ use App\Quotation;
 
 class TablasController extends Controller {
 
-	public function index()
-	{
+	public function index() {
 		return view ('tablas.index');
 	}
 
-	public function create()
-	{
-
-	}
-
-	public function store()
-	{
-	}
-
-	public function show($cliente, $torneo)
-	{
+	public function show($cliente, $torneo) {
 		return view('tablas.show', ['cliente' => $cliente, 'torneo' => $torneo]);
 	}
 
-	public function edit($id)
-	{
+	public function goleadores($cliente, $torneo) {
+		// return view('tablas.show', ['cliente' => $cliente, 'torneo' => $torneo]);
 	}
 
-	public function update($id)
-	{
-	}
-
-	public function destroy($id)
-	{
-	}
-
-	public function listado()
-	{
+	public function listado() {
 		return view('tablas.list');
 	}
 
-	public function preview($torneo_id)
-	{
+	public function preview($torneo_id) {
 		return view('tablas.preview', compact('torneo_id'));
 	}
 
 	// personalizado
 	// cancheros
-	public function cancherosShow($torneo)
-	{
+	public function cancherosShow($torneo) {
 		return view('tablas.cancherosShow', ['cliente' => 1, 'torneo' => $torneo]);
 	}
 
