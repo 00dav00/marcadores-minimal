@@ -1,0 +1,57 @@
+{
+	partido: {
+		_id: par_id,
+		equipo_local: {
+			id: eqp_id,
+			nombre: "",
+			abreviatura: "",
+			escudo: ""
+		},
+		equipo_visitante: {
+			id: eqp_id,
+			nombre: "",
+			abreviatura: "",
+			escudo: ""
+		},
+		estadio: {
+			nombre: ""
+		},
+		fecha: "",
+		hora: "",
+		torneo: {
+			id: tor_id,
+			nombre: ""
+		},
+		fase: {
+			id: fas_id,
+			nombre: ""
+		},
+		fecha: {
+			id: fec_id,
+			numero: ""
+		}
+		goles: [
+			{
+				minuto: "", 
+				autogol: [true, false],
+				autor: "",
+				asistencia: "",
+				equipo: nombre
+			},
+		],
+		tarjetas: [
+			{
+				minuto: "",
+				tipo: ['amarilla', 'roja'],
+				equipo: nombre,
+				jugador: ""
+			},
+		],
+		comentarios: [
+			{
+				minuto: "",
+				comentario: ""
+			},
+		]
+	}
+}

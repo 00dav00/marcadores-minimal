@@ -124,7 +124,7 @@
 					<td><%partido.equipo_visitante.eqp_nombre%></td>
 					<td><%partido.estadio.est_nombre%></td>
 					<td><%partido.par_fecha%></td>
-					<td><%partido.par_hora%></td>
+					<td><%partido.par_hora | limitTo:5 %></td>
 					<td>
 						
 						<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" ng-click="vm.editarPartido(partido)">Editar <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>

@@ -55,7 +55,7 @@ class ApiPartidosController extends Controller
 
         if ($request->input('par_fecha') && $request->input('par_fecha')) {
             $fecha = Carbon::parse($request->input('par_fecha'));
-            $fecha->setTimezone('America/Bogota');
+            //$fecha->setTimezone('America/Bogota');
             $hora = Carbon::parse($request->input('par_hora'));
             $hora->setTimezone('America/Bogota');
 
