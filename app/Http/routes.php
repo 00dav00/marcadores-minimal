@@ -144,6 +144,7 @@ Route::group(['prefix' => 'api'], function () {
 
 	// tablas
 	Route::get('tablas/{cliente_id}/{torneo_id}', 'ApiTablasController@showTorneoTablas');
+	Route::get('goleadores/{cliente_id}/{torneo_id}', 'ApiTablasController@tablaGoleadores');
 
 	Route::get('resultados/{cliente_id}/{torneo_id}', 'ApiTablaResultadosController@mostrarUltimaFecha');
 	Route::get('resultados/{cliente_id}/{torneo_id}/{fase_id}/{fecha_id}', 'ApiTablaResultadosController@mostrarInformacionFecha');
@@ -155,6 +156,7 @@ Route::group(['prefix' => 'visual'], function () {
 
 	// tablas
 	Route::get('tablas/{cliente}/{torneo}', 'TablasController@show');
+	Route::get('goleadores/{cliente}/{torneo}', 'TablasController@goleadores');
 
 	Route::get('resultados/tabla/{cliente}/{torneo}', 'ResultadosController@tablaShow');
 
