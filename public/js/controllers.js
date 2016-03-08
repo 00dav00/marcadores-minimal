@@ -1299,7 +1299,6 @@ partidosControllers.controller('PartidosCtrl', [
 			if (paso <= 1){
 				$scope.torneos = [];
 				$scope.torneoSeleccionado = false;
-				$scope.botonAnteriorActivado = false;
 			}
 			if (paso <= 2){
 				$scope.fases = [];
@@ -1324,6 +1323,7 @@ partidosControllers.controller('PartidosCtrl', [
 			}
 
 			$scope.botonSiguienteActivado = false;
+			$scope.botonAnteriorActivado = paso > 1;
 
 			switch(paso){
 				case 1:
