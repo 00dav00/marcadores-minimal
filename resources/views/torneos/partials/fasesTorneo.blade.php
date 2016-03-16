@@ -107,4 +107,4 @@
 					<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align" ng-click="vm.borrarPenalizacion(penalizacion)">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 				</td>
 			</tr>
-		</table>
+	</table>

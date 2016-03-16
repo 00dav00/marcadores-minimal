@@ -44,12 +44,13 @@
         <p class="buttonContent">Cambios</p>
     </div>
 
-    <div class="col-xs-3 eventButton col-centered btn-warning btn-lg" ng-click="">
+    <div class="col-xs-3 eventButton col-centered btn-warning btn-lg" ng-click="amonestacionIngresar()">
         <p class="buttonContent">Amonestaciones</p>
     </div>
 </div>
 
 <div class="panel-group">
+    
     <div class="panel panel-default" ng-hide="goles.local.length + goles.visitante.length == 0">
         <div class="panel-heading">
             <h4 class="text-center"><b>Goles</b></h4>
@@ -174,4 +175,63 @@
         </div>
     </div>
     
-  </div>
+    <div class="panel panel-default" ng-hide="amonestaciones.local.length + amonestaciones.visitante.length == 0">
+        <div class="panel-heading">
+            <h4 class="text-center"><b>Amonestaciones</b></h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-md-6 col-lg-6">
+                <div class="text-center"><b><% partidoSeleccionado.equipo_local.eqp_nombre %></b></div>
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Jugador</th>
+                            <th class="text-center">Tipo</th>
+                            <th class="text-center">Minuto</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="amonestacion in amonestaciones.local">
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% amonestacion.jugador.jug_nombre %> <% amonestacion.jugador.jug_apellido %></td>
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% amonestacion.amn_tipo %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1"><% amonestacion.amn_minuto %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-danger btn-xs" ng-click="amonestacionEliminar(amonestacion)"
+                                    ng-disabled="$index + 1 < amonestaciones.local.length">
+                                    <span class="glyphicon glyphicon-trash" ></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-10 col-md-6 col-lg-6">
+                <div class="text-center"><b><% partidoSeleccionado.equipo_visitante.eqp_nombre %></b></div>
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Jugador</th>
+                            <th class="text-center">Tipo</th>
+                            <th class="text-center">Minuto</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="amonestacion in amonestaciones.visitante">
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% amonestacion.jugador.jug_nombre %> <% amonestacion.jugador.jug_apellido %></td>
+                            <td class="col-xs-4 col-md-2 col-lg-2"><% amonestacion.amn_tipo %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1"><% amonestacion.amn_minuto %></td>
+                            <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-danger btn-xs" ng-click="amonestacionEliminar(amonestacion)"
+                                    ng-disabled="$index + 1 < amonestaciones.visitante.length">
+                                    <span class="glyphicon glyphicon-trash" ></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

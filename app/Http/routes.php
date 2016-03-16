@@ -103,6 +103,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::put('fechas/{fechas}', 'ApiFechasController@Update');
 	Route::delete('fechas/{fechas}', 'ApiFechasController@Destroy');
 
+	Route::get('partidos/{partidos}/estado','ApiPartidosController@estado');
 	Route::get('fechas/{fechas}/partidos','ApiFechasController@fechaPartidosRegistrados');
 	Route::post('partidos','ApiPartidosController@store');
 	Route::delete('partidos/{partido}','ApiPartidosController@destroy');
@@ -130,6 +131,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 	Route::post('goles/', 'ApiPartidoGolesController@store');
 	Route::put('goles/{goles}', 'ApiPartidoGolesController@update');
 	Route::delete('goles/{goles}', 'ApiPartidoGolesController@destroy');
+
+	Route::post('amonestaciones', 'ApiAmonestacionesController@store');
+	Route::put('amonestaciones/{amonestaciones}', 'ApiAmonestacionesController@update');
+	Route::delete('amonestaciones/{amonestaciones}', 'ApiAmonestacionesController@destroy');
 
 	Route::resource('clientes', 'ApiClientesController');
 	Route::resource('productos', 'ApiProductosController');

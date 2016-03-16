@@ -79,6 +79,11 @@ class DomGol {
                     ->get();
 	}
 
+    public function obtenerGolesEquipoPartido($partido_id, $equipo_id) {
+        return $this->obtenerGolesPartido($partido_id)
+                        ->filter(function ($gol) use($equipo_id) { return $gol->eqp_id == $equipo_id; })->values();
+    }
+
     public function actualizarGolesPartido($partido_id) {
         $partido = $partido = $this->partidoInstance()->find($partido_id);
         $goles = $partido->goles()->get();
