@@ -14,7 +14,7 @@
 		<label for="equipo_amonestacion">Equipo:</label>
 		<div name="equipo_amonestacion" class="btn-group-justified">
 	    	<label ng-repeat="equipo in equipos" class="btn btn-default" ng-model="nuevaAmonestacion.equipo"
-	    		btn-radio="equipo" ng-click="seleccionarEquipo($index)">
+	    		btn-radio="equipo" ng-click="seleccionarEquipo($index)" ng-disabled="nuevaAmonestacion.id">
 	    		<% equipo.eqp_nombre %>
 			</label>
 	    </div>		
@@ -22,7 +22,7 @@
 	<div class="form-group" >
 		<label for="jugador_amonestado" class="control-label">Seleccionar jugador amonestado</label>
 		<select name="jugador_amonestado" class="form-control" ng-model="nuevaAmonestacion.jugador"
-			ng-options="jugador.jug_nombre + ' ' + jugador.jug_apellido for jugador in en_cancha" ng-disabled="en_cancha.length < 1">
+			ng-options="jugador.jug_nombre + ' ' + jugador.jug_apellido for jugador in en_cancha" ng-disabled="nuevaAmonestacion.id || en_cancha.length < 1">
 			<option value="" disabled>Jugador ...</option>
 		</select>
 	</div>
@@ -30,7 +30,7 @@
 		<label for="tarjeta_amonestacion">Tarjeta:</label>
 		<div name="tarjeta_amonestacion" class="btn-group-justified">
 	    	<label ng-repeat="tarjeta in tarjetas" class="btn btn-default" ng-model="nuevaAmonestacion.tipo"
-	    		btn-radio="tarjeta" ng-click="seleccionarTarjeta($index)">
+	    		btn-radio="tarjeta" ng-click="seleccionarTarjeta($index)" ng-disabled="nuevaAmonestacion.id">
 	    		<% tarjeta %>
 			</label>
 	    </div>		

@@ -37,8 +37,6 @@ class DomAmonestacion {
 /****************** WRAPPERS PARA CLASES **************************/
 
     public function ingresarAmonestacion( $amonestacion ) {
-
-        $nuevaAmonestacion = null;
         $amonestaciones = $this->obtenerAmonestaciones($amonestacion['par_id'], $amonestacion['jug_id']);
 
         $amarillas = $amonestaciones->filter(function ($a) { return $a->amn_tipo == 'amarilla'; })->values();
@@ -48,15 +46,7 @@ class DomAmonestacion {
             return null;
         }
 
-        if ($amonestacion['amn_tipo'] == 'roja') {
-            $jugador = $this->jugadorPartidoInstance()
-                            ->where('par_id', $amonestacion['par_id'])
-                            ->where('jug_id', $amonestacion['jug_id'])
-                            ->get()->first();
-
-            $jugador->pju_minuto_salida = $amonestacion['amn_minuto'];
-            $jugador->save();
-        }
+        $this->verificarExpulsion($amonestaciones, $amonestacion);
 
         return $this->amonestacionInstance()->create($amonestacion);
     }
@@ -88,6 +78,7 @@ class DomAmonestacion {
         return true;
     }
 
+
     public function eliminarAmonestacion($amonestacion_id) {
 
         $amonestacion = $this->amonestacionInstance()->find($amonestacion_id);
@@ -95,7 +86,43 @@ class DomAmonestacion {
         if (!$amonestacion) return null;
 
         $amonestacion->delete();
+
+        $amonestaciones = $this->obtenerAmonestaciones($amonestacion->par_id, $amonestacion->jug_id);
+        $this->verificarRetiroExpulsion($amonestaciones, $amonestacion);
         
         return true;
+    }
+
+    /******************* CANDIDATOS PARA MOVER EN REFACTOR ********************************/
+
+    private function verificarExpulsion($amonestacionesPrevias, $amonestacionNueva) {
+        $amarillas = $amonestacionesPrevias->filter(function ($a) { return $a->amn_tipo == 'amarilla'; })->values()->count();
+
+        if ($amonestacionNueva['amn_tipo'] == 'roja' || 
+            ($amonestacionNueva['amn_tipo'] == 'amarilla' && $amarillas > 0)) {
+            $jugador = $this->jugadorPartidoInstance()
+                            ->where('par_id', $amonestacionNueva['par_id'])
+                            ->where('jug_id', $amonestacionNueva['jug_id'])
+                            ->get()->first();
+
+            $jugador->pju_minuto_salida = $amonestacionNueva['amn_minuto'];
+            $jugador->save();
+        }
+    }
+
+    private function verificarRetiroExpulsion($amonestacionesPrevias, $amonestacionNueva) {
+        $amarillas = $amonestacionesPrevias->filter(function ($a) { return $a->amn_tipo == 'amarilla'; })->values()->count();
+
+        if ($amonestacionNueva['amn_tipo'] == 'roja' || 
+            ($amonestacionNueva['amn_tipo'] == 'amarilla' && $amarillas == 1)) {
+            $jugador = $this->jugadorPartidoInstance()
+                            ->where('par_id', $amonestacionNueva['par_id'])
+                            ->where('jug_id', $amonestacionNueva['jug_id'])
+                            ->get()->first();
+
+            $jugador->pju_minuto_salida = null;
+            $jugador->save();
+        }
     }    
+
 }

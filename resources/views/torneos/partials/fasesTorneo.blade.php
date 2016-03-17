@@ -87,24 +87,26 @@
 	</div>
 </div>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Fase</th>
-				<th>Equipo</th>
-				<th>Puntos</th>
-				<th>Motivo</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="penalizacion in vm.penalizaciones">
-				<td><%penalizacion.fase.fas_descripcion%></td>
-				<td><%penalizacion.equipo.eqp_nombre%></td>
-				<td><%penalizacion.ptr_puntos%></td>
-				<td><%penalizacion.ptr_motivo%></td>
-				<td>
-					<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align" ng-click="vm.borrarPenalizacion(penalizacion)">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-				</td>
-			</tr>
-	</table>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Fase</th>
+			<th>Equipo</th>
+			<th>Puntos</th>
+			<th>Motivo</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="penalizacion in vm.penalizaciones">
+			<td><%penalizacion.fase.fas_descripcion%></td>
+			<td><%penalizacion.equipo.eqp_nombre%></td>
+			<td><%penalizacion.ptr_puntos%></td>
+			<td><%penalizacion.ptr_motivo%></td>
+			<td>
+				<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align" ng-click="vm.borrarPenalizacion(penalizacion)">
+					Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				</button>
+			</td>
+		</tr>
+</table>

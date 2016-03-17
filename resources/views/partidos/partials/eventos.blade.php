@@ -197,6 +197,9 @@
                             <td class="col-xs-4 col-md-2 col-lg-2"><% amonestacion.amn_tipo %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1"><% amonestacion.amn_minuto %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-info btn-xs" ng-click="amonestacionEditar(amonestaciones)">
+                                    <span class="glyphicon glyphicon-edit" ></span>
+                                </button>
                                 <button class="btn btn-danger btn-xs" ng-click="amonestacionEliminar(amonestacion)"
                                     ng-disabled="$index + 1 < amonestaciones.local.length">
                                     <span class="glyphicon glyphicon-trash" ></span>
@@ -223,6 +226,9 @@
                             <td class="col-xs-4 col-md-2 col-lg-2"><% amonestacion.amn_tipo %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1"><% amonestacion.amn_minuto %></td>
                             <td class="col-xs-2 col-md-1 col-lg-1">
+                                <button class="btn btn-info btn-xs" ng-click="amonestacionEditar(amonestaciones)">
+                                    <span class="glyphicon glyphicon-edit" ></span>
+                                </button>
                                 <button class="btn btn-danger btn-xs" ng-click="amonestacionEliminar(amonestacion)"
                                     ng-disabled="$index + 1 < amonestaciones.visitante.length">
                                     <span class="glyphicon glyphicon-trash" ></span>

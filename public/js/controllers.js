@@ -1318,7 +1318,7 @@ partidosControllers.controller('PartidosCtrl', [
 				{sustitucion: sustitucion.pju_id},
 	            function success(response){
 	                createAlert('success', "Gol eliminado");
-	                obtenerEstadoJugadores($scope.partidoSeleccionado.par_id);
+	                obtenerEstadoPartido($scope.partidoSeleccionado.par_id);
 	            },
 	            function error(error){
 	            	errorHandler(error.data, error.status);
@@ -1341,8 +1341,26 @@ partidosControllers.controller('PartidosCtrl', [
             $scope.amonestaciones.visitante = amonestacionesVisitante;
 		}
 
-		function amonestacionIngresada() {
+		$scope.amonestacionEditar = function (amonestacion) {
+			abrirModal($scope.templates.amonestacion, $scope.controladores.amonestacion, amonestacion);
+		}
 
+		function amonestacionIngresada() {
+			createAlert('success', "Amonestacion ingresada");
+			obtenerEstadoPartido($scope.partidoSeleccionado.par_id);
+		}
+
+		$scope.amonestacionEliminar = function (amonestacion) {
+			Amonestaciones.delete(
+				{amonestacion: amonestacion.amn_id},
+	            function success(response){
+	                createAlert('success', "Amonestacion eliminada");
+	                obtenerEstadoPartido($scope.partidoSeleccionado.par_id);
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
 		}
 
 		/**********************MANEJO DE CONTROLES DEL FORMULARIO************************/
@@ -1624,6 +1642,10 @@ partidosControllers.controller('SustitucionesCtrl',
 		}
 
 		$scope.seleccionarEquipo = function(index) {
+			seleccionarEquipo(index);
+		}
+
+		function seleccionarEquipo(index) {
 			var local = index ? false : true;
 
 			$scope.en_cancha = obtenerJugadoresEnCancha(local);
@@ -1666,7 +1688,7 @@ partidosControllers.controller('SustitucionesCtrl',
 					index++;
 					return equipo.eqp_id == sustitucion.eqp_id; 
 				});
-				$scope.seleccionarEquipo(index);
+				seleccionarEquipo(index);
 				// var autor = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_autor; });
 				// var asistente = $scope.jugadores.filter(function (jugador){ return jugador.jug_id == gol.gol_asistencia; });
 
@@ -1768,6 +1790,10 @@ partidosControllers.controller('AmonestacionesCtrl',
 		}
 
 		$scope.seleccionarEquipo = function(index) {
+			seleccionarEquipo(index);
+		}
+
+		function seleccionarEquipo(index) {
 			var local = index ? false : true;
 
 			$scope.en_cancha = obtenerJugadoresEnCancha(local);
@@ -1801,9 +1827,9 @@ partidosControllers.controller('AmonestacionesCtrl',
 				var index = -1;
 				var equipo = $scope.equipos.filter(function (equipo){ 
 					index++;
-					return equipo.eqp_id == sustitucion.eqp_id; 
+					return equipo.eqp_id == amonestacion.eqp_id; 
 				});
-				$scope.seleccionarEquipo(index);
+				seleccionarEquipo(index);
 
 				return {
 					id: amonestacion.amn_id,
