@@ -1425,7 +1425,7 @@ partidosControllers.controller('PartidosCtrl', [
 		
 		function abrirModal(template, controlador, instancia) {
 			var equipos = [$scope.partidoSeleccionado.equipo_local, $scope.partidoSeleccionado.equipo_visitante];
-			console.log(JSON.stringify($scope.jugadores));
+			
 		    var modalInstance = $uibModal.open({
       			animation: true,
       			templateUrl: template,
@@ -1752,10 +1752,11 @@ partidosControllers.controller('SustitucionesCtrl',
 partidosControllers.controller('AmonestacionesCtrl',
 	function ($scope, $uibModalInstance, partido, equipos, jugadores, amonestacion, Amonestaciones) {
 		$scope.alerts = [];
+		$scope.edicion = amonestacion ? true :false;
 		$scope.equipos = equipos;
 		$scope.partido = partido;
 		$scope.jugadores = jugadores;
-		$scope.tarjetas = ['amarilla','roja'];
+		$scope.tipos = ['amarilla','roja'];
 		$scope.en_cancha = [];
 		$scope.nuevaAmonestacion = definirValoresInicialesNuevaAmonestacion(amonestacion);
 
@@ -1795,8 +1796,7 @@ partidosControllers.controller('AmonestacionesCtrl',
 
 		function seleccionarEquipo(index) {
 			var local = index ? false : true;
-
-			$scope.en_cancha = obtenerJugadoresEnCancha(local);
+			$scope.en_cancha = $scope.edicion ? obtenerJugadoresEquipo(local) : obtenerJugadoresEnCancha(local);
 		}
 
 		function nuevaAmonestacionDefaults(){
@@ -1804,12 +1804,16 @@ partidosControllers.controller('AmonestacionesCtrl',
 				minuto: 1,
 				equipo: null,
 				jugador: null,
-				tarjeta: null,
+				tipo: null,
 			};
 		}
 
 		function obtenerJugadoresEnCancha(local) {
 			return local ? $scope.jugadores.local.en_cancha : $scope.jugadores.visitante.en_cancha;
+		}
+
+		function obtenerJugadoresEquipo(local) {
+			return local ? $scope.jugadores.local.plantilla : $scope.jugadores.visitante.plantilla;
 		}
 
 		function prepararAmonestacion(amonestacion){
@@ -1823,26 +1827,30 @@ partidosControllers.controller('AmonestacionesCtrl',
 		}
 
 		function definirValoresInicialesNuevaAmonestacion(amonestacion) {
-			if(amonestacion) {
-				var index = -1;
-				var equipo = $scope.equipos.filter(function (equipo){ 
-					index++;
-					return equipo.eqp_id == amonestacion.eqp_id; 
-				});
+			if($scope.edicion) {
+				var equipo = $scope.equipos.filter(function (e){ return e.eqp_id == amonestacion.eqp_id; })[0];
+				var index = $scope.equipos.indexOf(equipo);
 				seleccionarEquipo(index);
+				var jugador = $scope.en_cancha.filter(function (j){ return j.jug_id == amonestacion.jug_id; })[0];
 
-				return {
+				var amn = {
 					id: amonestacion.amn_id,
 					minuto: amonestacion.amn_minuto,
+					jugador: jugador,
+					equipo: equipo,
 					tipo: amonestacion.amn_tipo
 				};
+
+				// console.log(JSON.stringify(amn));
+
+				return amn;
 			}
 			else {
 				return nuevaAmonestacionDefaults();
 			}
 		}
 
-		function ingresarNuevaSustitucion(amonestacion) {
+		function ingresarNuevaAmonestacion(amonestacion) {
 			Amonestaciones.save(
 				prepararAmonestacion(amonestacion),
 	            function success(response){
@@ -1855,26 +1863,26 @@ partidosControllers.controller('AmonestacionesCtrl',
 	        );
 		}
 
-		function editarSustitucion(sustitucion_id, amonestacion) {
-			// Sustituciones.update(
-			// 	{sustitucion: sustitucion_id},
-			// 	prepararSustitucion(amonestacion),
-	  //           function success(response){
-	  //               console.log(JSON.stringify(response));
-	  //               $uibModalInstance.close('sustitucion',response);
-	  //           },
-	  //           function error(error){
-	  //           	errorHandler(error.data, error.status);
-	  //           }
-	  //       );
+		function editarAmonestacion(amonestacion_id, amonestacion) {
+	  		Amonestaciones.update(
+	  			{amonestacion: amonestacion_id},
+				prepararAmonestacion(amonestacion),
+	            function success(response){
+	                console.log(JSON.stringify(response));
+	                $uibModalInstance.close('amonestacion',response);
+	            },
+	            function error(error){
+	            	errorHandler(error.data, error.status);
+	            }
+	        );
 		}
 
 	  	$scope.ok = function (nuevaAmonestacion) {
 	    	if (nuevaAmonestacion.id) {
-	    		// editarGol(nuevaSustitucion.id, nuevaSustitucion);
+	    		editarAmonestacion(nuevaAmonestacion.id, nuevaAmonestacion);
 	    	}
 	    	else {
-	    		ingresarNuevaSustitucion(nuevaAmonestacion);
+	    		ingresarNuevaAmonestacion(nuevaAmonestacion);
 	    	}
 	  	};
 

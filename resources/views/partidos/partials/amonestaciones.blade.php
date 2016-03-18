@@ -14,7 +14,7 @@
 		<label for="equipo_amonestacion">Equipo:</label>
 		<div name="equipo_amonestacion" class="btn-group-justified">
 	    	<label ng-repeat="equipo in equipos" class="btn btn-default" ng-model="nuevaAmonestacion.equipo"
-	    		btn-radio="equipo" ng-click="seleccionarEquipo($index)" ng-disabled="nuevaAmonestacion.id">
+	    		btn-radio="equipo" ng-click="seleccionarEquipo($index)" ng-disabled="nuevaAmonestacion.id != null">
 	    		<% equipo.eqp_nombre %>
 			</label>
 	    </div>		
@@ -27,11 +27,11 @@
 		</select>
 	</div>
 	<div class="form-group">
-		<label for="tarjeta_amonestacion">Tarjeta:</label>
+		<label for="tarjeta_amonestacion">Tipo:</label>
 		<div name="tarjeta_amonestacion" class="btn-group-justified">
-	    	<label ng-repeat="tarjeta in tarjetas" class="btn btn-default" ng-model="nuevaAmonestacion.tipo"
-	    		btn-radio="tarjeta" ng-click="seleccionarTarjeta($index)" ng-disabled="nuevaAmonestacion.id">
-	    		<% tarjeta %>
+	    	<label ng-repeat="tipo in tipos" class="btn btn-default" ng-model="nuevaAmonestacion.tipo"
+	    		btn-radio="tipo" ng-disabled="nuevaAmonestacion.id != null">
+	    		<% tipo %>
 			</label>
 	    </div>		
 	</div>
