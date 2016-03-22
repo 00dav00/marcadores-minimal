@@ -54,7 +54,7 @@ class ApiTablasController extends Controller
     }
     /****************** WRAPPERS PARA CLASES **************************/
 
-    public function goleadores($cliente_id, $torneo_id) {
+    public function showTablaGoleadores($cliente_id, $torneo_id) {
         // obtener torneo
         $torneo = $this->torneoInstance()->findOrFail($torneo_id);
         // obtener tabla de goleadores

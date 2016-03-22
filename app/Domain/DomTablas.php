@@ -115,10 +115,13 @@ class DomTablas {
 
     public function obtenerTablaGoleadores($torneo_id) {
         $sql = "SELECT
-                    CONCAT(jug_nombre, ' ', jug_apellido)                       jugador
-                    ,COUNT(CASE WHEN gol_auto = 0 THEN 1 ELSE NULL END)         goles
+                    eqp_nombre                                  equipo
+                    ,eqp_escudo                                 escudo
+                    ,CONCAT(jug_nombre, ' ', jug_apellido)      jugador
+                    ,COUNT(*)                                   goles
                 FROM partido_goles g
                     JOIN jugadores j ON g.gol_autor = j.jug_id
+                    JOIN equipos e on e.eqp_id = g.eqp_id
                 WHERE par_id IN (
                     SELECT par_id FROM partidos p
                         JOIN fechas h ON h.fec_id = p.fec_id
@@ -126,9 +129,10 @@ class DomTablas {
                         JOIN torneos t ON t.tor_id = f.tor_id
                     WHERE t.tor_id = ?
                 )
-                GROUP BY jug_nombre, jug_apellido
-                HAVING COUNT(CASE WHEN gol_auto = 0 THEN 1 ELSE NULL END) > 0
-                ORDER BY 2 DESC";
+                AND gol_auto = 0
+                GROUP BY eqp_nombre, eqp_escudo, jug_nombre, jug_apellido
+                ORDER BY 4 DESC
+                LIMIT 10";
 
         $tabla = DB::select($sql, [$torneo_id]);
 

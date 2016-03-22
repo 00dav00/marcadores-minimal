@@ -16,7 +16,7 @@ class TablasController extends Controller {
 	}
 
 	public function goleadores($cliente, $torneo) {
-		// return view('tablas.show', ['cliente' => $cliente, 'torneo' => $torneo]);
+		return view('tablas.goleadores', ['cliente' => $cliente, 'torneo' => $torneo]);
 	}
 
 	public function listado() {
