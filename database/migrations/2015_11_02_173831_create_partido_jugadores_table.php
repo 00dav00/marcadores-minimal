@@ -3,17 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartidoJugadoresTable extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('partido_jugadores', function(Blueprint $table)
-        {
+class CreatePartidoJugadoresTable extends Migration {
+
+    public function up() {
+        
+        Schema::create('partido_jugadores', function(Blueprint $table) {
             $table->increments('pju_id');
 
             $table->integer('par_id')->unsigned();
@@ -39,17 +33,10 @@ class CreatePartidoJugadoresTable extends Migration
              *  FALTA CLAVE FORANEA PARA INDICAR POSICION DEL JUGADOR EN EL PARTIDO
              * 
              */
-            // $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down() {
         Schema::drop('partido_jugadores');
     }
 }

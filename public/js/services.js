@@ -108,6 +108,11 @@ torneoServices.factory('Partidos',
 						params: {fecha: '@fecha_id'},	
 						method:	'GET',	cache:	false,	isArray:	true
 					},
+					status:	{
+						url: '/api/partidos/:partido/estado', 
+						params: {partido: '@partido_id'},	
+						method:	'GET',	cache:	false,	isArray:	false
+					},
 					// save:	{method:	'POST',	cache:	false,	isArray:	false},
 					// update:	{method:	'PUT',	cache:	false,	isArray:	false},
 					// delete:	{method:	'DELETE',	cache:	false,	isArray:	false}
@@ -254,6 +259,28 @@ torneoServices.factory('Sustituciones',
 			return	$resource(
 				"/api/sustituciones/:sustitucion",
 				{sustitucion: '@sustitucion_id'},
+				{
+					// query:	{
+					// 	url: '/api/partidos/:partido/sustituciones',
+					// 	params: {partido: '@partido_id'},
+					// 	method:	'GET',	cache:	false,	isArray:	true
+					// },
+					save:	{method:'POST',	cache:false,	isArray:false},
+					update:	{method:'PUT',	cache:false,	isArray:false},
+					delete:	{method:'DELETE',	cache:false,	isArray:false},
+				}
+			);
+		}
+	]
+);
+
+torneoServices.factory('Amonestaciones',
+	[
+		'$resource',
+		function($resource)	{
+			return	$resource(
+				"/api/amonestaciones/:amonestacion",
+				{amonestacion: '@amonestacion_id'},
 				{
 					// query:	{
 					// 	url: '/api/partidos/:partido/sustituciones',

@@ -73,6 +73,7 @@ $factory->define(App\Estadio::class, function ($faker) {
         'lug_id' => $factory(App\Lugar::class)->create()->lug_id,
     ];
 });
+
 $factory->define(App\TipoTorneo::class, function ($faker) {
     return [
         'ttr_nombre' => $faker->sentence(3),
@@ -289,5 +290,15 @@ $factory->define(App\Producto::class, function ($faker) use ($factory){
     return [
         'prd_nombre' => $faker->company,
         'prd_descripcion' => $faker->catchPhrase,
+    ];
+});
+
+$factory->define(App\Amonestacion::class, function ($faker) use ($factory){
+    return [
+        'par_id' => $factory->create('App\Partido')->par_id,
+        'jug_id' => $factory->create('App\Jugador')->jug_id,
+        'eqp_id' => $factory->create('App\Equipo')->eqp_id,
+        'amn_tipo' => $faker->randomElement($array = ['amarilla', 'roja']),
+        'amn_minuto' => $faker->numberBetween(1, 90),
     ];
 });

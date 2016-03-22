@@ -75,7 +75,7 @@ class ApiPartidoJugadoresController extends Controller
             $validator = Validator::make($titular, PartidoJugadorTitularRequest::$rules, PartidoJugadorTitularRequest::$messages);
 
             if ($validator->passes()) {
-                $titulares[] = $this->partidoJugadorInstance(true)->fill($titular); // true forza a crear un nuevo objecto
+                $titulares[] = $this->partidoJugadorInstance(true)->fill($titular); // true forza a crear un nuevo objeto
             }
             else {
                 foreach ($validator->errors() as $key => $value) {
@@ -107,14 +107,6 @@ class ApiPartidoJugadoresController extends Controller
     public function ingresarSustitucion(PartidoJugadorCambioRequest $request) {
         return $this->domainInstance()
                     ->ingresarSustitucion( $request->all() );
-    }
-
-    public function actualizarSustitucion(PartidoJugadorCambioRequest $request, $sustitucion_id) {
-        if ( !$this->domainInstance()->editarSustitucion($sustitucion_id, $request->all()) ) {
-            return \Response::make(null, 500);
-        }
-
-        return \Response::make(null, 200);
     }
 
     public function eliminarSustitucion($sustitucion_id) {

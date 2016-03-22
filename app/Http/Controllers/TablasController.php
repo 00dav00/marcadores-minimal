@@ -4,10 +4,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-// use Illuminate\Http\Response;
-
-use DB;
-use App\Quotation;
 
 class TablasController extends Controller {
 
@@ -34,7 +30,8 @@ class TablasController extends Controller {
 	// personalizado
 	// cancheros
 	public function cancherosShow($torneo) {
-		return view('tablas.cancherosShow', ['cliente' => 1, 'torneo' => $torneo]);
+		return $this->show(1, $torneo);
+		// return view('tablas.cancherosShow', ['cliente' => 1, 'torneo' => $torneo]);
 	}
 
 }

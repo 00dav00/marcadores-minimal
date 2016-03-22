@@ -35,6 +35,16 @@ class DomJugadorPartido {
     }
     /****************** WRAPPERS PARA CLASES **************************/
     
+    public function obtenerJugadoresTitulares($partido_id, $equipo_id) {
+        return $this->partidoJugadorInstance()
+                        ->with('jugador')
+                        ->where('par_id', $partido_id)
+                        ->where('eqp_id', $equipo_id)
+                        ->where('pju_minuto_ingreso', 0)
+                        ->get()
+                        ->map(function ($item) { return $item->jugador; });
+    }
+
     public function ingresarJugadoresTitulares($jugadores, $partido_id, $equipo_id) {
         $jugadoresNuevos = collect($jugadores);
         $titulares = $this->obtenerJugadoresTitulares($partido_id, $equipo_id);
@@ -71,32 +81,7 @@ class DomJugadorPartido {
         $sustituido->save();
 
         return $this->_partidoJugador->create($sustitucion);
-    }
-
-    public function editarSustitucion($sustitucion_id, $sustitucion) {
-        $ingresoOriginal = $this->partidoJugadorInstance()
-                                ->find($sustitucion_id);
-        $sustituidoOriginal = $this->partidoJugadorInstance()
-                                    ->find( $ingresoOriginal->pju_minuto_ingreso );
-
-        $sustituidoNuevo = $this->partidoJugadorInstance()
-                                ->where('par_id', $sustitucion['par_id'])
-                                ->where('jug_id', $sustitucion['pju_reemplazo_de'])
-                                ->get()->first();
-
-        $ingresoOriginal->par_id = $sustitucion['par_id'];
-        $ingresoOriginal->jug_id = $sustitucion['jug_id'];
-        $ingresoOriginal->eqp_id = $sustitucion['eqp_id'];
-        $ingresoOriginal->pju_minuto_ingreso = $sustitucion['pju_minuto_ingreso'];
-
-        if ( $sustituidoOriginal->pju_id != $sustituidoNuevo->pju_id ) {
-            $ingresoOriginal->pju_reemplazo_de = $sustituidoNuevo->pju_id;
-            $sustituidoOriginal->pju_minuto_salida = null;
-            $sustituidoOriginal->save();
-        }
-
-        return $ingresoOriginal->save();
-    }
+    }    
 
     public function eliminarSustitucion($sustitucion_id) {
         $sustitucion = $this->partidoJugadorInstance()
@@ -108,15 +93,6 @@ class DomJugadorPartido {
         return $sustitucion->delete();
     }
 
-    public function obtenerJugadoresTitulares($partido_id, $equipo_id) {
-    	return $this->partidoJugadorInstance()
-    					->with('jugador')
-                        ->where('par_id', $partido_id)
-                        ->where('eqp_id', $equipo_id)
-                        ->where('pju_minuto_ingreso', 0)
-                        ->get()
-                        ->map(function ($item) { return $item->jugador; });
-    }
 
     public function obtenerJugadoresCambio($partido_id, $equipo_id) {
     	return  $this->partidoJugadorInstance()
