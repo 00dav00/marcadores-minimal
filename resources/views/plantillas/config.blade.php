@@ -1,4 +1,4 @@
-@extends('angular')
+@extends('visual')
 
 @section('content')
 
