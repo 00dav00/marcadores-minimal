@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div ng-app="tablasTorneo" ng-controller="goleadoresController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container"> 
+<div ng-app="tablasTorneo" ng-controller="goleadoresController as tbl" ng-init="tbl.init({{$torneo}}, {{$cliente}})" class="container" ng-style="tbl.containerStyle"> 
 	<!-- ng-style="tbl.containerStyle"> -->
 
 	<header class="row titulo" ng-style="tbl.headerStyle">
@@ -22,7 +22,7 @@
 			<table class="table table-hover">
 				<!-- <tr class="header-tabla" ng-style="tbl.headerTablaStyle"> -->
 				<thead>
-					<tr>
+					<tr ng-style="tbl.headerTablaStyle">
 						<td class="col-sm-1"></td>
 						
 						<td class="col-sm-4">Jugador</td>
