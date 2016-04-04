@@ -7,3 +7,4 @@ cargaCuboResultados2016_0.1.zip
 composer.lock
 ansible/external-roles/
 database/scripts/carga plantillas 2016.sql
+/.sass-cache
