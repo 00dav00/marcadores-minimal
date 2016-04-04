@@ -2,7 +2,7 @@
 
 @section('stylesheets')
 
-<!-- <link href="{!! asset('/assets/css/tablas/style.css') !!}" rel="stylesheet"> -->
+<link href="{!! asset('/assets/css/goleadores/style.css') !!}" rel="stylesheet">
 
 @endsection
 
@@ -12,12 +12,12 @@
 	<!-- ng-style="tbl.containerStyle"> -->
 
 	<header class="row titulo" ng-style="tbl.headerStyle">
-		<strong><div class="text-center col-xs-14 col-xs-offset-2">@{{ tbl.torneo.tor_nombre | uppercase}}</div></strong>
+		<strong><div class="text-center col-xs-10 col-xs-offset-2">@{{ tbl.torneo.tor_nombre | uppercase}}</div></strong>
 	</header>
 
 	<main>
 		<!-- <section class="row posiciones"> -->
-		<section class="row">
+		<section class="row goleadores">
 
 			<table class="table table-hover">
 				<!-- <tr class="header-tabla" ng-style="tbl.headerTablaStyle"> -->
@@ -48,7 +48,7 @@
 			</table>
 
 			<div class="row">
-				<div class="col-xs-6 text-right">
+				<div class="col-xs-12 text-center">
 					<p class="text-center"><img src="/images/dataprensa.png" alt="DataPrensa logo"></p>
 				</div>
 			</div>
@@ -66,16 +66,5 @@
 <script src="{!! asset('/assets/js/tablas/mostrar/exception.js') !!}"></script>
 <script src="{!! asset('/assets/js/tablas/goleadores/factory.js') !!}"></script>
 <script src="{!! asset('/assets/js/tablas/goleadores/controller.js') !!}"></script>
-
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-74410923-1', 'auto');
-ga('send', 'pageview');
-
-</script>
 
 @endsection

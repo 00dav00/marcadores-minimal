@@ -1,0 +1,45 @@
+/* bootstrap */
+@import "goleadores/bootstrap/bootstrap";
+
+/* compass */
+@import "compass";
+
+@import "utilities/settings";
+
+body {
+    overflow-x: hidden;
+}
+
+.container {
+	max-width: 480px;
+	padding: 5px;
+
+	// valores personalizables
+	background-color: $color-fondo;
+	color: $color-texto-body;
+}
+
+th, td {
+	max-height: 20px;
+}
+
+.titulo {
+	// valores personalizables
+	color: $color-texto-titulo;
+	font-size: 13px;
+}
+
+.header-tabla {
+	background-color: $color-header-tabla;
+	color: $color-texto-header-tabla;
+}
+
+.botones {
+	background-color: $color-botones;
+	color: $color-texto-botones;
+	opacity: 0.7;
+}
+
+.etapaSeleccionada {
+	opacity: 1;
+}

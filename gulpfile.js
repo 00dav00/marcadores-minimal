@@ -225,7 +225,7 @@ elixir(function(mix) {
  	 * **************** combinar compass ****************
  	 */
 	// mix.compass("*", "foo/bar/baz", {
-	//     require: ['susy'],
+	//  
 	//     config_file: "path/to/config.rb",
 	//     style: "nested"
 	//     sass: "resources/assets/scss",
@@ -240,25 +240,26 @@ elixir(function(mix) {
 	// });
 	// 
 	mix.compass('tablas/style.scss', 'public/assets/css/', {
-		require: ['susy'],
 	    style: "compact",
 	    sass: "resources/assets/sass"
 	});
 
 	mix.compass('resultados/resultados.scss', 'public/assets/css/', {
-		require: ['susy'],
 	    style: "compact",
 	    sass: "resources/assets/sass"
 	});
 
 	mix.compass('cancheros/tablas/style.scss', 'public/assets/css/', {
-		require: ['susy'],
 	    style: "compact",
 	    sass: "resources/assets/sass"
 	});
 
 	mix.compass('cancheros/resultados/resultados.scss', 'public/assets/css/', {
-		require: ['susy'],
+	    style: "compact",
+	    sass: "resources/assets/sass"
+	});
+
+	mix.compass('goleadores/style.scss', 'public/assets/css/', {
 	    style: "compact",
 	    sass: "resources/assets/sass"
 	});
