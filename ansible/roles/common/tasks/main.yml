@@ -82,7 +82,7 @@
   become_method: sudo
   become: yes
   file:
-    path: "{{ full_path }}/cargaCuboResultados2016/cargaCuboResultados2016_run.sh"
+    path: "{{ full_path }}/{{ etl_name }}/{{ etl_name }}_run.sh"
     mode: u=rwx,g=rwx,o=x
   tags:
     - etl
