@@ -2,8 +2,7 @@
 /node_modules
 /public/images/
 .env
-cargaCuboResultados_0.1.zip
-cargaCuboResultados2016_0.1.zip
+cargaCuboResultados*.zip
 composer.lock
 ansible/external-roles/
 database/scripts/carga plantillas 2016.sql
