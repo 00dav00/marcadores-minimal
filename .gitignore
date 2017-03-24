@@ -1,10 +1,11 @@
-/vendor
-/node_modules
-/bower_components/**/*
-/public/images/
+vendor/**/*
+node_modules/**/*
+bower_components/**/*
 .env
 cargaCuboResultados*.zip
-composer.lock
 ansible/external-roles/
 database/scripts/carga plantillas 2016.sql
-/ansible/site.retry
+ansible/site.retry
+.sass-cache/
+
+!public/.gitignore
