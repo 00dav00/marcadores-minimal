@@ -58,28 +58,8 @@ elixir(function(mix) {
    * **************** combinar sass ****************
    */
   mix.sass('principal.scss', 'public/assets/css/principal.css');
-
-  mix.compass('tablas/style.scss', 'public/assets/css/', {
-    require: ['susy'],
-      style: "compact",
-      sass: "resources/assets/sass"
-  });
-
-  mix.compass('resultados/resultados.scss', 'public/assets/css/', {
-    require: ['susy'],
-      style: "compact",
-      sass: "resources/assets/sass"
-  });
-
-  mix.compass('cancheros/tablas/style.scss', 'public/assets/css/', {
-    require: ['susy'],
-      style: "compact",
-      sass: "resources/assets/sass"
-  });
-
-  mix.compass('cancheros/resultados/resultados.scss', 'public/assets/css/', {
-    require: ['susy'],
-      style: "compact",
-      sass: "resources/assets/sass"
-  });
+  mix.sass('resultados/resultados.scss', 'public/assets/css/resultados/resultados.css');
+  mix.sass('tablas/style.scss', 'public/assets/css/tablas/style.css');
+  mix.sass('cancheros/resultados/resultados.scss', 'public/assets/css/cancheros/resultados/resultados.css');
+  mix.sass('cancheros/tablas/style.scss', 'public/assets/css/cancheros/tablas/style.css');
 })

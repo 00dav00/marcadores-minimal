@@ -9,3 +9,4 @@ ansible/site.retry
 .sass-cache/
 
 !public/.gitignore
+/.env.swp
