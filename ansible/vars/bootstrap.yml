@@ -1,0 +1,23 @@
+---
+# Vars
+project_name: marcadores
+deploy_username: operator
+ports: [22,80,443,3306]
+
+# Logrotate
+rotate_freq: weekly
+number_log_files: 10
+
+# Libraries and repos
+# additional_keys:
+#  - 'https://www.dotdeb.org/dotdeb.gpg'
+
+# additional_repos:
+#  - 'deb http://packages.dotdeb.org jessie all'
+#  - 'deb-src http://packages.dotdeb.org jessie all'
+
+additional_libraries:
+  - imagemagick
+  - nodejs
+  # - libapache2-mod-php7.0
+

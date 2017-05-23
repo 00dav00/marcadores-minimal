@@ -1,9 +1,12 @@
 [allservers]
-192.168.1.134
+127.0.0.1:2022
 marcadores.dataprensa.com
 
 [production]
 marcadores.dataprensa.com
 
-[staging]
-192.168.1.134
+# [staging]
+# 127.0.0.1:2022
+
+[development]
+127.0.0.1:2022

@@ -1,0 +1,9 @@
+env: development
+hostname: marcadores.local
+
+group_libraries:
+  - 'phpunit'
+
+marcadores_db_pass: Eikae3deAhheeM6r
+marcadores_mysql_root_password: ooH7oopuEiKou5ja
+

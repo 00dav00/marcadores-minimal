@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/xenial64"
+  
+  config.ssh.port = "2022"
+  config.vm.network :forwarded_port, guest: 22, host: 2022
+  config.vm.network :forwarded_port, guest: 80, host: 8800
+
+  config.vm.provision "shell" do |s|
+    ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
+    s.inline = <<-SHELL
+      echo #{ssh_pub_key} >> /home/ubuntu/.ssh/authorized_keys
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+    SHELL
+  end
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.name = "ubuntu-marcadores"
+     vb.memory = 1024
+  end
+
+  # Provision
+  config.vm.provision :shell, path: "bootstrap.sh"
+
+  # config.vm.provision "ansible" do |a|
+  #   a.playbook = "site.yml"
+  #   a.inventory_path = "inventory/hosts"
+  #   a.limit = "development"
+  #   a.verbose = "vv"
+  #   a.vault_password_file = "~/vault_pass.txt"
+  #   a.extra_vars = { env: "development" }
+  # end
+end

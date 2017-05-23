@@ -10,3 +10,6 @@ ansible/site.retry
 
 !public/.gitignore
 /.env.swp
+/ansible/.vagrant
+/ansible/ubuntu-xenial-16.04-cloudimg-console.log
+/ansible/vault_pass.txt

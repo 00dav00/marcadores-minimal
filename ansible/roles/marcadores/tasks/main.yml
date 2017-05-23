@@ -1,0 +1,13 @@
+---
+- name: Create application deploy directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ deploy_username }}"
+    group: "{{ deploy_username }}"
+    mode: 0775
+  with_items:
+    - "{{ marcadores_path }}"
+    - "{{ marcadores_path }}/shared/config"
+    - "{{ marcadores_path }}/shared/tmp/pids"
+    - "{{ marcadores_path }}/shared/log"

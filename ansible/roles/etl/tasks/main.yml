@@ -1,0 +1,5 @@
+---
+- name: Upload ETL to load results
+  include: etl.yml
+  tags:
+  - etl

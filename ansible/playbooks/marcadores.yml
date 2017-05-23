@@ -1,0 +1,6 @@
+- hosts: allservers
+  vars_files:
+  - ../vars/bootstrap.yml
+  - ../vars/marcadores.yml
+  roles:
+    - { role: marcadores, become: yes, become_method: sudo, tags: ['marcadores'] }

@@ -1,3 +1,9 @@
+Set the enviroment variable with vault pass file location
+
+```
+. environment.sh
+```
+
 Instrucciones para actualizar ETL
 
 sudo ansible-galaxy install -r requirements.yml
