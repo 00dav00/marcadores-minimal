@@ -1,5 +1,4 @@
 var elixir = require('laravel-elixir');
-var bootstrap_sass = './bower_components/bootstrap-sass/assets/fonts/bootstrap';
 
 require('laravel-elixir-sass-compass');
 
