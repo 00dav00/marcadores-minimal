@@ -1,7 +1,7 @@
 Set the enviroment variable with vault pass file location
 
 ```
-. environment.sh
+source ./environment.sh
 ```
 
 Instrucciones para actualizar ETL

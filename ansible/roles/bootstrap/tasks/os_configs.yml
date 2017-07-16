@@ -1,32 +1,38 @@
 - name: Disallow SSH password authentication
   lineinfile:
-    dest=/etc/ssh/sshd_config
-    regexp="^PasswordAuthentication"
-    line="PasswordAuthentication no"
-    state=present
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
 
 - name: Disallow root SSH access
   lineinfile:
-   dest=/etc/ssh/sshd_config
-   regexp="^PermitRootLogin"
-   line="PermitRootLogin no"
-   state=present
+   dest: /etc/ssh/sshd_config
+   regexp: "^PermitRootLogin"
+   line: "PermitRootLogin no"
+   state: present
   notify:
     - restart ssh
 
 - name: Sudo without password
-  lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo ALL' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
+  lineinfile: 
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo ALL'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
 
 - name: Add Admin users
   user:
-    name="{{ item.key }}" comment="Privileged {{item.value.name }} user" shell=/bin/bash
-    group=sudo
+    name: "{{ item.key }}"
+    comment: "Privileged {{item.value.name }} user"
+    shell: /bin/bash
+    group: sudo
   with_dict: "{{ users }}"
 
 - name: Set up authorized_keys for the privileged users
   authorized_key:
-    user="{{ item.key }}"
-    key="{{ item.value.ssh }}"
+    user: "{{ item.key }}"
+    key: "{{ item.value.ssh }}"
   with_dict: "{{ users }}"
 
 - name: Add deploy user and group
@@ -42,4 +48,4 @@
 
 - name: Set hostname
   hostname:
-    name="{{hostname}}"
+    name: "{{ hostname }}"

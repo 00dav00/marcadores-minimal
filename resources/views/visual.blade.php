@@ -7,10 +7,10 @@
 	<title>Marcador en vivo</title>
 
 	<link href="{!! asset('/assets/css/principal.css') !!}" rel="stylesheet">
+	<link href="{!! asset('/assets/css/vendor/selectize.css') !!}" rel="stylesheet">
 
 	@yield('stylesheet')
 
-	<link href="{!! asset('/css/vendor/selectize.css') !!}" rel="stylesheet">
 	
 	<link href="{!! asset('/css/fechas_widget.css') !!}" rel="stylesheet">
 

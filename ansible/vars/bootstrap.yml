@@ -19,5 +19,8 @@ number_log_files: 10
 additional_libraries:
   - imagemagick
   - nodejs
-  # - libapache2-mod-php7.0
+  - npm
+  - libapache2-mod-php7.0
+  - zip
+  - unzip
 

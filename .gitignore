@@ -2,6 +2,8 @@ vendor/**/*
 node_modules/**/*
 bower_components/**/*
 .env
+.env.*.php
+.env.php
 cargaCuboResultados*.zip
 ansible/external-roles/
 database/scripts/carga plantillas 2016.sql
@@ -13,3 +15,6 @@ ansible/site.retry
 /ansible/.vagrant
 /ansible/ubuntu-xenial-16.04-cloudimg-console.log
 /ansible/vault_pass.txt
+/log/capistrano.log
+/.staging.env
+/.production.env

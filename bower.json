@@ -12,6 +12,11 @@
     "angular-bootstrap": "~0.14.3",
     "angular-spinner": "~0.8.0",
     "AngularJS-Toaster": "toaster#~0.4.181",
-    "angular-dragdrop": "~1.0.12"
+    "angular-dragdrop": "~1.0.12",
+    "underscore": "^1.8.3",
+    "angular-ui-router": "^1.0.5"
+  },
+  "resolutions": {
+    "angular": "~1.4.8"
   }
 }

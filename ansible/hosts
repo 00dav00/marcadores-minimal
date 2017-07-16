@@ -5,8 +5,8 @@ marcadores.dataprensa.com
 [production]
 marcadores.dataprensa.com
 
-# [staging]
-# 127.0.0.1:2022
-
-[development]
+[staging]
 127.0.0.1:2022
+
+# [development]
+# 127.0.0.1:2022

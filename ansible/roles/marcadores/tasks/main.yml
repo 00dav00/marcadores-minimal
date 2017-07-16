@@ -8,6 +8,40 @@
     mode: 0775
   with_items:
     - "{{ marcadores_path }}"
-    - "{{ marcadores_path }}/shared/config"
-    - "{{ marcadores_path }}/shared/tmp/pids"
-    - "{{ marcadores_path }}/shared/log"
+    - "{{ marcadores_path }}/shared"
+
+ # This should be fixed at stack provisioning time
+- name: Work around for Composer mbstring-extension problem
+  lineinfile:
+    dest: /etc/php/7.0/cli/conf.d/20-mbstring.ini
+    state: present
+    regexp: '^extension=mbstring.so'
+    line: 'extension=mbstring.so'
+
+- name: Work around for Composer mcrypt-extension problem
+  lineinfile:
+    dest: /etc/php/7.0/cli/conf.d/20-mcrypt.ini
+    state: present
+    regexp: '^extension=mcrypt.so'
+    line: 'extension=mcrypt.so'
+
+- name: Work arround for node-sass installing problem
+  file:
+    src: /usr/bin/nodejs
+    dest: /usr/bin/node
+    state: link
+
+- name: Install bower
+  shell: sudo npm install -g bower
+
+# This should be fixed at stack provisioning time
+- name: Work around for php-fpm socket permissions
+  lineinfile:
+    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    insertafter: '^listen.allowed_clients'
+    line: listen.mode = 0777
+
+- name: Restart php-fpm
+  service:
+    name: php7.0-fpm
+    state: restarted

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Dataprensa: Resultados de la fecha</title>
 
-	<link href="{!! asset('/assets/css/vendor/toaster.min.css') !!}" rel="stylesheet">
+	<link href="{!! asset('/assets/css/principal.css') !!}" rel="stylesheet">
 
 	@yield('stylesheets')
 

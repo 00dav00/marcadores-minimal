@@ -1,2 +1,4 @@
-gem compass
-gem susy
+source 'https://rubygems.org'
+
+gem 'capistrano'
+gem 'capistrano-laravel'
