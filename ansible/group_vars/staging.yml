@@ -1,0 +1,7 @@
+env: staging
+hostname: staging.marcadores.com
+
+marcadores_db_pass: "{{ vault_staging_marcadores_db_pass }}"
+marcadores_mysql_root_password: "{{ vault_staging_mysql_root_password }}"
+
+debug_active: true

@@ -1,0 +1,23 @@
+- hosts: allservers
+  tasks:
+    - name: Stop apache server
+      become: yes
+      become_method: sudo
+      service:
+        name: apache2
+        state: stopped
+        enabled: no
+      tags: ['nginx']
+
+- hosts: allservers
+  vars_files:
+  - ../vars/secrets.yml
+  - ../vars/marcadores.yml
+  - ../vars/bootstrap.yml
+  - ../vars/php.yml
+  - ../vars/database.yml
+  - ../vars/nginx.yml
+  roles:
+    - { role: geerlingguy.php, become: yes, become_method: sudo, tags: ['php'] }
+    - { role: geerlingguy.nginx, become: yes, become_method: sudo, tags: ['nginx'] }
+    - { role: geerlingguy.mysql, become: yes, become_method: sudo, tags: ['mysql'] }

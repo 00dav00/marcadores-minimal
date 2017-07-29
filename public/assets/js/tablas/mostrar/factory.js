@@ -1,28 +1,28 @@
 (function() {
-	'use strict';
+        'use strict';
 
-	angular
-		.module('tablasTorneo')
-	    .factory('Posiciones', ApiTablas);
+        angular
+                .module('tablasTorneo')
+            .factory('Posiciones', ApiTablas);
 
-	function ApiTablas($resource) {
-		
-		var result = {
-	        getPosiciones: getPosiciones
-	    };
+        function ApiTablas($resource) {
 
-	    return result;
+                var result = {
+                getPosiciones: getPosiciones
+            };
 
-	    function getPosiciones()
-	    {
-	    	return $resource('/api/tablas/:cliente/:torneo', 
-	    		{ 
-	    			cliente: '@cliente', 
-	    			torneo: '@torneo' }, 
-	    		{
-	            	'update': { method: 'PUT' }
-	        });
-	    }
-	}
+            return result;
+
+            function getPosiciones()
+            {
+                return $resource('/api/tablas/:cliente/:torneo',
+                        {
+                                cliente: '@cliente',
+                                torneo: '@torneo' },
+                        {
+                        'update': { method: 'PUT' }
+                });
+            }
+        }
 
 })();

@@ -1,0 +1,38 @@
+- name: Add additional GPG keys required
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items: "{{ additional_keys }}"
+  when: additional_keys is defined
+
+- name: Add additional repos required
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ additional_repos }}"
+  when: additional_repos is defined
+
+- name: Dist upgrade packges
+  apt: upgrade=dist update_cache=yes
+
+- name: Install admin packages
+  apt: name={{ item }} state=present
+  with_items:
+    - tmux
+    - htop
+    - ufw
+    - git
+    - vim
+    - git-core
+    - curl
+    - build-essential
+
+- name: Install additional packages
+  apt: name={{ item }} state=present
+  with_items: "{{ additional_libraries }}"
+  when: additional_libraries is defined
+
+- name: Install group packages
+  apt: name={{ item }} state=present
+  with_items: "{{ group_libraries }}"
+  when: group_libraries is defined

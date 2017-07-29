@@ -1,10 +1,8 @@
-/* bootstrap */
-@import "cancheros/tablas/bootstrap/bootstrap";
-
-/* compass */
-@import "compass";
-
+/* custom vars */
 @import "utilities/settings";
+
+/* bootstrap */
+@import "../../../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 @mixin gwf($fonts...) {
   $url: "https://fonts.googleapis.com/css?family=";

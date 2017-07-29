@@ -1,10 +1,8 @@
-/* bootstrap */
-@import "resultados/bootstrap/bootstrap";
-
-/* compass */
-@import "compass";
-
+/* custom vars */
 @import "utilities/settings";
+
+/* bootstrap */
+@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 .container {
 	max-width: 480px;

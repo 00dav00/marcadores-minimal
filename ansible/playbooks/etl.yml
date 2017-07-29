@@ -1,0 +1,7 @@
+---
+- hosts: allservers
+  vars_files:
+    - ../vars/etl.yml
+  roles:
+    - williamyeh.oracle-java
+    - etl

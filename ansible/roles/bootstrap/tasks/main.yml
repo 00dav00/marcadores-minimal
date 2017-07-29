@@ -1,0 +1,17 @@
+---
+- name: OS configuration
+  include: os_configs.yml
+  tags:
+    - os_configs
+
+- name: Install libraries
+  include: libraries.yml
+  tags:
+    - libraries
+
+- name: Network configuration
+  include: networking.yml
+  tags:
+    - networking
+
+

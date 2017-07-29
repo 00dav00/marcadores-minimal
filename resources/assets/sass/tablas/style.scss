@@ -1,10 +1,8 @@
-/* bootstrap */
-@import "tablas/bootstrap/bootstrap";
-
-/* compass */
-@import "compass";
-
+/* custom vars */
 @import "utilities/settings";
+
+/* bootstrap */
+@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 body {
     overflow-x: hidden;
@@ -26,7 +24,7 @@ th, td {
 .titulo {
 	// valores personalizables
 	color: $color-texto-titulo;
-	font-size: 13px;
+	font-size: 11px;
 }
 
 .header-tabla {
@@ -42,4 +40,14 @@ th, td {
 
 .etapaSeleccionada {
 	opacity: 1;
+}
+
+.posiciones {
+  table {
+    tbody {
+      tr {
+        th, td { padding: 1px; }
+      }
+    }
+  }
 }

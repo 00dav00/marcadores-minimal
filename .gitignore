@@ -1,9 +1,20 @@
-/vendor
-/node_modules
-/public/images/
+vendor/**/*
+node_modules/**/*
+bower_components/**/*
 .env
-cargaCuboResultados_0.1.zip
-cargaCuboResultados2016_0.1.zip
-composer.lock
+.env.*.php
+.env.php
+cargaCuboResultados*.zip
 ansible/external-roles/
 database/scripts/carga plantillas 2016.sql
+ansible/site.retry
+.sass-cache/
+
+!public/.gitignore
+/.env.swp
+/ansible/.vagrant
+/ansible/ubuntu-xenial-16.04-cloudimg-console.log
+/ansible/vault_pass.txt
+/log/capistrano.log
+/.staging.env
+/.production.env

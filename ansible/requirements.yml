@@ -2,3 +2,15 @@
 - src: williamyeh.oracle-java
   version: 1.1.9
   path: external-roles
+
+- src: geerlingguy.php
+  version: 3.4.4
+  path: external-roles
+
+- src: geerlingguy.mysql
+  version: 2.7.2
+  path: external-roles
+
+- src: geerlingguy.nginx
+  version: 2.1.0
+  path: external-roles

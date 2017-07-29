@@ -1,0 +1,7 @@
+---
+- hosts: allservers
+  vars_files:
+    - ../keys/admin.yml
+    - ../vars/bootstrap.yml
+  roles:
+    - { role: bootstrap, become: yes, become_method: sudo }

@@ -30,6 +30,7 @@
 						<li><a href="{{ url('tablas') }}">Tablas de posición</a></li>
 					</ul>
 				</li>
+				@if (Auth::check() && Auth::user()->isAdmin())
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clientes <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
@@ -45,6 +46,7 @@
 						<li><a href="{{ url('clientes/wizard') }}">Wizard de Clientes</a></li>
 					</ul>
 				</li>
+				@endif
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">

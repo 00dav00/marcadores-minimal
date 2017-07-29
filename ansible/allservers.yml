@@ -1,9 +1,0 @@
-[allservers]
-192.168.1.134
-marcadores.dataprensa.com
-
-[production]
-marcadores.dataprensa.com
-
-[staging]
-192.168.1.134

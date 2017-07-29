@@ -1,0 +1,81 @@
+---
+- name: Comprobar directorio antiguo
+  stat:
+    path: "{{ full_path }}.respaldo"
+  register: path_antiguo_etl
+
+- name: Comprobar directorio actual
+  stat:
+    path: "{{ full_path }}"
+  register: path_nuevo_etl
+
+- name: Copiar archivo comprimido
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  copy:
+    src: "../{{ zip_file }}"
+    dest: "{{ path }}/{{ zip_file }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: 0644
+
+- name: Borrar directorio antiguo
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  file:
+    path: "{{ full_path }}.respaldo"
+    state: absent
+  when: path_antiguo_etl.stat.isdir is defined and path_antiguo_etl.stat.isdir == true
+
+- name: Mover directorio actual a antiguo
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  command: "mv {{ full_path }} {{ full_path }}.respaldo"
+  when: path_nuevo_etl.stat.isdir is defined and path_nuevo_etl.stat.isdir == true
+
+- name: Crear directorio para ETL actual
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  file:
+    path: "{{ full_path }}"
+    state: directory
+    mode: 0755
+
+- name: Descromprimir archivo
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  unarchive:
+    src: "{{ path }}/{{ zip_file }}"
+    dest: "{{ full_path }}"
+    copy: no
+  ignore_errors: yes
+
+- name: Mover comprimido a carpeta actual
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  command: "mv {{ path }}/{{ zip_file }} {{ full_path }}"
+
+- name: Permiso de ejecucion para la etl
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  file:
+    path: "{{ full_path }}/{{ etl_name }}/{{ etl_name }}_run.sh"
+    mode: u=rwx,g=rwx,o=x
+
+- name: Crear cron para ejecucion de etl
+  remote_user: "{{ deploy_user }}"
+  become_method: sudo
+  become: yes
+  cron:
+    name: "{{ etl_name }}"
+    cron_file: "{{ etl_name }}"
+    minute: "*/5"
+    user: "root"
+    job: "/usr/local/bin/marcadores/etl/{{ etl_name }}/{{ etl_name }}_run.sh >> /var/log/syslog"

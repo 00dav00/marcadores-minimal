@@ -3,8 +3,8 @@
 
     angular
         .module('tablasTorneo', [
-        	'ngResource',
-        	'toaster'
-        	])
-        
+                'ngResource',
+                'toaster'
+                ])
+
 })();

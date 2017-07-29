@@ -1,0 +1,13 @@
+marcadores_db_name: "{{ project_name }}_{{ env }}"
+marcadores_db_user: 'marcadores'
+
+mysql_root_password: "{{ marcadores_mysql_root_password }}"
+mysql_databases:
+  - name: "{{ marcadores_db_name }}"
+    encoding: latin1
+    collation: latin1_general_ci
+mysql_users:
+  - name: "{{ marcadores_db_user }}"
+    host: 'localhost'
+    password: "{{ marcadores_db_pass }}"
+    priv: "{{ marcadores_db_name }}.*:ALL"

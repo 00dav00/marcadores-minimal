@@ -1,0 +1,7 @@
+env: production
+hostname: marcadores.dataprensa.com
+
+marcadores_db_pass: "{{ vault_production_marcadores_db_pass }}"
+marcadores_mysql_root_password: "{{ vault_production_mysql_root_password }}"
+
+debug_active: false

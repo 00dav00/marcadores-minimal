@@ -1,31 +1,5 @@
 {
   "name": "marcadores",
-  "description": "marcadores",
-  "main": "",
-  "authors": [
-    "Juan Almeida",
-    "David Revelo"
-  ],
-  "license": "MIT",
-  "keywords": [
-    "marcadores"
-  ],
-  "homepage": "https://github.com/00dav00/marcadores-minimal",
-  "moduleType": [
-    "amd",
-    "es6",
-    "globals",
-    "node",
-    "yui"
-  ],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "vendor/bower_dl",
-    "test",
-    "tests"
-  ],
   "dependencies": {
     "bootstrap-sass": "bootstrap-sass-official#~3.3.6",
     "font-awesome": "~4.5.0",
@@ -38,6 +12,11 @@
     "angular-bootstrap": "~0.14.3",
     "angular-spinner": "~0.8.0",
     "AngularJS-Toaster": "toaster#~0.4.181",
-    "angular-dragdrop": "~1.0.12"
+    "angular-dragdrop": "~1.0.12",
+    "underscore": "^1.8.3",
+    "angular-ui-router": "^1.0.5"
+  },
+  "resolutions": {
+    "angular": "~1.4.8"
   }
 }
