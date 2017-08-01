@@ -1,5 +1,6 @@
 set :stage, :production
 set :laravel_dotenv_file, './.production.env'
+set :branch, 'production'
 
 server 'marcadores.dataprensa.com',
   user: fetch(:user),
