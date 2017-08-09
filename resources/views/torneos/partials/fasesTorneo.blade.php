@@ -51,13 +51,14 @@
 				<button type="button" class="btn btn-danger btn-xs" aria-label="Left Align" ng-click="vm.borrarFase(fase)">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 			</td>
 		</tr>
-	</table>
+	</tbody>
+</table>
 
-	<br>
+<br>
 
-	<h3 class="text-center">Penalizaciones</h3>
+<h3 class="text-center">Penalizaciones</h3>
 
-	<div class="panel panel-default">
+<div class="panel panel-default">
 	<div class="panel-body">
 
 		<h5 class="text-center">Agregar una penalización</h5>
@@ -109,4 +110,5 @@
 				</button>
 			</td>
 		</tr>
+	</tbody>
 </table>

@@ -88,6 +88,7 @@ class Torneo extends Model {
 
 	public function penalizaciones()
 	{
-		return $this->hasManyThrough('App\PenalizacionTorneo','App\Fase','tor_id','fas_id');
+		return $this->hasManyThrough('App\PenalizacionTorneo','App\Fase','tor_id','fas_id')
+								->with('fase', 'equipo');
 	}
 }
