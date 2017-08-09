@@ -18,6 +18,7 @@ set :laravel_artisan_flags, "--env=#{fetch(:stage)}"
 set :laravel_upload_dotenv_file_on_deploy, true
 
 set :laravel_5_linked_dirs, [
+  'public/images',
   'storage'
 ]
 
